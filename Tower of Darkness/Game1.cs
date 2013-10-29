@@ -63,6 +63,7 @@ namespace Tower_of_Darkness {
             light = Content.Load<Texture2D>("light2");
             lanternTexture = Content.Load<Texture2D>("lantern");
             character = new Character(characterSpriteSheet, 3, 1, 64, 64, new Vector2(50, 50), light, ambient, ambientColor, lanternTexture);
+            //Map m = new Map("001_courtyard", Content);
             loadLevel1Content();
         }
 

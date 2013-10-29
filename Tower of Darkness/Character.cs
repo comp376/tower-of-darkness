@@ -13,7 +13,7 @@ namespace Tower_of_Darkness {
         private const int MOVE_SPEED = 2;
         private const float LIGHT_CHANGE = 0.05f;
         private const float BOUNDARY_CHANGE = 0.05f;
-        private const float ANGLE_CHANGE = 15.0f;
+        private const float ANGLE_CHANGE = 2.0f;
 
         private bool isMoving;
         private int xCurrentFrame = 0;
@@ -155,7 +155,7 @@ namespace Tower_of_Darkness {
             lanternPosition = objectPosition;
             lanternPosition.X += 48;
             lanternPosition.Y += 32;
-            spriteBatch.Draw(lanternTexture, lanternPosition, new Rectangle(0, 0, lanternTexture.Width, lanternTexture.Height), Color.White, degreeToRadian(0), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), 1, SpriteEffects.None, 0); //scale float
+            spriteBatch.Draw(lanternTexture, lanternPosition, new Rectangle(0, 0, lanternTexture.Width, lanternTexture.Height), Color.White, degreeToRadian(lanternAngle), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), 1, SpriteEffects.None, 0); //scale float
             //draw fire
             spriteBatch.End();
             Color drawColor = new Color(ambientColor.R / 255f * ambient, ambientColor.G / 255f * ambient, ambientColor.B / 255f * ambient);
@@ -163,7 +163,7 @@ namespace Tower_of_Darkness {
             lightPosition = objectPosition;
             lightPosition.X += ((lightTexture.Width  + currentLightSize )/ 2) - spriteWidth - 9;
             lightPosition.Y -= ((lightTexture.Height - currentLightSize) / 2) - spriteHeight - 9;
-            spriteBatch.Draw(lightTexture, new Rectangle((int)(lightPosition.X), (int)(lightPosition.Y - (currentLightSize * 6)), (int)(lightTexture.Width + (currentLightSize * 15)), (int)(lightTexture.Height + (currentLightSize * 15))), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), drawColor, degreeToRadian(0), new Vector2(lightTexture.Width / 2, 0), SpriteEffects.None, 0);
+            spriteBatch.Draw(lightTexture, new Rectangle((int)(lightPosition.X), (int)(lightPosition.Y - (currentLightSize * 6)), (int)(lightTexture.Width + (currentLightSize * 15)), (int)(lightTexture.Height + (currentLightSize * 15))), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), drawColor, degreeToRadian(lanternAngle), new Vector2(lightTexture.Width / 2, 0), SpriteEffects.None, 0);
         }
 
         private float degreeToRadian(float angle) {
