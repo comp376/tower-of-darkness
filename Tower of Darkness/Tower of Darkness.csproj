@@ -37,9 +37,11 @@
   <ItemGroup>
     <Compile Include="Character.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Map.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TileSet.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
@@ -60,7 +62,9 @@
   <ItemGroup>
     <Content Include="Icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\maps\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Content\character.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
