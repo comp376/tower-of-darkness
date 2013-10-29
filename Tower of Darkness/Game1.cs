@@ -17,13 +17,13 @@ namespace Tower_of_Darkness {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        
         private float ambient = 0.5f;
         private Color ambientColor = new Color(255, 235, 119);
         private Character character;
         private Texture2D light;
         private Texture2D lanternTexture;
         private Texture2D grassTexture;
+        private Texture2D keyTexture;
 
         private List<Scene2DNode> nodeList;
 
@@ -56,10 +56,11 @@ namespace Tower_of_Darkness {
             Texture2D characterSpriteSheet = Content.Load<Texture2D>("character");
 
             grassTexture = Content.Load<Texture2D>("grass");
+            keyTexture = Content.Load<Texture2D>("key");
 
-            List<Scene2DNode> nodeList = new List<Scene2DNode>();
+            List<Scene2DNode> nodeList;
+
             light = Content.Load<Texture2D>("light");
-
             light = Content.Load<Texture2D>("light2");
             lanternTexture = Content.Load<Texture2D>("lantern");
             character = new Character(characterSpriteSheet, 3, 1, 64, 64, new Vector2(50, 50), light, ambient, ambientColor, lanternTexture);
@@ -70,6 +71,8 @@ namespace Tower_of_Darkness {
         private void loadLevel1Content(){
             nodeList = new List<Scene2DNode>();
             drawGround();
+            Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(graphics.PreferredBackBufferWidth-(keyTexture.Width*2),graphics.PreferredBackBufferHeight-(keyTexture.Height*2)), "key");
+            nodeList.Add(myKey);
         }
 
         private void drawGround(){
@@ -113,12 +116,12 @@ namespace Tower_of_Darkness {
 
             
             foreach (Scene2DNode node in nodeList){
+                if (node.getNodeType() == "key")
+                    node.hover();
+
                 node.Draw(spriteBatch);
             }
             spriteBatch.End();
-
-
-
 
             //spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
             //spriteBatch.Draw(light, new Rectangle((int)lightPosition.X, (int)lightPosition.Y, light.Width, light.Height), drawColor);
