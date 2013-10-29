@@ -11,7 +11,17 @@ namespace Tower_of_Darkness
     {
         private Texture2D texture;
         private Vector2 worldPosition;
+        private Vector2 startingPosition;
         private string type;
+        private const int MAX_HOVER_HEIGHT = 20;
+        
+        enum hoverDirections
+        {
+            Up,
+            Down,
+        }
+        hoverDirections hoverDirection;
+           
 
         public int TextureWidth { get { return texture.Width; } }
         public int TextureHeight { get { return texture.Height; } }
@@ -21,10 +31,18 @@ namespace Tower_of_Darkness
             set { worldPosition = value; }
         }
 
+        public Vector2 StartingPosition
+        {
+            get { return startingPosition; }
+            set { startingPosition = value; }
+        }
+
         public Scene2DNode(Texture2D texture, Vector2 position, String type){
             this.texture = texture;
             this.worldPosition = position;
+            this.startingPosition = position;
             this.type = type;
+            this.hoverDirection = hoverDirections.Up;
         }
 
         //Regular Draw.
@@ -39,8 +57,28 @@ namespace Tower_of_Darkness
         }
 
         //This draw function is used for spinning textures.
-        public void Draw(SpriteBatch renderer, Vector2 drawPosition, float angle){
-            renderer.Draw(texture, drawPosition, null, Color.White, angle, new Vector2(texture.Width/2, texture.Height/2), 1, SpriteEffects.None, 1);
+        public void Draw(SpriteBatch spriteBatch, Vector2 drawPosition, float angle){
+            spriteBatch.Draw(texture, drawPosition, null, Color.White, angle, new Vector2(texture.Width/2, texture.Height/2), 1, SpriteEffects.None, 1);
+        }
+
+        public void hover()
+        {
+            Console.WriteLine(hoverDirection);
+            if (this.hoverDirection == hoverDirections.Up)
+            {
+                if (this.worldPosition.Y > (this.startingPosition.Y - MAX_HOVER_HEIGHT)){
+                    this.worldPosition.Y -= 0.3f;
+                }
+                else{
+                    this.hoverDirection = hoverDirections.Down;
+                }
+            }else if(this.hoverDirection == hoverDirections.Down){//going down
+                if (this.startingPosition.Y > this.worldPosition.Y){
+                    this.worldPosition.Y += 0.3f;
+                }else {
+                    this.hoverDirection = hoverDirections.Up;
+                }
+            }
         }
 
         public string getNodeType(){
