@@ -13,6 +13,7 @@ namespace Tower_of_Darkness {
         private const int MOVE_SPEED = 2;
         private const float LIGHT_CHANGE = 0.05f;
         private const float BOUNDARY_CHANGE = 0.05f;
+        private const float ANGLE_CHANGE = 15.0f;
 
         private bool isMoving;
         private int xCurrentFrame = 0;
@@ -27,11 +28,17 @@ namespace Tower_of_Darkness {
         private float lightInterval = 50;
         private float currentLightSize;
         private LightDirection lightDir;
-        private float LOWER_BOUNDARY = 1.4f;
-        private float UPPER_BOUNDARY = 1.5f;
+        private float LOWER_BOUNDARY = 1.0f;
+        private float UPPER_BOUNDARY = 1.0f;
 
         private Texture2D lanternTexture;
         private Vector2 lanternPosition;
+        private float lanternTimer = 0;
+        private float lanternInterval = 100;
+        private LanternSwing lanternSwing;
+        private float lanternAngle = 0f;
+        private float BACKWARDS_BOUNDARY = 30;
+        private float FORWARDS_BOUNDARY = -30;
 
         public Character(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, Vector2 objectPosition, Texture2D lightTexture, float ambient, Color ambientColor, Texture2D lanternTexture)
             : base(spriteSheet, xNumberOfFrames, yNumberOfFrames, spriteWidth, spriteHeight, objectPosition) {
@@ -43,11 +50,13 @@ namespace Tower_of_Darkness {
             currentLightSize = LOWER_BOUNDARY;
             this.lanternTexture = lanternTexture;
             lanternPosition = objectPosition;
+            lanternSwing = LanternSwing.Forwards;
         }
 
         public void Update(GameTime gameTime) {
             move();
             pulse(gameTime);
+            lanternSwinging(gameTime);
 
             if (isMoving) {
                 frameTimer += gameTime.ElapsedGameTime.Milliseconds;
@@ -96,6 +105,26 @@ namespace Tower_of_Darkness {
             }
         }
 
+        private void lanternSwinging(GameTime gameTime) {
+            lanternTimer += gameTime.ElapsedGameTime.Milliseconds;
+            if (lanternTimer >= lanternInterval) {
+                if (lanternSwing == LanternSwing.Forwards) {
+                    if (lanternAngle > FORWARDS_BOUNDARY) {
+                        lanternAngle -= ANGLE_CHANGE;
+                    } else {
+                        lanternSwing = LanternSwing.Backwards;
+                    }
+                } if (lanternSwing == LanternSwing.Backwards) {
+                    if (lanternAngle < BACKWARDS_BOUNDARY) {
+                        lanternAngle += ANGLE_CHANGE;
+                    } else {
+                        lanternSwing = LanternSwing.Forwards;
+                    }
+                }
+                lanternTimer = 0;
+            }
+        }
+
         private void move() {
             KeyboardState kbs = Keyboard.GetState();
             if (kbs.IsKeyDown(Keys.Up) || kbs.IsKeyDown(Keys.Down) || kbs.IsKeyDown(Keys.Left) || kbs.IsKeyDown(Keys.Right)) {
@@ -124,22 +153,29 @@ namespace Tower_of_Darkness {
             Rectangle sourceRect = new Rectangle(spriteWidth * xCurrentFrame, spriteHeight * yCurrentFrame, spriteWidth, spriteHeight);
             spriteBatch.Draw(spriteSheet, objectPosition, sourceRect, color);
             lanternPosition = objectPosition;
-            lanternPosition.X += lanternTexture.Width;
-            lanternPosition.Y += 8;
-            spriteBatch.Draw(lanternTexture, lanternPosition, new Rectangle(0, 0, lanternTexture.Width, lanternTexture.Height), Color.White, 0, new Vector2(), 1, SpriteEffects.None, 0); //scale float
+            lanternPosition.X += 48;
+            lanternPosition.Y += 32;
+            spriteBatch.Draw(lanternTexture, lanternPosition, new Rectangle(0, 0, lanternTexture.Width, lanternTexture.Height), Color.White, degreeToRadian(0), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), 1, SpriteEffects.None, 0); //scale float
             //draw fire
             spriteBatch.End();
             Color drawColor = new Color(ambientColor.R / 255f * ambient, ambientColor.G / 255f * ambient, ambientColor.B / 255f * ambient);
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
             lightPosition = objectPosition;
-            lightPosition.Y = objectPosition.Y - ((lightTexture.Height / currentLightSize) / 2) + spriteHeight;
-            lightPosition.X = objectPosition.X - ((lightTexture.Width / currentLightSize) / 2) + spriteWidth;
-            spriteBatch.Draw(lightTexture, new Rectangle((int)lightPosition.X, (int)lightPosition.Y, (int)(lightTexture.Width / currentLightSize), (int)(lightTexture.Height / currentLightSize)), drawColor);
+            lightPosition.X += ((lightTexture.Width / currentLightSize) / 2) - spriteWidth - 16;
+            lightPosition.Y -= ((lightTexture.Height / currentLightSize) / 2) - spriteHeight + 16;
+            spriteBatch.Draw(lightTexture, new Rectangle((int)lightPosition.X, (int)lightPosition.Y, (int)(lightTexture.Width / currentLightSize), (int)(lightTexture.Height / currentLightSize)), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), drawColor, degreeToRadian(0), new Vector2(lightTexture.Width / 2, 0), SpriteEffects.None, 0);
         }
 
+        private float degreeToRadian(float angle) {
+            return (float)Math.PI * angle / 180.0f;
+        }
     }
 
     enum LightDirection {
         Increasing, Decreasing
+    }
+
+    enum LanternSwing {
+        Forwards, Backwards
     }
 }

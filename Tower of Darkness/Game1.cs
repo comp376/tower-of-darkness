@@ -54,10 +54,13 @@ namespace Tower_of_Darkness {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Texture2D characterSpriteSheet = Content.Load<Texture2D>("character");
+
             grassTexture = Content.Load<Texture2D>("grass");
 
             List<Scene2DNode> nodeList = new List<Scene2DNode>();
             light = Content.Load<Texture2D>("light");
+
+            light = Content.Load<Texture2D>("light2");
             lanternTexture = Content.Load<Texture2D>("lantern");
             character = new Character(characterSpriteSheet, 3, 1, 64, 64, new Vector2(50, 50), light, ambient, ambientColor, lanternTexture);
             loadLevel1Content();
