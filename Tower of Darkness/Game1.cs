@@ -23,6 +23,9 @@ namespace Tower_of_Darkness {
         private Character character;
         private Texture2D light;
         private Texture2D lanternTexture;
+        private Texture2D grassTexture;
+
+        private List<Scene2DNode> nodeList;
 
         public Game1()
             : base() {
@@ -51,12 +54,26 @@ namespace Tower_of_Darkness {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Texture2D characterSpriteSheet = Content.Load<Texture2D>("character");
+            grassTexture = Content.Load<Texture2D>("grass");
+
+            List<Scene2DNode> nodeList = new List<Scene2DNode>();
             light = Content.Load<Texture2D>("light");
             lanternTexture = Content.Load<Texture2D>("lantern");
             character = new Character(characterSpriteSheet, 3, 1, 64, 64, new Vector2(50, 50), light, ambient, ambientColor, lanternTexture);
-
+            loadLevel1Content();
         }
 
+        private void loadLevel1Content(){
+            nodeList = new List<Scene2DNode>();
+            drawGround();
+        }
+
+        private void drawGround(){
+            for (int i = 0; i < graphics.PreferredBackBufferWidth; i += 32){
+                Scene2DNode node = new Scene2DNode(grassTexture, new Vector2(i,graphics.PreferredBackBufferHeight-grassTexture.Height), "grass");
+                nodeList.Add(node);
+            }
+        }
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
@@ -89,7 +106,13 @@ namespace Tower_of_Darkness {
 
             spriteBatch.Begin();
             character.Draw(spriteBatch, new Color(40, 40, 40));
+
+            
+            foreach (Scene2DNode node in nodeList){
+                node.Draw(spriteBatch);
+            }
             spriteBatch.End();
+
 
 
 
