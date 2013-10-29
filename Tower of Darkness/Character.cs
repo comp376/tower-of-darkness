@@ -83,8 +83,6 @@ namespace Tower_of_Darkness {
                 LOWER_BOUNDARY -= BOUNDARY_CHANGE;
                 UPPER_BOUNDARY -= BOUNDARY_CHANGE;
             }
-
-            System.Diagnostics.Debug.WriteLine(currentLightSize);
         }
 
         private void pulse(GameTime gameTime) {
