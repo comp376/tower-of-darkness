@@ -17,6 +17,7 @@ namespace Tower_of_Darkness {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        
         private float ambient = 0.5f;
         private Color ambientColor = new Color(255, 235, 119);
         private Character character;
