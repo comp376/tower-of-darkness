@@ -17,6 +17,11 @@ namespace Tower_of_Darkness {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private float ambient = 0.6f;
+        private Color ambientColor = new Color(150, 150, 150);
+        private Character character;
+        private Texture2D light;
+
         public Game1()
             : base() {
             graphics = new GraphicsDeviceManager(this);
@@ -43,7 +48,10 @@ namespace Tower_of_Darkness {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            Texture2D characterSpriteSheet = Content.Load<Texture2D>("character");
+            light = Content.Load<Texture2D>("light");
+            character = new Character(characterSpriteSheet, 3, 1, 64, 64, new Vector2(50, 50), light, ambient, ambientColor);
+
         }
 
         /// <summary>
@@ -64,7 +72,7 @@ namespace Tower_of_Darkness {
                 Exit();
 
             // TODO: Add your update logic here
-
+            character.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -73,9 +81,19 @@ namespace Tower_of_Darkness {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime) {
+            Color drawColor = new Color(ambientColor.R / 255f * ambient, ambientColor.G / 255f * ambient, ambientColor.B / 255f * ambient);
             GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            character.Draw(spriteBatch, new Color(40, 40, 40));
+            spriteBatch.End();
+
+
+
+            //spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
+            //spriteBatch.Draw(light, new Rectangle((int)lightPosition.X, (int)lightPosition.Y, light.Width, light.Height), drawColor);
+            //spriteBatch.End();
+
 
             base.Draw(gameTime);
         }
