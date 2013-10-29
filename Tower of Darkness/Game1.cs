@@ -17,10 +17,11 @@ namespace Tower_of_Darkness {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        private float ambient = 0.6f;
-        private Color ambientColor = new Color(150, 150, 150);
+        private float ambient = 0.5f;
+        private Color ambientColor = new Color(255, 235, 119);
         private Character character;
         private Texture2D light;
+        private Texture2D lanternTexture;
 
         public Game1()
             : base() {
@@ -50,7 +51,8 @@ namespace Tower_of_Darkness {
 
             Texture2D characterSpriteSheet = Content.Load<Texture2D>("character");
             light = Content.Load<Texture2D>("light");
-            character = new Character(characterSpriteSheet, 3, 1, 64, 64, new Vector2(50, 50), light, ambient, ambientColor);
+            lanternTexture = Content.Load<Texture2D>("lantern");
+            character = new Character(characterSpriteSheet, 3, 1, 64, 64, new Vector2(50, 50), light, ambient, ambientColor, lanternTexture);
 
         }
 

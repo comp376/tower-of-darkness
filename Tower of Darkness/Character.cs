@@ -11,6 +11,8 @@ namespace Tower_of_Darkness {
     class Character : Object {
 
         private const int MOVE_SPEED = 2;
+        private const float LIGHT_CHANGE = 0.05f;
+        private const float BOUNDARY_CHANGE = 0.05f;
 
         private bool isMoving;
         private int xCurrentFrame = 0;
@@ -21,18 +23,31 @@ namespace Tower_of_Darkness {
         private float ambient;
         private Color ambientColor;
         private Vector2 lightPosition;
-        private float LIGHT_SIZE = 1f;
+        private float lightTimer = 0;
+        private float lightInterval = 50;
+        private float currentLightSize;
+        private LightDirection lightDir;
+        private float LOWER_BOUNDARY = 1.4f;
+        private float UPPER_BOUNDARY = 1.5f;
 
-        public Character(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, Vector2 objectPosition, Texture2D lightTexture, float ambient, Color ambientColor)
+        private Texture2D lanternTexture;
+        private Vector2 lanternPosition;
+
+        public Character(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, Vector2 objectPosition, Texture2D lightTexture, float ambient, Color ambientColor, Texture2D lanternTexture)
             : base(spriteSheet, xNumberOfFrames, yNumberOfFrames, spriteWidth, spriteHeight, objectPosition) {
             this.lightTexture = lightTexture;
             this.ambient = ambient;
             this.ambientColor = ambientColor;
             lightPosition = new Vector2(objectPosition.X, objectPosition.Y - 8);
+            lightDir = LightDirection.Increasing;
+            currentLightSize = LOWER_BOUNDARY;
+            this.lanternTexture = lanternTexture;
+            lanternPosition = objectPosition;
         }
 
         public void Update(GameTime gameTime) {
             move();
+            pulse(gameTime);
 
             if (isMoving) {
                 frameTimer += gameTime.ElapsedGameTime.Milliseconds;
@@ -53,28 +68,50 @@ namespace Tower_of_Darkness {
             }
             KeyboardState kbs = Keyboard.GetState();
             if (kbs.IsKeyDown(Keys.OemMinus) || kbs.IsKeyDown(Keys.Subtract)) {
-                if (LIGHT_SIZE < 1.5f)
-                    LIGHT_SIZE += 0.1f;
+                LOWER_BOUNDARY += BOUNDARY_CHANGE;
+                UPPER_BOUNDARY += BOUNDARY_CHANGE;
             } if (kbs.IsKeyDown(Keys.OemPlus) || kbs.IsKeyDown(Keys.Add)) {
-                if (LIGHT_SIZE > 0.5f)
-                    LIGHT_SIZE -= 0.1f;
+                LOWER_BOUNDARY -= BOUNDARY_CHANGE;
+                UPPER_BOUNDARY -= BOUNDARY_CHANGE;
             }
 
-            System.Diagnostics.Debug.WriteLine(LIGHT_SIZE);
+            System.Diagnostics.Debug.WriteLine(currentLightSize);
+        }
+
+        private void pulse(GameTime gameTime) {
+            lightTimer += gameTime.ElapsedGameTime.Milliseconds;
+            if (lightTimer >= lightInterval) {
+                if (lightDir == LightDirection.Increasing) {
+                    if (currentLightSize < UPPER_BOUNDARY)
+                        currentLightSize += LIGHT_CHANGE;
+                    else
+                        lightDir = LightDirection.Decreasing;
+                } if (lightDir == LightDirection.Decreasing) {
+                    if (currentLightSize > LOWER_BOUNDARY)
+                        currentLightSize -= LIGHT_CHANGE;
+                    else
+                        lightDir = LightDirection.Increasing;
+                }
+                lightTimer = 0;
+            }
         }
 
         private void move() {
             KeyboardState kbs = Keyboard.GetState();
             if (kbs.IsKeyDown(Keys.Up) || kbs.IsKeyDown(Keys.Down) || kbs.IsKeyDown(Keys.Left) || kbs.IsKeyDown(Keys.Right)) {
                 isMoving = true;
-                if (kbs.IsKeyDown(Keys.Up))
+                if (kbs.IsKeyDown(Keys.Up)) {
                     objectPosition.Y -= MOVE_SPEED;
-                if (kbs.IsKeyDown(Keys.Down))
+                }
+                if (kbs.IsKeyDown(Keys.Down)) {
                     objectPosition.Y += MOVE_SPEED;
-                if (kbs.IsKeyDown(Keys.Left))
+                }
+                if (kbs.IsKeyDown(Keys.Left)) {
                     objectPosition.X -= MOVE_SPEED;
-                if (kbs.IsKeyDown(Keys.Right))
+                }
+                if (kbs.IsKeyDown(Keys.Right)) {
                     objectPosition.X += MOVE_SPEED;
+                }
 
             }
 
@@ -86,14 +123,23 @@ namespace Tower_of_Darkness {
         public override void Draw(SpriteBatch spriteBatch, Color color) {
             Rectangle sourceRect = new Rectangle(spriteWidth * xCurrentFrame, spriteHeight * yCurrentFrame, spriteWidth, spriteHeight);
             spriteBatch.Draw(spriteSheet, objectPosition, sourceRect, color);
+            lanternPosition = objectPosition;
+            lanternPosition.X += lanternTexture.Width;
+            lanternPosition.Y += 8;
+            spriteBatch.Draw(lanternTexture, lanternPosition, new Rectangle(0, 0, lanternTexture.Width, lanternTexture.Height), Color.White, 0, new Vector2(), 1, SpriteEffects.None, 0); //scale float
+            //draw fire
             spriteBatch.End();
             Color drawColor = new Color(ambientColor.R / 255f * ambient, ambientColor.G / 255f * ambient, ambientColor.B / 255f * ambient);
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
             lightPosition = objectPosition;
-            lightPosition.Y = objectPosition.Y - ((lightTexture.Height / LIGHT_SIZE) / 2);
-            lightPosition.X = objectPosition.X - ((lightTexture.Width / LIGHT_SIZE) / 2) + spriteWidth;
-            spriteBatch.Draw(lightTexture, new Rectangle((int)lightPosition.X, (int)lightPosition.Y, (int)(lightTexture.Width / LIGHT_SIZE), (int)(lightTexture.Height / LIGHT_SIZE)), drawColor);
+            lightPosition.Y = objectPosition.Y - ((lightTexture.Height / currentLightSize) / 2) + spriteHeight;
+            lightPosition.X = objectPosition.X - ((lightTexture.Width / currentLightSize) / 2) + spriteWidth;
+            spriteBatch.Draw(lightTexture, new Rectangle((int)lightPosition.X, (int)lightPosition.Y, (int)(lightTexture.Width / currentLightSize), (int)(lightTexture.Height / currentLightSize)), drawColor);
         }
 
+    }
+
+    enum LightDirection {
+        Increasing, Decreasing
     }
 }
