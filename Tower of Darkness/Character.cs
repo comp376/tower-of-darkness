@@ -161,9 +161,9 @@ namespace Tower_of_Darkness {
             Color drawColor = new Color(ambientColor.R / 255f * ambient, ambientColor.G / 255f * ambient, ambientColor.B / 255f * ambient);
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
             lightPosition = objectPosition;
-            lightPosition.X += ((lightTexture.Width / currentLightSize) / 2) - spriteWidth - 16;
-            lightPosition.Y -= ((lightTexture.Height / currentLightSize) / 2) - spriteHeight + 16;
-            spriteBatch.Draw(lightTexture, new Rectangle((int)lightPosition.X, (int)lightPosition.Y, (int)(lightTexture.Width / currentLightSize), (int)(lightTexture.Height / currentLightSize)), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), drawColor, degreeToRadian(0), new Vector2(lightTexture.Width / 2, 0), SpriteEffects.None, 0);
+            lightPosition.X += ((lightTexture.Width  + currentLightSize )/ 2) - spriteWidth - 10;
+            lightPosition.Y = ((lightTexture.Height - currentLightSize) / 2) - spriteHeight - 85;
+            spriteBatch.Draw(lightTexture, new Rectangle((int)lightPosition.X, (int)(lightPosition.Y - (currentLightSize * 6)), (int)(lightTexture.Width + (currentLightSize * 15)), (int)(lightTexture.Height + (currentLightSize * 15))), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), drawColor, degreeToRadian(0), new Vector2(lightTexture.Width / 2, 0), SpriteEffects.None, 0);
         }
 
         private float degreeToRadian(float angle) {
