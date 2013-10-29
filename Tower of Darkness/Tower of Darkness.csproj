@@ -63,12 +63,15 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Content\baseFloor.xnb" />
     <None Include="Content\character.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Content\dirt.xnb" />
     <None Include="Content\grass.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Content\key.xnb" />
     <None Include="Content\lantern.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

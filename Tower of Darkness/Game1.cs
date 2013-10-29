@@ -17,7 +17,6 @@ namespace Tower_of_Darkness {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        
         private float ambient = 0.5f;
         private Color ambientColor = new Color(255, 235, 119);
         private Character character;
@@ -115,9 +114,6 @@ namespace Tower_of_Darkness {
                 node.Draw(spriteBatch);
             }
             spriteBatch.End();
-
-
-
 
             //spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
             //spriteBatch.Draw(light, new Rectangle((int)lightPosition.X, (int)lightPosition.Y, light.Width, light.Height), drawColor);
