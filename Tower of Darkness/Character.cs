@@ -34,7 +34,7 @@ namespace Tower_of_Darkness {
         private Texture2D lanternTexture;
         private Vector2 lanternPosition;
         private float lanternTimer = 0;
-        private float lanternInterval = 100;
+        private float lanternInterval = 5;
         private LanternSwing lanternSwing;
         private float lanternAngle = 0f;
         private float BACKWARDS_BOUNDARY = 30;
@@ -106,23 +106,64 @@ namespace Tower_of_Darkness {
         }
 
         private void lanternSwinging(GameTime gameTime) {
+            KeyboardState kbs = Keyboard.GetState();
             lanternTimer += gameTime.ElapsedGameTime.Milliseconds;
+
+            if (kbs.IsKeyUp(Keys.Right) && kbs.IsKeyUp(Keys.Left))
+            {
+                if (lanternAngle > 0)
+                {
+                    lanternAngle -= ANGLE_CHANGE;
+                }
+                if (lanternAngle < 0)
+                {
+                    lanternAngle += ANGLE_CHANGE;
+                }
+            }
             if (lanternTimer >= lanternInterval) {
-                if (lanternSwing == LanternSwing.Forwards) {
+                if(kbs.IsKeyDown(Keys.Right)){
+                if (lanternSwing == LanternSwing.Backwards) {
                     if (lanternAngle > FORWARDS_BOUNDARY) {
                         lanternAngle -= ANGLE_CHANGE;
-                    } else {
-                        lanternSwing = LanternSwing.Backwards;
-                    }
-                } if (lanternSwing == LanternSwing.Backwards) {
-                    if (lanternAngle < BACKWARDS_BOUNDARY) {
-                        lanternAngle += ANGLE_CHANGE;
                     } else {
                         lanternSwing = LanternSwing.Forwards;
                     }
                 }
+                if (lanternSwing == LanternSwing.Forwards)
+                {
+                    if (lanternAngle < BACKWARDS_BOUNDARY)
+                    {
+                        lanternAngle += ANGLE_CHANGE;
+                    }
+                    else
+                    {
+                        lanternSwing = LanternSwing.Backwards;
+                    }
+                }
+                }
+                if(kbs.IsKeyDown(Keys.Left)){
+                    if (lanternSwing == LanternSwing.Backwards)
+                    {
+                        if (lanternAngle > FORWARDS_BOUNDARY)
+                        {
+                            lanternAngle -= ANGLE_CHANGE;
+                        }
+                        else
+                        {
+                            lanternSwing = LanternSwing.Forwards;
+                        }
+                    }
+                if (lanternSwing == LanternSwing.Forwards) {
+                    if (lanternAngle < BACKWARDS_BOUNDARY) {
+                        lanternAngle += ANGLE_CHANGE;
+                    } else {
+                        lanternSwing = LanternSwing.Backwards;
+                    }
+                }
+                }
                 lanternTimer = 0;
             }
+            
         }
 
         private void move() {
