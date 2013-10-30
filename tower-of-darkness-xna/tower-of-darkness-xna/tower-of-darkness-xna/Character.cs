@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 namespace tower_of_darkness_xna {
     class Character : Object {
 
+        readonly Vector2 gravity = new Vector2(0, -9.8f);
         private const int MOVE_SPEED = 2;
         private const float LIGHT_CHANGE = 0.05f;
         private const float BOUNDARY_CHANGE = 0.05f;
@@ -52,6 +53,18 @@ namespace tower_of_darkness_xna {
             this.lanternTexture = lanternTexture;
             lanternPosition = objectPosition;
             lanternSwing = LanternSwing.Forwards;
+        }
+
+        public bool Collides(Scene2DNode node)
+        {
+            // check if two sprites intersect
+            if (this.position.X + (this.sizeSprite.X) > node.Position.X &&
+                    this.position.X < node.Position.X + (node.TextureWidth) &&
+                    this.position.Y + (this.sizeSprite.Y) > node.Position.Y &&
+                    this.position.Y < node.Position.Y + (node.TextureWidth))
+                return true;
+            else
+                return false;
         }
 
         public void Update(GameTime gameTime) {
@@ -158,12 +171,12 @@ namespace tower_of_darkness_xna {
             KeyboardState kbs = Keyboard.GetState();
             if (kbs.IsKeyDown(Keys.Up) || kbs.IsKeyDown(Keys.Down) || kbs.IsKeyDown(Keys.Left) || kbs.IsKeyDown(Keys.Right)) {
                 isMoving = true;
-                //if (kbs.IsKeyDown(Keys.Up)) {
-                //    objectPosition.Y -= MOVE_SPEED;
-                //}
-                //if (kbs.IsKeyDown(Keys.Down)) {
-                //    objectPosition.Y += MOVE_SPEED;
-                //}
+                if (kbs.IsKeyDown(Keys.Up)) {
+                    objectPosition.Y -= MOVE_SPEED;
+                }
+                if (kbs.IsKeyDown(Keys.Down)) {
+                    objectPosition.Y += MOVE_SPEED;
+                }
                 if (kbs.IsKeyDown(Keys.Left)) {
                     walkingDirection = SpriteEffects.FlipHorizontally;
                     objectPosition.X -= MOVE_SPEED;
@@ -203,6 +216,9 @@ namespace tower_of_darkness_xna {
         private float degreeToRadian(float angle) {
             return (float)Math.PI * angle / 180.0f;
         }
+
+        
+
     }
 
     enum LightDirection {
