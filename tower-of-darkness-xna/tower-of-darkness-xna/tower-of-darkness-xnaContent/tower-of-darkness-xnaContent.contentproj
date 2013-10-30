@@ -45,12 +45,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="001_courtyard.tmx">
-      <Name>001_courtyard</Name>
-      <Processor>TMXContentProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="baseFloor.png">
       <Name>baseFloor</Name>
       <Importer>TextureImporter</Importer>
@@ -88,18 +82,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="castle.png">
-      <Name>castle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="grasstown.png">
-      <Name>grasstown</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="lantern.png">
       <Name>lantern</Name>
       <Importer>TextureImporter</Importer>
@@ -125,6 +107,13 @@
       <Name>test</Name>
       <Importer>TMXContentImporter</Importer>
       <Processor>TMXContentProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="background.png">
+      <Name>background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
