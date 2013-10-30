@@ -6,10 +6,12 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using FuncWorks.XNA.XTiled;
 
 namespace tower_of_darkness_xna {
     class Character : Object {
 
+        readonly Vector2 gravity = new Vector2(0, -9.8f);
         private const int MOVE_SPEED = 2;
         private const float LIGHT_CHANGE = 0.05f;
         private const float BOUNDARY_CHANGE = 0.05f;
@@ -53,7 +55,19 @@ namespace tower_of_darkness_xna {
             lanternPosition = objectPosition;
             lanternSwing = LanternSwing.Forwards;
         }
-
+        
+        public bool Collides(Tile tile)
+        {
+            // check if we collide with a tile.
+            if (this.objectPosition.X + (this.spriteWidth) > tile.Origin.X &&
+                    this.objectPosition.X < tile.Origin.X + (32) && //These two 32's should probably be changed for the tile width, accessible from map.tilewidth/map.tileheight
+                    this.objectPosition.Y + (this.spriteHeight) > tile.Origin.Y &&
+                    this.objectPosition.Y < tile.Origin.Y + (32))
+                return true;
+            else
+                return false;
+        }
+        
         public void Update(GameTime gameTime) {
             move();
             pulse(gameTime);
@@ -158,12 +172,12 @@ namespace tower_of_darkness_xna {
             KeyboardState kbs = Keyboard.GetState();
             if (kbs.IsKeyDown(Keys.Up) || kbs.IsKeyDown(Keys.Down) || kbs.IsKeyDown(Keys.Left) || kbs.IsKeyDown(Keys.Right)) {
                 isMoving = true;
-                //if (kbs.IsKeyDown(Keys.Up)) {
-                //    objectPosition.Y -= MOVE_SPEED;
-                //}
-                //if (kbs.IsKeyDown(Keys.Down)) {
-                //    objectPosition.Y += MOVE_SPEED;
-                //}
+                if (kbs.IsKeyDown(Keys.Up)) {
+                    objectPosition.Y -= MOVE_SPEED;
+                }
+                if (kbs.IsKeyDown(Keys.Down)) {
+                    objectPosition.Y += MOVE_SPEED;
+                }
                 if (kbs.IsKeyDown(Keys.Left)) {
                     walkingDirection = SpriteEffects.FlipHorizontally;
                     objectPosition.X -= MOVE_SPEED;
@@ -203,6 +217,9 @@ namespace tower_of_darkness_xna {
         private float degreeToRadian(float angle) {
             return (float)Math.PI * angle / 180.0f;
         }
+
+        
+
     }
 
     enum LightDirection {

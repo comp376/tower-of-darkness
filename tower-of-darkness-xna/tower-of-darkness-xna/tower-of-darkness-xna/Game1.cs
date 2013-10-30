@@ -58,9 +58,9 @@ namespace tower_of_darkness_xna {
         protected override void LoadContent() {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
             background = Content.Load<Texture2D>("background");
             map = Content.Load<Map>("test");
-            
 
             Texture2D characterSpriteSheet = Content.Load<Texture2D>("character2");
 
@@ -68,27 +68,29 @@ namespace tower_of_darkness_xna {
             keyTexture = Content.Load<Texture2D>("key");
 
             List<Scene2DNode> nodeList;
-
             light = Content.Load<Texture2D>("light");
             light = Content.Load<Texture2D>("light2");
             lanternTexture = Content.Load<Texture2D>("lantern");
             character = new Character(characterSpriteSheet, 3, 1, 32, 64, new Vector2(200, graphics.PreferredBackBufferHeight - 96), light, ambient, ambientColor, lanternTexture);
             loadLevel1Content();
+            
         }
 
         private void loadLevel1Content() {
             nodeList = new List<Scene2DNode>();
-            drawGround();
+            map = Content.Load<Map>("test");
+            foreach (Tileset ts in map.Tilesets) {
+                foreach (Tile t in ts.Tiles) {
+                    if (t.Properties["type"].Value == "floor")
+                    {
+                        Console.WriteLine("Floor created.");
+                    }
+               }
+            }
             Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(graphics.PreferredBackBufferWidth - (keyTexture.Width * 2), graphics.PreferredBackBufferHeight - (keyTexture.Height * 2)), "key");
             nodeList.Add(myKey);
         }
 
-        private void drawGround() {
-            for (int i = 0; i < graphics.PreferredBackBufferWidth; i += 32) {
-                Scene2DNode node = new Scene2DNode(grassTexture, new Vector2(i, graphics.PreferredBackBufferHeight - grassTexture.Height), "grass");
-                nodeList.Add(node);
-            }
-        }
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
