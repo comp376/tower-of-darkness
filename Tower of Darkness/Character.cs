@@ -28,7 +28,7 @@ namespace Tower_of_Darkness {
         private float lightInterval = 50;
         private float currentLightSize;
         private LightDirection lightDir;
-        private float LOWER_BOUNDARY = 1.0f;
+        private float LOWER_BOUNDARY = 1.3f;
         private float UPPER_BOUNDARY = 1.0f;
 
         private Texture2D lanternTexture;
