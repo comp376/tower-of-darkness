@@ -14,6 +14,7 @@ namespace Tower_of_Darkness
         private Vector2 startingPosition;
         private string type;
         private const int MAX_HOVER_HEIGHT = 20;
+        private const float HOVER_SPEED = 0.3f;
         
         enum hoverDirections
         {
@@ -66,14 +67,14 @@ namespace Tower_of_Darkness
             if (this.hoverDirection == hoverDirections.Up)
             {
                 if (this.worldPosition.Y > (this.startingPosition.Y - MAX_HOVER_HEIGHT)){
-                    this.worldPosition.Y -= 0.3f;
+                    this.worldPosition.Y -= HOVER_SPEED;
                 }
                 else{
                     this.hoverDirection = hoverDirections.Down;
                 }
             }else if(this.hoverDirection == hoverDirections.Down){//going down
                 if (this.startingPosition.Y > this.worldPosition.Y){
-                    this.worldPosition.Y += 0.3f;
+                    this.worldPosition.Y += HOVER_SPEED;
                 }else {
                     this.hoverDirection = hoverDirections.Up;
                 }
