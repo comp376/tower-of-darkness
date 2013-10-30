@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using FuncWorks.XNA.XTiled;
 
 namespace tower_of_darkness_xna {
     class Character : Object {
@@ -54,19 +55,19 @@ namespace tower_of_darkness_xna {
             lanternPosition = objectPosition;
             lanternSwing = LanternSwing.Forwards;
         }
-
-        public bool Collides(Scene2DNode node)
+        
+        public bool Collides(Tile tile)
         {
-            // check if two sprites intersect
-            if (this.position.X + (this.sizeSprite.X) > node.Position.X &&
-                    this.position.X < node.Position.X + (node.TextureWidth) &&
-                    this.position.Y + (this.sizeSprite.Y) > node.Position.Y &&
-                    this.position.Y < node.Position.Y + (node.TextureWidth))
+            // check if we collide with a tile.
+            if (this.objectPosition.X + (this.spriteWidth) > tile.Origin.X &&
+                    this.objectPosition.X < tile.Origin.X + (32) && //These two 32's should probably be changed for the tile width, accessible from map.tilewidth/map.tileheight
+                    this.objectPosition.Y + (this.spriteHeight) > tile.Origin.Y &&
+                    this.objectPosition.Y < tile.Origin.Y + (32))
                 return true;
             else
                 return false;
         }
-
+        
         public void Update(GameTime gameTime) {
             move();
             pulse(gameTime);

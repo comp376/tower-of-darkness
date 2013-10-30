@@ -45,12 +45,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="001_courtyard.tmx">
-      <Name>001_courtyard</Name>
-      <Processor>TMXContentProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="baseFloor.png">
       <Name>baseFloor</Name>
       <Importer>TextureImporter</Importer>
@@ -83,18 +77,6 @@
     </Compile>
     <Compile Include="light2.png">
       <Name>light2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="castle.png">
-      <Name>castle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="grasstown.png">
-      <Name>grasstown</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
