@@ -5,14 +5,16 @@ using System.Text;
 using System.Xml;
 using System.IO;
 using System.Xml.Linq;
+using System.Drawing;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Tower_of_Darkness {
-    class Map {
-
+    class MapTest {
+        private ContentManager Content;
+        private GraphicsDevice graphics;
         private const string EXT = ".tmx";
 
         private List<TileSet> tileSets;
@@ -24,27 +26,29 @@ namespace Tower_of_Darkness {
         private int mapHeight;
         private int tileWidth;
         private int tileHeight;
-        private Rectangle mapRect;
+        private Microsoft.Xna.Framework.Rectangle mapRect;
 
-        public Map(string mapName) {
+        public MapTest(string mapName, ContentManager Content, GraphicsDevice graphics) {
+            this.Content = Content;
+            this.graphics = graphics;
+            Content.RootDirectory = "Content\\maps";
             tileSets = new List<TileSet>();
             textures = new List<Texture2D>();
 
             this.mapName = mapName;
             tilesetBuilder(mapName);
-            mapBuilder();
-            mapRect = new Rectangle(0, 0, (mapWidth * tileWidth) * 2, (mapHeight * tileHeight) * 2);
+            //mapBuilder();
+            //mapRect = new Microsoft.Xna.Framework.Rectangle(0, 0, (mapWidth * tileWidth), (mapHeight * tileHeight));
         }
 
-        public void Draw(SpriteBatch spriteBatch) {
-            spriteBatch.Draw(textures[0], mapRect, Color.White);
-            spriteBatch.Draw(textures[1], mapRect, Color.White);
-            spriteBatch.Draw(textures[2], mapRect, Color.White);
+        public void Draw(SpriteBatch spriteBatch, Microsoft.Xna.Framework.Color color) {
+            spriteBatch.Draw(textures[0], mapRect, color);
+            //spriteBatch.Draw(textures[1], mapRect, color);
+            //spriteBatch.Draw(textures[2], mapRect, color);
         }
 
         private void mapBuilder() {
             foreach (XElement lElement in element.Descendants("layer")) {
-                //System.Diagnostics.Debug.WriteLine(lElement.Attribute("name").Value);
                 string layerName = lElement.Attribute("name").Value;
                 int layerWidth = Convert.ToInt32(lElement.Attribute("width").Value);
                 int layerHeight = Convert.ToInt32(lElement.Attribute("height").Value);
@@ -68,6 +72,8 @@ namespace Tower_of_Darkness {
 
                 //pixmap stuff
                 //Pixmap layerPixmap = new Pixmap(mapWidth * tileWidth, mapHeight * tileHeight, Pixmap.Format.RGBA8888);
+                Bitmap layerImage = new Bitmap(mapWidth * tileWidth, mapHeight * tileHeight, System.Drawing.Imaging.PixelFormat.Canonical);
+
                 for (int spriteForX = 0; spriteForX < mapWidth; spriteForX++) {
                     for (int spriteForY = 0; spriteForY < mapHeight; spriteForY++) {
                         int tileGid = tileCoordinates[spriteForX, spriteForY];
@@ -86,12 +92,20 @@ namespace Tower_of_Darkness {
                         int sourceX = tileGid - (currentTileset.tileAmountWidth * sourceY) - 1;
 
                         //layerPixmap.drawPixmap(currentTileset.pixmap, sourceX * tileWidth, sourceY * tileWidth, tileWidth, tileHeight, destX, destY, tileWidth, tileHeight);
-
+                        //layerData = setImageData(sourceX * tileWidth, sourceY * tileWidth, tileWidth, tileHeight, destX, destY, tileWidth, tileHeight, mapWidth, mapHeight);
                     }
                 }
-                //textures.add(new Texture(layerPixmap));	
+                //textures.Add(layerTexture);
+                //textures.add(new Texture(layerPixmap));
             }
         }
+
+        //private Color[] setImageData(int srcx, int srcy, int srcWidth, int srcHeight, int dstx, int dsty, int dstWidth, int dstHeight, int mapWidth, int mapHeight) {
+        //    //Console.WriteLine("srcx: " + srcx + ", " + "srcy: " + srcy + ", " + "srcWidth: " + srcWidth + ", " + "srcHeight: " + srcHeight + ", " + "dstx: " + dstx + ", " + "dsty: " + dsty + ", " + "dstWidth: " + dstWidth + ", " + "dstHeight: " + dstHeight + ", " + "mapWidth: " + mapWidth + ", " + "mapHeight: " + mapHeight);
+        //    int width = dstWidth * mapWidth;
+        //    int height = dstHeight * mapHeight;
+
+        //}
 
         private void tilesetBuilder(string mapName) {
             Stream stream = TitleContainer.OpenStream("Content\\maps\\" + mapName + EXT);
@@ -102,11 +116,6 @@ namespace Tower_of_Darkness {
             mapHeight = Convert.ToInt32(element.Attribute("height").Value);
             tileWidth = Convert.ToInt32(element.Attribute("tilewidth").Value);
             tileHeight = Convert.ToInt32(element.Attribute("tileheight").Value);
-
-            //System.Diagnostics.Debug.WriteLine(mapWidth);
-            //System.Diagnostics.Debug.WriteLine(mapHeight);
-            //System.Diagnostics.Debug.WriteLine(tileWidth);
-            //System.Diagnostics.Debug.WriteLine(tileHeight);
 
             foreach(XElement tsElement in element.Elements("tileset")){
                 int imageWidth = Convert.ToInt32(tsElement.Element("image").Attribute("width").Value);
@@ -120,8 +129,16 @@ namespace Tower_of_Darkness {
             }
 
             foreach (TileSet ts in tileSets) {
-                
+                Texture2D texture = Content.Load<Texture2D>(stripExtension(ts.source));
+                MemoryStream ms = new MemoryStream();
+                texture.SaveAsPng(ms, texture.Width, texture.Height);
+                Bitmap bmp = new Bitmap(ms);
             }
+        }
+
+        private string stripExtension(string file) {
+            int period = file.IndexOf('.');
+            return file.Substring(0, period);
         }
     }
 }

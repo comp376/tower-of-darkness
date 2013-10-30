@@ -1,17 +1,17 @@
-﻿#region Using Statements
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Storage;
-using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Media;
 
 using FuncWorks.XNA.XTiled;
-#endregion
 
-namespace Tower_of_Darkness {
+namespace tower_of_darkness_xna {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
@@ -28,9 +28,9 @@ namespace Tower_of_Darkness {
         private Texture2D keyTexture;
 
         private List<Scene2DNode> nodeList;
+        private Map map;
         //private Map map;
-        //private Map map;
-        //private Rectangle mapView;
+        private Rectangle mapView;
 
         public Game1()
             : base() {
@@ -46,7 +46,7 @@ namespace Tower_of_Darkness {
         /// </summary>
         protected override void Initialize() {
             // TODO: Add your initialization logic here
-            //mapView = graphics.GraphicsDevice.Viewport.Bounds;
+            mapView = graphics.GraphicsDevice.Viewport.Bounds;
             base.Initialize();
         }
 
@@ -57,9 +57,9 @@ namespace Tower_of_Darkness {
         protected override void LoadContent() {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            //map = Content.Load<Map>("001_courtyard");
+            map = Content.Load<Map>("test");
 
-            Texture2D characterSpriteSheet = Content.Load<Texture2D>("character");
+            Texture2D characterSpriteSheet = Content.Load<Texture2D>("character2");
 
             grassTexture = Content.Load<Texture2D>("grass");
             keyTexture = Content.Load<Texture2D>("key");
@@ -69,21 +69,20 @@ namespace Tower_of_Darkness {
             light = Content.Load<Texture2D>("light");
             light = Content.Load<Texture2D>("light2");
             lanternTexture = Content.Load<Texture2D>("lantern");
-            character = new Character(characterSpriteSheet, 3, 1, 64, 64, new Vector2(50, 50), light, ambient, ambientColor, lanternTexture);
-            //map = new Map("001_courtyard", Content, graphics.GraphicsDevice);
+            character = new Character(characterSpriteSheet, 3, 1, 32, 64, new Vector2(200, graphics.PreferredBackBufferHeight - 96), light, ambient, ambientColor, lanternTexture);
             loadLevel1Content();
         }
 
-        private void loadLevel1Content(){
+        private void loadLevel1Content() {
             nodeList = new List<Scene2DNode>();
             drawGround();
-            Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(graphics.PreferredBackBufferWidth-(keyTexture.Width*2),graphics.PreferredBackBufferHeight-(keyTexture.Height*2)), "key");
+            Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(graphics.PreferredBackBufferWidth - (keyTexture.Width * 2), graphics.PreferredBackBufferHeight - (keyTexture.Height * 2)), "key");
             nodeList.Add(myKey);
         }
 
-        private void drawGround(){
-            for (int i = 0; i < graphics.PreferredBackBufferWidth; i += 32){
-                Scene2DNode node = new Scene2DNode(grassTexture, new Vector2(i,graphics.PreferredBackBufferHeight-grassTexture.Height), "grass");
+        private void drawGround() {
+            for (int i = 0; i < graphics.PreferredBackBufferWidth; i += 32) {
+                Scene2DNode node = new Scene2DNode(grassTexture, new Vector2(i, graphics.PreferredBackBufferHeight - grassTexture.Height), "grass");
                 nodeList.Add(node);
             }
         }
@@ -106,18 +105,18 @@ namespace Tower_of_Darkness {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            //Rectangle delta = mapView;
-            //if (keys.IsKeyDown(Keys.Down))
-            //    delta.Y += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 4);
-            //if (keys.IsKeyDown(Keys.Up))
-            //    delta.Y -= Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 4);
-            //if (keys.IsKeyDown(Keys.Right))
-            //    delta.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 4);
-            //if (keys.IsKeyDown(Keys.Left))
-            //    delta.X -= Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 4);
+            Rectangle delta = mapView;
+            if (keys.IsKeyDown(Keys.Down))
+                delta.Y += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
+            if (keys.IsKeyDown(Keys.Up))
+                delta.Y -= Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
+            if (keys.IsKeyDown(Keys.Right))
+                delta.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
+            if (keys.IsKeyDown(Keys.Left))
+                delta.X -= Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
 
-            //if (map.Bounds.Contains(delta))
-            //    mapView = delta;
+            if (map.Bounds.Contains(delta))
+                mapView = delta;
 
 
             // TODO: Add your update logic here
@@ -134,24 +133,18 @@ namespace Tower_of_Darkness {
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
-            //map.Draw(spriteBatch, mapView);
+            map.Draw(spriteBatch, mapView);
             character.Draw(spriteBatch, new Color(40, 40, 40));
             //map.Draw(spriteBatch, new Color(40, 40, 40));
 
 
-            foreach (Scene2DNode node in nodeList) {
-                if (node.getNodeType() == "key")
-                    node.hover();
+            //foreach (Scene2DNode node in nodeList) {
+            //    if (node.getNodeType() == "key")
+            //        node.hover();
 
-                node.Draw(spriteBatch);
-            }
+            //    node.Draw(spriteBatch);
+            //}
             spriteBatch.End();
-
-            //spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
-            ////spriteBatch.Draw(light, new Rectangle((int)lightPosition.X, (int)lightPosition.Y, light.Width, light.Height), drawColor);
-            //spriteBatch.End();
-
-
             base.Draw(gameTime);
         }
     }

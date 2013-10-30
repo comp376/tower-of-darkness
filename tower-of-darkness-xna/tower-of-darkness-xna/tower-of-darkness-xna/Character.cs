@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Tower_of_Darkness {
+namespace tower_of_darkness_xna {
     class Character : Object {
 
         private const int MOVE_SPEED = 2;
@@ -16,6 +16,7 @@ namespace Tower_of_Darkness {
         private const float ANGLE_CHANGE = 0.5f;
 
         private bool isMoving;
+        private SpriteEffects walkingDirection = SpriteEffects.None;
         private int xCurrentFrame = 0;
         private int yCurrentFrame = 0;
         private float frameTimer = 0;
@@ -107,77 +108,68 @@ namespace Tower_of_Darkness {
             KeyboardState kbs = Keyboard.GetState();
             lanternTimer += gameTime.ElapsedGameTime.Milliseconds;
 
-            if (kbs.IsKeyUp(Keys.Right) && kbs.IsKeyUp(Keys.Left))
-            {
-                if (lanternAngle > 0)
-                {
+            if (kbs.IsKeyUp(Keys.Right) && kbs.IsKeyUp(Keys.Left)) {
+                if (lanternAngle > 0) {
                     lanternAngle -= ANGLE_CHANGE;
                 }
-                if (lanternAngle < 0)
-                {
+                if (lanternAngle < 0) {
                     lanternAngle += ANGLE_CHANGE;
                 }
             }
             if (lanternTimer >= lanternInterval) {
-                if(kbs.IsKeyDown(Keys.Right)){
-                if (lanternSwing == LanternSwing.Backwards) {
-                    if (lanternAngle > FORWARDS_BOUNDARY) {
-                        lanternAngle -= ANGLE_CHANGE;
-                    } else {
-                        lanternSwing = LanternSwing.Forwards;
-                    }
-                }
-                if (lanternSwing == LanternSwing.Forwards)
-                {
-                    if (lanternAngle < BACKWARDS_BOUNDARY)
-                    {
-                        lanternAngle += ANGLE_CHANGE;
-                    }
-                    else
-                    {
-                        lanternSwing = LanternSwing.Backwards;
-                    }
-                }
-                }
-                if(kbs.IsKeyDown(Keys.Left)){
-                    if (lanternSwing == LanternSwing.Backwards)
-                    {
-                        if (lanternAngle > FORWARDS_BOUNDARY)
-                        {
+                if (kbs.IsKeyDown(Keys.Right)) {
+                    if (lanternSwing == LanternSwing.Backwards) {
+                        if (lanternAngle > FORWARDS_BOUNDARY) {
                             lanternAngle -= ANGLE_CHANGE;
-                        }
-                        else
-                        {
+                        } else {
                             lanternSwing = LanternSwing.Forwards;
                         }
                     }
-                if (lanternSwing == LanternSwing.Forwards) {
-                    if (lanternAngle < BACKWARDS_BOUNDARY) {
-                        lanternAngle += ANGLE_CHANGE;
-                    } else {
-                        lanternSwing = LanternSwing.Backwards;
+                    if (lanternSwing == LanternSwing.Forwards) {
+                        if (lanternAngle < BACKWARDS_BOUNDARY) {
+                            lanternAngle += ANGLE_CHANGE;
+                        } else {
+                            lanternSwing = LanternSwing.Backwards;
+                        }
                     }
                 }
+                if (kbs.IsKeyDown(Keys.Left)) {
+                    if (lanternSwing == LanternSwing.Backwards) {
+                        if (lanternAngle > FORWARDS_BOUNDARY) {
+                            lanternAngle -= ANGLE_CHANGE;
+                        } else {
+                            lanternSwing = LanternSwing.Forwards;
+                        }
+                    }
+                    if (lanternSwing == LanternSwing.Forwards) {
+                        if (lanternAngle < BACKWARDS_BOUNDARY) {
+                            lanternAngle += ANGLE_CHANGE;
+                        } else {
+                            lanternSwing = LanternSwing.Backwards;
+                        }
+                    }
                 }
                 lanternTimer = 0;
             }
-            
+
         }
 
         private void move() {
             KeyboardState kbs = Keyboard.GetState();
             if (kbs.IsKeyDown(Keys.Up) || kbs.IsKeyDown(Keys.Down) || kbs.IsKeyDown(Keys.Left) || kbs.IsKeyDown(Keys.Right)) {
                 isMoving = true;
-                if (kbs.IsKeyDown(Keys.Up)) {
-                    objectPosition.Y -= MOVE_SPEED;
-                }
-                if (kbs.IsKeyDown(Keys.Down)) {
-                    objectPosition.Y += MOVE_SPEED;
-                }
+                //if (kbs.IsKeyDown(Keys.Up)) {
+                //    objectPosition.Y -= MOVE_SPEED;
+                //}
+                //if (kbs.IsKeyDown(Keys.Down)) {
+                //    objectPosition.Y += MOVE_SPEED;
+                //}
                 if (kbs.IsKeyDown(Keys.Left)) {
+                    walkingDirection = SpriteEffects.FlipHorizontally;
                     objectPosition.X -= MOVE_SPEED;
                 }
                 if (kbs.IsKeyDown(Keys.Right)) {
+                    walkingDirection = SpriteEffects.None;
                     objectPosition.X += MOVE_SPEED;
                 }
 
@@ -190,19 +182,22 @@ namespace Tower_of_Darkness {
 
         public override void Draw(SpriteBatch spriteBatch, Color color) {
             Rectangle sourceRect = new Rectangle(spriteWidth * xCurrentFrame, spriteHeight * yCurrentFrame, spriteWidth, spriteHeight);
-            spriteBatch.Draw(spriteSheet, objectPosition, sourceRect, color);
+            //spriteBatch.Draw(spriteSheet, objectPosition, sourceRect, color);
+            spriteBatch.Draw(spriteSheet, objectPosition, sourceRect, color, 0, new Vector2(), 1, walkingDirection, 0);
             lanternPosition = objectPosition;
-            lanternPosition.X += 48;
+            if(walkingDirection == SpriteEffects.None)
+                lanternPosition.X += 32;
             lanternPosition.Y += 32;
-            spriteBatch.Draw(lanternTexture, lanternPosition, new Rectangle(0, 0, lanternTexture.Width, lanternTexture.Height), Color.White, degreeToRadian(lanternAngle), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), 1, SpriteEffects.None, 0); //scale float
+            spriteBatch.Draw(lanternTexture, lanternPosition, new Rectangle(0, 0, lanternTexture.Width, lanternTexture.Height), Color.White, degreeToRadian(lanternAngle), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), 1, walkingDirection, 0); //scale float
             //draw fire
             spriteBatch.End();
             Color drawColor = new Color(ambientColor.R / 255f * ambient, ambientColor.G / 255f * ambient, ambientColor.B / 255f * ambient);
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
             lightPosition = objectPosition;
-            lightPosition.X += ((lightTexture.Width  + currentLightSize )/ 2) - spriteWidth - 9;
+            if(walkingDirection == SpriteEffects.None)
+                lightPosition.X += ((lightTexture.Width + currentLightSize) / 2) - spriteWidth - 9;
             lightPosition.Y -= ((lightTexture.Height - currentLightSize) / 2) - spriteHeight - 9;
-            spriteBatch.Draw(lightTexture, new Rectangle((int)(lightPosition.X), (int)(lightPosition.Y - (currentLightSize * 6)), (int)(lightTexture.Width + (currentLightSize * 15)), (int)(lightTexture.Height + (currentLightSize * 15))), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), drawColor, degreeToRadian(lanternAngle), new Vector2(lightTexture.Width / 2, 0), SpriteEffects.None, 0);
+            spriteBatch.Draw(lightTexture, new Rectangle((int)(lightPosition.X), (int)(lightPosition.Y - (currentLightSize * 6)), (int)(lightTexture.Width + (currentLightSize * 15)), (int)(lightTexture.Height + (currentLightSize * 15))), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), drawColor, degreeToRadian(lanternAngle), new Vector2(lightTexture.Width / 2, 0), walkingDirection, 0);
         }
 
         private float degreeToRadian(float angle) {
@@ -217,4 +212,5 @@ namespace Tower_of_Darkness {
     enum LanternSwing {
         Forwards, Backwards
     }
+
 }
