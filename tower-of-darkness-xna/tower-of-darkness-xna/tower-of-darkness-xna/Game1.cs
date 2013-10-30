@@ -19,7 +19,7 @@ namespace tower_of_darkness_xna {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        private float ambient = 0.5f;
+        private float ambient = 0.8f;
         private Color ambientColor = new Color(255, 235, 119);
         private Character character;
         private Texture2D background;
