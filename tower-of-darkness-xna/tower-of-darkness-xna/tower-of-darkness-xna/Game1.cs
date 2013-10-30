@@ -22,6 +22,7 @@ namespace tower_of_darkness_xna {
         private float ambient = 0.5f;
         private Color ambientColor = new Color(255, 235, 119);
         private Character character;
+        private Texture2D background;
         private Texture2D light;
         private Texture2D lanternTexture;
         private Texture2D grassTexture;
@@ -57,8 +58,9 @@ namespace tower_of_darkness_xna {
         protected override void LoadContent() {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
 
+            background = Content.Load<Texture2D>("background");
+            map = Content.Load<Map>("test");
 
             Texture2D characterSpriteSheet = Content.Load<Texture2D>("character2");
 
@@ -83,7 +85,7 @@ namespace tower_of_darkness_xna {
                     {
                         Console.WriteLine("Floor created.");
                     }
-                }
+               }
             }
             Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(graphics.PreferredBackBufferWidth - (keyTexture.Width * 2), graphics.PreferredBackBufferHeight - (keyTexture.Height * 2)), "key");
             nodeList.Add(myKey);
@@ -136,9 +138,9 @@ namespace tower_of_darkness_xna {
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
+            spriteBatch.Draw(background, new Vector2(), Color.White);
             map.Draw(spriteBatch, mapView);
             character.Draw(spriteBatch, new Color(40, 40, 40));
-            //map.Draw(spriteBatch, new Color(40, 40, 40));
 
 
             //foreach (Scene2DNode node in nodeList) {
