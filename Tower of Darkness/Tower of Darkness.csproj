@@ -69,6 +69,10 @@
     <None Include="Content\baseFloor.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Content\Brick.xnb" />
+    <None Include="Content\Brick2.xnb" />
+    <None Include="Content\Brick3.xnb" />
+    <None Include="Content\Brick4.xnb" />
     <None Include="Content\character.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -93,6 +97,13 @@
     <None Include="Content\maps\001_courtyard.tmx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Content\OldWindow.xnb" />
+    <None Include="Content\Stair+Brick.xnb" />
+    <None Include="Content\TreeBark.xnb" />
+    <None Include="Content\TreeLeaves.xnb" />
+    <None Include="Content\TreeLeaves2.xnb" />
+    <None Include="Content\Window.xnb" />
+    <None Include="Content\Wood.xnb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

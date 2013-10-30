@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
+
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Tower_of_Darkness {
     class TileSet {
@@ -13,7 +17,7 @@ namespace Tower_of_Darkness {
         public string source;
         public int imageWidth;
         public int imageHeight;
-        //public Pixmap pixmap;
+        public Bitmap bitmap;
         public int tileAmountWidth;
 
         public TileSet(int firstgid, String name, int tileWidth,
