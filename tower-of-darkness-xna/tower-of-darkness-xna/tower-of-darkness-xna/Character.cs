@@ -44,7 +44,10 @@ namespace tower_of_darkness_xna {
         private float BACKWARDS_BOUNDARY = 10;
         private float FORWARDS_BOUNDARY = -10;
 
-        public Character(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, Vector2 objectPosition, Texture2D lightTexture, float ambient, Color ambientColor, Texture2D lanternTexture)
+        private bool jumping;
+        private float startY, jumpspeed = 0;
+
+        public Character(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, Vector2 objectPosition, Texture2D lightTexture, float ambient, Color ambientColor, Texture2D lanternTexture, GraphicsDeviceManager graphics)
             : base(spriteSheet, xNumberOfFrames, yNumberOfFrames, spriteWidth, spriteHeight, objectPosition) {
             this.lightTexture = lightTexture;
             this.ambient = ambient;
@@ -56,6 +59,9 @@ namespace tower_of_darkness_xna {
             lanternPosition = objectPosition;
             lanternSwing = LanternSwing.Forwards;
             keyCount = 0;
+            this.jumping = false;
+            this.jumpspeed = 0;
+            this.startY = graphics.PreferredBackBufferHeight - 96;
         }
         
         public bool Collides(TileData tile)
@@ -184,11 +190,29 @@ namespace tower_of_darkness_xna {
 
         private void move() {
             KeyboardState kbs = Keyboard.GetState();
-            if (kbs.IsKeyDown(Keys.Up) || kbs.IsKeyDown(Keys.Down) || kbs.IsKeyDown(Keys.Left) || kbs.IsKeyDown(Keys.Right)) {
-                isMoving = true;
-                if (kbs.IsKeyDown(Keys.Up)) {
-                    objectPosition.Y -= MOVE_SPEED;
+
+            if (jumping)
+            {
+                this.objectPosition.Y += jumpspeed;
+                jumpspeed += 1;
+                if (this.objectPosition.Y >= startY)
+                {
+                    this.objectPosition.Y = startY;
+                    jumping = false;
                 }
+            }
+            else
+            {
+                 if (kbs.IsKeyDown(Keys.Up))
+                {
+                    jumping = true;
+                    jumpspeed = -12;
+                }
+            }
+
+            if (kbs.IsKeyDown(Keys.Down) || kbs.IsKeyDown(Keys.Left) || kbs.IsKeyDown(Keys.Right)) {
+                isMoving = true;
+                
                 if (kbs.IsKeyDown(Keys.Down)) {
                     objectPosition.Y += MOVE_SPEED;
                 }
@@ -223,7 +247,7 @@ namespace tower_of_darkness_xna {
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
             lightPosition = objectPosition;
             if(walkingDirection == SpriteEffects.None)
-                lightPosition.X += ((lightTexture.Width + currentLightSize) / 2) - spriteWidth - 9;
+                lightPosition.X += ((lightTexture.Width + currentLightSize) / 2) - spriteWidth - 45;
             lightPosition.Y -= ((lightTexture.Height - currentLightSize) / 2) - spriteHeight - 9;
             spriteBatch.Draw(lightTexture, new Rectangle((int)(lightPosition.X), (int)(lightPosition.Y - (currentLightSize * 6)), (int)(lightTexture.Width + (currentLightSize * 15)), (int)(lightTexture.Height + (currentLightSize * 15))), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), drawColor, degreeToRadian(lanternAngle), new Vector2(lightTexture.Width / 2, 0), walkingDirection, 0);
         }
