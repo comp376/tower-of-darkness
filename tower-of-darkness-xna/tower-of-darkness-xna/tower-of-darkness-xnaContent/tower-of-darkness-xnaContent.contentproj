@@ -96,6 +96,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="pausescreen.png">
+      <Name>pausescreen</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="spritesheet.png">
       <Name>spritesheet</Name>
       <Importer>TextureImporter</Importer>
