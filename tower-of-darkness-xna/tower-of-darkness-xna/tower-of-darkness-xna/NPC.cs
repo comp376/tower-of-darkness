@@ -16,9 +16,9 @@ namespace tower_of_darkness_xna {
         private int yCurrentFrame = 0;
 
         private float moveTimer = 0;
-        private float moveInterval = 500;
+        private float moveInterval = 100;
         private float directionTimer = 0;
-        private float directionInterval = 1000;
+        private float directionInterval ;
         private Random rand;
 
         public NPC(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, Vector2 objectPosition, SpriteEffects walkingDirection, float directionInterval)

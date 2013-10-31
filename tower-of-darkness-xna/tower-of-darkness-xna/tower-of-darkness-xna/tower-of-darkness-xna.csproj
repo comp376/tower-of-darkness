@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Character.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="NPC.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="ObjectDirection.cs" />

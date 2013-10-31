@@ -58,13 +58,13 @@ namespace tower_of_darkness_xna {
             keyCount = 0;
         }
         
-        public bool Collides(Tile tile)
+        public bool Collides(TileData tile)
         {
             // check if we collide with a tile.
-            if (this.objectPosition.X + (this.spriteWidth) > tile.Origin.X &&
-                    this.objectPosition.X < tile.Origin.X + (32) && //These two 32's should probably be changed for the tile width, accessible from map.tilewidth/map.tileheight
-                    this.objectPosition.Y + (this.spriteHeight) > tile.Origin.Y &&
-                    this.objectPosition.Y < tile.Origin.Y + (32))
+            if (this.objectPosition.X + (this.spriteWidth) > tile.Target.X &&
+                    this.objectPosition.X < tile.Target.X + (32) && //These two 32's should probably be changed for the tile width, accessible from map.tilewidth/map.tileheight
+                    this.objectPosition.Y + (this.spriteHeight) > tile.Target.Y &&
+                    this.objectPosition.Y < tile.Target.Y + (32))
                 return true;
             else
                 return false;

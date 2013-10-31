@@ -19,8 +19,9 @@ namespace tower_of_darkness_xna {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        private const int NUM_NPCS = 2;
+        private GameState gameState = GameState.Menu;
 
+        private const int NUM_NPCS = 2;
         private float ambient = 0.8f;
         private Color ambientColor = new Color(255, 235, 119);
         private Character character;
@@ -29,7 +30,7 @@ namespace tower_of_darkness_xna {
         private Texture2D lanternTexture;
         private Texture2D grassTexture;
         private Texture2D keyTexture;
-        private Tuple<int, int> npcDirectionInterval = new Tuple<int, int>(1000, 5000);
+        private Tuple<int, int> npcDirectionInterval = new Tuple<int, int>(500, 3000);
         private Random rand;
 
         private SoundEffect pickUpKey;
@@ -37,9 +38,18 @@ namespace tower_of_darkness_xna {
 
         private List<Scene2DNode> nodeList;
         private List<NPC> npcs;
+        public Map currentMap;
         private Map map;
-        //private Map map;
         private Rectangle mapView;
+
+        //Menu vars
+        private const int NUM_MENU_ITEMS = 2;
+        private Texture2D menuBackground;
+        private Texture2D menuSelector;
+        private Vector2 menuSelectorPosition;
+        private int menuSelectorIndex = 0;
+        private float menuTimer = 100;
+        private float menuInterval = 100;
 
         public Game1()
             : base() {
@@ -55,25 +65,23 @@ namespace tower_of_darkness_xna {
         /// </summary>
         protected override void Initialize() {
             // TODO: Add your initialization logic here
+            //graphics.ToggleFullScreen();
+
             pickUpKey = Content.Load<SoundEffect>("pop");
             pickUpKeyInstance = pickUpKey.CreateInstance();
 
             mapView = graphics.GraphicsDevice.Viewport.Bounds;
             rand = new Random();
+
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
-        protected override void LoadContent() {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
+        private void loadPlayingContent() {
             background = Content.Load<Texture2D>("background");
-            map = Content.Load<Map>("test");
 
+           
+            map = Content.Load<Map>("test");
+            currentMap = map;
             Texture2D characterSpriteSheet = Content.Load<Texture2D>("character2");
             Texture2D npcSpriteSheet = Content.Load<Texture2D>("npc");
 
@@ -91,6 +99,23 @@ namespace tower_of_darkness_xna {
             lanternTexture = Content.Load<Texture2D>("lantern");
             character = new Character(characterSpriteSheet, 3, 1, 32, 64, new Vector2(200, graphics.PreferredBackBufferHeight - 96), light, ambient, ambientColor, lanternTexture);
             loadLevel1Content();
+        }
+
+        private void loadMenuContent() {
+            menuBackground = Content.Load<Texture2D>("menuscreen");
+            menuSelector = Content.Load<Texture2D>("menu_selector");
+            menuSelectorPosition = new Vector2(70, 320);
+        }
+
+        /// <summary>
+        /// LoadContent will be called once per game and is the place to load
+        /// all of your content.
+        /// </summary>
+        protected override void LoadContent() {
+            // Create a new SpriteBatch, which can be used to draw textures.
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            loadMenuContent();
             
         }
 
@@ -102,17 +127,19 @@ namespace tower_of_darkness_xna {
             Console.WriteLine("Map is: " + map.Height + " tiles high");
             Console.WriteLine("Map is: " + map.Width + " tiles wide");
             Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(475,125), "key");
-
-            //foreach (Tileset ts in map.Tilesets) {
-            //    foreach (Tile t in ts.Tiles) {
-            //        if (t.Properties["type"].Value == "floor")
-            //        {
-            //            Console.WriteLine("Floor created.");
-            //        }
-            //   }
-            //}
-            
             nodeList.Add(myKey);
+
+            //Test to get every tile data.
+            /*
+            for (int x = 0; x < map.Width; x++)
+            {
+                for (int y = 0; y < map.Height; y++)
+                {
+                        //Console.WriteLine(x + "---" + y + ": " + map.TileLayers[0].Tiles[x][y].SourceID);
+                }
+            }
+            */
+            
 
             int[] toBeRemoved;//saves index of node(s) to be removed.
             toBeRemoved = new int[nodeList.Count];
@@ -126,16 +153,8 @@ namespace tower_of_darkness_xna {
             // TODO: Unload any non ContentManager content here
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Update(GameTime gameTime) {
+        private void updatePlaying(GameTime gameTime) {
             KeyboardState keys = Keyboard.GetState();
-
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
 
             Rectangle delta = mapView;
             if (keys.IsKeyDown(Keys.Down))
@@ -150,17 +169,12 @@ namespace tower_of_darkness_xna {
             if (map.Bounds.Contains(delta))
                 mapView = delta;
 
-
-            // TODO: Add your update logic here
-            character.Update(gameTime);
-
-
-            for (int i = 0; i < nodeList.Count; i++)
-            {
-                if (character.Collides(nodeList[i]))
-                {
-                    if (nodeList[i].getNodeType() == "key")
-                    {
+           
+           character.Update(gameTime);
+          
+            for (int i = 0; i < nodeList.Count; i++) {
+                if (character.Collides(nodeList[i])) {
+                    if (nodeList[i].getNodeType() == "key") {
                         nodeList.RemoveAt(i);
                         character.keyCount++;
                         pickUpKeyInstance.Play();
@@ -171,16 +185,65 @@ namespace tower_of_darkness_xna {
             foreach (NPC n in npcs) {
                 n.Update(gameTime);
             }
-            base.Update(gameTime);
+        }
+
+        private void updateMenu(GameTime gameTime) {
+            menuTimer += gameTime.ElapsedGameTime.Milliseconds;
+            if (menuTimer >= menuInterval) {
+                KeyboardState kbs = Keyboard.GetState();
+                if (kbs.IsKeyDown(Keys.Up)) {
+                    if (menuSelectorIndex > 0) {
+                        menuSelectorIndex--;
+                    } else {
+                        menuSelectorIndex = NUM_MENU_ITEMS - 1;
+                    }
+                    menuTimer = 0;
+                } if (kbs.IsKeyDown(Keys.Down)) {
+                    if (menuSelectorIndex < NUM_MENU_ITEMS - 1) {
+                        menuSelectorIndex++;
+                    } else {
+                        menuSelectorIndex = 0;
+                    }
+                    menuTimer = 0;
+                } if (kbs.IsKeyDown(Keys.Space) || kbs.IsKeyDown(Keys.Enter)) {
+                    switch (menuSelectorIndex) {
+                        case 0:     //New Game
+                            loadPlayingContent();
+                            gameState = GameState.Playing;
+                            break;
+                        case 1:     //Exit
+                            Exit();
+                            break;
+                    }
+                } if (kbs.IsKeyDown(Keys.Escape)) {
+                    Exit();
+                }
+            }
+            menuSelectorPosition = new Vector2(70, 320 + menuSelectorIndex * 34);
         }
 
         /// <summary>
-        /// This is called when the game should draw itself.
+        /// Allows the game to run logic such as updating the world,
+        /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime) {
+        protected override void Update(GameTime gameTime) {
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
+
+            switch (gameState) {
+                case GameState.Menu:
+                    updateMenu(gameTime);
+                    break;
+                case GameState.Playing:
+                    updatePlaying(gameTime);
+                    break;
+            }
+            base.Update(gameTime);
+        }
+
+        private void drawPlaying(GameTime gameTime) {
             Color drawColor = new Color(ambientColor.R / 255f * ambient, ambientColor.G / 255f * ambient, ambientColor.B / 255f * ambient);
-            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
             spriteBatch.Draw(background, new Vector2(), Color.White);
@@ -197,7 +260,37 @@ namespace tower_of_darkness_xna {
                 node.Draw(spriteBatch);
             }
             spriteBatch.End();
+        }
+
+        private void drawMenu(GameTime gameTime) {
+            spriteBatch.Begin();
+            spriteBatch.Draw(menuBackground, new Vector2(), Color.White);
+            spriteBatch.Draw(menuSelector, menuSelectorPosition, Color.White);
+            spriteBatch.End();
+        }
+
+        /// <summary>
+        /// This is called when the game should draw itself.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Draw(GameTime gameTime) {
+            GraphicsDevice.Clear(Color.Black);
+
+            switch (gameState) {
+                case GameState.Menu:
+                    drawMenu(gameTime);
+                    break;
+                case GameState.Playing:
+                    drawPlaying(gameTime);
+                    break;
+            }
+            
             base.Draw(gameTime);
+        }
+
+        public Map getMap()
+        {
+            return this.currentMap;
         }
     }
 }
