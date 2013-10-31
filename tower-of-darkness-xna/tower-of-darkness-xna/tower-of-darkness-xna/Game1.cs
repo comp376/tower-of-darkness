@@ -39,6 +39,7 @@ namespace tower_of_darkness_xna {
 
         private List<Scene2DNode> nodeList;
         private List<NPC> npcs;
+        public Map currentMap;
         private Map map;
         private Rectangle mapView;
 
@@ -91,8 +92,10 @@ namespace tower_of_darkness_xna {
 
         private void loadPlayingContent() {
             background = Content.Load<Texture2D>("background");
-            map = Content.Load<Map>("test");
 
+           
+            map = Content.Load<Map>("test");
+            currentMap = map;
             Texture2D characterSpriteSheet = Content.Load<Texture2D>("character2");
             Texture2D npcSpriteSheet = Content.Load<Texture2D>("npc");
 
@@ -108,7 +111,7 @@ namespace tower_of_darkness_xna {
             light = Content.Load<Texture2D>("light");
             light = Content.Load<Texture2D>("light2");
             lanternTexture = Content.Load<Texture2D>("lantern");
-            character = new Character(characterSpriteSheet, 3, 1, 32, 64, new Vector2(200, graphics.PreferredBackBufferHeight - 96), light, ambient, ambientColor, lanternTexture);
+            character = new Character(characterSpriteSheet, 3, 1, 32, 64, new Vector2(200, graphics.PreferredBackBufferHeight - 96), light, ambient, ambientColor, lanternTexture, graphics);
             loadLevel1Content();
         }
 
@@ -133,6 +136,7 @@ namespace tower_of_darkness_xna {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             loadMenuContent();
+
             loadPauseContent();
             loadPlayingContent();
             
@@ -146,17 +150,19 @@ namespace tower_of_darkness_xna {
             Console.WriteLine("Map is: " + map.Height + " tiles high");
             Console.WriteLine("Map is: " + map.Width + " tiles wide");
             Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(475,125), "key");
-
-            //foreach (Tileset ts in map.Tilesets) {
-            //    foreach (Tile t in ts.Tiles) {
-            //        if (t.Properties["type"].Value == "floor")
-            //        {
-            //            Console.WriteLine("Floor created.");
-            //        }
-            //   }
-            //}
-            
             nodeList.Add(myKey);
+
+            //Test to get every tile data.
+            /*
+            for (int x = 0; x < map.Width; x++)
+            {
+                for (int y = 0; y < map.Height; y++)
+                {
+                        //Console.WriteLine(x + "---" + y + ": " + map.TileLayers[0].Tiles[x][y].SourceID);
+                }
+            }
+            */
+            
 
             int[] toBeRemoved;//saves index of node(s) to be removed.
             toBeRemoved = new int[nodeList.Count];
@@ -186,6 +192,9 @@ namespace tower_of_darkness_xna {
             //if (map.Bounds.Contains(delta))
             //    mapView = delta;
 
+           character.Update(gameTime);
+          
+
 
             // TODO: Add your update logic here
             pausePlayTimer += gameTime.ElapsedGameTime.Milliseconds;
@@ -197,7 +206,6 @@ namespace tower_of_darkness_xna {
                 }
             }
             character.Update(gameTime);
-
 
             for (int i = 0; i < nodeList.Count; i++) {
                 if (character.Collides(nodeList[i])) {
@@ -248,6 +256,7 @@ namespace tower_of_darkness_xna {
             }
             menuSelectorPosition = new Vector2(70, 320 + menuSelectorIndex * 34);
         }
+
 
         private void updatePause(GameTime gameTime) {
             pauseSelectTimer += gameTime.ElapsedGameTime.Milliseconds;
@@ -368,6 +377,11 @@ namespace tower_of_darkness_xna {
             }
             
             base.Draw(gameTime);
+        }
+
+        public Map getMap()
+        {
+            return this.currentMap;
         }
     }
 }

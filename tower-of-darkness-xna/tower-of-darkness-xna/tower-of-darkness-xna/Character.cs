@@ -44,7 +44,10 @@ namespace tower_of_darkness_xna {
         private float BACKWARDS_BOUNDARY = 10;
         private float FORWARDS_BOUNDARY = -10;
 
-        public Character(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, Vector2 objectPosition, Texture2D lightTexture, float ambient, Color ambientColor, Texture2D lanternTexture)
+        private bool jumping;
+        private float startY, jumpspeed = 0;
+
+        public Character(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, Vector2 objectPosition, Texture2D lightTexture, float ambient, Color ambientColor, Texture2D lanternTexture, GraphicsDeviceManager graphics)
             : base(spriteSheet, xNumberOfFrames, yNumberOfFrames, spriteWidth, spriteHeight, objectPosition) {
             this.lightTexture = lightTexture;
             this.ambient = ambient;
@@ -56,15 +59,18 @@ namespace tower_of_darkness_xna {
             lanternPosition = objectPosition;
             lanternSwing = LanternSwing.Forwards;
             keyCount = 0;
+            this.jumping = false;
+            this.jumpspeed = 0;
+            this.startY = graphics.PreferredBackBufferHeight - 96;
         }
         
-        public bool Collides(Tile tile)
+        public bool Collides(TileData tile)
         {
             // check if we collide with a tile.
-            if (this.objectPosition.X + (this.spriteWidth) > tile.Origin.X &&
-                    this.objectPosition.X < tile.Origin.X + (32) && //These two 32's should probably be changed for the tile width, accessible from map.tilewidth/map.tileheight
-                    this.objectPosition.Y + (this.spriteHeight) > tile.Origin.Y &&
-                    this.objectPosition.Y < tile.Origin.Y + (32))
+            if (this.objectPosition.X + (this.spriteWidth) > tile.Target.X &&
+                    this.objectPosition.X < tile.Target.X + (32) && //These two 32's should probably be changed for the tile width, accessible from map.tilewidth/map.tileheight
+                    this.objectPosition.Y + (this.spriteHeight) > tile.Target.Y &&
+                    this.objectPosition.Y < tile.Target.Y + (32))
                 return true;
             else
                 return false;
@@ -184,11 +190,29 @@ namespace tower_of_darkness_xna {
 
         private void move() {
             KeyboardState kbs = Keyboard.GetState();
-            if (kbs.IsKeyDown(Keys.Up) || kbs.IsKeyDown(Keys.Down) || kbs.IsKeyDown(Keys.Left) || kbs.IsKeyDown(Keys.Right)) {
-                isMoving = true;
-                if (kbs.IsKeyDown(Keys.Up)) {
-                    objectPosition.Y -= MOVE_SPEED;
+
+            if (jumping)
+            {
+                this.objectPosition.Y += jumpspeed;
+                jumpspeed += 1;
+                if (this.objectPosition.Y >= startY)
+                {
+                    this.objectPosition.Y = startY;
+                    jumping = false;
                 }
+            }
+            else
+            {
+                 if (kbs.IsKeyDown(Keys.Up))
+                {
+                    jumping = true;
+                    jumpspeed = -12;
+                }
+            }
+
+            if (kbs.IsKeyDown(Keys.Down) || kbs.IsKeyDown(Keys.Left) || kbs.IsKeyDown(Keys.Right)) {
+                isMoving = true;
+                
                 if (kbs.IsKeyDown(Keys.Down)) {
                     objectPosition.Y += MOVE_SPEED;
                 }
