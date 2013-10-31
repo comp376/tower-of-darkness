@@ -44,6 +44,7 @@ namespace tower_of_darkness_xna {
         private SoundEffectInstance pickUpKeyInstance;
 
         private List<Scene2DNode> nodeList;
+        private List<Scene2DNode> mapBricks;
         private List<NPC> npcs;
         public Map currentMap;
         private Map map;
@@ -110,7 +111,7 @@ namespace tower_of_darkness_xna {
             keyTexture = Content.Load<Texture2D>("key");
             font = Content.Load<SpriteFont>("spriteFont");
 
-            List<Scene2DNode> nodeList;
+            
             npcs = new List<NPC>();
             NPC npc = new NPC(npcSpriteSheet, 3, 1, 32, 64, new Vector2(400, graphics.PreferredBackBufferHeight - 128), SpriteEffects.None, rand.Next(npcDirectionInterval.Item1, npcDirectionInterval.Item2), font, NPC_ONE_STRING);
             NPC npcTwo = new NPC(npcSpriteSheet, 3, 1, 32, 64, new Vector2(300, graphics.PreferredBackBufferHeight - 128), SpriteEffects.None, rand.Next(npcDirectionInterval.Item1, npcDirectionInterval.Item2), font, NPC_TWO_STRING);
@@ -152,13 +153,25 @@ namespace tower_of_darkness_xna {
 
         private void loadLevel1Content() {
             nodeList = new List<Scene2DNode>();
-   
+            mapBricks = new List<Scene2DNode>();
             map = Content.Load<Map>("test2");
 
             Console.WriteLine("Map is: " + map.Height + " tiles high");
             Console.WriteLine("Map is: " + map.Width + " tiles wide");
             Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(475,125), "key");
             nodeList.Add(myKey);
+
+            //Add tiles to a scene2d list so they are easier to work with.
+            Scene2DNode tileNode;
+            for (int x = 0; x < map.Width; x++)
+            {
+                for (int y = 0; y < map.Height; y++)
+                {
+                    //could add some validation for tile properties and save tile with different type.
+                    tileNode = new Scene2DNode(keyTexture, new Vector2(map.TileLayers[0].Tiles[x][y].Target.Location.X, map.TileLayers[0].Tiles[x][y].Target.Location.Y), "brick");
+                    mapBricks.Add(tileNode);
+                }
+            }
 
             //Test to get every tile data.
             /*
@@ -222,6 +235,12 @@ namespace tower_of_darkness_xna {
                         character.keyCount++;
                         pickUpKeyInstance.Play();
                     }
+                }
+            }
+
+            foreach (Scene2DNode node in mapBricks){
+                if(character.Collides(node)){
+                    Console.WriteLine("Colliding!");
                 }
             }
 

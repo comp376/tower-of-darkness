@@ -75,7 +75,7 @@ namespace tower_of_darkness_xna {
             else
                 return false;
         }
-
+        
         public bool Collides(Scene2DNode node)
         {
             // check if two sprites intersect
@@ -239,6 +239,7 @@ namespace tower_of_darkness_xna {
             }
 
             if (kbs.IsKeyUp(Keys.Up) && kbs.IsKeyUp(Keys.Down) && kbs.IsKeyUp(Keys.Left) && kbs.IsKeyUp(Keys.Right)) {
+                jumping = true;
                 isMoving = false;
             }
         }
