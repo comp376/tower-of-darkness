@@ -20,12 +20,17 @@ namespace tower_of_darkness_xna {
         private float directionTimer = 0;
         private float directionInterval ;
         private Random rand;
+        public bool showText = false;
+        private SpriteFont font;
+        private string text;
 
-        public NPC(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, Vector2 objectPosition, SpriteEffects walkingDirection, float directionInterval)
+        public NPC(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, Vector2 objectPosition, SpriteEffects walkingDirection, float directionInterval, SpriteFont font, string text)
             : base(spriteSheet, xNumberOfFrames, yNumberOfFrames, spriteWidth, spriteHeight, objectPosition) {
                 this.walkingDirection = walkingDirection;
                 this.directionInterval = directionInterval;
-            rand = new Random();
+                this.font = font;
+                rand = new Random();
+                this.text = text;
         }
 
         public void Update(GameTime gameTime) {
@@ -72,6 +77,9 @@ namespace tower_of_darkness_xna {
         public override void Draw(SpriteBatch spriteBatch, Color color) {
             Rectangle sourceRect = new Rectangle(spriteWidth * xCurrentFrame, spriteHeight * yCurrentFrame, spriteWidth, spriteHeight);
             spriteBatch.Draw(spriteSheet, objectPosition, sourceRect, color, 0, new Vector2(), 1, walkingDirection, 0);
+            if (showText) {
+                spriteBatch.DrawString(font, text, new Vector2(objectPosition.X, objectPosition.Y - 64), Color.White);
+            }
         }
 
         public Vector2 getPosition()
