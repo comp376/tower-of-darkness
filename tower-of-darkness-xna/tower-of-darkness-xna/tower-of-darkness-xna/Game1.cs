@@ -107,21 +107,19 @@ namespace tower_of_darkness_xna {
             base.Initialize();
         }
 
-        private void loadPlayingContent() {
+        private void loadPlayingContent(String mapName) {
             background = Content.Load<Texture2D>("background");
-
-
 
             text = " ";
             npcText = false;
-            map = Content.Load<Map>("map1");
+            map = Content.Load<Map>(mapName);
             modifyLayerOpacity();
             loadCollisionRectangles();
             loadTransitionRectangles();
             currentMap = map;
             Texture2D characterSpriteSheet = Content.Load<Texture2D>("character2");
             Texture2D npcSpriteSheet = Content.Load<Texture2D>("npc");
-
+             
             grassTexture = Content.Load<Texture2D>("grass");
             keyTexture = Content.Load<Texture2D>("key");
             font = Content.Load<SpriteFont>("spriteFont");
@@ -331,10 +329,10 @@ namespace tower_of_darkness_xna {
             for(int i = 0; i < tRectangles.Count; i++){
                 if (tRectangles[i].Intersects(playerRect)) {
                     Console.WriteLine(map.ObjectLayers["Transition"].MapObjects[i].Name);
-                    loadPlayingContent();
+                    loadPlayingContent(map.ObjectLayers["Transition"].MapObjects[i].Name);
                     mapView = new Rectangle(0, 0, 784, 480);
                     xMove = 0;
-                    map = Content.Load<Map>(map.ObjectLayers["Transition"].MapObjects[i].Name);
+                    //map = Content.Load<Map>(map.ObjectLayers["Transition"].MapObjects[i].Name);
                     loadCollisionRectangles();
                     loadTransitionRectangles();
                     
@@ -397,7 +395,7 @@ namespace tower_of_darkness_xna {
                 } if (kbs.IsKeyDown(Keys.Space) || kbs.IsKeyDown(Keys.Enter)) {
                     switch (menuSelectorIndex) {
                         case 0:     //New Game
-                            loadPlayingContent();
+                            loadPlayingContent("map1");
                             gameState = GameState.Playing;
                             break;
                         case 1:     //Exit
