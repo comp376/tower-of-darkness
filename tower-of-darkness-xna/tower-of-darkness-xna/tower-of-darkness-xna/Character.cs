@@ -99,8 +99,8 @@ namespace tower_of_darkness_xna {
                 return false;
         }
         
-        public void Update(GameTime gameTime) {
-            move();
+        public void Update(GameTime gameTime, List<Rectangle> cRectangles) {
+            move(cRectangles);
             pulse(gameTime);
             lanternSwinging(gameTime);
 
@@ -199,8 +199,10 @@ namespace tower_of_darkness_xna {
 
         }
 
-        private void move() {
+        private void move(List<Rectangle> cRectangles) {
             KeyboardState kbs = Keyboard.GetState();
+
+            Rectangle playerRect = new Rectangle((int)objectPosition.X, (int)objectPosition.Y, spriteWidth, spriteHeight);
 
             if (jumping)
             {
@@ -225,15 +227,45 @@ namespace tower_of_darkness_xna {
                 isMoving = true;
                 
                 if (kbs.IsKeyDown(Keys.Down)) {
-                    objectPosition.Y += MOVE_SPEED;
+                    Rectangle tempRec = playerRect;
+                    tempRec.Y += MOVE_SPEED;
+                    bool collisionFree = true;
+                    foreach(Rectangle r in cRectangles){
+                        if (tempRec.Intersects(r)) {
+                            collisionFree = false;
+                            break;
+                        }
+                    }
+                    if(collisionFree)
+                        objectPosition.Y += MOVE_SPEED;
                 }
                 if (kbs.IsKeyDown(Keys.Left)) {
+                    Rectangle tempRec = playerRect;
+                    tempRec.X -= MOVE_SPEED;
+                    bool collisionFree = true;
+                    foreach (Rectangle r in cRectangles) {
+                        if (tempRec.Intersects(r)) {
+                            collisionFree = false;
+                            break;
+                        }
+                    }
                     walkingDirection = SpriteEffects.FlipHorizontally;
-                    objectPosition.X -= MOVE_SPEED;
+                    if(collisionFree)
+                      objectPosition.X -= MOVE_SPEED;
                 }
                 if (kbs.IsKeyDown(Keys.Right)) {
+                    Rectangle tempRec = playerRect;
+                    tempRec.X += MOVE_SPEED;
+                    bool collisionFree = true;
+                    foreach (Rectangle r in cRectangles) {
+                        if (tempRec.Intersects(r)) {
+                            collisionFree = false;
+                            break;
+                        }
+                    }
                     walkingDirection = SpriteEffects.None;
-                    objectPosition.X += MOVE_SPEED;
+                    if (collisionFree)
+                        objectPosition.X += MOVE_SPEED;
                 }
 
             }

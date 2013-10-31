@@ -626,7 +626,7 @@
    <tile gid="14"/>
    <tile gid="14"/>
    <tile gid="73"/>
-   <tile gid="73"/>
+   <tile gid="19"/>
    <tile gid="73"/>
    <tile gid="73"/>
    <tile gid="73"/>
@@ -757,4 +757,7 @@
    <tile gid="13"/>
   </data>
  </layer>
+ <objectgroup name="Collision" width="50" height="15">
+  <object x="673" y="384" width="32" height="32"/>
+ </objectgroup>
 </map>

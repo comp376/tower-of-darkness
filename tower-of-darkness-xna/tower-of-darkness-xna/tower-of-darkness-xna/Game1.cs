@@ -19,6 +19,8 @@ namespace tower_of_darkness_xna {
     public class Game1 : Game {
         private Color OPAQUE_COLOR = new Color(50, 50, 50);
 
+        private List<Rectangle> cRectangles;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private bool npcText;
@@ -112,6 +114,7 @@ namespace tower_of_darkness_xna {
             npcText = false;
             map = Content.Load<Map>("test2");
             modifyLayerOpacity();
+            loadCollisionRectangles();
             currentMap = map;
             Texture2D characterSpriteSheet = Content.Load<Texture2D>("character2");
             Texture2D npcSpriteSheet = Content.Load<Texture2D>("npc");
@@ -131,6 +134,15 @@ namespace tower_of_darkness_xna {
             lanternTexture = Content.Load<Texture2D>("lantern");
             character = new Character(characterSpriteSheet, 3, 1, 32, 64, new Vector2(200, graphics.PreferredBackBufferHeight - 128), light, ambient, ambientColor, lanternTexture, graphics);
             loadLevel1Content();
+        }
+
+        private void loadCollisionRectangles() {
+            cRectangles = new List<Rectangle>();
+            ObjectLayer ol = map.ObjectLayers["Collision"];
+            foreach (MapObject mo in ol.MapObjects) {
+                //Console.WriteLine(mo.Bounds.ToString());
+                cRectangles.Add(mo.Bounds);
+            }
         }
 
         private void modifyLayerOpacity() {
@@ -202,7 +214,6 @@ namespace tower_of_darkness_xna {
 
         private void updatePlaying(GameTime gameTime) {
             KeyboardState keys = Keyboard.GetState();
-            Console.WriteLine(xMove);
             //Rectangle delta = mapView;
             //if (keys.IsKeyDown(Keys.Down))
             //    delta.Y += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
@@ -215,8 +226,6 @@ namespace tower_of_darkness_xna {
 
             //if (map.Bounds.Contains(delta))
             //    mapView = delta;
-
-            character.Update(gameTime);
 
             //Scrolling
 
@@ -266,7 +275,7 @@ namespace tower_of_darkness_xna {
                     pauseSelectTimer = -300;
                 }
             }
-            character.Update(gameTime);
+            character.Update(gameTime, cRectangles);
 
 
 
