@@ -23,7 +23,7 @@ namespace tower_of_darkness_xna {
         private int xCurrentFrame = 0;
         private int yCurrentFrame = 0;
         private float frameTimer = 0;
-        private float frameInterval = 200;
+        private float frameInterval = 100;
         private Texture2D lightTexture;
         private float ambient;
         private Color ambientColor;

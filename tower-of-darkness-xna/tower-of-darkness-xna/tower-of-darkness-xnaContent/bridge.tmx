@@ -36,8 +36,8 @@
  <objectgroup name="Transition" width="25" height="15">
   <object name="tower1" x="779" y="321" width="22" height="31">
    <properties>
-    <property name="x" value="50"/>
-    <property name="y" value="500"/>
+    <property name="x" value="10"/>
+    <property name="y" value="960"/>
    </properties>
   </object>
   <object name="map1" x="1" y="314" width="4" height="101"/>

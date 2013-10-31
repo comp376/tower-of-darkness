@@ -17,7 +17,7 @@ namespace tower_of_darkness_xna {
     /// This is the main type for your game
     /// </summary>
     public class Game1 : Game {
-        private Color OPAQUE_COLOR = new Color(40, 40, 40);
+        private Color OPAQUE_COLOR = new Color(80, 80, 80);
 
         private List<Rectangle> cRectangles;
         private List<Rectangle> tRectangles;
@@ -133,7 +133,7 @@ namespace tower_of_darkness_xna {
             light = Content.Load<Texture2D>("light");
             //light = Content.Load<Texture2D>("light2");
             lanternTexture = Content.Load<Texture2D>("lantern");
-            character = new Character(characterSpriteSheet, 3, 1, 32, 64, new Vector2(200, 200), light, ambient, ambientColor, lanternTexture, graphics);
+            character = new Character(characterSpriteSheet, 3, 1, 32, 64, new Vector2(200, 320), light, ambient, ambientColor, lanternTexture, graphics);
             loadLevel1Content();
         }
 
@@ -331,6 +331,13 @@ namespace tower_of_darkness_xna {
                     Console.WriteLine(map.ObjectLayers["Transition"].MapObjects[i].Name);
                     loadPlayingContent(map.ObjectLayers["Transition"].MapObjects[i].Name);
                     mapView = new Rectangle(0, 0, 784, 480);
+                    //foreach(map.ObjectLayers["Transition"].MapObjects[i].Properties.Values){
+
+                    //}
+                    ////Dictiontary<string, string> 
+                        //map.ObjectLayers["Transition"].MapObjects[i].Properties.Values
+
+                    
                     xMove = 0;
                     //map = Content.Load<Map>(map.ObjectLayers["Transition"].MapObjects[i].Name);
                     loadCollisionRectangles();
