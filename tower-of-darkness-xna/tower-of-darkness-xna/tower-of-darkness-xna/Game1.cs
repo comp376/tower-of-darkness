@@ -112,7 +112,7 @@ namespace tower_of_darkness_xna {
 
             text = " ";
             npcText = false;
-            map = Content.Load<Map>("test2");
+            map = Content.Load<Map>("map1");
             modifyLayerOpacity();
             loadCollisionRectangles();
             currentMap = map;
