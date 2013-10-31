@@ -32,8 +32,8 @@ namespace tower_of_darkness_xna {
         private float lightInterval = 50;
         private float currentLightSize;
         private LightDirection lightDir;
-        private float LOWER_BOUNDARY = 1.0f;
-        private float UPPER_BOUNDARY = 1.0f;
+        private float LOWER_BOUNDARY = 0.9f;
+        private float UPPER_BOUNDARY = 1.4f;
         public int keyCount;
 
         private Texture2D lanternTexture;

@@ -17,7 +17,7 @@ namespace tower_of_darkness_xna {
     /// This is the main type for your game
     /// </summary>
     public class Game1 : Game {
-        private Color OPAQUE_COLOR = new Color(80, 80, 80);
+        private Color OPAQUE_COLOR = new Color(60, 60, 60);
 
         private List<Rectangle> cRectangles;
         private List<Rectangle> tRectangles;
@@ -194,7 +194,7 @@ namespace tower_of_darkness_xna {
 
             //Console.WriteLine("Map is: " + map.Height + " tiles high");
             //Console.WriteLine("Map is: " + map.Width + " tiles wide");
-            Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(475, 125), "key");
+            Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(475, 320), "key");
             nodeList.Add(myKey);
 
             //Test to get every tile data.
