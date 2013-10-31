@@ -63,6 +63,8 @@ namespace tower_of_darkness_xna {
         private float pausePlayTimer = 1000;
         private float pausePlayInterval = 1000;
 
+        private Texture2D filter;
+
         public Game1()
             : base() {
             graphics = new GraphicsDeviceManager(this);
@@ -84,7 +86,7 @@ namespace tower_of_darkness_xna {
 
             mapView = graphics.GraphicsDevice.Viewport.Bounds;
             rand = new Random();
-
+            filter = Content.Load<Texture2D>("filter");
             base.Initialize();
         }
 
@@ -254,7 +256,7 @@ namespace tower_of_darkness_xna {
             }
             menuSelectorPosition = new Vector2(70, 320 + menuSelectorIndex * 34);
         }
-        
+
 
         private void updatePause(GameTime gameTime) {
             pauseSelectTimer += gameTime.ElapsedGameTime.Milliseconds;
@@ -332,11 +334,9 @@ namespace tower_of_darkness_xna {
             foreach (NPC n in npcs) {
                 n.Draw(spriteBatch, new Color(50, 50, 50));
             }
-
             foreach (Scene2DNode node in nodeList) {
                 if (node.getNodeType() == "key")
                     node.hover();
-
                 node.Draw(spriteBatch);
             }
             spriteBatch.End();

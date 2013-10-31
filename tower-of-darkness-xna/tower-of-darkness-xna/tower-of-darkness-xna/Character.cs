@@ -234,7 +234,6 @@ namespace tower_of_darkness_xna {
 
         public override void Draw(SpriteBatch spriteBatch, Color color) {
             Rectangle sourceRect = new Rectangle(spriteWidth * xCurrentFrame, spriteHeight * yCurrentFrame, spriteWidth, spriteHeight);
-            //spriteBatch.Draw(spriteSheet, objectPosition, sourceRect, color);
             spriteBatch.Draw(spriteSheet, objectPosition, sourceRect, color, 0, new Vector2(), 1, walkingDirection, 0);
             lanternPosition = objectPosition;
             if(walkingDirection == SpriteEffects.None)
@@ -255,9 +254,6 @@ namespace tower_of_darkness_xna {
         private float degreeToRadian(float angle) {
             return (float)Math.PI * angle / 180.0f;
         }
-
-        
-
     }
 
     enum LightDirection {
