@@ -101,6 +101,7 @@ namespace tower_of_darkness_xna {
         }
         
         public void Update(GameTime gameTime, List<Rectangle> cRectangles) {
+            
             gravity(cRectangles);
             move(cRectangles);
             pulse(gameTime);
@@ -237,25 +238,6 @@ namespace tower_of_darkness_xna {
                     jumpspeed = -6;
                 }
             }
-
-            //if (jumping)
-            //{
-            //    this.objectPosition.Y += jumpspeed;
-            //    jumpspeed += 0.25f;
-            //    if (this.objectPosition.Y >= startY)
-            //    {
-            //        this.objectPosition.Y = startY;
-            //        jumping = false;
-            //    }
-            //}
-            //else
-            //{
-            //     if (kbs.IsKeyDown(Keys.Space))
-            //    {
-            //        jumping = true;
-            //        jumpspeed = -6;
-            //    }
-            //}
 
             if (kbs.IsKeyDown(Keys.Down) || kbs.IsKeyDown(Keys.Left) || kbs.IsKeyDown(Keys.Right)) {
                 isMoving = true;
