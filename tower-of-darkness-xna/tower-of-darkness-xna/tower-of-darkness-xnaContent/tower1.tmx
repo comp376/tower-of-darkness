@@ -31,5 +31,9 @@
   <object x="640" y="768" width="130" height="32"/>
   <object x="640" y="768" width="31" height="128"/>
  </objectgroup>
- <objectgroup name="Transition" width="25" height="45"/>
+ <objectgroup name="NPC" width="25" height="45"/>
+ <objectgroup name="Transition" width="25" height="45">
+  <object name="bridge" x="0" y="1311" width="6" height="65"/>
+  <object name="endGame" x="252" y="692" width="40" height="77"/>
+ </objectgroup>
 </map>
