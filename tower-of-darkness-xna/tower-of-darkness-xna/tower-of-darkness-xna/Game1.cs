@@ -20,10 +20,11 @@ namespace tower_of_darkness_xna {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private bool npcText;
+        private int xMove = 784;
 
         private GameState gameState = GameState.Menu;
 
-        private string NPC_ONE_STRING = "Hey I'm #1";
+        private string NPC_ONE_STRING = "ABCDEFGHIJKLMNOPQRTSTUVXYZ\nABCDEFGHIJKLMNOPQRTSTUVXYZ";
         private string NPC_TWO_STRING = "Sup, #2 here";
 
         private const int NUM_NPCS = 2;
@@ -87,10 +88,13 @@ namespace tower_of_darkness_xna {
             // TODO: Add your initialization logic here
             //graphics.ToggleFullScreen();
 
+            mapView = new Rectangle(0, 0, 784, 480);
+
             pickUpKey = Content.Load<SoundEffect>("pop");
             pickUpKeyInstance = pickUpKey.CreateInstance();
 
-            mapView = graphics.GraphicsDevice.Viewport.Bounds;
+            //mapView = graphics.GraphicsDevice.Viewport.Bounds;
+            
             rand = new Random();
             filter = Content.Load<Texture2D>("filter");
             base.Initialize();
@@ -98,6 +102,8 @@ namespace tower_of_darkness_xna {
 
         private void loadPlayingContent() {
             background = Content.Load<Texture2D>("background");
+
+           
 
             text = " ";
             npcText = false;
@@ -186,7 +192,7 @@ namespace tower_of_darkness_xna {
 
         private void updatePlaying(GameTime gameTime) {
             KeyboardState keys = Keyboard.GetState();
-
+            Console.WriteLine(xMove);
             //Rectangle delta = mapView;
             //if (keys.IsKeyDown(Keys.Down))
             //    delta.Y += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
@@ -201,8 +207,18 @@ namespace tower_of_darkness_xna {
             //    mapView = delta;
 
            character.Update(gameTime);
-          
 
+           if (character.objectPosition.X >= graphics.GraphicsDevice.Viewport.Bounds.Right)
+           {
+               mapView = new Rectangle(0 + xMove, 0, 784, 480);
+                character.objectPosition.X = graphics.GraphicsDevice.Viewport.Bounds.Left;
+           }
+
+         if (character.objectPosition.X < graphics.GraphicsDevice.Viewport.Bounds.Left)
+           {
+               mapView = new Rectangle(0, 0, 784, 480);
+               character.objectPosition.X = graphics.GraphicsDevice.Viewport.Bounds.Right;
+           }
 
             // TODO: Add your update logic here
             pausePlayTimer += gameTime.ElapsedGameTime.Milliseconds;
@@ -214,6 +230,8 @@ namespace tower_of_darkness_xna {
                 }
             }
             character.Update(gameTime);
+
+            
 
             for (int i = 0; i < nodeList.Count; i++) {
                 if (character.Collides(nodeList[i])) {
@@ -346,7 +364,6 @@ namespace tower_of_darkness_xna {
             //GraphicsDevice.Clear(Color.Black);
 
             Color drawColor = new Color(ambientColor.R / 255f * ambient, ambientColor.G / 255f * ambient, ambientColor.B / 255f * ambient);
-
             spriteBatch.Begin();
             spriteBatch.Draw(background, new Vector2(), Color.White);
             map.Draw(spriteBatch, mapView);
