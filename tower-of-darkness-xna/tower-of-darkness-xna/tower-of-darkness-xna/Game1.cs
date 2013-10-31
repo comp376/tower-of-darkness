@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -51,14 +52,14 @@ namespace tower_of_darkness_xna {
         private float menuInterval = 100;
 
         //Pause vars
-        private const int NUM_PAUSE_ITEMS = 2;
+        private const int NUM_PAUSE_ITEMS = 3;
         private Texture2D pauseBackground;
         private Texture2D pauseSelector;
         private Vector2 pauseSelectorPosition;
         private int pauseSelectorIndex = 0;
         private float pauseSelectTimer = 100;
         private float pauseSelectInterval = 100;
-        private float pausePlayTimer = 0;
+        private float pausePlayTimer = 1000;
         private float pausePlayInterval = 1000;
 
         public Game1()
@@ -111,7 +112,7 @@ namespace tower_of_darkness_xna {
         private void loadPauseContent() {
             pauseBackground = Content.Load<Texture2D>("pausescreen");
             pauseSelector = Content.Load<Texture2D>("menu_selector");
-            pauseSelectorPosition = new Vector2(192, 234);
+            pauseSelectorPosition = new Vector2(128, 150);
         }
 
         private void loadMenuContent() {
@@ -270,7 +271,7 @@ namespace tower_of_darkness_xna {
                         case 0:         //Continue
                             gameState = GameState.Playing;
                             break;
-                        case 1:         //Exit
+                        case 2:         //Exit
                             gameState = GameState.Menu;
                             menuTimer = -300;
                             break;
@@ -285,7 +286,7 @@ namespace tower_of_darkness_xna {
                     pausePlayTimer = -300;
                 }
 
-                pauseSelectorPosition = new Vector2(192, 234 + pauseSelectorIndex * 30);
+                pauseSelectorPosition = new Vector2(128, 150 + pauseSelectorIndex * 30);
             }
         }
 
@@ -310,6 +311,8 @@ namespace tower_of_darkness_xna {
         }
 
         private void drawPlaying(GameTime gameTime) {
+            //GraphicsDevice.Clear(Color.Black);
+
             Color drawColor = new Color(ambientColor.R / 255f * ambient, ambientColor.G / 255f * ambient, ambientColor.B / 255f * ambient);
 
             spriteBatch.Begin();
@@ -330,6 +333,8 @@ namespace tower_of_darkness_xna {
         }
 
         private void drawMenu(GameTime gameTime) {
+            GraphicsDevice.Clear(Color.Black);
+
             spriteBatch.Begin();
             spriteBatch.Draw(menuBackground, new Vector2(), Color.White);
             spriteBatch.Draw(menuSelector, menuSelectorPosition, Color.White);
@@ -338,7 +343,7 @@ namespace tower_of_darkness_xna {
 
         private void drawPause(GameTime gameTime) {
             spriteBatch.Begin();
-            spriteBatch.Draw(pauseBackground, new Vector2(), Color.White);
+            spriteBatch.Draw(pauseBackground, new Vector2(100, 60), Color.White);
             spriteBatch.Draw(pauseSelector, pauseSelectorPosition, Color.White);
             spriteBatch.End();
         }
@@ -348,7 +353,6 @@ namespace tower_of_darkness_xna {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime) {
-            GraphicsDevice.Clear(Color.Black);
 
             switch (gameState) {
                 case GameState.Menu:
