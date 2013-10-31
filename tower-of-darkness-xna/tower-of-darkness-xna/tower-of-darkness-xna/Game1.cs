@@ -94,7 +94,7 @@ namespace tower_of_darkness_xna {
             background = Content.Load<Texture2D>("background");
 
            
-            map = Content.Load<Map>("test");
+            map = Content.Load<Map>("test2");
             currentMap = map;
             Texture2D characterSpriteSheet = Content.Load<Texture2D>("character2");
             Texture2D npcSpriteSheet = Content.Load<Texture2D>("npc");
@@ -145,7 +145,7 @@ namespace tower_of_darkness_xna {
         private void loadLevel1Content() {
             nodeList = new List<Scene2DNode>();
    
-            map = Content.Load<Map>("test2");
+            //map = Content.Load<Map>("test");
 
             Console.WriteLine("Map is: " + map.Height + " tiles high");
             Console.WriteLine("Map is: " + map.Width + " tiles wide");
