@@ -13,10 +13,6 @@ Content\background.xnb
 Content\npc.xnb
 Content\menuscreen.xnb
 Content\menu_selector.xnb
-Content\test.xnb
-Content\pop.xnb
-Content\pop2.xnb
-Content\test\00.xnb
 Content\Brick.xnb
 Content\Brick2.xnb
 Content\Brick3.xnb
@@ -29,3 +25,9 @@ Content\TreeLeaves2.xnb
 Content\Window.xnb
 Content\Wood.xnb
 Content\filter.xnb
+Content\test.xnb
+Content\pop.xnb
+Content\pop2.xnb
+Content\test\00.xnb
+Content\test2.xnb
+Content\test2\00.xnb

@@ -104,14 +104,14 @@ namespace tower_of_darkness_xna {
 
             List<Scene2DNode> nodeList;
             npcs = new List<NPC>();
-            NPC npc = new NPC(npcSpriteSheet, 3, 1, 32, 64, new Vector2(400, graphics.PreferredBackBufferHeight - 96), SpriteEffects.None, rand.Next(npcDirectionInterval.Item1, npcDirectionInterval.Item2));
-            NPC npcTwo = new NPC(npcSpriteSheet, 3, 1, 32, 64, new Vector2(300, graphics.PreferredBackBufferHeight - 96), SpriteEffects.None, rand.Next(npcDirectionInterval.Item1, npcDirectionInterval.Item2));
+            NPC npc = new NPC(npcSpriteSheet, 3, 1, 32, 64, new Vector2(400, graphics.PreferredBackBufferHeight - 128), SpriteEffects.None, rand.Next(npcDirectionInterval.Item1, npcDirectionInterval.Item2));
+            NPC npcTwo = new NPC(npcSpriteSheet, 3, 1, 32, 64, new Vector2(300, graphics.PreferredBackBufferHeight - 128), SpriteEffects.None, rand.Next(npcDirectionInterval.Item1, npcDirectionInterval.Item2));
             npcs.Add(npc);
             npcs.Add(npcTwo);
             light = Content.Load<Texture2D>("light");
             light = Content.Load<Texture2D>("light2");
             lanternTexture = Content.Load<Texture2D>("lantern");
-            character = new Character(characterSpriteSheet, 3, 1, 32, 64, new Vector2(200, graphics.PreferredBackBufferHeight - 96), light, ambient, ambientColor, lanternTexture, graphics);
+            character = new Character(characterSpriteSheet, 3, 1, 32, 64, new Vector2(200, graphics.PreferredBackBufferHeight - 128), light, ambient, ambientColor, lanternTexture, graphics);
             loadLevel1Content();
         }
 
@@ -145,7 +145,7 @@ namespace tower_of_darkness_xna {
         private void loadLevel1Content() {
             nodeList = new List<Scene2DNode>();
    
-            map = Content.Load<Map>("test");
+            map = Content.Load<Map>("test2");
 
             Console.WriteLine("Map is: " + map.Height + " tiles high");
             Console.WriteLine("Map is: " + map.Width + " tiles wide");
