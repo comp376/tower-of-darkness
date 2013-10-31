@@ -17,6 +17,8 @@ namespace tower_of_darkness_xna {
     /// This is the main type for your game
     /// </summary>
     public class Game1 : Game {
+        private Color OPAQUE_COLOR = new Color(50, 50, 50);
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private bool npcText;
@@ -95,7 +97,7 @@ namespace tower_of_darkness_xna {
             pickUpKeyInstance = pickUpKey.CreateInstance();
 
             //mapView = graphics.GraphicsDevice.Viewport.Bounds;
-            
+
             rand = new Random();
             filter = Content.Load<Texture2D>("filter");
             base.Initialize();
@@ -104,11 +106,12 @@ namespace tower_of_darkness_xna {
         private void loadPlayingContent() {
             background = Content.Load<Texture2D>("background");
 
-           
+
 
             text = " ";
             npcText = false;
-            map = Content.Load<Map>("test");
+            map = Content.Load<Map>("test2");
+            modifyLayerOpacity();
             currentMap = map;
             Texture2D characterSpriteSheet = Content.Load<Texture2D>("character2");
             Texture2D npcSpriteSheet = Content.Load<Texture2D>("npc");
@@ -128,6 +131,12 @@ namespace tower_of_darkness_xna {
             lanternTexture = Content.Load<Texture2D>("lantern");
             character = new Character(characterSpriteSheet, 3, 1, 32, 64, new Vector2(200, graphics.PreferredBackBufferHeight - 128), light, ambient, ambientColor, lanternTexture, graphics);
             loadLevel1Content();
+        }
+
+        private void modifyLayerOpacity() {
+            foreach(TileLayer tl in map.TileLayers){
+                tl.OpacityColor = OPAQUE_COLOR;
+            }
         }
 
         private void loadPauseContent() {
@@ -154,17 +163,17 @@ namespace tower_of_darkness_xna {
 
             loadPauseContent();
             //loadPlayingContent();  //We can split these per level. : Joel
-            
+
         }
 
         private void loadLevel1Content() {
             nodeList = new List<Scene2DNode>();
-   
-            map = Content.Load<Map>("test2");
 
-            Console.WriteLine("Map is: " + map.Height + " tiles high");
-            Console.WriteLine("Map is: " + map.Width + " tiles wide");
-            Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(475,125), "key");
+            //map = Content.Load<Map>("test2");
+
+            //Console.WriteLine("Map is: " + map.Height + " tiles high");
+            //Console.WriteLine("Map is: " + map.Width + " tiles wide");
+            Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(475, 125), "key");
             nodeList.Add(myKey);
 
             //Test to get every tile data.
@@ -177,7 +186,7 @@ namespace tower_of_darkness_xna {
                 }
             }
             */
-            
+
 
             int[] toBeRemoved;//saves index of node(s) to be removed.
             toBeRemoved = new int[nodeList.Count];
@@ -207,48 +216,46 @@ namespace tower_of_darkness_xna {
             //if (map.Bounds.Contains(delta))
             //    mapView = delta;
 
-           character.Update(gameTime);
+            character.Update(gameTime);
 
             //Scrolling
-            /*
-           if (keys.IsKeyDown(Keys.Right))
-           {
-               xMove1 += 4;
-               mapView = new Rectangle(xMove1, 0, 784, 480);
-           }
-           else if (keys.IsKeyDown(Keys.Left))
-           {
-               xMove1 -= 4;
-               mapView = new Rectangle(xMove1, 0, 784, 480);
-           }
 
-           if (xMove1 <= 0)
-           {
-               xMove1  = 0;
-               mapView = new Rectangle(xMove1, 0, 784, 480);
-           }
-            */
+            //if (keys.IsKeyDown(Keys.Right))
+            //{
+            //    xMove1 += 4;
+            //    mapView = new Rectangle(xMove1, 0, 784, 480);
+            //}
+            //else if (keys.IsKeyDown(Keys.Left))
+            //{
+            //    xMove1 -= 4;
+            //    mapView = new Rectangle(xMove1, 0, 784, 480);
+            //}
+
+            //if (xMove1 <= 0)
+            //{
+            //    xMove1  = 0;
+            //    mapView = new Rectangle(xMove1, 0, 784, 480);
+            //}
+
             //For more zoning to different areas
-            
-           if (character.objectPosition.X >= graphics.GraphicsDevice.Viewport.Bounds.Right)
-           {
-               mapView = new Rectangle(0 + xMove, 0, 784, 480);
-                character.objectPosition.X = graphics.GraphicsDevice.Viewport.Bounds.Left;
-           }
 
-         if (character.objectPosition.X < graphics.GraphicsDevice.Viewport.Bounds.Left)
-           {
-               mapView = new Rectangle(0, 0, 784, 480);
-               character.objectPosition.X = graphics.GraphicsDevice.Viewport.Bounds.Right;
-           }
+            if (character.objectPosition.X >= graphics.GraphicsDevice.Viewport.Bounds.Right) {
+                mapView = new Rectangle(0 + xMove, 0, 784, 480);
+                character.objectPosition.X = graphics.GraphicsDevice.Viewport.Bounds.Left;
+            }
+
+            if (character.objectPosition.X < graphics.GraphicsDevice.Viewport.Bounds.Left) {
+                mapView = new Rectangle(0, 0, 784, 480);
+                character.objectPosition.X = graphics.GraphicsDevice.Viewport.Bounds.Right;
+            }
 
             /* //Testing Boundaries. Will need to variable for each zone so we know which areas we can zone to
-         if (character.objectPosition.X <= 4)
-         {
-             character.objectPosition.X = 4;
-         }
+            if (character.objectPosition.X <= 4)
+            {
+                 character.objectPosition.X = 4;
+            }
              */
-             
+
 
             // TODO: Add your update logic here
             pausePlayTimer += gameTime.ElapsedGameTime.Milliseconds;
@@ -261,7 +268,7 @@ namespace tower_of_darkness_xna {
             }
             character.Update(gameTime);
 
-            
+
 
             for (int i = 0; i < nodeList.Count; i++) {
                 if (character.Collides(nodeList[i])) {
@@ -284,7 +291,7 @@ namespace tower_of_darkness_xna {
                 } else {
                     n.showText = false;
                 }
-            
+
                 n.Update(gameTime);
             }
 
@@ -397,11 +404,9 @@ namespace tower_of_darkness_xna {
             spriteBatch.Begin();
             spriteBatch.Draw(background, new Vector2(), Color.White);
             map.Draw(spriteBatch, mapView);
-            character.Draw(spriteBatch, new Color(50, 50, 50));
+            character.Draw(spriteBatch, drawColor);
             foreach (NPC n in npcs) {
-                n.Draw(spriteBatch, new Color(50, 50, 50));
-
-                
+                n.Draw(spriteBatch, OPAQUE_COLOR);
             }
             foreach (Scene2DNode node in nodeList) {
                 if (node.getNodeType() == "key")
@@ -449,7 +454,7 @@ namespace tower_of_darkness_xna {
                     drawPause(gameTime);
                     break;
             }
-            
+
             base.Draw(gameTime);
         }
     }
