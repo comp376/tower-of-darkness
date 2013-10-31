@@ -146,7 +146,7 @@ namespace tower_of_darkness_xna {
             loadMenuContent();
 
             loadPauseContent();
-            loadPlayingContent();
+            //loadPlayingContent();  //We can split these per level. : Joel
             
         }
 
