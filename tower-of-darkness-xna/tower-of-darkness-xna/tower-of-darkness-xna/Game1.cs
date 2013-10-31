@@ -19,6 +19,7 @@ namespace tower_of_darkness_xna {
     public class Game1 : Game {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private bool npcText;
 
         private GameState gameState = GameState.Menu;
 
@@ -33,6 +34,8 @@ namespace tower_of_darkness_xna {
         private Texture2D keyTexture;
         private Tuple<int, int> npcDirectionInterval = new Tuple<int, int>(500, 3000);
         private Random rand;
+        private SpriteFont font;
+        private String text;
 
         private SoundEffect pickUpKey;
         private SoundEffectInstance pickUpKeyInstance;
@@ -93,14 +96,16 @@ namespace tower_of_darkness_xna {
         private void loadPlayingContent() {
             background = Content.Load<Texture2D>("background");
 
-           
-            map = Content.Load<Map>("test2");
+            text = " ";
+            npcText = false;
+            map = Content.Load<Map>("test");
             currentMap = map;
             Texture2D characterSpriteSheet = Content.Load<Texture2D>("character2");
             Texture2D npcSpriteSheet = Content.Load<Texture2D>("npc");
 
             grassTexture = Content.Load<Texture2D>("grass");
             keyTexture = Content.Load<Texture2D>("key");
+            font = Content.Load<SpriteFont>("spriteFont");
 
             List<Scene2DNode> nodeList;
             npcs = new List<NPC>();
@@ -145,7 +150,7 @@ namespace tower_of_darkness_xna {
         private void loadLevel1Content() {
             nodeList = new List<Scene2DNode>();
    
-            //map = Content.Load<Map>("test");
+            map = Content.Load<Map>("test2");
 
             Console.WriteLine("Map is: " + map.Height + " tiles high");
             Console.WriteLine("Map is: " + map.Width + " tiles wide");
@@ -177,7 +182,7 @@ namespace tower_of_darkness_xna {
         }
 
         private void updatePlaying(GameTime gameTime) {
-            //KeyboardState keys = Keyboard.GetState();
+            KeyboardState keys = Keyboard.GetState();
 
             //Rectangle delta = mapView;
             //if (keys.IsKeyDown(Keys.Down))
@@ -218,8 +223,19 @@ namespace tower_of_darkness_xna {
             }
 
             foreach (NPC n in npcs) {
+                if(character.Collides(n))
+                {
+
+                    if (keys.IsKeyDown(Keys.O))
+                    {
+                        text = "Testing this out";
+                        npcText = true;
+                    }
+                }
+            
                 n.Update(gameTime);
             }
+
         }
 
         private void updateMenu(GameTime gameTime) {
@@ -333,11 +349,18 @@ namespace tower_of_darkness_xna {
             character.Draw(spriteBatch, new Color(50, 50, 50));
             foreach (NPC n in npcs) {
                 n.Draw(spriteBatch, new Color(50, 50, 50));
+
+                
             }
             foreach (Scene2DNode node in nodeList) {
                 if (node.getNodeType() == "key")
                     node.hover();
                 node.Draw(spriteBatch);
+            }
+
+            if (npcText == true)
+            {
+                spriteBatch.DrawString(font, text, new Vector2(300, 300), Color.White);
             }
             spriteBatch.End();
         }

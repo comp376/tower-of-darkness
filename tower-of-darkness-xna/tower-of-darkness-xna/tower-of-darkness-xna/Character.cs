@@ -61,7 +61,7 @@ namespace tower_of_darkness_xna {
             keyCount = 0;
             this.jumping = false;
             this.jumpspeed = 0;
-            this.startY = graphics.PreferredBackBufferHeight - 96;
+            this.startY = graphics.PreferredBackBufferHeight - 128;
         }
         
         public bool Collides(TileData tile)
@@ -83,6 +83,17 @@ namespace tower_of_darkness_xna {
                     this.objectPosition.X < node.Position.X + (node.TextureWidth) &&
                     this.objectPosition.Y + (this.spriteHeight) > node.Position.Y &&
                     this.objectPosition.Y < node.Position.Y + (node.TextureWidth))
+                return true;
+            else
+                return false;
+        }
+
+        public bool Collides(NPC npc)
+        {
+            if (this.objectPosition.X + (this.spriteWidth) > npc.objectPosition.X &&
+                                this.objectPosition.X < npc.objectPosition.X + (npc.spriteWidth) &&
+                                this.objectPosition.Y + (this.spriteHeight) > npc.objectPosition.Y &&
+                                this.objectPosition.Y < npc.objectPosition.Y + (npc.spriteWidth))
                 return true;
             else
                 return false;
@@ -194,7 +205,7 @@ namespace tower_of_darkness_xna {
             if (jumping)
             {
                 this.objectPosition.Y += jumpspeed;
-                jumpspeed += 1;
+                jumpspeed += 0.25f;
                 if (this.objectPosition.Y >= startY)
                 {
                     this.objectPosition.Y = startY;
@@ -206,7 +217,7 @@ namespace tower_of_darkness_xna {
                  if (kbs.IsKeyDown(Keys.Up))
                 {
                     jumping = true;
-                    jumpspeed = -12;
+                    jumpspeed = -6;
                 }
             }
 
