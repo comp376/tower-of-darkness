@@ -19,6 +19,8 @@ namespace tower_of_darkness_xna {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private const int NUM_NPCS = 2;
+
         private float ambient = 0.8f;
         private Color ambientColor = new Color(255, 235, 119);
         private Character character;
@@ -27,8 +29,11 @@ namespace tower_of_darkness_xna {
         private Texture2D lanternTexture;
         private Texture2D grassTexture;
         private Texture2D keyTexture;
+        private Tuple<int, int> npcDirectionInterval = new Tuple<int, int>(1000, 5000);
+        private Random rand;
 
         private List<Scene2DNode> nodeList;
+        private List<NPC> npcs;
         private Map map;
         //private Map map;
         private Rectangle mapView;
@@ -48,6 +53,7 @@ namespace tower_of_darkness_xna {
         protected override void Initialize() {
             // TODO: Add your initialization logic here
             mapView = graphics.GraphicsDevice.Viewport.Bounds;
+            rand = new Random();
             base.Initialize();
         }
 
@@ -63,11 +69,17 @@ namespace tower_of_darkness_xna {
             map = Content.Load<Map>("test");
 
             Texture2D characterSpriteSheet = Content.Load<Texture2D>("character2");
+            Texture2D npcSpriteSheet = Content.Load<Texture2D>("npc");
 
             grassTexture = Content.Load<Texture2D>("grass");
             keyTexture = Content.Load<Texture2D>("key");
 
             List<Scene2DNode> nodeList;
+            npcs = new List<NPC>();
+            NPC npc = new NPC(npcSpriteSheet, 3, 1, 32, 64, new Vector2(400, graphics.PreferredBackBufferHeight - 96), SpriteEffects.None, rand.Next(npcDirectionInterval.Item1, npcDirectionInterval.Item2));
+            NPC npcTwo = new NPC(npcSpriteSheet, 3, 1, 32, 64, new Vector2(300, graphics.PreferredBackBufferHeight - 96), SpriteEffects.None, rand.Next(npcDirectionInterval.Item1, npcDirectionInterval.Item2));
+            npcs.Add(npc);
+            npcs.Add(npcTwo);
             light = Content.Load<Texture2D>("light");
             light = Content.Load<Texture2D>("light2");
             lanternTexture = Content.Load<Texture2D>("lantern");
@@ -79,14 +91,14 @@ namespace tower_of_darkness_xna {
         private void loadLevel1Content() {
             nodeList = new List<Scene2DNode>();
             map = Content.Load<Map>("test");
-            foreach (Tileset ts in map.Tilesets) {
-                foreach (Tile t in ts.Tiles) {
-                    if (t.Properties["type"].Value == "floor")
-                    {
-                        Console.WriteLine("Floor created.");
-                    }
-               }
-            }
+            //foreach (Tileset ts in map.Tilesets) {
+            //    foreach (Tile t in ts.Tiles) {
+            //        if (t.Properties["type"].Value == "floor")
+            //        {
+            //            Console.WriteLine("Floor created.");
+            //        }
+            //   }
+            //}
             Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(graphics.PreferredBackBufferWidth - (keyTexture.Width * 2), graphics.PreferredBackBufferHeight - (keyTexture.Height * 2)), "key");
             nodeList.Add(myKey);
         }
@@ -126,6 +138,9 @@ namespace tower_of_darkness_xna {
 
             // TODO: Add your update logic here
             character.Update(gameTime);
+            foreach (NPC n in npcs) {
+                n.Update(gameTime);
+            }
             base.Update(gameTime);
         }
 
@@ -140,7 +155,10 @@ namespace tower_of_darkness_xna {
             spriteBatch.Begin();
             spriteBatch.Draw(background, new Vector2(), Color.White);
             map.Draw(spriteBatch, mapView);
-            character.Draw(spriteBatch, new Color(40, 40, 40));
+            character.Draw(spriteBatch, new Color(50, 50, 50));
+            foreach (NPC n in npcs) {
+                n.Draw(spriteBatch, new Color(50, 50, 50));
+            }
 
 
             //foreach (Scene2DNode node in nodeList) {
