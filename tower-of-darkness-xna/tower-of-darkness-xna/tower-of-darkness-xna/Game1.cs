@@ -23,6 +23,9 @@ namespace tower_of_darkness_xna {
 
         private GameState gameState = GameState.Menu;
 
+        private string NPC_ONE_STRING = "Hey I'm #1";
+        private string NPC_TWO_STRING = "Sup, #2 here";
+
         private const int NUM_NPCS = 2;
         private float ambient = 0.8f;
         private Color ambientColor = new Color(255, 235, 119);
@@ -35,7 +38,7 @@ namespace tower_of_darkness_xna {
         private Tuple<int, int> npcDirectionInterval = new Tuple<int, int>(500, 3000);
         private Random rand;
         private SpriteFont font;
-        private String text;
+        private string text;
 
         private SoundEffect pickUpKey;
         private SoundEffectInstance pickUpKeyInstance;
@@ -109,8 +112,8 @@ namespace tower_of_darkness_xna {
 
             List<Scene2DNode> nodeList;
             npcs = new List<NPC>();
-            NPC npc = new NPC(npcSpriteSheet, 3, 1, 32, 64, new Vector2(400, graphics.PreferredBackBufferHeight - 128), SpriteEffects.None, rand.Next(npcDirectionInterval.Item1, npcDirectionInterval.Item2));
-            NPC npcTwo = new NPC(npcSpriteSheet, 3, 1, 32, 64, new Vector2(300, graphics.PreferredBackBufferHeight - 128), SpriteEffects.None, rand.Next(npcDirectionInterval.Item1, npcDirectionInterval.Item2));
+            NPC npc = new NPC(npcSpriteSheet, 3, 1, 32, 64, new Vector2(400, graphics.PreferredBackBufferHeight - 128), SpriteEffects.None, rand.Next(npcDirectionInterval.Item1, npcDirectionInterval.Item2), font, NPC_ONE_STRING);
+            NPC npcTwo = new NPC(npcSpriteSheet, 3, 1, 32, 64, new Vector2(300, graphics.PreferredBackBufferHeight - 128), SpriteEffects.None, rand.Next(npcDirectionInterval.Item1, npcDirectionInterval.Item2), font, NPC_TWO_STRING);
             npcs.Add(npc);
             npcs.Add(npcTwo);
             light = Content.Load<Texture2D>("light");
@@ -223,14 +226,15 @@ namespace tower_of_darkness_xna {
             }
 
             foreach (NPC n in npcs) {
-                if(character.Collides(n))
-                {
+                if (character.Collides(n)) {
 
-                    if (keys.IsKeyDown(Keys.Up))
-                    {
-                        text = "Testing this out";
-                        npcText = true;
+                    if (keys.IsKeyDown(Keys.Up)) {
+                        //text = "Testing this out";
+                        //npcText = true;
+                        n.showText = true;
                     }
+                } else {
+                    n.showText = false;
                 }
             
                 n.Update(gameTime);
@@ -358,10 +362,10 @@ namespace tower_of_darkness_xna {
                 node.Draw(spriteBatch);
             }
 
-            if (npcText == true)
-            {
-                spriteBatch.DrawString(font, text, new Vector2(300, 300), Color.White);
-            }
+            //if (npcText == true)
+            //{
+            //    spriteBatch.DrawString(font, text, new Vector2(300, 300), Color.White);
+            //}
             spriteBatch.End();
         }
 
