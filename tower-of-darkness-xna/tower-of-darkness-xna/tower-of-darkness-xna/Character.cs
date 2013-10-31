@@ -33,6 +33,7 @@ namespace tower_of_darkness_xna {
         private LightDirection lightDir;
         private float LOWER_BOUNDARY = 1.0f;
         private float UPPER_BOUNDARY = 1.0f;
+        public int keyCount;
 
         private Texture2D lanternTexture;
         private Vector2 lanternPosition;
@@ -54,6 +55,7 @@ namespace tower_of_darkness_xna {
             this.lanternTexture = lanternTexture;
             lanternPosition = objectPosition;
             lanternSwing = LanternSwing.Forwards;
+            keyCount = 0;
         }
         
         public bool Collides(Tile tile)
@@ -63,6 +65,18 @@ namespace tower_of_darkness_xna {
                     this.objectPosition.X < tile.Origin.X + (32) && //These two 32's should probably be changed for the tile width, accessible from map.tilewidth/map.tileheight
                     this.objectPosition.Y + (this.spriteHeight) > tile.Origin.Y &&
                     this.objectPosition.Y < tile.Origin.Y + (32))
+                return true;
+            else
+                return false;
+        }
+
+        public bool Collides(Scene2DNode node)
+        {
+            // check if two sprites intersect
+            if (this.objectPosition.X + (this.spriteWidth) > node.Position.X &&
+                    this.objectPosition.X < node.Position.X + (node.TextureWidth) &&
+                    this.objectPosition.Y + (this.spriteHeight) > node.Position.Y &&
+                    this.objectPosition.Y < node.Position.Y + (node.TextureWidth))
                 return true;
             else
                 return false;

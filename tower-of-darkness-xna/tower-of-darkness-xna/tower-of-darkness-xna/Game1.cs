@@ -28,6 +28,9 @@ namespace tower_of_darkness_xna {
         private Texture2D grassTexture;
         private Texture2D keyTexture;
 
+        private SoundEffect pickUpKey;
+        private SoundEffectInstance pickUpKeyInstance;
+
         private List<Scene2DNode> nodeList;
         private Map map;
         //private Map map;
@@ -47,6 +50,9 @@ namespace tower_of_darkness_xna {
         /// </summary>
         protected override void Initialize() {
             // TODO: Add your initialization logic here
+            pickUpKey = Content.Load<SoundEffect>("pop");
+            pickUpKeyInstance = pickUpKey.CreateInstance();
+
             mapView = graphics.GraphicsDevice.Viewport.Bounds;
             base.Initialize();
         }
@@ -78,17 +84,15 @@ namespace tower_of_darkness_xna {
 
         private void loadLevel1Content() {
             nodeList = new List<Scene2DNode>();
+   
             map = Content.Load<Map>("test");
-            foreach (Tileset ts in map.Tilesets) {
-                foreach (Tile t in ts.Tiles) {
-                    if (t.Properties["type"].Value == "floor")
-                    {
-                        Console.WriteLine("Floor created.");
-                    }
-               }
-            }
-            Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(graphics.PreferredBackBufferWidth - (keyTexture.Width * 2), graphics.PreferredBackBufferHeight - (keyTexture.Height * 2)), "key");
+            Console.WriteLine("Map is: " + map.Height + " tiles high");
+            Console.WriteLine("Map is: " + map.Width + " tiles wide");
+            Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(475,125), "key");
             nodeList.Add(myKey);
+
+            int[] toBeRemoved;//saves index of node(s) to be removed.
+            toBeRemoved = new int[nodeList.Count];
         }
 
         /// <summary>
@@ -126,6 +130,20 @@ namespace tower_of_darkness_xna {
 
             // TODO: Add your update logic here
             character.Update(gameTime);
+
+            for (int i = 0; i < nodeList.Count; i++)
+            {
+                if (character.Collides(nodeList[i]))
+                {
+                    if (nodeList[i].getNodeType() == "key")
+                    {
+                        nodeList.RemoveAt(i);
+                        character.keyCount++;
+                        pickUpKeyInstance.Play();
+                    }
+                }
+            }
+
             base.Update(gameTime);
         }
 
@@ -143,12 +161,12 @@ namespace tower_of_darkness_xna {
             character.Draw(spriteBatch, new Color(40, 40, 40));
 
 
-            //foreach (Scene2DNode node in nodeList) {
-            //    if (node.getNodeType() == "key")
-            //        node.hover();
+            foreach (Scene2DNode node in nodeList) {
+                if (node.getNodeType() == "key")
+                    node.hover();
 
-            //    node.Draw(spriteBatch);
-            //}
+                node.Draw(spriteBatch);
+            }
             spriteBatch.End();
             base.Draw(gameTime);
         }
