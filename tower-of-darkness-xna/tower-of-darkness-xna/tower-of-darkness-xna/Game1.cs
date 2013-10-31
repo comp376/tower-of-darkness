@@ -378,10 +378,5 @@ namespace tower_of_darkness_xna {
             
             base.Draw(gameTime);
         }
-
-        public Map getMap()
-        {
-            return this.currentMap;
-        }
     }
 }

@@ -73,5 +73,10 @@ namespace tower_of_darkness_xna {
             Rectangle sourceRect = new Rectangle(spriteWidth * xCurrentFrame, spriteHeight * yCurrentFrame, spriteWidth, spriteHeight);
             spriteBatch.Draw(spriteSheet, objectPosition, sourceRect, color, 0, new Vector2(), 1, walkingDirection, 0);
         }
+
+        public Vector2 getPosition()
+        {
+            return this.objectPosition;
+        }
     }
 }
