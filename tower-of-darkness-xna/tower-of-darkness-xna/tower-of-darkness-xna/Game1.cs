@@ -20,6 +20,8 @@ namespace tower_of_darkness_xna {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private bool npcText;
+        private int xMove = 784; // Zoning
+        private int xMove1 = 0; // Scrolling
 
         private GameState gameState = GameState.Menu;
 
@@ -87,10 +89,13 @@ namespace tower_of_darkness_xna {
             // TODO: Add your initialization logic here
             //graphics.ToggleFullScreen();
 
+            mapView = new Rectangle(0, 0, 784, 480);
+
             pickUpKey = Content.Load<SoundEffect>("pop");
             pickUpKeyInstance = pickUpKey.CreateInstance();
 
-            mapView = graphics.GraphicsDevice.Viewport.Bounds;
+            //mapView = graphics.GraphicsDevice.Viewport.Bounds;
+            
             rand = new Random();
             filter = Content.Load<Texture2D>("filter");
             base.Initialize();
@@ -98,6 +103,8 @@ namespace tower_of_darkness_xna {
 
         private void loadPlayingContent() {
             background = Content.Load<Texture2D>("background");
+
+           
 
             text = " ";
             npcText = false;
@@ -186,7 +193,7 @@ namespace tower_of_darkness_xna {
 
         private void updatePlaying(GameTime gameTime) {
             KeyboardState keys = Keyboard.GetState();
-
+            Console.WriteLine(xMove);
             //Rectangle delta = mapView;
             //if (keys.IsKeyDown(Keys.Down))
             //    delta.Y += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
@@ -201,8 +208,47 @@ namespace tower_of_darkness_xna {
             //    mapView = delta;
 
            character.Update(gameTime);
-          
 
+            //Scrolling
+            /*
+           if (keys.IsKeyDown(Keys.Right))
+           {
+               xMove1 += 4;
+               mapView = new Rectangle(xMove1, 0, 784, 480);
+           }
+           else if (keys.IsKeyDown(Keys.Left))
+           {
+               xMove1 -= 4;
+               mapView = new Rectangle(xMove1, 0, 784, 480);
+           }
+
+           if (xMove1 <= 0)
+           {
+               xMove1  = 0;
+               mapView = new Rectangle(xMove1, 0, 784, 480);
+           }
+            */
+            //For more zoning to different areas
+            
+           if (character.objectPosition.X >= graphics.GraphicsDevice.Viewport.Bounds.Right)
+           {
+               mapView = new Rectangle(0 + xMove, 0, 784, 480);
+                character.objectPosition.X = graphics.GraphicsDevice.Viewport.Bounds.Left;
+           }
+
+         if (character.objectPosition.X < graphics.GraphicsDevice.Viewport.Bounds.Left)
+           {
+               mapView = new Rectangle(0, 0, 784, 480);
+               character.objectPosition.X = graphics.GraphicsDevice.Viewport.Bounds.Right;
+           }
+
+            /* //Testing Boundaries. Will need to variable for each zone so we know which areas we can zone to
+         if (character.objectPosition.X <= 4)
+         {
+             character.objectPosition.X = 4;
+         }
+             */
+             
 
             // TODO: Add your update logic here
             pausePlayTimer += gameTime.ElapsedGameTime.Milliseconds;
@@ -214,6 +260,8 @@ namespace tower_of_darkness_xna {
                 }
             }
             character.Update(gameTime);
+
+            
 
             for (int i = 0; i < nodeList.Count; i++) {
                 if (character.Collides(nodeList[i])) {
@@ -346,19 +394,25 @@ namespace tower_of_darkness_xna {
             //GraphicsDevice.Clear(Color.Black);
 
             Color drawColor = new Color(ambientColor.R / 255f * ambient, ambientColor.G / 255f * ambient, ambientColor.B / 255f * ambient);
-
             spriteBatch.Begin();
             spriteBatch.Draw(background, new Vector2(), Color.White);
             map.Draw(spriteBatch, mapView);
             character.Draw(spriteBatch, new Color(50, 50, 50));
             foreach (NPC n in npcs) {
-                n.Draw(spriteBatch, new Color(50, 50, 50));                
+                n.Draw(spriteBatch, new Color(50, 50, 50));
+
+                
             }
             foreach (Scene2DNode node in nodeList) {
                 if (node.getNodeType() == "key")
                     node.hover();
                 node.Draw(spriteBatch);
             }
+
+            //if (npcText == true)
+            //{
+            //    spriteBatch.DrawString(font, text, new Vector2(300, 300), Color.White);
+            //}
             spriteBatch.End();
         }
 
