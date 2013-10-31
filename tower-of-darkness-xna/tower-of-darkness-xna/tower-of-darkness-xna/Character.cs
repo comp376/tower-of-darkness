@@ -87,6 +87,17 @@ namespace tower_of_darkness_xna {
             else
                 return false;
         }
+
+        public bool Collides(NPC npc)
+        {
+            if (this.objectPosition.X + (this.spriteWidth) > npc.objectPosition.X &&
+                                this.objectPosition.X < npc.objectPosition.X + (npc.spriteWidth) &&
+                                this.objectPosition.Y + (this.spriteHeight) > npc.objectPosition.Y &&
+                                this.objectPosition.Y < npc.objectPosition.Y + (npc.spriteWidth))
+                return true;
+            else
+                return false;
+        }
         
         public void Update(GameTime gameTime) {
             move();

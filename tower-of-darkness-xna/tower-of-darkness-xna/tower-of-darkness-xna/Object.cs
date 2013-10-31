@@ -12,8 +12,8 @@ namespace tower_of_darkness_xna {
         protected Texture2D spriteSheet;
         protected int xNumberOfFrames;
         protected int yNumberOfFrames;
-        protected int spriteWidth;
-        protected int spriteHeight;
+        public int spriteWidth;
+        public int spriteHeight;
         public Vector2 objectPosition;
 
         protected Object(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, Vector2 objectPosition) {
