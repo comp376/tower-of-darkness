@@ -40,5 +40,6 @@
     <property name="y" value="500"/>
    </properties>
   </object>
+  <object name="map1" x="1" y="314" width="4" height="101"/>
  </objectgroup>
 </map>
