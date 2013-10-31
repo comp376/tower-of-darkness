@@ -31,8 +31,8 @@ namespace tower_of_darkness_xna {
 
         private GameState gameState = GameState.Menu;
 
-        private string NPC_ONE_STRING = "ABCDEFGHIJKLMNOPQRTSTUVXYZ\nABCDEFGHIJKLMNOPQRTSTUVXYZ";
-        private string NPC_TWO_STRING = "Sup, #2 here";
+        private string NPC_ONE_STRING = "???";
+        private string NPC_TWO_STRING = "???";
 
         private const int NUM_NPCS = 2;
         private float ambient = 0.8f;
@@ -303,10 +303,10 @@ namespace tower_of_darkness_xna {
                 character.objectPosition.X = 4;
             }
 
-            if (character.objectPosition.X >= 776 && xMove == 784)
-            {
-                character.objectPosition.X = 776;
-            }
+            //if (character.objectPosition.X >= 776 && xMove == 784)
+            //{
+            //    character.objectPosition.X = 776;
+            //}
             /* //Testing Boundaries. Will need to variable for each zone so we know which areas we can zone to
             if (character.objectPosition.X <= 4)
             {
@@ -330,7 +330,15 @@ namespace tower_of_darkness_xna {
             //foreach (Rectangle r in cRectangles) {
             for(int i = 0; i < tRectangles.Count; i++){
                 if (tRectangles[i].Intersects(playerRect)) {
-                    Console.WriteLine(map.ObjectLayers["Transition"].MapObjects[i]);
+                    Console.WriteLine(map.ObjectLayers["Transition"].MapObjects[i].Name);
+                    loadPlayingContent();
+                    mapView = new Rectangle(0, 0, 784, 480);
+                    xMove = 0;
+                    map = Content.Load<Map>(map.ObjectLayers["Transition"].MapObjects[i].Name);
+                    loadCollisionRectangles();
+                    loadTransitionRectangles();
+                    
+                    
                     //tRectangles = new List<Rectangle>();
                     //ObjectLayer ol = map.ObjectLayers["Transition"];
                     //foreach (MapObject mo in ol.MapObjects) {

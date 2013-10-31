@@ -12,7 +12,7 @@ namespace tower_of_darkness_xna {
     class Character : Object {
 
         //readonly Vector2 gravity = new Vector2(0, -9.8f);
-        private const int MOVE_SPEED = 2;
+        private const int MOVE_SPEED = 3;
         private const int GRAVITY_SPEED = 2;
         private const float LIGHT_CHANGE = 0.05f;
         private const float BOUNDARY_CHANGE = 0.05f;

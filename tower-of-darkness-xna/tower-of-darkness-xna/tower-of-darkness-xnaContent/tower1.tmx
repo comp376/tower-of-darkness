@@ -31,5 +31,5 @@
   <object x="640" y="768" width="130" height="32"/>
   <object x="640" y="768" width="31" height="128"/>
  </objectgroup>
- <objectgroup name="NPC" width="25" height="45"/>
+ <objectgroup name="Transition" width="25" height="45"/>
 </map>
