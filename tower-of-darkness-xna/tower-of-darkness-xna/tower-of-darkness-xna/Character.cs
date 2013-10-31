@@ -87,7 +87,7 @@ namespace tower_of_darkness_xna {
             else
                 return false;
         }
-        
+                
         public void Update(GameTime gameTime) {
             move();
             pulse(gameTime);
