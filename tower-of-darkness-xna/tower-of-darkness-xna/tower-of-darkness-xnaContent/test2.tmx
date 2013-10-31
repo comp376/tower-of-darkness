@@ -759,5 +759,6 @@
  </layer>
  <objectgroup name="Collision" width="50" height="15">
   <object x="673" y="384" width="32" height="32"/>
+  <object x="0" y="418" width="1598" height="62"/>
  </objectgroup>
 </map>
