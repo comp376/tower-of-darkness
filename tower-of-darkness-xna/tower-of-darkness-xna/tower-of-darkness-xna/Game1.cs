@@ -17,7 +17,7 @@ namespace tower_of_darkness_xna {
     /// This is the main type for your game
     /// </summary>
     public class Game1 : Game {
-        private Color OPAQUE_COLOR = new Color(50, 50, 50);
+        private Color OPAQUE_COLOR = new Color(255, 255, 255);
 
         private List<Rectangle> cRectangles;
 
@@ -130,9 +130,9 @@ namespace tower_of_darkness_xna {
             npcs.Add(npc);
             npcs.Add(npcTwo);
             light = Content.Load<Texture2D>("light");
-            light = Content.Load<Texture2D>("light2");
+            //light = Content.Load<Texture2D>("light2");
             lanternTexture = Content.Load<Texture2D>("lantern");
-            character = new Character(characterSpriteSheet, 3, 1, 32, 64, new Vector2(200, graphics.PreferredBackBufferHeight - 128), light, ambient, ambientColor, lanternTexture, graphics);
+            character = new Character(characterSpriteSheet, 3, 1, 32, 64, new Vector2(200, 200), light, ambient, ambientColor, lanternTexture, graphics);
             loadLevel1Content();
         }
 
@@ -229,20 +229,16 @@ namespace tower_of_darkness_xna {
 
             //Scrolling
 
-            //if (keys.IsKeyDown(Keys.Right))
-            //{
+            //if (keys.IsKeyDown(Keys.Right)) {
             //    xMove1 += 4;
             //    mapView = new Rectangle(xMove1, 0, 784, 480);
-            //}
-            //else if (keys.IsKeyDown(Keys.Left))
-            //{
+            //} else if (keys.IsKeyDown(Keys.Left)) {
             //    xMove1 -= 4;
             //    mapView = new Rectangle(xMove1, 0, 784, 480);
             //}
 
-            //if (xMove1 <= 0)
-            //{
-            //    xMove1  = 0;
+            //if (xMove1 <= 0) {
+            //    xMove1 = 0;
             //    mapView = new Rectangle(xMove1, 0, 784, 480);
             //}
 
@@ -251,11 +247,25 @@ namespace tower_of_darkness_xna {
             if (character.objectPosition.X >= graphics.GraphicsDevice.Viewport.Bounds.Right) {
                 mapView = new Rectangle(0 + xMove, 0, 784, 480);
                 character.objectPosition.X = graphics.GraphicsDevice.Viewport.Bounds.Left;
+                foreach (Scene2DNode s2dn in nodeList) {
+                    s2dn.worldPosition.X += xMove;
+                } foreach (NPC npc in npcs) {
+                    npc.objectPosition.X += xMove;
+                } for(int i = 0; i < cRectangles.Count; i++){
+                    cRectangles[i] = new Rectangle(cRectangles[i].X - xMove, cRectangles[i].Y, cRectangles[i].Width, cRectangles[i].Height);
+                }
             }
 
             if (character.objectPosition.X < graphics.GraphicsDevice.Viewport.Bounds.Left) {
                 mapView = new Rectangle(0, 0, 784, 480);
                 character.objectPosition.X = graphics.GraphicsDevice.Viewport.Bounds.Right;
+                foreach (Scene2DNode s2dn in nodeList) {
+                    s2dn.worldPosition.X -= xMove;
+                } foreach (NPC npc in npcs) {
+                    npc.objectPosition.X -= xMove;
+                } for (int i = 0; i < cRectangles.Count; i++) {
+                    cRectangles[i] = new Rectangle(cRectangles[i].X + xMove, cRectangles[i].Y, cRectangles[i].Width, cRectangles[i].Height);
+                }
             }
 
             /* //Testing Boundaries. Will need to variable for each zone so we know which areas we can zone to
