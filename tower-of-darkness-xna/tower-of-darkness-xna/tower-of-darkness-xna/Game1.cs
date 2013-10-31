@@ -50,6 +50,17 @@ namespace tower_of_darkness_xna {
         private float menuTimer = 100;
         private float menuInterval = 100;
 
+        //Pause vars
+        private const int NUM_PAUSE_ITEMS = 2;
+        private Texture2D pauseBackground;
+        private Texture2D pauseSelector;
+        private Vector2 pauseSelectorPosition;
+        private int pauseSelectorIndex = 0;
+        private float pauseSelectTimer = 100;
+        private float pauseSelectInterval = 100;
+        private float pausePlayTimer = 0;
+        private float pausePlayInterval = 1000;
+
         public Game1()
             : base() {
             graphics = new GraphicsDeviceManager(this);
@@ -97,6 +108,12 @@ namespace tower_of_darkness_xna {
             loadLevel1Content();
         }
 
+        private void loadPauseContent() {
+            pauseBackground = Content.Load<Texture2D>("pausescreen");
+            pauseSelector = Content.Load<Texture2D>("menu_selector");
+            pauseSelectorPosition = new Vector2(192, 234);
+        }
+
         private void loadMenuContent() {
             menuBackground = Content.Load<Texture2D>("menuscreen");
             menuSelector = Content.Load<Texture2D>("menu_selector");
@@ -112,6 +129,7 @@ namespace tower_of_darkness_xna {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             loadMenuContent();
+            loadPauseContent();
             loadPlayingContent();
             
         }
@@ -149,23 +167,31 @@ namespace tower_of_darkness_xna {
         }
 
         private void updatePlaying(GameTime gameTime) {
-            KeyboardState keys = Keyboard.GetState();
+            //KeyboardState keys = Keyboard.GetState();
 
-            Rectangle delta = mapView;
-            if (keys.IsKeyDown(Keys.Down))
-                delta.Y += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
-            if (keys.IsKeyDown(Keys.Up))
-                delta.Y -= Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
-            if (keys.IsKeyDown(Keys.Right))
-                delta.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
-            if (keys.IsKeyDown(Keys.Left))
-                delta.X -= Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
+            //Rectangle delta = mapView;
+            //if (keys.IsKeyDown(Keys.Down))
+            //    delta.Y += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
+            //if (keys.IsKeyDown(Keys.Up))
+            //    delta.Y -= Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
+            //if (keys.IsKeyDown(Keys.Right))
+            //    delta.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
+            //if (keys.IsKeyDown(Keys.Left))
+            //    delta.X -= Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
 
-            if (map.Bounds.Contains(delta))
-                mapView = delta;
+            //if (map.Bounds.Contains(delta))
+            //    mapView = delta;
 
 
             // TODO: Add your update logic here
+            pausePlayTimer += gameTime.ElapsedGameTime.Milliseconds;
+            if (pausePlayTimer >= pausePlayInterval) {
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape)) {
+                    gameState = GameState.Pause;
+                    pausePlayTimer = 0;
+                    pauseSelectTimer = -300;
+                }
+            }
             character.Update(gameTime);
 
 
@@ -219,21 +245,65 @@ namespace tower_of_darkness_xna {
             menuSelectorPosition = new Vector2(70, 320 + menuSelectorIndex * 34);
         }
 
+        private void updatePause(GameTime gameTime) {
+            pauseSelectTimer += gameTime.ElapsedGameTime.Milliseconds;
+            if (pauseSelectTimer >= pauseSelectInterval) {
+                KeyboardState kbs = Keyboard.GetState();
+                if (kbs.IsKeyDown(Keys.Up)) {
+                    if (pauseSelectorIndex > 0) {
+                        pauseSelectorIndex--;
+                    } else {
+                        pauseSelectorIndex = NUM_PAUSE_ITEMS - 1;
+                    }
+                    pauseSelectTimer = 0;
+                }
+                if (kbs.IsKeyDown(Keys.Down)) {
+                    if (pauseSelectorIndex < NUM_PAUSE_ITEMS - 1) {
+                        pauseSelectorIndex++;
+                    } else {
+                        pauseSelectorIndex = 0;
+                    }
+                    pauseSelectTimer = 0;
+                }
+                if (kbs.IsKeyDown(Keys.Space) || kbs.IsKeyDown(Keys.Enter)) {
+                    switch (pauseSelectorIndex) {
+                        case 0:         //Continue
+                            gameState = GameState.Playing;
+                            break;
+                        case 1:         //Exit
+                            gameState = GameState.Menu;
+                            menuTimer = -300;
+                            break;
+                    }
+                    pauseSelectorIndex = 0;
+                    pauseSelectTimer = 0;
+                }
+                if (kbs.IsKeyDown(Keys.Escape)) {
+                    gameState = GameState.Playing;
+                    pauseSelectorIndex = 0;
+                    pauseSelectTimer = 0;
+                    pausePlayTimer = -300;
+                }
+
+                pauseSelectorPosition = new Vector2(192, 234 + pauseSelectorIndex * 30);
+            }
+        }
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime) {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
             switch (gameState) {
                 case GameState.Menu:
                     updateMenu(gameTime);
                     break;
                 case GameState.Playing:
                     updatePlaying(gameTime);
+                    break;
+                case GameState.Pause:
+                    updatePause(gameTime);
                     break;
             }
             base.Update(gameTime);
@@ -266,6 +336,13 @@ namespace tower_of_darkness_xna {
             spriteBatch.End();
         }
 
+        private void drawPause(GameTime gameTime) {
+            spriteBatch.Begin();
+            spriteBatch.Draw(pauseBackground, new Vector2(), Color.White);
+            spriteBatch.Draw(pauseSelector, pauseSelectorPosition, Color.White);
+            spriteBatch.End();
+        }
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -279,6 +356,9 @@ namespace tower_of_darkness_xna {
                     break;
                 case GameState.Playing:
                     drawPlaying(gameTime);
+                    break;
+                case GameState.Pause:
+                    drawPause(gameTime);
                     break;
             }
             
