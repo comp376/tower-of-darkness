@@ -20,7 +20,8 @@ namespace tower_of_darkness_xna {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private bool npcText;
-        private int xMove = 784;
+        private int xMove = 784; // Zoning
+        private int xMove1 = 0; // Scrolling
 
         private GameState gameState = GameState.Menu;
 
@@ -208,6 +209,27 @@ namespace tower_of_darkness_xna {
 
            character.Update(gameTime);
 
+            //Scrolling
+            /*
+           if (keys.IsKeyDown(Keys.Right))
+           {
+               xMove1 += 4;
+               mapView = new Rectangle(xMove1, 0, 784, 480);
+           }
+           else if (keys.IsKeyDown(Keys.Left))
+           {
+               xMove1 -= 4;
+               mapView = new Rectangle(xMove1, 0, 784, 480);
+           }
+
+           if (xMove1 <= 0)
+           {
+               xMove1  = 0;
+               mapView = new Rectangle(xMove1, 0, 784, 480);
+           }
+            */
+            //For more zoning to different areas
+            
            if (character.objectPosition.X >= graphics.GraphicsDevice.Viewport.Bounds.Right)
            {
                mapView = new Rectangle(0 + xMove, 0, 784, 480);
@@ -219,6 +241,14 @@ namespace tower_of_darkness_xna {
                mapView = new Rectangle(0, 0, 784, 480);
                character.objectPosition.X = graphics.GraphicsDevice.Viewport.Bounds.Right;
            }
+
+            /* //Testing Boundaries. Will need to variable for each zone so we know which areas we can zone to
+         if (character.objectPosition.X <= 4)
+         {
+             character.objectPosition.X = 4;
+         }
+             */
+             
 
             // TODO: Add your update logic here
             pausePlayTimer += gameTime.ElapsedGameTime.Milliseconds;
