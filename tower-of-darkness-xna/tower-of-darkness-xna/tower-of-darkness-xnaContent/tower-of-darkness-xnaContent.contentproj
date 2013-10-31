@@ -117,6 +117,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="pop.wav">
+      <Name>pop</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="pop2.wav">
+      <Name>pop2</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="npc.png">
       <Name>npc</Name>
       <Importer>TextureImporter</Importer>
