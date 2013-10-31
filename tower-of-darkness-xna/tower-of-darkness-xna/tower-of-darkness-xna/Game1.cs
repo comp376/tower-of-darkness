@@ -17,9 +17,10 @@ namespace tower_of_darkness_xna {
     /// This is the main type for your game
     /// </summary>
     public class Game1 : Game {
-        private Color OPAQUE_COLOR = new Color(255, 255, 255);
+        private Color OPAQUE_COLOR = new Color(40, 40, 40);
 
         private List<Rectangle> cRectangles;
+        private List<Rectangle> tRectangles;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -115,6 +116,7 @@ namespace tower_of_darkness_xna {
             map = Content.Load<Map>("test2");
             modifyLayerOpacity();
             loadCollisionRectangles();
+            loadTransitionRectangles();
             currentMap = map;
             Texture2D characterSpriteSheet = Content.Load<Texture2D>("character2");
             Texture2D npcSpriteSheet = Content.Load<Texture2D>("npc");
@@ -142,6 +144,14 @@ namespace tower_of_darkness_xna {
             foreach (MapObject mo in ol.MapObjects) {
                 //Console.WriteLine(mo.Bounds.ToString());
                 cRectangles.Add(mo.Bounds);
+            }
+        }
+
+        private void loadTransitionRectangles() {
+            tRectangles = new List<Rectangle>();
+            ObjectLayer ol = map.ObjectLayers["Transition"];
+            foreach (MapObject mo in ol.MapObjects) {
+                tRectangles.Add(mo.Bounds);
             }
         }
 
@@ -253,6 +263,8 @@ namespace tower_of_darkness_xna {
                     npc.objectPosition.X += xMove;
                 } for(int i = 0; i < cRectangles.Count; i++){
                     cRectangles[i] = new Rectangle(cRectangles[i].X - xMove, cRectangles[i].Y, cRectangles[i].Width, cRectangles[i].Height);
+                } for (int i = 0; i < tRectangles.Count; i++) {
+                    tRectangles[i] = new Rectangle(tRectangles[i].X - xMove, tRectangles[i].Y, tRectangles[i].Width, tRectangles[i].Height);
                 }
             }
 
@@ -265,6 +277,8 @@ namespace tower_of_darkness_xna {
                     npc.objectPosition.X -= xMove;
                 } for (int i = 0; i < cRectangles.Count; i++) {
                     cRectangles[i] = new Rectangle(cRectangles[i].X + xMove, cRectangles[i].Y, cRectangles[i].Width, cRectangles[i].Height);
+                } for (int i = 0; i < tRectangles.Count; i++) {
+                    tRectangles[i] = new Rectangle(tRectangles[i].X + xMove, tRectangles[i].Y, tRectangles[i].Width, tRectangles[i].Height);
                 }
             }
 
@@ -286,6 +300,19 @@ namespace tower_of_darkness_xna {
                 }
             }
             character.Update(gameTime, cRectangles);
+
+            Rectangle playerRect = new Rectangle((int)character.objectPosition.X, (int)character.objectPosition.Y, character.spriteWidth, character.spriteHeight);
+            //foreach (Rectangle r in cRectangles) {
+            for(int i = 0; i < tRectangles.Count; i++){
+                if (tRectangles[i].Intersects(playerRect)) {
+                    Console.WriteLine(map.ObjectLayers["Transition"].MapObjects[i]);
+                    //tRectangles = new List<Rectangle>();
+                    //ObjectLayer ol = map.ObjectLayers["Transition"];
+                    //foreach (MapObject mo in ol.MapObjects) {
+                    //    tRectangles.Add(mo.Bounds);
+                    //}
+                }
+            }
 
 
 
