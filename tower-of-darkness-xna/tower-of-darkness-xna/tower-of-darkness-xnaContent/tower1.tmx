@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="45" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="spritesheet" tilewidth="32" tileheight="32">
+  <image source="spritesheet.png" trans="ff00ff" width="320" height="320"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="25" height="45">
+  <data encoding="base64" compression="zlib">
+   eJzt1UEOgCAMBMD+gIMf4P+v9GJiYqTSdVcSs4feoFMoDS0iujDaETZs2LBhw4YNGzbONUjOa8zuRdYp7ophVO92Vc9HPUNrGRmMerL6snrR/lUMxEGMqoMaFeeNMesw5uMpB3MGs3fKnDf1ObJzKYyv8yv+jrvYfhI7Lsh//w==
+  </data>
+ </layer>
+ <objectgroup name="Collision" width="25" height="45">
+  <object x="1" y="1376" width="799" height="63"/>
+  <object x="608" y="1344" width="64" height="31"/>
+  <object x="640" y="1312" width="64" height="32"/>
+  <object x="673" y="1281" width="64" height="31"/>
+  <object x="705" y="1248" width="64" height="32"/>
+  <object x="769" y="0" width="31" height="1248"/>
+  <object x="576" y="1185" width="96" height="31"/>
+  <object x="512" y="1152" width="64" height="33"/>
+  <object x="480" y="1120" width="64" height="33"/>
+  <object x="449" y="1088" width="63" height="32"/>
+  <object x="416" y="1056" width="64" height="32"/>
+  <object x="384" y="1024" width="63" height="32"/>
+  <object x="353" y="992" width="63" height="32"/>
+  <object x="321" y="960" width="64" height="33"/>
+  <object x="128" y="928" width="224" height="31"/>
+  <object x="128" y="929" width="32" height="224"/>
+  <object x="32" y="1216" width="160" height="31"/>
+  <object x="1" y="1" width="30" height="1312"/>
+  <object x="480" y="960" width="289" height="31"/>
+  <object x="640" y="768" width="130" height="32"/>
+  <object x="640" y="768" width="31" height="128"/>
+ </objectgroup>
+ <objectgroup name="NPC" width="25" height="45"/>
+</map>

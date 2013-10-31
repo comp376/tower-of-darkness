@@ -25,8 +25,9 @@ namespace tower_of_darkness_xna {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private bool npcText;
-        private int xMove = 784; // Zoning
+        private int xMove = 0; // Zoning
         private int xMove1 = 0; // Scrolling
+        private bool isFirstZone;
 
         private GameState gameState = GameState.Menu;
 
@@ -113,7 +114,7 @@ namespace tower_of_darkness_xna {
 
             text = " ";
             npcText = false;
-            map = Content.Load<Map>("test2");
+            map = Content.Load<Map>("map1");
             modifyLayerOpacity();
             loadCollisionRectangles();
             loadTransitionRectangles();
@@ -255,7 +256,9 @@ namespace tower_of_darkness_xna {
             //For more zoning to different areas
 
             if (character.objectPosition.X >= graphics.GraphicsDevice.Viewport.Bounds.Right) {
-                mapView = new Rectangle(0 + xMove, 0, 784, 480);
+                xMove += 784;
+                
+                mapView = new Rectangle(xMove, 0, 784, 480);
                 character.objectPosition.X = graphics.GraphicsDevice.Viewport.Bounds.Left;
                 foreach (Scene2DNode s2dn in nodeList) {
                     s2dn.worldPosition.X += xMove;
@@ -268,20 +271,42 @@ namespace tower_of_darkness_xna {
                 }
             }
 
-            if (character.objectPosition.X < graphics.GraphicsDevice.Viewport.Bounds.Left) {
-                mapView = new Rectangle(0, 0, 784, 480);
+            if (xMove > 0)
+            {
+
+                if (character.objectPosition.X < graphics.GraphicsDevice.Viewport.Bounds.Left)
+                {
+                    
                 character.objectPosition.X = graphics.GraphicsDevice.Viewport.Bounds.Right;
-                foreach (Scene2DNode s2dn in nodeList) {
+                    foreach (Scene2DNode s2dn in nodeList)
+                    {
                     s2dn.worldPosition.X -= xMove;
-                } foreach (NPC npc in npcs) {
+                    } foreach (NPC npc in npcs)
+                    {
                     npc.objectPosition.X -= xMove;
-                } for (int i = 0; i < cRectangles.Count; i++) {
+                    }
+                    
+                    for (int i = 0; i < cRectangles.Count; i++)
+                    {
                     cRectangles[i] = new Rectangle(cRectangles[i].X + xMove, cRectangles[i].Y, cRectangles[i].Width, cRectangles[i].Height);
                 } for (int i = 0; i < tRectangles.Count; i++) {
                     tRectangles[i] = new Rectangle(tRectangles[i].X + xMove, tRectangles[i].Y, tRectangles[i].Width, tRectangles[i].Height);
                 }
+
+                    xMove -= 784;
+                    mapView = new Rectangle(xMove, 0, 784, 480);
+                }
             }
 
+            if (character.objectPosition.X <= 4 && xMove == 0)
+            {
+                character.objectPosition.X = 4;
+            }
+
+            if (character.objectPosition.X >= 776 && xMove == 784)
+            {
+                character.objectPosition.X = 776;
+            }
             /* //Testing Boundaries. Will need to variable for each zone so we know which areas we can zone to
             if (character.objectPosition.X <= 4)
             {

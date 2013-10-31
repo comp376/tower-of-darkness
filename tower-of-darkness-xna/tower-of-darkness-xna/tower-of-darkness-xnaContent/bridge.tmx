@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="15" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="spritesheet" tilewidth="32" tileheight="32">
+  <image source="spritesheet.png" trans="ff00ff" width="320" height="320"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJy1ksEKwjAQRAMexIIg+BVVb1VvVW9Vb1Vv1f7/Z7gBhyxDslEwgcdChp0dsqmdc3UBVsJa2AhNAXhGWwCe0RWA34tnxuh/hN/L2tVe3eWqzpjbeUzfGjX2JtB2KqfOxLrf4cGojfJAL7SjcFL5kY11v8OzUVvlgV5oF+Hqwn9DNtb9Dm9G7ZQHeqHdhYcL/w3ZWB+Ep1F75YFeaC9hdOG/IRvriwyD8uDembD83HM29k8dPSfl75kkqBTTBNWXzBP8c8YbFRRLHw==
+  </data>
+ </layer>
+ <objectgroup name="Collision" width="25" height="15">
+  <object x="224" y="386" width="63" height="30"/>
+  <object x="257" y="353" width="254" height="28"/>
+  <object x="482" y="385" width="62" height="28"/>
+  <object x="739" y="384" width="60" height="31"/>
+  <object x="768" y="353" width="32" height="30"/>
+  <object x="704" y="410" width="39" height="9"/>
+  <object x="714" y="406" width="35" height="5"/>
+  <object x="719" y="402" width="36" height="5"/>
+  <object x="723" y="398" width="34" height="3"/>
+  <object x="727" y="394" width="34" height="3"/>
+  <object x="730" y="390" width="37" height="4"/>
+  <object x="734" y="386" width="24" height="5"/>
+  <object x="738" y="381" width="27" height="5"/>
+  <object x="741" y="378" width="32" height="6"/>
+  <object x="745" y="375" width="31" height="4"/>
+  <object x="749" y="372" width="31" height="2"/>
+  <object x="751" y="368" width="33" height="3"/>
+  <object x="755" y="365" width="33" height="3"/>
+  <object x="758" y="362" width="27" height="4"/>
+  <object x="761" y="359" width="33" height="5"/>
+  <object x="764" y="355" width="19" height="5"/>
+  <object x="383" y="419"/>
+  <object x="0" y="416" width="801" height="64"/>
+ </objectgroup>
+ <objectgroup name="Transition" width="25" height="15">
+  <object name="tower1" x="779" y="321" width="22" height="31">
+   <properties>
+    <property name="x" value="50"/>
+    <property name="y" value="500"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
