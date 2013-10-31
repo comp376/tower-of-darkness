@@ -226,7 +226,7 @@ namespace tower_of_darkness_xna {
                 if(character.Collides(n))
                 {
 
-                    if (keys.IsKeyDown(Keys.O))
+                    if (keys.IsKeyDown(Keys.Up))
                     {
                         text = "Testing this out";
                         npcText = true;

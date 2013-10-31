@@ -214,7 +214,7 @@ namespace tower_of_darkness_xna {
             }
             else
             {
-                 if (kbs.IsKeyDown(Keys.Up))
+                 if (kbs.IsKeyDown(Keys.Space))
                 {
                     jumping = true;
                     jumpspeed = -6;
