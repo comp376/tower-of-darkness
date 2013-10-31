@@ -23,7 +23,7 @@ namespace tower_of_darkness_xna {
 
         private GameState gameState = GameState.Menu;
 
-        private string NPC_ONE_STRING = "Hey I'm #1";
+        private string NPC_ONE_STRING = "ABCDEFGHIJKLMNOPQRTSTUVXYZ\nABCDEFGHIJKLMNOPQRTSTUVXYZ";
         private string NPC_TWO_STRING = "Sup, #2 here";
 
         private const int NUM_NPCS = 2;
@@ -352,20 +352,13 @@ namespace tower_of_darkness_xna {
             map.Draw(spriteBatch, mapView);
             character.Draw(spriteBatch, new Color(50, 50, 50));
             foreach (NPC n in npcs) {
-                n.Draw(spriteBatch, new Color(50, 50, 50));
-
-                
+                n.Draw(spriteBatch, new Color(50, 50, 50));                
             }
             foreach (Scene2DNode node in nodeList) {
                 if (node.getNodeType() == "key")
                     node.hover();
                 node.Draw(spriteBatch);
             }
-
-            //if (npcText == true)
-            //{
-            //    spriteBatch.DrawString(font, text, new Vector2(300, 300), Color.White);
-            //}
             spriteBatch.End();
         }
 
