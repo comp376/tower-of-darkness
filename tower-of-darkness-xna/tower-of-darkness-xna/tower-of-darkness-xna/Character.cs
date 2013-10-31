@@ -228,7 +228,7 @@ namespace tower_of_darkness_xna {
                 foreach(Rectangle r in cRectangles){
                     if (r.Intersects(playerRect)) {
                         jumping = false;
-                        this.objectPosition.Y+= -r.Height;
+                        this.objectPosition.Y += -8;
                     }
                 }
             } else {
