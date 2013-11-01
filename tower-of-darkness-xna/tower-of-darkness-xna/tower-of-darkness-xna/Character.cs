@@ -12,7 +12,7 @@ namespace tower_of_darkness_xna {
     class Character : Object {
 
         readonly Vector2 gravity = new Vector2(0, -9.8f);
-        private const int MOVE_SPEED = 2;
+        private const int MOVE_SPEED = 1;
         private const float LIGHT_CHANGE = 0.05f;
         private const float BOUNDARY_CHANGE = 0.05f;
         private const float ANGLE_CHANGE = 0.5f;
@@ -22,7 +22,7 @@ namespace tower_of_darkness_xna {
         private int xCurrentFrame = 0;
         private int yCurrentFrame = 0;
         private float frameTimer = 0;
-        private float frameInterval = 100;
+        private float frameInterval = 200;
         private Texture2D lightTexture;
         private float ambient;
         private Color ambientColor;

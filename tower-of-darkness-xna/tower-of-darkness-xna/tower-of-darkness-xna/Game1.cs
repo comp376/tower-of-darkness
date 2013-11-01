@@ -17,13 +17,17 @@ namespace tower_of_darkness_xna {
     /// This is the main type for your game
     /// </summary>
     public class Game1 : Game {
+        private Color OPAQUE_COLOR = new Color(50, 50, 50);
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private bool npcText;
+        private int xMove = 784; // Zoning
+        private int xMove1 = 0; // Scrolling
 
         private GameState gameState = GameState.Menu;
 
-        private string NPC_ONE_STRING = "Hey I'm #1";
+        private string NPC_ONE_STRING = "ABCDEFGHIJKLMNOPQRTSTUVXYZ\nABCDEFGHIJKLMNOPQRTSTUVXYZ";
         private string NPC_TWO_STRING = "Sup, #2 here";
 
         private const int NUM_NPCS = 2;
@@ -88,10 +92,13 @@ namespace tower_of_darkness_xna {
             // TODO: Add your initialization logic here
             //graphics.ToggleFullScreen();
 
+            mapView = new Rectangle(0, 0, 784, 480);
+
             pickUpKey = Content.Load<SoundEffect>("pop");
             pickUpKeyInstance = pickUpKey.CreateInstance();
 
-            mapView = graphics.GraphicsDevice.Viewport.Bounds;
+            //mapView = graphics.GraphicsDevice.Viewport.Bounds;
+
             rand = new Random();
             filter = Content.Load<Texture2D>("filter");
             base.Initialize();
@@ -100,9 +107,12 @@ namespace tower_of_darkness_xna {
         private void loadPlayingContent() {
             background = Content.Load<Texture2D>("background");
 
+
+
             text = " ";
             npcText = false;
-            map = Content.Load<Map>("test");
+            map = Content.Load<Map>("test2");
+            modifyLayerOpacity();
             currentMap = map;
             Texture2D characterSpriteSheet = Content.Load<Texture2D>("character2");
             Texture2D npcSpriteSheet = Content.Load<Texture2D>("npc");
@@ -122,6 +132,12 @@ namespace tower_of_darkness_xna {
             lanternTexture = Content.Load<Texture2D>("lantern");
             character = new Character(characterSpriteSheet, 3, 1, 32, 64, new Vector2(200, graphics.PreferredBackBufferHeight - 128), light, ambient, ambientColor, lanternTexture, graphics);
             loadLevel1Content();
+        }
+
+        private void modifyLayerOpacity() {
+            foreach(TileLayer tl in map.TileLayers){
+                tl.OpacityColor = OPAQUE_COLOR;
+            }
         }
 
         private void loadPauseContent() {
@@ -148,7 +164,7 @@ namespace tower_of_darkness_xna {
 
             loadPauseContent();
             //loadPlayingContent();  //We can split these per level. : Joel
-            
+
         }
 
         private void loadLevel1Content() {
@@ -156,9 +172,11 @@ namespace tower_of_darkness_xna {
             mapBricks = new List<Scene2DNode>();
             map = Content.Load<Map>("test2");
 
-            Console.WriteLine("Map is: " + map.Height + " tiles high");
-            Console.WriteLine("Map is: " + map.Width + " tiles wide");
-            Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(475,125), "key");
+            //map = Content.Load<Map>("test2");
+
+            //Console.WriteLine("Map is: " + map.Height + " tiles high");
+            //Console.WriteLine("Map is: " + map.Width + " tiles wide");
+            Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(475, 125), "key");
             nodeList.Add(myKey);
 
             //Add tiles to a scene2d list so they are easier to work with.
@@ -168,6 +186,10 @@ namespace tower_of_darkness_xna {
                 for (int y = 0; y < map.Height; y++)
                 {
                     //could add some validation for tile properties and save tile with different type.
+                   // Console.WriteLine("Property " + map.Tilesets[0].Tiles.GetType().GetProperty("type"));
+                        //.Tiles[map.TileLayers[0].Tiles[x][y].SourceID].GetType().GetProperty("type") + "!");
+                    //GRABS a tile's SOURCEID
+                    //map.TileLayers[0].Tiles[x][y].SourceID
                     tileNode = new Scene2DNode(keyTexture, new Vector2(map.TileLayers[0].Tiles[x][y].Target.Location.X, map.TileLayers[0].Tiles[x][y].Target.Location.Y), "brick");
                     mapBricks.Add(tileNode);
                 }
@@ -183,7 +205,7 @@ namespace tower_of_darkness_xna {
                 }
             }
             */
-            
+
 
             int[] toBeRemoved;//saves index of node(s) to be removed.
             toBeRemoved = new int[nodeList.Count];
@@ -199,7 +221,7 @@ namespace tower_of_darkness_xna {
 
         private void updatePlaying(GameTime gameTime) {
             KeyboardState keys = Keyboard.GetState();
-
+            Console.WriteLine(xMove);
             //Rectangle delta = mapView;
             //if (keys.IsKeyDown(Keys.Down))
             //    delta.Y += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
@@ -213,8 +235,45 @@ namespace tower_of_darkness_xna {
             //if (map.Bounds.Contains(delta))
             //    mapView = delta;
 
-           character.Update(gameTime);
-          
+            character.Update(gameTime);
+
+            //Scrolling
+
+            //if (keys.IsKeyDown(Keys.Right))
+            //{
+            //    xMove1 += 4;
+            //    mapView = new Rectangle(xMove1, 0, 784, 480);
+            //}
+            //else if (keys.IsKeyDown(Keys.Left))
+            //{
+            //    xMove1 -= 4;
+            //    mapView = new Rectangle(xMove1, 0, 784, 480);
+            //}
+
+            //if (xMove1 <= 0)
+            //{
+            //    xMove1  = 0;
+            //    mapView = new Rectangle(xMove1, 0, 784, 480);
+            //}
+
+            //For more zoning to different areas
+
+            if (character.objectPosition.X >= graphics.GraphicsDevice.Viewport.Bounds.Right) {
+                mapView = new Rectangle(0 + xMove, 0, 784, 480);
+                character.objectPosition.X = graphics.GraphicsDevice.Viewport.Bounds.Left;
+            }
+
+            if (character.objectPosition.X < graphics.GraphicsDevice.Viewport.Bounds.Left) {
+                mapView = new Rectangle(0, 0, 784, 480);
+                character.objectPosition.X = graphics.GraphicsDevice.Viewport.Bounds.Right;
+            }
+
+            /* //Testing Boundaries. Will need to variable for each zone so we know which areas we can zone to
+            if (character.objectPosition.X <= 4)
+            {
+                 character.objectPosition.X = 4;
+            }
+             */
 
 
             // TODO: Add your update logic here
@@ -227,6 +286,8 @@ namespace tower_of_darkness_xna {
                 }
             }
             character.Update(gameTime);
+
+
 
             for (int i = 0; i < nodeList.Count; i++) {
                 if (character.Collides(nodeList[i])) {
@@ -255,7 +316,7 @@ namespace tower_of_darkness_xna {
                 } else {
                     n.showText = false;
                 }
-            
+
                 n.Update(gameTime);
             }
 
@@ -365,15 +426,12 @@ namespace tower_of_darkness_xna {
             //GraphicsDevice.Clear(Color.Black);
 
             Color drawColor = new Color(ambientColor.R / 255f * ambient, ambientColor.G / 255f * ambient, ambientColor.B / 255f * ambient);
-
             spriteBatch.Begin();
             spriteBatch.Draw(background, new Vector2(), Color.White);
             map.Draw(spriteBatch, mapView);
-            character.Draw(spriteBatch, new Color(50, 50, 50));
+            character.Draw(spriteBatch, drawColor);
             foreach (NPC n in npcs) {
-                n.Draw(spriteBatch, new Color(50, 50, 50));
-
-                
+                n.Draw(spriteBatch, OPAQUE_COLOR);
             }
             foreach (Scene2DNode node in nodeList) {
                 if (node.getNodeType() == "key")
@@ -421,7 +479,7 @@ namespace tower_of_darkness_xna {
                     drawPause(gameTime);
                     break;
             }
-            
+
             base.Draw(gameTime);
         }
     }
