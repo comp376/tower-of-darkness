@@ -27,6 +27,7 @@ namespace tower_of_darkness_xna {
         private bool npcText;
         private int xMove = 0; // Zoning
         private int xMove1 = 0; // Scrolling
+        private int yMove = 0;
         private bool isFirstZone;
 
         private GameState gameState = GameState.Menu;
@@ -134,7 +135,20 @@ namespace tower_of_darkness_xna {
             //light = Content.Load<Texture2D>("light2");
             lanternTexture = Content.Load<Texture2D>("lantern");
             character = new Character(characterSpriteSheet, 3, 1, 32, 64, new Vector2(200, 320), light, ambient, ambientColor, lanternTexture, graphics);
-            loadLevel1Content();
+
+            switch (mapName)
+            {
+                case "map1":  
+                    loadLevel1Content();
+                    break;
+                case "tower1":
+                    loadTower1Content();
+                    break;
+                default:
+                    loadLevel1Content();
+                    break;
+            }
+
         }
 
         private void loadCollisionRectangles() {
@@ -187,15 +201,21 @@ namespace tower_of_darkness_xna {
 
         }
 
-        private void loadLevel1Content() {
+        private void loadTower1Content() {
             nodeList = new List<Scene2DNode>();
-
+            Console.WriteLine("GOING INTO TOWER");
             //map = Content.Load<Map>("test2");
 
             //Console.WriteLine("Map is: " + map.Height + " tiles high");
             //Console.WriteLine("Map is: " + map.Width + " tiles wide");
             Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(475, 320), "key");
             nodeList.Add(myKey);
+
+            xMove = 0;
+            mapView = new Rectangle(0, 960, 784, 480);
+           // mapView = new Rectangle(0, -980, 784, 480);
+            loadCollisionRectangles();
+            loadTransitionRectangles();
 
             //Test to get every tile data.
             /*
@@ -209,8 +229,34 @@ namespace tower_of_darkness_xna {
             */
 
 
-            int[] toBeRemoved;//saves index of node(s) to be removed.
-            toBeRemoved = new int[nodeList.Count];
+            //int[] toBeRemoved;//saves index of node(s) to be removed.
+           // toBeRemoved = new int[nodeList.Count];
+        }
+        
+        private void loadLevel1Content() {
+            nodeList = new List<Scene2DNode>();
+
+            //map = Content.Load<Map>("test2");
+
+            //Console.WriteLine("Map is: " + map.Height + " tiles high");
+            //Console.WriteLine("Map is: " + map.Width + " tiles wide");
+            Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(475, 320), "key");
+            nodeList.Add(myKey);
+            mapView = new Rectangle(0, 0, 784, 480);
+            //Test to get every tile data.
+            /*
+            for (int x = 0; x < map.Width; x++)
+            {
+                for (int y = 0; y < map.Height; y++)
+                {
+                        //Console.WriteLine(x + "---" + y + ": " + map.TileLayers[0].Tiles[x][y].SourceID);
+                }
+            }
+            */
+
+
+           // int[] toBeRemoved;//saves index of node(s) to be removed.
+           // toBeRemoved = new int[nodeList.Count];
         }
 
         /// <summary>
@@ -255,18 +301,22 @@ namespace tower_of_darkness_xna {
 
             if (character.objectPosition.X >= graphics.GraphicsDevice.Viewport.Bounds.Right) {
                 xMove += 784;
-                
-                mapView = new Rectangle(xMove, 0, 784, 480);
+                if (xMove == 2352)
+                    yMove += 960;
+
+                mapView = new Rectangle(xMove, yMove, 784, 480);
                 character.objectPosition.X = graphics.GraphicsDevice.Viewport.Bounds.Left;
                 foreach (Scene2DNode s2dn in nodeList) {
                     s2dn.worldPosition.X += xMove;
                 } foreach (NPC npc in npcs) {
                     npc.objectPosition.X += xMove;
                 } for(int i = 0; i < cRectangles.Count; i++){
-                    cRectangles[i] = new Rectangle(cRectangles[i].X - xMove, cRectangles[i].Y, cRectangles[i].Width, cRectangles[i].Height);
+                    cRectangles[i] = new Rectangle(cRectangles[i].X - xMove, cRectangles[i].Y + yMove, cRectangles[i].Width, cRectangles[i].Height);
                 } for (int i = 0; i < tRectangles.Count; i++) {
-                    tRectangles[i] = new Rectangle(tRectangles[i].X - xMove, tRectangles[i].Y, tRectangles[i].Width, tRectangles[i].Height);
+                    tRectangles[i] = new Rectangle(tRectangles[i].X - xMove, tRectangles[i].Y + yMove, tRectangles[i].Width, tRectangles[i].Height);
                 }
+
+                
             }
 
             if (xMove > 0)
@@ -330,7 +380,7 @@ namespace tower_of_darkness_xna {
                 if (tRectangles[i].Intersects(playerRect)) {
                     Console.WriteLine(map.ObjectLayers["Transition"].MapObjects[i].Name);
                     loadPlayingContent(map.ObjectLayers["Transition"].MapObjects[i].Name);
-                    mapView = new Rectangle(0, 0, 784, 480);
+                    //mapView = new Rectangle(0, 0, 784, 480);
                     //foreach(map.ObjectLayers["Transition"].MapObjects[i].Properties.Values){
 
                     //}
