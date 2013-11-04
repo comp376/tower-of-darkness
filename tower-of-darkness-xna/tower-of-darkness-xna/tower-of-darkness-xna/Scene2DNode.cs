@@ -9,8 +9,8 @@ using Microsoft.Xna.Framework;
 namespace tower_of_darkness_xna {
     public class Scene2DNode {
         private Texture2D texture;
-        private Vector2 worldPosition;
-        private Vector2 startingPosition;
+        public Vector2 worldPosition;
+        public Vector2 startingPosition;
         private string type;
         private const int MAX_HOVER_HEIGHT = 20;
 
@@ -24,15 +24,15 @@ namespace tower_of_darkness_xna {
         public int TextureWidth { get { return texture.Width; } }
         public int TextureHeight { get { return texture.Height; } }
 
-        public Vector2 Position {
-            get { return worldPosition; }
-            set { worldPosition = value; }
-        }
+        //public Vector2 Position {
+        //    get { return worldPosition; }
+        //    set { worldPosition = value; }
+        //}
 
-        public Vector2 StartingPosition {
-            get { return startingPosition; }
-            set { startingPosition = value; }
-        }
+        //public Vector2 StartingPosition {
+        //    get { return startingPosition; }
+        //    set { startingPosition = value; }
+        //}
 
         public Scene2DNode(Texture2D texture, Vector2 position, String type) {
             this.texture = texture;
@@ -48,7 +48,7 @@ namespace tower_of_darkness_xna {
         }
 
         public void Draw(SpriteBatch spriteBatch) {
-            spriteBatch.Draw(texture, new Vector2(this.Position.X, this.Position.Y), Color.White);
+            spriteBatch.Draw(texture, new Vector2(worldPosition.X, worldPosition.Y), Color.White);
         }
 
         //This draw function is used for spinning textures.

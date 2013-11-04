@@ -666,6 +666,13 @@
    <tile gid="100"/>
    <tile gid="100"/>
    <tile gid="100"/>
+
+   <tile gid="73"/>
+   <tile gid="19"/>
+   <tile gid="73"/>
+   <tile gid="73"/>
+   <tile gid="73"/>
+   <tile gid="73"/>
    <tile gid="20"/>
    <tile gid="20"/>
    <tile gid="20"/>
@@ -702,24 +709,7 @@
    <tile gid="3"/>
    <tile gid="3"/>
    <tile gid="3"/>
-   <tile gid="3"/>
-   <tile gid="3"/>
-   <tile gid="3"/>
-   <tile gid="3"/>
-   <tile gid="3"/>
-   <tile gid="3"/>
-   <tile gid="3"/>
-   <tile gid="3"/>
-   <tile gid="3"/>
-   <tile gid="3"/>
-   <tile gid="3"/>
-   <tile gid="3"/>
-   <tile gid="3"/>
-   <tile gid="3"/>
-   <tile gid="3"/>
-   <tile gid="3"/>
-   <tile gid="3"/>
-   <tile gid="3"/>
+   
    <tile gid="3"/>
    <tile gid="3"/>
    <tile gid="3"/>
@@ -792,4 +782,8 @@
    <tile gid="13"/>
   </data>
  </layer>
+ <objectgroup name="Collision" width="50" height="15">
+  <object x="673" y="384" width="32" height="32"/>
+  <object x="0" y="418" width="1598" height="62"/>
+ </objectgroup>
 </map>

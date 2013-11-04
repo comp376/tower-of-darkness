@@ -1,3 +1,4 @@
+
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,9 @@ using FuncWorks.XNA.XTiled;
 namespace tower_of_darkness_xna {
     class Character : Object {
 
-        readonly Vector2 gravity = new Vector2(0, -9.8f);
-        private const int MOVE_SPEED = 1;
+        //readonly Vector2 gravity = new Vector2(0, -9.8f);
+        private const int MOVE_SPEED = 3;
+        private const int GRAVITY_SPEED = 2;
         private const float LIGHT_CHANGE = 0.05f;
         private const float BOUNDARY_CHANGE = 0.05f;
         private const float ANGLE_CHANGE = 0.5f;
@@ -22,7 +24,7 @@ namespace tower_of_darkness_xna {
         private int xCurrentFrame = 0;
         private int yCurrentFrame = 0;
         private float frameTimer = 0;
-        private float frameInterval = 200;
+        private float frameInterval = 100;
         private Texture2D lightTexture;
         private float ambient;
         private Color ambientColor;
@@ -31,8 +33,8 @@ namespace tower_of_darkness_xna {
         private float lightInterval = 50;
         private float currentLightSize;
         private LightDirection lightDir;
-        private float LOWER_BOUNDARY = 1.0f;
-        private float UPPER_BOUNDARY = 1.0f;
+        private float LOWER_BOUNDARY = 0.9f;
+        private float UPPER_BOUNDARY = 1.4f;
         public int keyCount;
 
         private Texture2D lanternTexture;
@@ -75,14 +77,14 @@ namespace tower_of_darkness_xna {
             else
                 return false;
         }
-        
+
         public bool Collides(Scene2DNode node)
         {
             // check if two sprites intersect
-            if (this.objectPosition.X + (this.spriteWidth) > node.Position.X &&
-                    this.objectPosition.X < node.Position.X + (node.TextureWidth) &&
-                    this.objectPosition.Y + (this.spriteHeight) > node.Position.Y &&
-                    this.objectPosition.Y < node.Position.Y + (node.TextureWidth))
+            if (this.objectPosition.X + (this.spriteWidth) > node.worldPosition.X &&
+                    this.objectPosition.X < node.worldPosition.X + (node.TextureWidth) &&
+                    this.objectPosition.Y + (this.spriteHeight) > node.worldPosition.Y &&
+                    this.objectPosition.Y < node.worldPosition.Y + (node.TextureWidth))
                 return true;
             else
                 return false;
@@ -99,8 +101,10 @@ namespace tower_of_darkness_xna {
                 return false;
         }
         
-        public void Update(GameTime gameTime) {
-            move();
+        public void Update(GameTime gameTime, List<Rectangle> cRectangles) {
+            
+            gravity(cRectangles);
+            move(cRectangles);
             pulse(gameTime);
             lanternSwinging(gameTime);
 
@@ -128,6 +132,22 @@ namespace tower_of_darkness_xna {
             } if (kbs.IsKeyDown(Keys.OemPlus) || kbs.IsKeyDown(Keys.Add)) {
                 LOWER_BOUNDARY -= BOUNDARY_CHANGE;
                 UPPER_BOUNDARY -= BOUNDARY_CHANGE;
+            }
+        }
+
+        private void gravity(List<Rectangle> cRectangles) {
+            Rectangle playerRect = new Rectangle((int)objectPosition.X, (int)objectPosition.Y, spriteWidth, spriteHeight);
+            Rectangle tempRec = playerRect;
+            tempRec.Y += MOVE_SPEED;
+            bool collisionFree = true;
+            foreach (Rectangle r in cRectangles) {
+                if (tempRec.Intersects(r)) {
+                    collisionFree = false;
+                    break;
+                }
+            }
+            if (collisionFree) {
+                objectPosition.Y += GRAVITY_SPEED;
             }
         }
 
@@ -199,23 +219,22 @@ namespace tower_of_darkness_xna {
 
         }
 
-        private void move() {
+        private void move(List<Rectangle> cRectangles) {
             KeyboardState kbs = Keyboard.GetState();
 
-            if (jumping)
-            {
+            Rectangle playerRect = new Rectangle((int)objectPosition.X, (int)objectPosition.Y, spriteWidth, spriteHeight);
+
+            if (jumping) {
                 this.objectPosition.Y += jumpspeed;
                 jumpspeed += 0.25f;
-                if (this.objectPosition.Y >= startY)
-                {
-                    this.objectPosition.Y = startY;
-                    jumping = false;
+                foreach(Rectangle r in cRectangles){
+                    if (r.Intersects(playerRect)) {
+                        jumping = false;
+                        this.objectPosition.Y += -8;
+                    }
                 }
-            }
-            else
-            {
-                 if (kbs.IsKeyDown(Keys.Space))
-                {
+            } else {
+                if (kbs.IsKeyDown(Keys.Space)) {
                     jumping = true;
                     jumpspeed = -6;
                 }
@@ -225,21 +244,50 @@ namespace tower_of_darkness_xna {
                 isMoving = true;
                 
                 if (kbs.IsKeyDown(Keys.Down)) {
-                    objectPosition.Y += MOVE_SPEED;
+                    Rectangle tempRec = playerRect;
+                    tempRec.Y += MOVE_SPEED;
+                    bool collisionFree = true;
+                    foreach(Rectangle r in cRectangles){
+                        if (tempRec.Intersects(r)) {
+                            collisionFree = false;
+                            break;
+                        }
+                    }
+                    if(collisionFree)
+                        objectPosition.Y += MOVE_SPEED;
                 }
                 if (kbs.IsKeyDown(Keys.Left)) {
+                    Rectangle tempRec = playerRect;
+                    tempRec.X -= MOVE_SPEED;
+                    bool collisionFree = true;
+                    foreach (Rectangle r in cRectangles) {
+                        if (tempRec.Intersects(r)) {
+                            collisionFree = false;
+                            break;
+                        }
+                    }
                     walkingDirection = SpriteEffects.FlipHorizontally;
-                    objectPosition.X -= MOVE_SPEED;
+                    if(collisionFree)
+                      objectPosition.X -= MOVE_SPEED;
                 }
                 if (kbs.IsKeyDown(Keys.Right)) {
+                    Rectangle tempRec = playerRect;
+                    tempRec.X += MOVE_SPEED;
+                    bool collisionFree = true;
+                    foreach (Rectangle r in cRectangles) {
+                        if (tempRec.Intersects(r)) {
+                            collisionFree = false;
+                            break;
+                        }
+                    }
                     walkingDirection = SpriteEffects.None;
-                    objectPosition.X += MOVE_SPEED;
+                    if (collisionFree)
+                        objectPosition.X += MOVE_SPEED;
                 }
 
             }
 
             if (kbs.IsKeyUp(Keys.Up) && kbs.IsKeyUp(Keys.Down) && kbs.IsKeyUp(Keys.Left) && kbs.IsKeyUp(Keys.Right)) {
-                jumping = true;
                 isMoving = false;
             }
         }
