@@ -114,7 +114,7 @@ namespace tower_of_darkness_xna {
                     character.movementStatus = (MovementStatus)mo.Properties["direction"].AsInt32;
                 }
             }
-        }
+        } 
 
         private void loadCollisionRectangles() {
             cRectangles = new List<Rectangle>();
