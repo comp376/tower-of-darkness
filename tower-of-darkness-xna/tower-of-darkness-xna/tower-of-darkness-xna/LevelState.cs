@@ -15,7 +15,8 @@ namespace tower_of_darkness_xna {
         private const int BACKGROUND_LAYER = 0;
         private const int FOREGROUND_LAYER = 1;
         private const int TOP_LAYER = 2;
-        private Color OPAQUE_COLOR = new Color(26, 26, 26);
+        private Color OPAQUE_COLOR = new Color(25, 25, 25);
+        private Color BACKGROUND_COLOR = new Color(100, 100, 100);
 
         private Texture2D backgroundTexture;
         private Map map;
@@ -25,6 +26,7 @@ namespace tower_of_darkness_xna {
         private Character character;
         private List<Rectangle> cRectangles;
         private List<Transition> transitions;
+        private List<NPC> npcs;
 
         //debug
         private Texture2D collision;
@@ -72,6 +74,8 @@ namespace tower_of_darkness_xna {
             mapRect = new Rectangle(0, 0, map.Width * map.TileWidth, map.Height * map.TileHeight);
             loadCollisionRectangles();
             loadTransitionRectangles();
+            loadNPCs();
+            //loadMapObjects();
             loadMapInfo();
 
             //debug
@@ -133,6 +137,8 @@ namespace tower_of_darkness_xna {
         }
 
         private void loadTransitionRectangles(){
+            if (map.ObjectLayers["Transition"] == null)
+                return;
             transitions = new List<Transition>();
             int tileSize = map.TileWidth / 2;   //Not sure why dividing by 2
             foreach (MapObject mo in map.ObjectLayers["Transition"].MapObjects) {
@@ -147,6 +153,22 @@ namespace tower_of_darkness_xna {
             }
         }
 
+        private void loadNPCs() {
+            if (map.ObjectLayers["NPC"] == null)
+                return;
+            npcs = new List<NPC>();
+            foreach (MapObject mo in map.ObjectLayers["NPC"].MapObjects) {
+                string spritesheetName = mo.Properties["spritesheet"].Value;
+                Texture2D npcSpriteSheet = Content.Load<Texture2D>("sprites/" + spritesheetName);
+                int xNumberOfFrames = (int)mo.Properties["xFrames"].AsInt32;
+                int yNumberOfFrames = (int)mo.Properties["yFrames"].AsInt32;
+                Rectangle npcRect = mo.Bounds;
+                NPC npc = new NPC(npcSpriteSheet, xNumberOfFrames, yNumberOfFrames, npcRect.Width, npcRect.Height);
+                npc.objectRectangle = npcRect; //also provides npc(x,y) 
+                npcs.Add(npc);
+            }
+        }
+
         public override void UnloadContent() {
             //throw new NotImplementedException();
         }
@@ -157,7 +179,7 @@ namespace tower_of_darkness_xna {
 
         public override void Draw(GameTime gameTime, SpriteBatch batch) {
             batch.Begin();
-            batch.Draw(backgroundTexture, new Vector2(), Color.White);
+            batch.Draw(backgroundTexture, new Vector2(), BACKGROUND_COLOR);
             map.DrawLayer(batch, BACKGROUND_LAYER, mapView, 0);
             map.DrawLayer(batch, FOREGROUND_LAYER, mapView, 0);
             character.Draw(batch, Color.White);

@@ -13,7 +13,7 @@ namespace tower_of_darkness_xna {
         private int moveTimer = 0;
         private int moveInterval = 5;
         private ContentManager Content;
-        private const int MOVE_SPEED = 3;
+        private const int MOVE_SPEED = 4;
         private const int GRAVITY_SPEED = 3;
         private bool jumping = false;
         private float jumpingHeight = 0;
@@ -42,7 +42,7 @@ namespace tower_of_darkness_xna {
         }
 
         public void LoadContent() {
-            lightColor = new Color(150, 150, 100);
+            lightColor = new Color(120, 120, 90);
             lightTexture = Content.Load<Texture2D>("sprites/light3");
             lanternTexture = Content.Load<Texture2D>("sprites/lantern");
             lanternPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
