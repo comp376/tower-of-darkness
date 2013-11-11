@@ -111,14 +111,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Character.cs" />
-    <Compile Include="GameState.cs" />
+    <Compile Include="MovementStatus.cs" />
     <Compile Include="NPC.cs" />
+    <Compile Include="OldCharacter.cs" />
+    <Compile Include="GameState.cs" />
+    <Compile Include="GameStateEnum.cs" />
+    <Compile Include="LevelState.cs" />
+    <Compile Include="MenuState.cs" />
+    <Compile Include="OldNPC.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="ObjectDirection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Scene2DNode.cs" />
+    <Compile Include="Transition.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="25" height="45" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="spritesheet" tilewidth="32" tileheight="32">
-  <image source="spritesheet.png" trans="ff00ff" width="320" height="320"/>
+  <image source="spritesheets/spritesheet.png" trans="ff00ff" width="320" height="320"/>
  </tileset>
  <layer name="Tile Layer 1" width="25" height="45">
   <data encoding="base64" compression="zlib">

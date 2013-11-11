@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="15" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="spritesheet" tilewidth="32" tileheight="32">
+  <image source="spritesheets/spritesheet.png" trans="ff00ff" width="320" height="320"/>
+ </tileset>
+ <layer name="Background" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRQApgx4EHkx0AJ/wAVQ==
+  </data>
+ </layer>
+ <layer name="Foreground" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjALaAwECGB/gBGJhIs0nRx5mPggz48BcSBgX4CIS8+LA1LQDALt3AnA=
+  </data>
+ </layer>
+ <layer name="Top" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJzVkrEOwjAMRP07BbYCW4GtwFZgK+X/PwNnOOV0Cm5ByoClJ0s52T7ZacysqcDKWTsbp62AzugqoDP6Cui+dGaJ4Ut0X9Gt9vQ2l9nj3M1L+jbIpZ1A25FP9qR6uuEhyC31QC20o3Mi//CmerrhOcgd9UAttItztfzf4E31dMNbkHvqgVpod+dh+b/Bm+qj8wzyQD1QC21yXpb/G7ypviTQ41PtWPA2LezN8Yu3f4s3DftHSA==
+  </data>
+ </layer>
+ <objectgroup name="Transition" width="25" height="15">
+  <object name="map1" x="0" y="0" width="32" height="416">
+   <properties>
+    <property name="cx" value="800"/>
+    <property name="cy" value="0"/>
+    <property name="d" value="0"/>
+    <property name="x" value="736"/>
+    <property name="y" value="352"/>
+   </properties>
+  </object>
+  <object name="tower1" x="768" y="1" width="30" height="350">
+   <properties>
+    <property name="cx" value="0"/>
+    <property name="cy" value="0"/>
+    <property name="d" value="3"/>
+    <property name="x" value="0"/>
+    <property name="y" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

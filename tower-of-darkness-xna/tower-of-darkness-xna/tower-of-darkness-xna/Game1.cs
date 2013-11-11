@@ -17,20 +17,34 @@ namespace tower_of_darkness_xna {
     /// This is the main type for your game
     /// </summary>
     public class Game1 : Game {
+        //NEW STUFF
+
+        const int WIDTH = 800;
+        const int HEIGHT = 480;
+        const string STARTING_MAP_NAME = "map1";
+
+        public static GameState currentGameState;
+        public static bool exitGame = false;
+        GraphicsDeviceManager graphics;
+        SpriteBatch spriteBatch;
+
+        Character character;
+
+        //OLD STUFF
+
         private Color OPAQUE_COLOR = new Color(60, 60, 60);
 
         private List<Rectangle> cRectangles;
         private List<Rectangle> tRectangles;
 
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        
         private bool npcText;
         private int xMove = 0; // Zoning
         private int xMove1 = 0; // Scrolling
         private int yMove = 0;
         private bool isFirstZone;
 
-        private GameState gameState = GameState.Menu;
+        private GameStateEnum gameState = GameStateEnum.Menu;
 
         private string NPC_ONE_STRING = "???";
         private string NPC_TWO_STRING = "???";
@@ -38,7 +52,7 @@ namespace tower_of_darkness_xna {
         private const int NUM_NPCS = 2;
         private float ambient = 0.8f;
         private Color ambientColor = new Color(255, 235, 119);
-        private Character character;
+        //private OldCharacter character;
         private Texture2D background;
         private Texture2D light;
         private Texture2D lanternTexture;
@@ -53,7 +67,7 @@ namespace tower_of_darkness_xna {
         private SoundEffectInstance pickUpKeyInstance;
 
         private List<Scene2DNode> nodeList;
-        private List<NPC> npcs;
+        private List<OldNPC> npcs;
         public Map currentMap;
         private Map map;
         private Rectangle mapView;
@@ -83,6 +97,8 @@ namespace tower_of_darkness_xna {
         public Game1()
             : base() {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = WIDTH;
+            graphics.PreferredBackBufferHeight = HEIGHT;
             Content.RootDirectory = "Content";
         }
 
@@ -96,60 +112,60 @@ namespace tower_of_darkness_xna {
             // TODO: Add your initialization logic here
             //graphics.ToggleFullScreen();
 
-            mapView = new Rectangle(0, 0, 784, 480);
+            //mapView = new Rectangle(0, 0, 784, 480);
 
-            pickUpKey = Content.Load<SoundEffect>("pop");
-            pickUpKeyInstance = pickUpKey.CreateInstance();
+            //pickUpKey = Content.Load<SoundEffect>("pop");
+            //pickUpKeyInstance = pickUpKey.CreateInstance();
 
-            //mapView = graphics.GraphicsDevice.Viewport.Bounds;
+            ////mapView = graphics.GraphicsDevice.Viewport.Bounds;
 
-            rand = new Random();
-            filter = Content.Load<Texture2D>("filter");
+            //rand = new Random();
+            //filter = Content.Load<Texture2D>("filter");
             base.Initialize();
         }
 
-        private void loadPlayingContent(String mapName) {
-            background = Content.Load<Texture2D>("background");
+        //private void loadPlayingContent(String mapName) {
+        //    background = Content.Load<Texture2D>("background");
 
-            text = " ";
-            npcText = false;
-            map = Content.Load<Map>(mapName);
-            modifyLayerOpacity();
-            loadCollisionRectangles();
-            loadTransitionRectangles();
-            currentMap = map;
-            Texture2D characterSpriteSheet = Content.Load<Texture2D>("character2");
-            Texture2D npcSpriteSheet = Content.Load<Texture2D>("npc");
+        //    text = " ";
+        //    npcText = false;
+        //    map = Content.Load<Map>(mapName);
+        //    modifyLayerOpacity();
+        //    loadCollisionRectangles();
+        //    loadTransitionRectangles();
+        //    currentMap = map;
+        //    Texture2D characterSpriteSheet = Content.Load<Texture2D>("character2");
+        //    Texture2D npcSpriteSheet = Content.Load<Texture2D>("npc");
              
-            grassTexture = Content.Load<Texture2D>("grass");
-            keyTexture = Content.Load<Texture2D>("key");
-            font = Content.Load<SpriteFont>("spriteFont");
+        //    grassTexture = Content.Load<Texture2D>("grass");
+        //    keyTexture = Content.Load<Texture2D>("key");
+        //    font = Content.Load<SpriteFont>("spriteFont");
 
-            List<Scene2DNode> nodeList;
-            npcs = new List<NPC>();
-            NPC npc = new NPC(npcSpriteSheet, 3, 1, 32, 64, new Vector2(400, graphics.PreferredBackBufferHeight - 128), SpriteEffects.None, rand.Next(npcDirectionInterval.Item1, npcDirectionInterval.Item2), font, NPC_ONE_STRING);
-            NPC npcTwo = new NPC(npcSpriteSheet, 3, 1, 32, 64, new Vector2(300, graphics.PreferredBackBufferHeight - 128), SpriteEffects.None, rand.Next(npcDirectionInterval.Item1, npcDirectionInterval.Item2), font, NPC_TWO_STRING);
-            npcs.Add(npc);
-            npcs.Add(npcTwo);
-            light = Content.Load<Texture2D>("light");
-            //light = Content.Load<Texture2D>("light2");
-            lanternTexture = Content.Load<Texture2D>("lantern");
-            character = new Character(characterSpriteSheet, 3, 1, 32, 64, new Vector2(200, 320), light, ambient, ambientColor, lanternTexture, graphics);
+        //    List<Scene2DNode> nodeList;
+        //    npcs = new List<OldNPC>();
+        //    OldNPC npc = new OldNPC(npcSpriteSheet, 3, 1, 32, 64, new Vector2(400, graphics.PreferredBackBufferHeight - 128), SpriteEffects.None, rand.Next(npcDirectionInterval.Item1, npcDirectionInterval.Item2), font, NPC_ONE_STRING);
+        //    OldNPC npcTwo = new OldNPC(npcSpriteSheet, 3, 1, 32, 64, new Vector2(300, graphics.PreferredBackBufferHeight - 128), SpriteEffects.None, rand.Next(npcDirectionInterval.Item1, npcDirectionInterval.Item2), font, NPC_TWO_STRING);
+        //    npcs.Add(npc);
+        //    npcs.Add(npcTwo);
+        //    light = Content.Load<Texture2D>("light");
+        //    //light = Content.Load<Texture2D>("light2");
+        //    lanternTexture = Content.Load<Texture2D>("lantern");
+        //    character = new OldCharacter(characterSpriteSheet, 3, 1, 32, 64, new Vector2(200, 320), light, ambient, ambientColor, lanternTexture, graphics);
 
-            switch (mapName)
-            {
-                case "map1":  
-                    loadLevel1Content();
-                    break;
-                case "tower1":
-                    loadTower1Content();
-                    break;
-                default:
-                    loadLevel1Content();
-                    break;
-            }
+        //    switch (mapName)
+        //    {
+        //        case "map1":  
+        //            loadLevel1Content();
+        //            break;
+        //        case "tower1":
+        //            loadTower1Content();
+        //            break;
+        //        default:
+        //            loadLevel1Content();
+        //            break;
+        //    }
 
-        }
+        //}
 
         private void loadCollisionRectangles() {
             cRectangles = new List<Rectangle>();
@@ -180,12 +196,6 @@ namespace tower_of_darkness_xna {
             pauseSelectorPosition = new Vector2(128, 150);
         }
 
-        private void loadMenuContent() {
-            menuBackground = Content.Load<Texture2D>("menuscreen");
-            menuSelector = Content.Load<Texture2D>("menu_selector");
-            menuSelectorPosition = new Vector2(70, 320);
-        }
-
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -193,70 +203,9 @@ namespace tower_of_darkness_xna {
         protected override void LoadContent() {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            loadMenuContent();
-
-            loadPauseContent();
-            //loadPlayingContent();  //We can split these per level. : Joel
-
-        }
-
-        private void loadTower1Content() {
-            nodeList = new List<Scene2DNode>();
-            Console.WriteLine("GOING INTO TOWER");
-            //map = Content.Load<Map>("test2");
-
-            //Console.WriteLine("Map is: " + map.Height + " tiles high");
-            //Console.WriteLine("Map is: " + map.Width + " tiles wide");
-            Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(475, 320), "key");
-            nodeList.Add(myKey);
-
-            xMove = 0;
-            mapView = new Rectangle(0, 960, 784, 480);
-           // mapView = new Rectangle(0, -980, 784, 480);
-            loadCollisionRectangles();
-            loadTransitionRectangles();
-
-            //Test to get every tile data.
-            /*
-            for (int x = 0; x < map.Width; x++)
-            {
-                for (int y = 0; y < map.Height; y++)
-                {
-                        //Console.WriteLine(x + "---" + y + ": " + map.TileLayers[0].Tiles[x][y].SourceID);
-                }
-            }
-            */
-
-
-            //int[] toBeRemoved;//saves index of node(s) to be removed.
-           // toBeRemoved = new int[nodeList.Count];
-        }
-        
-        private void loadLevel1Content() {
-            nodeList = new List<Scene2DNode>();
-
-            //map = Content.Load<Map>("test2");
-
-            //Console.WriteLine("Map is: " + map.Height + " tiles high");
-            //Console.WriteLine("Map is: " + map.Width + " tiles wide");
-            Scene2DNode myKey = new Scene2DNode(keyTexture, new Vector2(475, 320), "key");
-            nodeList.Add(myKey);
-            mapView = new Rectangle(0, 0, 784, 480);
-            //Test to get every tile data.
-            /*
-            for (int x = 0; x < map.Width; x++)
-            {
-                for (int y = 0; y < map.Height; y++)
-                {
-                        //Console.WriteLine(x + "---" + y + ": " + map.TileLayers[0].Tiles[x][y].SourceID);
-                }
-            }
-            */
-
-
-           // int[] toBeRemoved;//saves index of node(s) to be removed.
-           // toBeRemoved = new int[nodeList.Count];
+            Texture2D characterSpriteSheet = Content.Load<Texture2D>("sprites/character2");
+            character = new Character(characterSpriteSheet, 3, 1, 32, 64, Content);
+            currentGameState = new MenuState(Content, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, STARTING_MAP_NAME, character);
         }
 
         /// <summary>
@@ -267,205 +216,169 @@ namespace tower_of_darkness_xna {
             // TODO: Unload any non ContentManager content here
         }
 
-        private void updatePlaying(GameTime gameTime) {
-            KeyboardState keys = Keyboard.GetState();
-            //Rectangle delta = mapView;
-            //if (keys.IsKeyDown(Keys.Down))
-            //    delta.Y += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
-            //if (keys.IsKeyDown(Keys.Up))
-            //    delta.Y -= Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
-            //if (keys.IsKeyDown(Keys.Right))
-            //    delta.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
-            //if (keys.IsKeyDown(Keys.Left))
-            //    delta.X -= Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
+        //private void updatePlaying(GameTime gameTime) {
+        //    KeyboardState keys = Keyboard.GetState();
+        //    //Rectangle delta = mapView;
+        //    //if (keys.IsKeyDown(Keys.Down))
+        //    //    delta.Y += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
+        //    //if (keys.IsKeyDown(Keys.Up))
+        //    //    delta.Y -= Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
+        //    //if (keys.IsKeyDown(Keys.Right))
+        //    //    delta.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
+        //    //if (keys.IsKeyDown(Keys.Left))
+        //    //    delta.X -= Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 8);
 
-            //if (map.Bounds.Contains(delta))
-            //    mapView = delta;
+        //    //if (map.Bounds.Contains(delta))
+        //    //    mapView = delta;
 
-            //Scrolling
+        //    //Scrolling
 
-            //if (keys.IsKeyDown(Keys.Right)) {
-            //    xMove1 += 4;
-            //    mapView = new Rectangle(xMove1, 0, 784, 480);
-            //} else if (keys.IsKeyDown(Keys.Left)) {
-            //    xMove1 -= 4;
-            //    mapView = new Rectangle(xMove1, 0, 784, 480);
-            //}
+        //    //if (keys.IsKeyDown(Keys.Right)) {
+        //    //    xMove1 += 4;
+        //    //    mapView = new Rectangle(xMove1, 0, 784, 480);
+        //    //} else if (keys.IsKeyDown(Keys.Left)) {
+        //    //    xMove1 -= 4;
+        //    //    mapView = new Rectangle(xMove1, 0, 784, 480);
+        //    //}
 
-            //if (xMove1 <= 0) {
-            //    xMove1 = 0;
-            //    mapView = new Rectangle(xMove1, 0, 784, 480);
-            //}
+        //    //if (xMove1 <= 0) {
+        //    //    xMove1 = 0;
+        //    //    mapView = new Rectangle(xMove1, 0, 784, 480);
+        //    //}
 
-            //For more zoning to different areas
+        //    //For more zoning to different areas
 
-            if (character.objectPosition.X >= graphics.GraphicsDevice.Viewport.Bounds.Right) {
-                xMove += 784;
-                if (xMove == 2352)
-                    yMove += 960;
+        //    if (character.objectPosition.X >= graphics.GraphicsDevice.Viewport.Bounds.Right) {
+        //        xMove += 784;
+        //        if (xMove == 2352)
+        //            yMove += 960;
 
-                mapView = new Rectangle(xMove, yMove, 784, 480);
-                character.objectPosition.X = graphics.GraphicsDevice.Viewport.Bounds.Left;
-                foreach (Scene2DNode s2dn in nodeList) {
-                    s2dn.worldPosition.X += xMove;
-                } foreach (NPC npc in npcs) {
-                    npc.objectPosition.X += xMove;
-                } for(int i = 0; i < cRectangles.Count; i++){
-                    cRectangles[i] = new Rectangle(cRectangles[i].X - xMove, cRectangles[i].Y + yMove, cRectangles[i].Width, cRectangles[i].Height);
-                } for (int i = 0; i < tRectangles.Count; i++) {
-                    tRectangles[i] = new Rectangle(tRectangles[i].X - xMove, tRectangles[i].Y + yMove, tRectangles[i].Width, tRectangles[i].Height);
-                }
+        //        mapView = new Rectangle(xMove, yMove, 784, 480);
+        //        character.objectPosition.X = graphics.GraphicsDevice.Viewport.Bounds.Left;
+        //        foreach (Scene2DNode s2dn in nodeList) {
+        //            s2dn.worldPosition.X += xMove;
+        //        } foreach (OldNPC npc in npcs) {
+        //            npc.objectPosition.X += xMove;
+        //        } for(int i = 0; i < cRectangles.Count; i++){
+        //            cRectangles[i] = new Rectangle(cRectangles[i].X - xMove, cRectangles[i].Y + yMove, cRectangles[i].Width, cRectangles[i].Height);
+        //        } for (int i = 0; i < tRectangles.Count; i++) {
+        //            tRectangles[i] = new Rectangle(tRectangles[i].X - xMove, tRectangles[i].Y + yMove, tRectangles[i].Width, tRectangles[i].Height);
+        //        }
 
                 
-            }
+        //    }
 
-            if (xMove > 0)
-            {
+        //    if (xMove > 0)
+        //    {
 
-                if (character.objectPosition.X < graphics.GraphicsDevice.Viewport.Bounds.Left)
-                {
+        //        if (character.objectPosition.X < graphics.GraphicsDevice.Viewport.Bounds.Left)
+        //        {
                     
-                character.objectPosition.X = graphics.GraphicsDevice.Viewport.Bounds.Right;
-                    foreach (Scene2DNode s2dn in nodeList)
-                    {
-                    s2dn.worldPosition.X -= xMove;
-                    } foreach (NPC npc in npcs)
-                    {
-                    npc.objectPosition.X -= xMove;
-                    }
+        //        character.objectPosition.X = graphics.GraphicsDevice.Viewport.Bounds.Right;
+        //            foreach (Scene2DNode s2dn in nodeList)
+        //            {
+        //            s2dn.worldPosition.X -= xMove;
+        //            } foreach (OldNPC npc in npcs)
+        //            {
+        //            npc.objectPosition.X -= xMove;
+        //            }
                     
-                    for (int i = 0; i < cRectangles.Count; i++)
-                    {
-                    cRectangles[i] = new Rectangle(cRectangles[i].X + xMove, cRectangles[i].Y, cRectangles[i].Width, cRectangles[i].Height);
-                } for (int i = 0; i < tRectangles.Count; i++) {
-                    tRectangles[i] = new Rectangle(tRectangles[i].X + xMove, tRectangles[i].Y, tRectangles[i].Width, tRectangles[i].Height);
-                }
+        //            for (int i = 0; i < cRectangles.Count; i++)
+        //            {
+        //            cRectangles[i] = new Rectangle(cRectangles[i].X + xMove, cRectangles[i].Y, cRectangles[i].Width, cRectangles[i].Height);
+        //        } for (int i = 0; i < tRectangles.Count; i++) {
+        //            tRectangles[i] = new Rectangle(tRectangles[i].X + xMove, tRectangles[i].Y, tRectangles[i].Width, tRectangles[i].Height);
+        //        }
 
-                    xMove -= 784;
-                    mapView = new Rectangle(xMove, 0, 784, 480);
-                }
-            }
+        //            xMove -= 784;
+        //            mapView = new Rectangle(xMove, 0, 784, 480);
+        //        }
+        //    }
 
-            if (character.objectPosition.X <= 4 && xMove == 0)
-            {
-                character.objectPosition.X = 4;
-            }
+        //    if (character.objectPosition.X <= 4 && xMove == 0)
+        //    {
+        //        character.objectPosition.X = 4;
+        //    }
 
-            //if (character.objectPosition.X >= 776 && xMove == 784)
-            //{
-            //    character.objectPosition.X = 776;
-            //}
-            /* //Testing Boundaries. Will need to variable for each zone so we know which areas we can zone to
-            if (character.objectPosition.X <= 4)
-            {
-                 character.objectPosition.X = 4;
-            }
-             */
+        //    //if (character.objectPosition.X >= 776 && xMove == 784)
+        //    //{
+        //    //    character.objectPosition.X = 776;
+        //    //}
+        //    /* //Testing Boundaries. Will need to variable for each zone so we know which areas we can zone to
+        //    if (character.objectPosition.X <= 4)
+        //    {
+        //         character.objectPosition.X = 4;
+        //    }
+        //     */
 
 
-            // TODO: Add your update logic here
-            pausePlayTimer += gameTime.ElapsedGameTime.Milliseconds;
-            if (pausePlayTimer >= pausePlayInterval) {
-                if (Keyboard.GetState().IsKeyDown(Keys.Escape)) {
-                    gameState = GameState.Pause;
-                    pausePlayTimer = 0;
-                    pauseSelectTimer = -300;
-                }
-            }
-            character.Update(gameTime, cRectangles);
+        //    // TODO: Add your update logic here
+        //    pausePlayTimer += gameTime.ElapsedGameTime.Milliseconds;
+        //    if (pausePlayTimer >= pausePlayInterval) {
+        //        if (Keyboard.GetState().IsKeyDown(Keys.Escape)) {
+        //            gameState = GameStateEnum.Pause;
+        //            pausePlayTimer = 0;
+        //            pauseSelectTimer = -300;
+        //        }
+        //    }
+        //    character.Update(gameTime, cRectangles);
 
-            Rectangle playerRect = new Rectangle((int)character.objectPosition.X, (int)character.objectPosition.Y, character.spriteWidth, character.spriteHeight);
-            //foreach (Rectangle r in cRectangles) {
-            for(int i = 0; i < tRectangles.Count; i++){
-                if (tRectangles[i].Intersects(playerRect)) {
-                    Console.WriteLine(map.ObjectLayers["Transition"].MapObjects[i].Name);
-                    loadPlayingContent(map.ObjectLayers["Transition"].MapObjects[i].Name);
-                    //mapView = new Rectangle(0, 0, 784, 480);
-                    //foreach(map.ObjectLayers["Transition"].MapObjects[i].Properties.Values){
+        //    Rectangle playerRect = new Rectangle((int)character.objectPosition.X, (int)character.objectPosition.Y, character.spriteWidth, character.spriteHeight);
+        //    //foreach (Rectangle r in cRectangles) {
+        //    for(int i = 0; i < tRectangles.Count; i++){
+        //        if (tRectangles[i].Intersects(playerRect)) {
+        //            Console.WriteLine(map.ObjectLayers["Transition"].MapObjects[i].Name);
+        //            loadPlayingContent(map.ObjectLayers["Transition"].MapObjects[i].Name);
+        //            //mapView = new Rectangle(0, 0, 784, 480);
+        //            //foreach(map.ObjectLayers["Transition"].MapObjects[i].Properties.Values){
 
-                    //}
-                    ////Dictiontary<string, string> 
-                        //map.ObjectLayers["Transition"].MapObjects[i].Properties.Values
+        //            //}
+        //            ////Dictiontary<string, string> 
+        //                //map.ObjectLayers["Transition"].MapObjects[i].Properties.Values
 
                     
-                    xMove = 0;
-                    //map = Content.Load<Map>(map.ObjectLayers["Transition"].MapObjects[i].Name);
-                    loadCollisionRectangles();
-                    loadTransitionRectangles();
+        //            xMove = 0;
+        //            //map = Content.Load<Map>(map.ObjectLayers["Transition"].MapObjects[i].Name);
+        //            loadCollisionRectangles();
+        //            loadTransitionRectangles();
                     
                     
-                    //tRectangles = new List<Rectangle>();
-                    //ObjectLayer ol = map.ObjectLayers["Transition"];
-                    //foreach (MapObject mo in ol.MapObjects) {
-                    //    tRectangles.Add(mo.Bounds);
-                    //}
-                }
-            }
+        //            //tRectangles = new List<Rectangle>();
+        //            //ObjectLayer ol = map.ObjectLayers["Transition"];
+        //            //foreach (MapObject mo in ol.MapObjects) {
+        //            //    tRectangles.Add(mo.Bounds);
+        //            //}
+        //        }
+        //    }
 
 
 
-            for (int i = 0; i < nodeList.Count; i++) {
-                if (character.Collides(nodeList[i])) {
-                    if (nodeList[i].getNodeType() == "key") {
-                        nodeList.RemoveAt(i);
-                        character.keyCount++;
-                        pickUpKeyInstance.Play();
-                    }
-                }
-            }
+        //    for (int i = 0; i < nodeList.Count; i++) {
+        //        if (character.Collides(nodeList[i])) {
+        //            if (nodeList[i].getNodeType() == "key") {
+        //                nodeList.RemoveAt(i);
+        //                character.keyCount++;
+        //                pickUpKeyInstance.Play();
+        //            }
+        //        }
+        //    }
 
-            foreach (NPC n in npcs) {
-                if (character.Collides(n)) {
+        //    foreach (OldNPC n in npcs) {
+        //        if (character.Collides(n)) {
 
-                    if (keys.IsKeyDown(Keys.Up)) {
-                        //text = "Testing this out";
-                        //npcText = true;
-                        n.showText = true;
-                    }
-                } else {
-                    n.showText = false;
-                }
+        //            if (keys.IsKeyDown(Keys.Up)) {
+        //                //text = "Testing this out";
+        //                //npcText = true;
+        //                n.showText = true;
+        //            }
+        //        } else {
+        //            n.showText = false;
+        //        }
 
-                n.Update(gameTime);
-            }
+        //        n.Update(gameTime);
+        //    }
 
-        }
-
-        private void updateMenu(GameTime gameTime) {
-            menuTimer += gameTime.ElapsedGameTime.Milliseconds;
-            if (menuTimer >= menuInterval) {
-                KeyboardState kbs = Keyboard.GetState();
-                if (kbs.IsKeyDown(Keys.Up)) {
-                    if (menuSelectorIndex > 0) {
-                        menuSelectorIndex--;
-                    } else {
-                        menuSelectorIndex = NUM_MENU_ITEMS - 1;
-                    }
-                    menuTimer = 0;
-                } if (kbs.IsKeyDown(Keys.Down)) {
-                    if (menuSelectorIndex < NUM_MENU_ITEMS - 1) {
-                        menuSelectorIndex++;
-                    } else {
-                        menuSelectorIndex = 0;
-                    }
-                    menuTimer = 0;
-                } if (kbs.IsKeyDown(Keys.Space) || kbs.IsKeyDown(Keys.Enter)) {
-                    switch (menuSelectorIndex) {
-                        case 0:     //New Game
-                            loadPlayingContent("map1");
-                            gameState = GameState.Playing;
-                            break;
-                        case 1:     //Exit
-                            Exit();
-                            break;
-                    }
-                } if (kbs.IsKeyDown(Keys.Escape)) {
-                    Exit();
-                }
-            }
-            menuSelectorPosition = new Vector2(70, 320 + menuSelectorIndex * 34);
-        }
-
+        //}
 
         private void updatePause(GameTime gameTime) {
             pauseSelectTimer += gameTime.ElapsedGameTime.Milliseconds;
@@ -490,10 +403,10 @@ namespace tower_of_darkness_xna {
                 if (kbs.IsKeyDown(Keys.Space) || kbs.IsKeyDown(Keys.Enter)) {
                     switch (pauseSelectorIndex) {
                         case 0:         //Continue
-                            gameState = GameState.Playing;
+                            gameState = GameStateEnum.Playing;
                             break;
                         case 2:         //Exit
-                            gameState = GameState.Menu;
+                            gameState = GameStateEnum.Menu;
                             menuTimer = -300;
                             break;
                     }
@@ -501,7 +414,7 @@ namespace tower_of_darkness_xna {
                     pauseSelectTimer = 0;
                 }
                 if (kbs.IsKeyDown(Keys.Escape)) {
-                    gameState = GameState.Playing;
+                    gameState = GameStateEnum.Playing;
                     pauseSelectorIndex = 0;
                     pauseSelectTimer = 0;
                     pausePlayTimer = -300;
@@ -517,52 +430,34 @@ namespace tower_of_darkness_xna {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime) {
-            switch (gameState) {
-                case GameState.Menu:
-                    updateMenu(gameTime);
-                    break;
-                case GameState.Playing:
-                    updatePlaying(gameTime);
-                    break;
-                case GameState.Pause:
-                    updatePause(gameTime);
-                    break;
-            }
+            currentGameState.Update(gameTime);
+            if (exitGame) this.Exit();
             base.Update(gameTime);
         }
 
-        private void drawPlaying(GameTime gameTime) {
-            //GraphicsDevice.Clear(Color.Black);
+        //private void drawPlaying(GameTime gameTime) {
+        //    //GraphicsDevice.Clear(Color.Black);
 
-            Color drawColor = new Color(ambientColor.R / 255f * ambient, ambientColor.G / 255f * ambient, ambientColor.B / 255f * ambient);
-            spriteBatch.Begin();
-            spriteBatch.Draw(background, new Vector2(), Color.White);
-            map.Draw(spriteBatch, mapView);
-            character.Draw(spriteBatch, drawColor);
-            foreach (NPC n in npcs) {
-                n.Draw(spriteBatch, OPAQUE_COLOR);
-            }
-            foreach (Scene2DNode node in nodeList) {
-                if (node.getNodeType() == "key")
-                    node.hover();
-                node.Draw(spriteBatch);
-            }
+        //    Color drawColor = new Color(ambientColor.R / 255f * ambient, ambientColor.G / 255f * ambient, ambientColor.B / 255f * ambient);
+        //    spriteBatch.Begin();
+        //    spriteBatch.Draw(background, new Vector2(), Color.White);
+        //    map.Draw(spriteBatch, mapView);
+        //    character.Draw(spriteBatch, drawColor);
+        //    foreach (OldNPC n in npcs) {
+        //        n.Draw(spriteBatch, OPAQUE_COLOR);
+        //    }
+        //    foreach (Scene2DNode node in nodeList) {
+        //        if (node.getNodeType() == "key")
+        //            node.hover();
+        //        node.Draw(spriteBatch);
+        //    }
 
-            //if (npcText == true)
-            //{
-            //    spriteBatch.DrawString(font, text, new Vector2(300, 300), Color.White);
-            //}
-            spriteBatch.End();
-        }
-
-        private void drawMenu(GameTime gameTime) {
-            GraphicsDevice.Clear(Color.Black);
-
-            spriteBatch.Begin();
-            spriteBatch.Draw(menuBackground, new Vector2(), Color.White);
-            spriteBatch.Draw(menuSelector, menuSelectorPosition, Color.White);
-            spriteBatch.End();
-        }
+        //    //if (npcText == true)
+        //    //{
+        //    //    spriteBatch.DrawString(font, text, new Vector2(300, 300), Color.White);
+        //    //}
+        //    spriteBatch.End();
+        //}
 
         private void drawPause(GameTime gameTime) {
             spriteBatch.Begin();
@@ -576,20 +471,10 @@ namespace tower_of_darkness_xna {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime) {
-
-            switch (gameState) {
-                case GameState.Menu:
-                    drawMenu(gameTime);
-                    break;
-                case GameState.Playing:
-                    drawPlaying(gameTime);
-                    break;
-                case GameState.Pause:
-                    drawPause(gameTime);
-                    break;
-            }
-
+            GraphicsDevice.Clear(Color.Black);
+            currentGameState.Draw(gameTime, spriteBatch);
             base.Draw(gameTime);
         }
+
     }
 }
