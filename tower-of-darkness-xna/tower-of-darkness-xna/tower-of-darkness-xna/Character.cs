@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
-namespace tower_of_darkness_xna {
+namespace tower_of_darkness_xna { 
     class Character : NPC {
         //Character
         private int moveTimer = 0;
