@@ -5,12 +5,14 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using FuncWorks.XNA.XTiled;
 
 namespace tower_of_darkness_xna {
     class LevelState : GameState {
 
-        private bool DEBUG = true;
+        private bool DEBUG = false;
+        private bool PAUSE_SCREEN = false;
 
         private const int BACKGROUND_LAYER = 0;
         private const int FOREGROUND_LAYER = 1;
@@ -31,6 +33,18 @@ namespace tower_of_darkness_xna {
         //debug
         private Texture2D collision;
         private Texture2D transition;
+
+        //pause content
+        private const int NUM_PAUSE_ITEMS = 3;
+        private Texture2D pauseBackground;
+        private Texture2D pauseSelector;
+        private Vector2 pauseSelectorPosition;
+        private int pauseSelectorIndex = 0;
+        private float pauseSelectTimer = 0;
+        private float pauseSelectInterval = 100;
+        private float pausePlayTimer = 1000;
+        private float pausePlayInterval = 1000;
+
 
         public LevelState(ContentManager Content, int PreferredBackBufferWidth, int PreferredBackBufferHeight, string mapName, Character character)
             : base(Content) {
@@ -81,6 +95,11 @@ namespace tower_of_darkness_xna {
             //debug
             collision = Content.Load<Texture2D>("debug/collision");
             transition = Content.Load<Texture2D>("debug/transition");
+
+            //pause
+            pauseBackground = Content.Load<Texture2D>("sprites/pausescreen");
+            pauseSelector = Content.Load<Texture2D>("sprites/menu_selector");
+            pauseSelectorPosition = new Vector2(128, 150);
         }
 
         private void modifyLayerOpacity() {
@@ -174,7 +193,65 @@ namespace tower_of_darkness_xna {
         }
 
         public override void Update(GameTime gameTime) {
+            if (PAUSE_SCREEN)
+                UpdatePause(gameTime);
+            else
+                UpdatePlaying(gameTime);
+        }
+
+        private void UpdatePlaying(GameTime gameTime) {
+            pausePlayTimer += gameTime.ElapsedGameTime.Milliseconds;
+            if (pausePlayTimer >= pausePlayInterval) {
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape)) {
+                    PAUSE_SCREEN = true;
+                }
+            }
             character.Update(gameTime, mapRect, ref mapView, ref cRectangles, ref transitions);
+        }
+
+        private void UpdatePause(GameTime gameTime) {
+            pauseSelectTimer += gameTime.ElapsedGameTime.Milliseconds;
+            if (pauseSelectTimer >= pauseSelectInterval) {
+                KeyboardState kbs = Keyboard.GetState();
+                if (kbs.IsKeyDown(Keys.Up)) {
+                    if (pauseSelectorIndex > 0) {
+                        pauseSelectorIndex--;
+                    } else {
+                        pauseSelectorIndex = NUM_PAUSE_ITEMS - 1;
+                    }
+                    pauseSelectTimer = 0;
+                }
+                if (kbs.IsKeyDown(Keys.Down)) {
+                    if (pauseSelectorIndex < NUM_PAUSE_ITEMS - 1) {
+                        pauseSelectorIndex++;
+                    } else {
+                        pauseSelectorIndex = 0;
+                    }
+                    pauseSelectTimer = 0;
+                }
+                if (kbs.IsKeyDown(Keys.Space) || kbs.IsKeyDown(Keys.Enter)) {
+                    switch (pauseSelectorIndex) {
+                        case 0:         //Continue
+                            PAUSE_SCREEN = false;
+                            pauseSelectorIndex = 0;
+                            pauseSelectTimer = 0;
+                            pausePlayTimer = 0;
+                            break;
+                        case 2:         //Go to menu
+                            Game1.currentGameState = new MenuState(Content, Game1.WIDTH, Game1.HEIGHT, Game1.STARTING_MAP_NAME, character);
+                            pauseSelectorIndex = 0;
+                            pauseSelectTimer = 0;
+                            break;
+                    }
+                }
+                if (kbs.IsKeyDown(Keys.Escape)) {
+                    PAUSE_SCREEN = false;
+                    pauseSelectorIndex = 0;
+                    pauseSelectTimer = 0;
+                    pausePlayTimer = 0;
+                }
+                pauseSelectorPosition = new Vector2(128, 150 + pauseSelectorIndex * 30);
+            }
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch batch) {
@@ -185,6 +262,7 @@ namespace tower_of_darkness_xna {
             character.Draw(batch, Color.White);
             map.DrawLayer(batch, TOP_LAYER, mapView, 0);
 
+            //Debug
             if (DEBUG) {
                 foreach (Rectangle r in cRectangles) {
                     batch.Draw(collision, r, OPAQUE_COLOR);
@@ -193,7 +271,16 @@ namespace tower_of_darkness_xna {
                     batch.Draw(transition, t.tRect, OPAQUE_COLOR);
                 }
             }
+
+            batch.End();    //Stops additive blending from player drawing batch
+            batch.Begin();
+            //Pause
+            if (PAUSE_SCREEN) {
+                batch.Draw(pauseBackground, new Vector2(100, 60), Color.White);
+                batch.Draw(pauseSelector, pauseSelectorPosition, Color.White);
+            }
             batch.End();
+            
         }
     }
 }

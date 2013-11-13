@@ -113,12 +113,9 @@
     <Compile Include="Character.cs" />
     <Compile Include="MovementStatus.cs" />
     <Compile Include="NPC.cs" />
-    <Compile Include="OldCharacter.cs" />
     <Compile Include="GameState.cs" />
-    <Compile Include="GameStateEnum.cs" />
     <Compile Include="LevelState.cs" />
     <Compile Include="MenuState.cs" />
-    <Compile Include="OldNPC.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="ObjectDirection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

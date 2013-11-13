@@ -20,7 +20,7 @@ namespace tower_of_darkness_xna {
         private Texture2D menuSelector;
         private Vector2 menuSelectorPosition;
         private int menuSelectorIndex = 0;
-        private float menuTimer = 100;
+        private float menuTimer = 0;
         private float menuInterval = 100;
 
         public MenuState(ContentManager Content, int PreferredBackBufferWidth, int PreferredBackBufferHeight, string startingMapName, Character character)
