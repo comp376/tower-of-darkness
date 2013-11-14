@@ -94,23 +94,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="debug\border_light.png">
-      <Name>border_light</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="debug\collision.png">
-      <Name>collision</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="debug\transition.png">
-      <Name>transition</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="fonts\spriteFont.spritefont">
       <Name>spriteFont</Name>
       <Importer>FontDescriptionImporter</Importer>
