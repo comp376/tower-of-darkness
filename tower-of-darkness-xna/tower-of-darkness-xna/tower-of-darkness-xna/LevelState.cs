@@ -15,8 +15,9 @@ namespace tower_of_darkness_xna {
         private bool PAUSE_SCREEN = false;
 
         private const int BACKGROUND_LAYER = 0;
-        private const int FOREGROUND_LAYER = 1;
-        private const int TOP_LAYER = 2;
+        private const int LADDER_LAYER = 1;
+        private const int FOREGROUND_LAYER = 2;
+        private const int TOP_LAYER = 3;
         private Color OPAQUE_COLOR = new Color(25, 25, 25);
         private Color BACKGROUND_COLOR = new Color(100, 100, 100);
 
@@ -28,11 +29,14 @@ namespace tower_of_darkness_xna {
         private Character character;
         private List<Rectangle> cRectangles;
         private List<Transition> transitions;
+        private List<Rectangle> ladders;
         private List<NPC> npcs;
 
         //debug
         private Texture2D collision;
         private Texture2D transition;
+        private Texture2D ladder;
+        private Texture2D charDebug;
 
         //pause content
         private const int NUM_PAUSE_ITEMS = 3;
@@ -88,13 +92,16 @@ namespace tower_of_darkness_xna {
             mapRect = new Rectangle(0, 0, map.Width * map.TileWidth, map.Height * map.TileHeight);
             loadCollisionRectangles();
             loadTransitionRectangles();
-            loadNPCs();
+            loadLadderRectangles();
+            //loadNPCs();
             //loadMapObjects();
             loadMapInfo();
 
             //debug
             collision = Content.Load<Texture2D>("debug/collision");
             transition = Content.Load<Texture2D>("debug/transition");
+            ladder = Content.Load<Texture2D>("debug/ladder");
+            charDebug = Content.Load<Texture2D>("debug/char");
 
             //pause
             pauseBackground = Content.Load<Texture2D>("sprites/pausescreen");
@@ -145,7 +152,7 @@ namespace tower_of_darkness_xna {
         private void loadCollisionRectangles() {
             cRectangles = new List<Rectangle>();
             int tileSize = map.TileWidth / 2;   //Not sure why dividing by 2
-            foreach (TileData[] td in map.TileLayers[FOREGROUND_LAYER].Tiles) {
+            foreach (TileData[] td in map.TileLayers["Foreground"].Tiles) {
                 foreach (TileData t in td) {
                     if (t != null) {
                         Rectangle cRect = t.Target;
@@ -155,6 +162,21 @@ namespace tower_of_darkness_xna {
                     }
                 }
             }
+        }
+
+        private void loadLadderRectangles() {
+            ladders = new List<Rectangle>();
+            //int tileSize = map.TileWidth / 2;   //Not sure why dividing by 2
+            //foreach (TileData[] td in map.TileLayers["Ladder"].Tiles) {
+            //    foreach (TileData t in td) {
+            //        if (t != null) {
+            //            Rectangle lRect = t.Target;
+            //            lRect.X -= tileSize;
+            //            lRect.Y -= tileSize;
+            //            ladders.Add(lRect);
+            //        }
+            //    }
+            //}
         }
 
         private void loadTransitionRectangles(){
@@ -208,7 +230,7 @@ namespace tower_of_darkness_xna {
                     PAUSE_SCREEN = true;
                 }
             }
-            character.Update(gameTime, mapRect, ref mapView, ref cRectangles, ref transitions);
+            character.Update(gameTime, mapRect, ref mapView, ref cRectangles, ref transitions, ref ladders);
         }
 
         private void UpdatePause(GameTime gameTime) {
@@ -259,10 +281,11 @@ namespace tower_of_darkness_xna {
         public override void Draw(GameTime gameTime, SpriteBatch batch) {
             batch.Begin();
             batch.Draw(backgroundTexture, new Vector2(), BACKGROUND_COLOR);
-            map.DrawLayer(batch, BACKGROUND_LAYER, mapView, 0);
-            map.DrawLayer(batch, FOREGROUND_LAYER, mapView, 0);
+            map.DrawLayer(batch, 1, mapView, 0);
+            map.DrawLayer(batch, 2, mapView, 0);
+            //map.DrawLayer(batch, LADDER_LAYER, mapView, 0);
             character.Draw(batch, Color.White);
-            map.DrawLayer(batch, TOP_LAYER, mapView, 0);
+            map.DrawLayer(batch, 0, mapView, 0);
 
             //Debug
             if (DEBUG) {
@@ -272,6 +295,10 @@ namespace tower_of_darkness_xna {
                 foreach (Transition t in transitions) {
                     batch.Draw(transition, t.tRect, OPAQUE_COLOR);
                 }
+                //foreach (Rectangle r in ladders) {
+                //    batch.Draw(ladder, r, OPAQUE_COLOR);
+                //}
+                batch.Draw(charDebug, character.objectRectangle, OPAQUE_COLOR);
             }
 
             batch.End();    //Stops additive blending from player drawing batch

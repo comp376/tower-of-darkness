@@ -5,6 +5,6 @@ using System.Text;
 
 namespace tower_of_darkness_xna {
     enum MovementStatus {
-        Left, Right, Jump, Fall, None
+        Left, Right, Up, Down, Jump, Fall, None
     }
 }

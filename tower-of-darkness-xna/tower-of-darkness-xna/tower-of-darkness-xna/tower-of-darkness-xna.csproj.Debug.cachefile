@@ -30,12 +30,14 @@ Content\tiles\TreeLeaves2.xnb
 Content\tiles\Window.xnb
 Content\tiles\Wood.xnb
 Content\maps\spritesheets\spritesheet.xnb
+Content\debug\ladder.xnb
+Content\debug\char.xnb
 Content\fonts\spriteFont.xnb
 Content\maps\bridge.xnb
 Content\maps\map1.xnb
 Content\maps\tower1.xnb
+Content\maps\sandbox.xnb
 Content\maps\bridge\00.xnb
 Content\maps\map1\00.xnb
 Content\maps\tower1\00.xnb
-Content\maps\sandbox.xnb
 Content\maps\sandbox\00.xnb
