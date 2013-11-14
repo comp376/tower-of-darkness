@@ -99,6 +99,11 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Compile Include="debug\char.png">
+      <Name>char</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="debug\collision.png">
       <Name>collision</Name>
       <Importer>TextureImporter</Importer>
@@ -295,13 +300,6 @@
   <ItemGroup>
     <Compile Include="debug\ladder.png">
       <Name>ladder</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="debug\char.png">
-      <Name>char</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
