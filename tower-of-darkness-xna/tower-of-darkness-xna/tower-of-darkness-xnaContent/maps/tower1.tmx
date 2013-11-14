@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="45" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="spritesheet" tilewidth="32" tileheight="32">
+  <image source="spritesheets/spritesheet.png" trans="ff00ff" width="320" height="320"/>
+ </tileset>
+ <layer name="Background" width="25" height="45">
+  <data encoding="base64" compression="zlib">
+   eJztw0ENAAAMA6FzUv8u52IvSFg1VVVVVV8fvsqIPA==
+  </data>
+ </layer>
+ <layer name="Foreground" width="25" height="45">
+  <data encoding="base64" compression="zlib">
+   eJzt1UEKwCAMBEB/4MH//7UXQSiamu0ugqyQm2aCMViLdtUeNmzYsGHDhg0bNsYeJOc7ds8i+xR3xTCyd3uq56ueobWsDEY9UX1RvWj/MgbiIEbWQY2M88fYdRjz8ZWDOYPRO2XOW2QrlqrmU/kVf8cs2iXxAETjDJ8=
+  </data>
+ </layer>
+ <layer name="Top" width="25" height="45">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20LL6AAAAAAeBsRlAAB
+  </data>
+ </layer>
+ <objectgroup name="Transition" width="25" height="45">
+  <object name="bridge" x="0" y="1312" width="32" height="64">
+   <properties>
+    <property name="cx" value="0"/>
+    <property name="cy" value="0"/>
+    <property name="d" value="0"/>
+    <property name="x" value="736"/>
+    <property name="y" value="288"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
