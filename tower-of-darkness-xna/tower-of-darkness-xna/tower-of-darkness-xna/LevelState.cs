@@ -11,7 +11,7 @@ using FuncWorks.XNA.XTiled;
 namespace tower_of_darkness_xna {
     class LevelState : GameState {
 
-        private bool DEBUG = false;
+        private bool DEBUG = true;
         private bool PAUSE_SCREEN = false;
 
         private const int BACKGROUND_LAYER = 0;
@@ -103,6 +103,9 @@ namespace tower_of_darkness_xna {
         }
 
         private void modifyLayerOpacity() {
+            if(DEBUG)
+                OPAQUE_COLOR = new Color(100, 100, 100);
+
             foreach (TileLayer tl in map.TileLayers) {
                 tl.OpacityColor = OPAQUE_COLOR;
             }
@@ -145,7 +148,6 @@ namespace tower_of_darkness_xna {
             foreach (TileData[] td in map.TileLayers[FOREGROUND_LAYER].Tiles) {
                 foreach (TileData t in td) {
                     if (t != null) {
-                        //Console.WriteLine(t.Target);
                         Rectangle cRect = t.Target;
                         cRect.X -= tileSize;
                         cRect.Y -= tileSize;

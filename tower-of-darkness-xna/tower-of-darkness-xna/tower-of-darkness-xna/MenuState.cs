@@ -64,8 +64,6 @@ namespace tower_of_darkness_xna {
                 } if (kbs.IsKeyDown(Keys.Space) || kbs.IsKeyDown(Keys.Enter)) {
                     switch (menuSelectorIndex) {
                         case 0:     //New Game
-                            //loadPlayingContent("map1");
-                            //gameState = GameStateEnum.Playing;
                             Game1.currentGameState = new LevelState(Content, PreferredBackBufferWidth, PreferredBackBufferHeight, startingMapName, character);
                             break;
                         case 1:     //Exit
