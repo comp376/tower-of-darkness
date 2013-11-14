@@ -25,11 +25,11 @@ namespace tower_of_darkness_xna {
 
         public MenuState(ContentManager Content, int PreferredBackBufferWidth, int PreferredBackBufferHeight, string startingMapName, Character character)
             : base(Content) {
-                this.PreferredBackBufferWidth = PreferredBackBufferWidth;
-                this.PreferredBackBufferHeight = PreferredBackBufferHeight;
-                this.startingMapName = startingMapName;
-                this.character = character;
-                LoadContent();
+            this.PreferredBackBufferWidth = PreferredBackBufferWidth;
+            this.PreferredBackBufferHeight = PreferredBackBufferHeight;
+            this.startingMapName = startingMapName;
+            this.character = character;
+            LoadContent();
         }
 
         public override void LoadContent() {
@@ -64,6 +64,8 @@ namespace tower_of_darkness_xna {
                 } if (kbs.IsKeyDown(Keys.Space) || kbs.IsKeyDown(Keys.Enter)) {
                     switch (menuSelectorIndex) {
                         case 0:     //New Game
+                            Texture2D characterSpriteSheet = Content.Load<Texture2D>("sprites/character2");
+                            character = new Character(characterSpriteSheet, 3, 1, 32, 64, Content);
                             Game1.currentGameState = new LevelState(Content, PreferredBackBufferWidth, PreferredBackBufferHeight, startingMapName, character);
                             break;
                         case 1:     //Exit

@@ -151,6 +151,8 @@ namespace tower_of_darkness_xna {
 
         private void loadCollisionRectangles() {
             cRectangles = new List<Rectangle>();
+            if (map.TileLayers["Foreground"] == null)
+                return;
             int tileSize = map.TileWidth / 2;   //Not sure why dividing by 2
             foreach (TileData[] td in map.TileLayers["Foreground"].Tiles) {
                 foreach (TileData t in td) {
@@ -166,17 +168,19 @@ namespace tower_of_darkness_xna {
 
         private void loadLadderRectangles() {
             ladders = new List<Rectangle>();
-            //int tileSize = map.TileWidth / 2;   //Not sure why dividing by 2
-            //foreach (TileData[] td in map.TileLayers["Ladder"].Tiles) {
-            //    foreach (TileData t in td) {
-            //        if (t != null) {
-            //            Rectangle lRect = t.Target;
-            //            lRect.X -= tileSize;
-            //            lRect.Y -= tileSize;
-            //            ladders.Add(lRect);
-            //        }
-            //    }
-            //}
+            if (map.TileLayers["Ladder"] == null)
+                return;
+            int tileSize = map.TileWidth / 2;   //Not sure why dividing by 2
+            foreach (TileData[] td in map.TileLayers["Ladder"].Tiles) {
+                foreach (TileData t in td) {
+                    if (t != null) {
+                        Rectangle lRect = t.Target;
+                        lRect.X -= tileSize;
+                        lRect.Y -= tileSize;
+                        ladders.Add(lRect);
+                    }
+                }
+            }
         }
 
         private void loadTransitionRectangles(){
@@ -283,7 +287,7 @@ namespace tower_of_darkness_xna {
             batch.Draw(backgroundTexture, new Vector2(), BACKGROUND_COLOR);
             map.DrawLayer(batch, 1, mapView, 0);
             map.DrawLayer(batch, 2, mapView, 0);
-            //map.DrawLayer(batch, LADDER_LAYER, mapView, 0);
+            map.DrawLayer(batch, LADDER_LAYER, mapView, 0);
             character.Draw(batch, Color.White);
             map.DrawLayer(batch, 0, mapView, 0);
 
@@ -295,9 +299,9 @@ namespace tower_of_darkness_xna {
                 foreach (Transition t in transitions) {
                     batch.Draw(transition, t.tRect, OPAQUE_COLOR);
                 }
-                //foreach (Rectangle r in ladders) {
-                //    batch.Draw(ladder, r, OPAQUE_COLOR);
-                //}
+                foreach (Rectangle r in ladders) {
+                    batch.Draw(ladder, r, OPAQUE_COLOR);
+                }
                 batch.Draw(charDebug, character.objectRectangle, OPAQUE_COLOR);
             }
 
