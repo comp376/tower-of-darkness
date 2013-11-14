@@ -1,0 +1,11 @@
+direction(0 = left, 1 = right)  (ignore 2 = jump, 3, = fall, 4 = none)
+spawn = that map has a Load.Spawn Tiled property
+001 x, y is in TILES
+
+map	###_NAME	   | x, y  			|  cx	|  cx	|	from 		|	d	|	updated in tiled editor
+--------------------------------------------------------------------------------------------------------
+001_map1			  2,  11 			0		0		spawn			1			 n
+001_map1			736, 352		  800		0		002				0			 n
+002_bridge		     32, 352			0		0		001				1		     n
+002_bridge			736, 288		    0		0		003				0			 n
+003_tower1			 32, 352			0     960		002				1			 n
