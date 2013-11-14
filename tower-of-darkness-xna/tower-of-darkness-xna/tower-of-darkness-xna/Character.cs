@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
-namespace tower_of_darkness_xna { 
+namespace tower_of_darkness_xna {
     class Character : NPC {
         //Character
         private int moveTimer = 0;
@@ -17,8 +17,8 @@ namespace tower_of_darkness_xna {
         private const int GRAVITY_SPEED = 4;
         private bool jumping = false;
         private float jumpingHeight = 0;
-        private const int JUMPING_HEIGHT = 10;
-        private const float JUMPING_INCREMENT = 0.15f;
+        private const int JUMPING_HEIGHT = 8;
+        private const float JUMPING_INCREMENT = 0.10f;
         private bool falling = false;
         private int startingY = 0;
 
@@ -132,7 +132,6 @@ namespace tower_of_darkness_xna {
                 }
                 lanternTimer = 0;
             }
-
         }
 
         private void gravity(ref List<Rectangle> cRectangles, ref Rectangle mapView, ref Rectangle mapRect, ref List<Transition> transitions) {
@@ -153,12 +152,20 @@ namespace tower_of_darkness_xna {
         }
 
         private void jump(ref List<Rectangle> cRectangles, ref Rectangle mapView, ref Rectangle mapRect, ref List<Transition> transitions) {
+            int middleY = mapView.Height / 2;
             KeyboardState kbs = Keyboard.GetState();
             if (jumping) {
                 if (collides(cRectangles, MovementStatus.Jump)) {
                     jumping = false;
                 } else {
-                    objectRectangle.Y += (int)jumpingHeight;
+                    if (mapInView(mapView, mapRect, 0, (int)jumpingHeight, MovementStatus.Jump)) {
+                        Console.WriteLine("in view");
+                        if (objectRectangle.Y > middleY)
+                            objectRectangle.Y += (int)jumpingHeight;
+                        else
+                            scroll(MovementStatus.Jump, ref mapView, ref cRectangles, ref transitions);
+                    } else
+                        objectRectangle.Y += (int)jumpingHeight;
                     jumpingHeight += JUMPING_INCREMENT;
                     float difference = JUMPING_HEIGHT / JUMPING_INCREMENT;
                     if (objectRectangle.Y < startingY - difference) {
@@ -240,6 +247,12 @@ namespace tower_of_darkness_xna {
                     }
                     break;
                 case MovementStatus.Jump:
+                    mapView.Y += (int)jumpingHeight;
+                    for (int i = 0; i < cRectangles.Count; i++) {
+                        cRectangles[i] = new Rectangle(cRectangles[i].X, cRectangles[i].Y - (int)jumpingHeight, cRectangles[i].Width, cRectangles[i].Height);
+                    } for (int i = 0; i < transitions.Count; i++) {
+                        transitions[i].tRect = new Rectangle(transitions[i].tRect.X, transitions[i].tRect.Y - (int)jumpingHeight, transitions[i].tRect.Width, transitions[i].tRect.Height);
+                    }
                     break;
                 case MovementStatus.Fall:
                     mapView.Y += GRAVITY_SPEED;
@@ -297,6 +310,8 @@ namespace tower_of_darkness_xna {
                         inView = true;
                     break;
                 case MovementStatus.Jump:
+                    if (mapView.Y > 0)
+                        inView = true;
                     break;
                 case MovementStatus.Fall:
                     if (mapView.Y < (mapRect.Height - mapView.Height))
