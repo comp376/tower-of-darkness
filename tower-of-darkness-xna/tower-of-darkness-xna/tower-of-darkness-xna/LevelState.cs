@@ -158,9 +158,9 @@ namespace tower_of_darkness_xna {
         }
 
         private void loadTransitionRectangles(){
+            transitions = new List<Transition>();
             if (map.ObjectLayers["Transition"] == null)
                 return;
-            transitions = new List<Transition>();
             int tileSize = map.TileWidth / 2;   //Not sure why dividing by 2
             foreach (MapObject mo in map.ObjectLayers["Transition"].MapObjects) {
                 Rectangle tRect = mo.Bounds;
@@ -175,9 +175,9 @@ namespace tower_of_darkness_xna {
         }
 
         private void loadNPCs() {
-            if (map.ObjectLayers["NPC"] == null)
-                return;
             npcs = new List<NPC>();
+            if (map.ObjectLayers["NPC"] == null)
+                return;            
             foreach (MapObject mo in map.ObjectLayers["NPC"].MapObjects) {
                 string spritesheetName = mo.Properties["spritesheet"].Value;
                 Texture2D npcSpriteSheet = Content.Load<Texture2D>("sprites/" + spritesheetName);

@@ -43,7 +43,7 @@ namespace tower_of_darkness_xna {
             : base(spriteSheet, xNumberOfFrames, yNumberOfFrames, spriteWidth, spriteHeight) {
             this.Content = Content;
             LoadContent();
-            objectRectangle = new Rectangle(objectRectangle.X + 64, objectRectangle.Y, objectRectangle.Width, objectRectangle.Height - 8); //8 to offset tight jumps
+            objectRectangle = new Rectangle(objectRectangle.X + 64, objectRectangle.Y + 64, objectRectangle.Width, objectRectangle.Height - 8); //8 to offset tight jumps
         }
 
         public void LoadContent() {
