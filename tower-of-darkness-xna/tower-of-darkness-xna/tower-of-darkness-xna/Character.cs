@@ -57,6 +57,7 @@ namespace tower_of_darkness_xna {
         }
 
         public void Update(GameTime gameTime, Rectangle mapRect, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders) {
+            Console.WriteLine(jumping);
             jump(ref cRectangles, ref mapView, ref mapRect, ref transitions, ref ladders);
             move(gameTime, mapRect, ref mapView, ref cRectangles, ref transitions, ref ladders);
             gravity(ref cRectangles, ref mapView, ref mapRect, ref transitions, ref ladders);
@@ -162,18 +163,19 @@ namespace tower_of_darkness_xna {
                     jumping = false;
                 } else {
                     if (mapInView(mapView, mapRect, 0, (int)jumpingHeight, MovementStatus.Jump)) {
-                        Console.WriteLine("in view");
                         if (objectRectangle.Y > middleY)
                             objectRectangle.Y += (int)jumpingHeight;
-                        else
+                        else {
                             scroll(MovementStatus.Jump, ref mapView, ref cRectangles, ref transitions, ref ladders);
+                        }
                     } else
                         objectRectangle.Y += (int)jumpingHeight;
                     //jumpingHeight += JUMPING_INCREMENT;
-                    float difference = JUMPING_HEIGHT / JUMPING_INCREMENT;
-                    if (objectRectangle.Y < startingY - difference) {
-                        jumping = false;
-                    }
+                    //float apex = JUMPING_HEIGHT / JUMPING_INCREMENT;
+                    //Console.WriteLine((startingY - apex) + ", " + (startingY - spriteHeight));
+                    //if (objectRectangle.Y < (startingY + apex - spriteHeight)) {
+                    //    jumping = false;
+                    //}
                 }
             } else {
                 if (kbs.IsKeyDown(Keys.Space) && !falling) {
