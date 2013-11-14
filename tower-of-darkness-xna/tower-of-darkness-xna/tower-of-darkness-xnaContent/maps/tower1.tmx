@@ -5,15 +5,15 @@
  </tileset>
  <layer name="Background" width="25" height="45">
   <data encoding="base64" compression="zlib">
-   eJzt0U0KgCAQhuFZtusEMcvuf8MIEkTGv2qmFq/wIIz6jaKKiF4kmyWrJ4tRk+JcuW7tb633esywxllfK3tm82vn72aNZj+5b+s/3sztvQMAvpCGd75Xn+h8rx7qlA1E2AJ67D94JwAgxgHwtIH2
+   eJzt0UsKgDAMRdEM3YRk6P536MRCKTHamgQHt3Ao9PPSj4qIXqTrpRtvNmNMhn3jvLXem3+qMcNq3prZ/Lv9q1lvs7+c1/uPyNzINwaAKK1l52fVqc7PqqFJ2UCFvaDG8YN7AgBqnPrDggY=
   </data>
  </layer>
- <layer name="Foreground" width="25" height="45">
+ <layer name="Foreground" width="25" height="45" visible="0">
   <data encoding="base64" compression="zlib">
    eJzdlUsOwCAIRL0BSXv/u3bTFQEEmbEfEpLGKg9EQAZX5Na3MFb9yZzrxhqdR92jZQedIxn8vMvgczSDwbEYR+M7YjB8ZzM0r6tZ+0xBMjrxVuxX/yHsIxjdvo14Vx4D/d6eqEEmQ/NYDL22Ix8o1o6+xroXr46ynFnf8LhMmb0rRP14DIQ/kY/oPl2JY5VjxbDaryt7O2ejfdl8rHC+MM8tW+x6i9gMYc/Y3fZZs1vr+RO9AConEfQ=
   </data>
  </layer>
- <layer name="Top" width="25" height="45">
+ <layer name="Top" width="25" height="45" visible="0">
   <data encoding="base64" compression="zlib">
    eJztwTEBAAAAwqD1T20LL6AAAAAAeBsRlAAB
   </data>
@@ -28,6 +28,5 @@
     <property name="y" value="288"/>
    </properties>
   </object>
-  <object name="tower2" x="351" y="0" width="34" height="63"/>
  </objectgroup>
 </map>
