@@ -100,8 +100,8 @@ namespace tower_of_darkness_xna {
             //debug
             collision = Content.Load<Texture2D>("debug/collision");
             transition = Content.Load<Texture2D>("debug/transition");
-            ladder = Content.Load<Texture2D>("debug/ladder");
-            charDebug = Content.Load<Texture2D>("debug/char");
+            ladder = Content.Load<Texture2D>("debug/collision");
+            charDebug = Content.Load<Texture2D>("debug/transition");
 
             //pause
             pauseBackground = Content.Load<Texture2D>("sprites/pausescreen");
