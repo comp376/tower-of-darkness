@@ -110,6 +110,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Breakable.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="MovementStatus.cs" />
     <Compile Include="NPC.cs" />

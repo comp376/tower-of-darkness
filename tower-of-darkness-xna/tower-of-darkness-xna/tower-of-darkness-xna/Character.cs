@@ -56,11 +56,10 @@ namespace tower_of_darkness_xna {
             currentLightSize = lowerBoundary;
         }
 
-        public void Update(GameTime gameTime, Rectangle mapRect, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders) {
-            Console.WriteLine(jumping);
-            jump(ref cRectangles, ref mapView, ref mapRect, ref transitions, ref ladders);
-            move(gameTime, mapRect, ref mapView, ref cRectangles, ref transitions, ref ladders);
-            gravity(ref cRectangles, ref mapView, ref mapRect, ref transitions, ref ladders);
+        public void Update(GameTime gameTime, Rectangle mapRect, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables) {
+            jump(ref cRectangles, ref mapView, ref mapRect, ref transitions, ref ladders, ref breakables);
+            move(gameTime, mapRect, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables);
+            gravity(ref cRectangles, ref mapView, ref mapRect, ref transitions, ref ladders, ref breakables);
             animate(gameTime);
             hitTransition(transitions, mapView);
             lanternSwinging(gameTime);
@@ -136,16 +135,19 @@ namespace tower_of_darkness_xna {
             }
         }
 
-        private void gravity(ref List<Rectangle> cRectangles, ref Rectangle mapView, ref Rectangle mapRect, ref List<Transition> transitions, ref List<Rectangle> ladders) {
+        private void gravity(ref List<Rectangle> cRectangles, ref Rectangle mapView, ref Rectangle mapRect, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables) {
             if (climbing)
                 return;
             int middleY = mapView.Height / 2;
-            if (!collides(cRectangles, MovementStatus.Fall)) {
+            if (!collides(cRectangles, MovementStatus.Fall) && !collides(ref breakables, MovementStatus.Fall)) {
+                //if (collides(breakables, MovementStatus.Fall)) {
+                //    Console.WriteLine("breakable");
+                //}
                 if (mapInView(mapView, mapRect, 0, GRAVITY_SPEED, MovementStatus.Fall)) {
                     if (objectRectangle.Y < middleY) {
                         objectRectangle.Y += GRAVITY_SPEED;
                     } else {
-                        scroll(MovementStatus.Fall, ref mapView, ref cRectangles, ref transitions, ref ladders);
+                        scroll(MovementStatus.Fall, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables);
                     }
                 } else {
                     objectRectangle.Y += GRAVITY_SPEED;
@@ -155,18 +157,18 @@ namespace tower_of_darkness_xna {
                 falling = false;
         }
 
-        private void jump(ref List<Rectangle> cRectangles, ref Rectangle mapView, ref Rectangle mapRect, ref List<Transition> transitions, ref List<Rectangle> ladders) {
+        private void jump(ref List<Rectangle> cRectangles, ref Rectangle mapView, ref Rectangle mapRect, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables) {
             int middleY = mapView.Height / 2;
             KeyboardState kbs = Keyboard.GetState();
             if (jumping) {
-                if (collides(cRectangles, MovementStatus.Jump)) {
+                if (collides(cRectangles, MovementStatus.Jump) || collides(ref breakables, MovementStatus.Jump)) {
                     jumping = false;
                 } else {
                     if (mapInView(mapView, mapRect, 0, (int)jumpingHeight, MovementStatus.Jump)) {
                         if (objectRectangle.Y > middleY)
                             objectRectangle.Y += (int)jumpingHeight;
                         else {
-                            scroll(MovementStatus.Jump, ref mapView, ref cRectangles, ref transitions, ref ladders);
+                            scroll(MovementStatus.Jump, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables);
                         }
                     } else
                         objectRectangle.Y += (int)jumpingHeight;
@@ -186,7 +188,7 @@ namespace tower_of_darkness_xna {
             }
         }
 
-        private void move(GameTime gameTime, Rectangle mapRect, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders) {
+        private void move(GameTime gameTime, Rectangle mapRect, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables) {
             int middleX = mapView.Width / 2;
             int middleY = mapView.Height / 2;
             KeyboardState kbs = Keyboard.GetState();
@@ -205,7 +207,7 @@ namespace tower_of_darkness_xna {
                                 if (objectRectangle.X > middleX) {
                                     objectRectangle.X -= MOVE_SPEED;
                                 } else {
-                                    scroll(movementStatus, ref mapView, ref cRectangles, ref transitions, ref ladders);
+                                    scroll(movementStatus, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables);
                                 }
                             } else if (objectRectangle.X > 0) {
                                 objectRectangle.X -= MOVE_SPEED;
@@ -220,7 +222,7 @@ namespace tower_of_darkness_xna {
                                 if (objectRectangle.X < middleX)
                                     objectRectangle.X += MOVE_SPEED;
                                 else {
-                                    scroll(movementStatus, ref mapView, ref cRectangles, ref transitions, ref ladders);
+                                    scroll(movementStatus, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables);
                                 }
                             } else if (objectRectangle.X + spriteWidth < mapView.Width)
                                 objectRectangle.X += MOVE_SPEED;
@@ -236,7 +238,7 @@ namespace tower_of_darkness_xna {
                                     if (objectRectangle.Y > middleY) {
                                         objectRectangle.Y -= MOVE_SPEED;
                                     } else {
-                                        scroll(movementStatus, ref mapView, ref cRectangles, ref transitions, ref ladders);
+                                        scroll(movementStatus, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables);
                                     }
                                 } else if (objectRectangle.Y > 0)
                                     objectRectangle.Y -= MOVE_SPEED;
@@ -253,7 +255,7 @@ namespace tower_of_darkness_xna {
                                     if (objectRectangle.Y < middleY)
                                         objectRectangle.Y += MOVE_SPEED;
                                     else {
-                                        scroll(movementStatus, ref mapView, ref cRectangles, ref transitions, ref ladders);
+                                        scroll(movementStatus, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables);
                                     }
                                 } else if (objectRectangle.Y + MOVE_SPEED < mapView.Height)
                                     objectRectangle.Y += MOVE_SPEED;
@@ -269,7 +271,7 @@ namespace tower_of_darkness_xna {
             }
         }
 
-        private void scroll(MovementStatus movementStatus, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders) {
+        private void scroll(MovementStatus movementStatus, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables) {
             switch (movementStatus) {
                 case MovementStatus.Left:
                     mapView.X += -MOVE_SPEED;
@@ -279,6 +281,8 @@ namespace tower_of_darkness_xna {
                         transitions[i].tRect = new Rectangle(transitions[i].tRect.X + MOVE_SPEED, transitions[i].tRect.Y, transitions[i].tRect.Width, transitions[i].tRect.Height);
                     } for (int i = 0; i < ladders.Count; i++) {
                         ladders[i] = new Rectangle(ladders[i].X + MOVE_SPEED, ladders[i].Y, ladders[i].Width, ladders[i].Height);
+                    } for (int i = 0; i < breakables.Count; i++) {
+                        breakables[i].bRect = new Rectangle(breakables[i].bRect.X + MOVE_SPEED, breakables[i].bRect.Y, breakables[i].bRect.Width, breakables[i].bRect.Height);
                     }
                     break;
                 case MovementStatus.Right:
@@ -289,6 +293,8 @@ namespace tower_of_darkness_xna {
                         transitions[i].tRect = new Rectangle(transitions[i].tRect.X - MOVE_SPEED, transitions[i].tRect.Y, transitions[i].tRect.Width, transitions[i].tRect.Height);
                     } for (int i = 0; i < ladders.Count; i++) {
                         ladders[i] = new Rectangle(ladders[i].X - MOVE_SPEED, ladders[i].Y, ladders[i].Width, ladders[i].Height);
+                    } for (int i = 0; i < breakables.Count; i++) {
+                        breakables[i].bRect = new Rectangle(breakables[i].bRect.X - MOVE_SPEED, breakables[i].bRect.Y, breakables[i].bRect.Width, breakables[i].bRect.Height);
                     }
                     break;
                 case MovementStatus.Up:
@@ -299,6 +305,8 @@ namespace tower_of_darkness_xna {
                         transitions[i].tRect = new Rectangle(transitions[i].tRect.X, transitions[i].tRect.Y + MOVE_SPEED, transitions[i].tRect.Width, transitions[i].tRect.Height);
                     } for (int i = 0; i < ladders.Count; i++) {
                         ladders[i] = new Rectangle(ladders[i].X, ladders[i].Y + MOVE_SPEED, ladders[i].Width, ladders[i].Height);
+                    } for (int i = 0; i < breakables.Count; i++) {
+                        breakables[i].bRect = new Rectangle(breakables[i].bRect.X, breakables[i].bRect.Y + MOVE_SPEED, breakables[i].bRect.Width, breakables[i].bRect.Height);
                     }
                     break;
                 case MovementStatus.Down:
@@ -309,6 +317,8 @@ namespace tower_of_darkness_xna {
                         transitions[i].tRect = new Rectangle(transitions[i].tRect.X, transitions[i].tRect.Y - MOVE_SPEED, transitions[i].tRect.Width, transitions[i].tRect.Height);
                     } for (int i = 0; i < ladders.Count; i++) {
                         ladders[i] = new Rectangle(ladders[i].X, ladders[i].Y - MOVE_SPEED, ladders[i].Width, ladders[i].Height);
+                    } for (int i = 0; i < breakables.Count; i++) {
+                        breakables[i].bRect = new Rectangle(breakables[i].bRect.X, breakables[i].bRect.Y - MOVE_SPEED, breakables[i].bRect.Width, breakables[i].bRect.Height);
                     }
                     break;
                 case MovementStatus.Jump:
@@ -319,6 +329,8 @@ namespace tower_of_darkness_xna {
                         transitions[i].tRect = new Rectangle(transitions[i].tRect.X, transitions[i].tRect.Y - (int)jumpingHeight, transitions[i].tRect.Width, transitions[i].tRect.Height);
                     } for (int i = 0; i < ladders.Count; i++) {
                         ladders[i] = new Rectangle(ladders[i].X, ladders[i].Y - (int)jumpingHeight, ladders[i].Width, ladders[i].Height);
+                    } for (int i = 0; i < breakables.Count; i++) {
+                        breakables[i].bRect = new Rectangle(breakables[i].bRect.X, breakables[i].bRect.Y - (int)jumpingHeight, breakables[i].bRect.Width, breakables[i].bRect.Height);
                     }
                     break;
                 case MovementStatus.Fall:
@@ -329,6 +341,8 @@ namespace tower_of_darkness_xna {
                         transitions[i].tRect = new Rectangle(transitions[i].tRect.X, transitions[i].tRect.Y - GRAVITY_SPEED, transitions[i].tRect.Width, transitions[i].tRect.Height);
                     } for (int i = 0; i < ladders.Count; i++) {
                         ladders[i] = new Rectangle(ladders[i].X, ladders[i].Y - GRAVITY_SPEED, ladders[i].Width, ladders[i].Height);
+                    } for (int i = 0; i < breakables.Count; i++) {
+                        breakables[i].bRect = new Rectangle(breakables[i].bRect.X, breakables[i].bRect.Y - GRAVITY_SPEED, breakables[i].bRect.Width, breakables[i].bRect.Height);
                     }
                     break;
                 case MovementStatus.None:
@@ -354,6 +368,31 @@ namespace tower_of_darkness_xna {
             foreach (Rectangle r in cRectangles) {
                 if (tempRect.Intersects(r)) {
                     collision = true;
+                }
+            }
+            return collision;
+        }
+
+        private bool collides(ref List<Breakable> cRectangles, MovementStatus movementStatus) {
+            bool collision = false;
+            Rectangle tempRect = objectRectangle;
+            if (movementStatus == MovementStatus.Left)
+                tempRect.X -= MOVE_SPEED;
+            if (movementStatus == MovementStatus.Right)
+                tempRect.X += MOVE_SPEED;
+            if (movementStatus == MovementStatus.Fall)
+                tempRect.Y += GRAVITY_SPEED;
+            if (movementStatus == MovementStatus.Jump)
+                tempRect.Y += (int)jumpingHeight;
+            if (movementStatus == MovementStatus.Up)
+                tempRect.Y += MOVE_SPEED;
+            if (movementStatus == MovementStatus.Down)
+                tempRect.Y += -MOVE_SPEED;
+            foreach (Breakable r in cRectangles) {
+                if (tempRect.Intersects(r.bRect)) {
+                    collision = true;
+                    if (movementStatus != MovementStatus.Jump)
+                        r.isTouched = true;
                 }
             }
             return collision;
