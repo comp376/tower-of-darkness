@@ -18,6 +18,7 @@ namespace tower_of_darkness_xna {
     public class Game1 : Game {
         public static int WIDTH = 800;
         public static int HEIGHT = 480;
+
         public static string STARTING_MAP_NAME = "tower5";
 
         public static GameState currentGameState;
