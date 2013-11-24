@@ -8,6 +8,8 @@ Content\maps\tower1.xnb
 Content\maps\tower2.xnb
 Content\maps\tower3.xnb
 Content\maps\tower4.xnb
+Content\maps\tower5.xnb
+Content\maps\tower6.xnb
 Content\sprites\background.xnb
 Content\sprites\character.xnb
 Content\sprites\character2.xnb
@@ -49,7 +51,5 @@ Content\maps\tower2\00.xnb
 Content\maps\tower3\00.xnb
 Content\maps\tower3\01.xnb
 Content\maps\tower4\00.xnb
-Content\maps\tower5.xnb
 Content\maps\tower5\00.xnb
-Content\maps\tower6.xnb
 Content\maps\tower6\00.xnb
