@@ -24,8 +24,8 @@
     <property name="cx" value="0"/>
     <property name="cy" value="0"/>
     <property name="d" value="0"/>
-    <property name="x" value="64"/>
-    <property name="y" value="96"/>
+    <property name="x" value="80"/>
+    <property name="y" value="64"/>
    </properties>
   </object>
  </objectgroup>
