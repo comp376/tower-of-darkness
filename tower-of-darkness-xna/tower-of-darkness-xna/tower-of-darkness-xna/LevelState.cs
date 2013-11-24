@@ -324,12 +324,8 @@ namespace tower_of_darkness_xna {
         public override void Draw(GameTime gameTime, SpriteBatch batch) {
             batch.Begin();
             batch.Draw(backgroundTexture, new Vector2(), BACKGROUND_COLOR);
-            map.DrawLayer(batch, 1, mapView, 0);
-            map.DrawLayer(batch, 2, mapView, 0);
-            map.DrawLayer(batch, 4, mapView, 0);
-            map.DrawLayer(batch, LADDER_LAYER, mapView, 0);
+            map.Draw(batch, mapView);
             character.Draw(batch, Color.White);
-            map.DrawLayer(batch, 0, mapView, 0);
 
             //Debug
             if (DEBUG) {
