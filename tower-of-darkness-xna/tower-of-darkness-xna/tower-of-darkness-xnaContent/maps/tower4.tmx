@@ -28,5 +28,14 @@
     <property name="y" value="64"/>
    </properties>
   </object>
+  <object name="tower5" x="33" y="32" width="30" height="63">
+   <properties>
+    <property name="cx" value="0"/>
+    <property name="cy" value="960"/>
+    <property name="d" value="0"/>
+    <property name="x" value="672"/>
+    <property name="y" value="416"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
