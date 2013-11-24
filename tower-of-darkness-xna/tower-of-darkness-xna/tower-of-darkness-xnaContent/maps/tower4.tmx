@@ -5,12 +5,12 @@
  </tileset>
  <layer name="Background" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJztkkEOwCAIBPmJvbbn/v9tvXggpLawQqUJJJuYiM660oiolULFS+7tCkVwn/rlGuFZz3pmjHpA3z/qtXqZ4aMeSz75RjJW8t988Zrlj8raj/j5G391/pFzuJKfVQeYoRf/BPnePlB+Bg+ac1sXsfWXGWTg80L56B948u88RM2N9k7t/0vNeijl1AUrw2mK
+   eJztkrEOwCAIRNn6GXZt5/7/t7l0IKa0eELBRJJLTETfeVKIqCy5ile7dyjkwX3rb9cIr/esZcaoB/T9Um+vlxE+6nHJJl9PRiT/yxevUb5Uvf2In9n40fl7zmEkP6tOMEMr/gXyrX2g/AweNOf2W8TWf2aQgc8L5aN/YMl/8uA1N9o7tf/fatSDpM3x7hn40arvtGla
   </data>
  </layer>
  <layer name="Foreground" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJztlm0KgDAIhneILrF+d/+zRT8GMtzmx1sOUhixNB+1ptVSSg1eUbIL31Mfz/PS/BHvjrPX+Gh2Z7e3SCVXLf8C8KlPLX+0t/rQ8C11m8Wxy/lLfvKT/y8+ar5a2dS3NEZvrTT9n+NaZ9XMjpsrfVzefxlJjm+I9NuKkuSvz/Nz71joOD3VjfRR+SN6GIr9JR/Zw1Hs6HUDhDEj6g==
+   eJztlkkOgCAMRXsIL4Fr738248KEkJaOWI39CREs/EcdUhoAtOSWpbfwPc/Hs16a/6p3p/G45+3DWMOK4B9GPuWp5VNjq4eG35C+RVE+XhW/+MX/Jz+qvlrZvbd0jxH1FvOfsQG5ajmzeVhdGfflPctIclwh6beVpeLz//N1b2NiWLyPUfGs/CPP8F9mP8nn6khWOwHFRiNG
   </data>
  </layer>
  <layer name="Ladder" width="32" height="32">
@@ -18,4 +18,15 @@
    eJzt1bENACAIAEEmsbZ2/+FcwSBBi7tevpEQAXBmPJ4zi/rZOfr6+vdW8zv+VnVXsqr+tX6OvYZ+G37RA8E=
   </data>
  </layer>
+ <objectgroup name="Transition" width="32" height="32">
+  <object name="tower3" x="0" y="928" width="31" height="62">
+   <properties>
+    <property name="cx" value="0"/>
+    <property name="cy" value="0"/>
+    <property name="d" value="0"/>
+    <property name="x" value="64"/>
+    <property name="y" value="96"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
