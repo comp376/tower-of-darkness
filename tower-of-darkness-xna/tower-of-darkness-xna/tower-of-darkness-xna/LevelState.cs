@@ -32,6 +32,7 @@ namespace tower_of_darkness_xna {
         private List<Rectangle> ladders;
         private List<Breakable> breakables;
         private List<NPC> npcs;
+        private SpriteFont font;
 
         //debug
         private Texture2D collision;
@@ -84,16 +85,27 @@ namespace tower_of_darkness_xna {
             }
 
             //Move ladder rectangles
-            for (int i = 0; i < ladders.Count; i++)
-            {
+            for (int i = 0; i < ladders.Count; i++) {
                 ladders[i] = new Rectangle(ladders[i].X - xChange, ladders[i].Y - yChange, ladders[i].Width, ladders[i].Height);
             }
+
+            //Move breakable rectangles
+            for (int i = 0; i < breakables.Count; i++) {
+                breakables[i].bRect = new Rectangle(breakables[i].bRect.X - xChange, breakables[i].bRect.Y - yChange, breakables[i].bRect.Width, breakables[i].bRect.Height);
+            }
+
+            //Move npcs
+            for (int i = 0; i < npcs.Count; i++) {
+                npcs[i].objectRectangle = new Rectangle(npcs[i].objectRectangle.X - xChange, npcs[i].objectRectangle.Y - yChange, npcs[i].objectRectangle.Width, npcs[i].objectRectangle.Height);
+            }
+
             //Set player direction
             character.movementStatus = (MovementStatus)transition.direction;
         }
 
         public override void LoadContent() {
             backgroundTexture = Content.Load<Texture2D>("sprites/background");
+            font = Content.Load<SpriteFont>("fonts/spriteFont");
             map = Content.Load<Map>("maps/" + mapName);
             modifyLayerOpacity();
             mapRect = new Rectangle(0, 0, map.Width * map.TileWidth, map.Height * map.TileHeight);
@@ -101,7 +113,7 @@ namespace tower_of_darkness_xna {
             loadTransitionRectangles();
             loadLadderRectangles();
             loadBreakables();
-            //loadNPCs();
+            loadNPCs();
             //loadMapObjects();
             loadMapInfo();
 
@@ -156,6 +168,16 @@ namespace tower_of_darkness_xna {
                     //Move ladder rectangles
                     for (int i = 0; i < ladders.Count; i++) {
                         ladders[i] = new Rectangle(ladders[i].X - xChange, ladders[i].Y - yChange, ladders[i].Width, ladders[i].Height);
+                    }
+
+                    //Move breakable rectangles
+                    for (int i = 0; i < breakables.Count; i++) {
+                        breakables[i].bRect = new Rectangle(breakables[i].bRect.X - xChange, breakables[i].bRect.Y - yChange, breakables[i].bRect.Width, breakables[i].bRect.Height);
+                    }
+
+                    //Move npcs
+                    for (int i = 0; i < npcs.Count; i++) {
+                        npcs[i].objectRectangle = new Rectangle(npcs[i].objectRectangle.X - xChange, npcs[i].objectRectangle.Y - yChange, npcs[i].objectRectangle.Width, npcs[i].objectRectangle.Height);
                     }
 
                     character.movementStatus = (MovementStatus)mo.Properties["direction"].AsInt32;
@@ -242,7 +264,9 @@ namespace tower_of_darkness_xna {
                 int xNumberOfFrames = (int)mo.Properties["xFrames"].AsInt32;
                 int yNumberOfFrames = (int)mo.Properties["yFrames"].AsInt32;
                 Rectangle npcRect = mo.Bounds;
-                NPC npc = new NPC(npcSpriteSheet, xNumberOfFrames, yNumberOfFrames, npcRect.Width, npcRect.Height);
+                string text = mo.Properties["text"].Value;
+                NPC npc = new NPC(npcSpriteSheet, xNumberOfFrames, yNumberOfFrames, npcRect.Width, npcRect.Height, text, spritesheetName, font);
+                Console.WriteLine(npc.ToString());
                 npc.objectRectangle = npcRect; //also provides npc(x,y) 
                 npcs.Add(npc);
             }
@@ -266,13 +290,16 @@ namespace tower_of_darkness_xna {
                     PAUSE_SCREEN = true;
                 }
             }
-            character.Update(gameTime, mapRect, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables);
+            character.Update(gameTime, mapRect, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs);
             for (int i = 0; i < breakables.Count; i++) {
                 breakables[i].Update(gameTime);
                 if (breakables[i].isBroken) {
                     map.TileLayers["Breakable"].Tiles[breakables[i].i][breakables[i].j] = null;
                     breakables.RemoveAt(i);
                 }
+            }
+            foreach (NPC npc in npcs) {
+                npc.Update(gameTime);
             }
         }
 
@@ -326,6 +353,9 @@ namespace tower_of_darkness_xna {
             batch.Draw(backgroundTexture, new Vector2(), BACKGROUND_COLOR);
             map.Draw(batch, mapView);
             character.Draw(batch, Color.White);
+            foreach (NPC npc in npcs) {
+                npc.Draw(batch, Color.White);
+            }
 
             //Debug
             if (DEBUG) {

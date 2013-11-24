@@ -99,8 +99,6 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="maps\sandbox.tmx">
       <Name>sandbox</Name>
       <Importer>TMXContentImporter</Importer>

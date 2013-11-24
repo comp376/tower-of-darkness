@@ -16,10 +16,24 @@ namespace tower_of_darkness_xna {
         protected int frameInterval = 80;
         public bool isMoving;
         public MovementStatus movementStatus;
+        private string text;
+        private string spritesheetName;
+        private SpriteFont font;
+        private bool isNPC = false;
+        public bool showText = false;
 
+        //character inherited constructor
         public NPC(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight)
             : base(spriteSheet, xNumberOfFrames, yNumberOfFrames, spriteWidth, spriteHeight) {
+        }
 
+        //npc constructor
+        public NPC(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, string text, string spritesheetName, SpriteFont font)
+            : base(spriteSheet, xNumberOfFrames, yNumberOfFrames, spriteWidth, spriteHeight) {
+                this.text = text;
+                this.spritesheetName = spritesheetName;
+                this.font = font;
+                isNPC = true;
         }
 
         public void Update(GameTime gameTime) {
@@ -52,6 +66,11 @@ namespace tower_of_darkness_xna {
                     break;
             }
             spriteBatch.Draw(spriteSheet, objectRectangle, sourceRect, color, 0f, new Vector2(), flip, 0);
+            if (isNPC && showText) {
+                Vector2 fontOrigin = font.MeasureString(text) / 2;
+                Vector2 fontPosition = new Vector2(objectRectangle.X, objectRectangle.Y - 16);
+                spriteBatch.DrawString(font, text, fontPosition, Color.White, 0, fontOrigin, 1.1f, SpriteEffects.None, 0);
+            }
         }
 
         private void getSourceRect(ref int x, ref int y) {
@@ -71,6 +90,13 @@ namespace tower_of_darkness_xna {
                     break;
             }
 
+        }
+
+        public override string ToString() {
+            return "spritesheet: [" + spritesheetName + "]"
+                 + ", text: [" + text + "]"
+                 + ", xFrames: [" + xNumberOfFrames + "]"
+                 + ", yFrames: [" + yNumberOfFrames + "]";
         }
     }
 }
