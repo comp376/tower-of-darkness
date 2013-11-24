@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="32" height="32" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="Tileset" tilewidth="32" tileheight="32">
+  <image source="spritesheets/spritesheet.png" width="320" height="320"/>
+ </tileset>
+ <tileset firstgid="101" name="TileSet2" tilewidth="32" tileheight="32">
+  <image source="spritesheets/spritesheet.png" trans="ff00ff" width="320" height="320"/>
+ </tileset>
+ <layer name="Background" width="32" height="32" opacity="0.79">
+  <data encoding="base64" compression="zlib">
+   eJztksENwDAIA9kkA3b/f79VhMAQB9KqSPxsHyEMERkHtjSzET6qm/WeB81E8yJ6dl4kO5I18xGfpVtlo/zsTVpcNJfB//u7PVeVV/Nnsli+p79qBsYOtZwVP/OWGO9i8SvnsOap5DPv600dfSuiRXeY2bWn14r535bWqt18rxj86Ky7brVjBq0quFfTrk/hd/cNvMNoIg==
+  </data>
+ </layer>
+ <layer name="Foreground" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztlksOwCAIRLmBh+39E9Odi2oZHD5tnISFG94EBWwi0pKDKSTfX/maeo/nixRWr1k6/O/zq80fRNX53t5W/IjazBhR9/LE8egJhB+pKvwsH1Gz6G3/Wz3s+s+ey1Xe3+Fzc2byETH5sz0WxddwLD3u+UfR1IfBWeVHasOej3eODmnnEpQ=
+  </data>
+ </layer>
+ <layer name="Ladder" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztljEKACAMA327s7PvdRJBDARbq2Bu6WJ7CDWYkviNfHluOeRn51r96J5RftR/yp+nivorOY891ymgRlFBFeI1VtnkkfeWbPd4r5Zsu+33yAvWz7h29sEz86LzW3755R/o/yI6Df8lGJ0=
+  </data>
+ </layer>
+ <objectgroup name="Transition" width="32" height="32">
+  <object name="tower2" x="2" y="928" width="31" height="63">
+   <properties>
+    <property name="cx" value="368"/>
+    <property name="cy" value="0"/>
+    <property name="d" value="0"/>
+    <property name="x" value="368"/>
+    <property name="y" value="256"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
