@@ -10,15 +10,28 @@
  </layer>
  <layer name="Foreground" width="25" height="45">
   <data encoding="base64" compression="zlib">
-   eJztlksOwyAMRL3szlIPkHXXvf/hsikSsmqYwXaqooyEFAjhEf9ARUQvaJW6GTzjkBr/9mMvcl/Mu10Yj8/4+wIG2mxsMLGCqtlUTX+kf2SM4gpViw01fYRRke92rSYmT2bq7bojg8n3mfr4YH0XrfffFLXfjozDmRONA3veZtfpniGSmxsVDPTfWYY6zx5/heHxfs2IxCjCeArmN28t5oxC9ovO92p7JifCQL8bMVDmjJPBmHEsI6PmeXVj1R+IbgYue/dhVHH3sWuv6AT1uRhR
+   eJztltEOgCAIRXnsja3//9jenRoXuGwWbK5c0DEvYCoiWjCY1gwfg6GvV/Od/+zZVxhXIQPRcjfPrHMk5kRGVl55GYx6H9/FtGbgDES7aL9nfkcz7Axmnz5pr1i5q4v7FT9qf2LcYtNtd/5lnVFV9VGxLjRu5muNj/jpcI1y3nIH4axyyLqOiCF72gycwfz3ifTPBx6rESE=
   </data>
  </layer>
- <layer name="Top" width="25" height="45" visible="0">
+ <layer name="Ladder" width="25" height="45">
+  <data encoding="base64" compression="zlib">
+   eJztlsENACAIA5nEt2/3H84/CRENoGA7QC/W2kgE/agWwOhgqDUCGFrxbnh0hWfqkXEVBu/GSVcs71Dysjy75FWFYfned7yw+3cYUu6WPciWCRg5GC/9TbTCzoEBRn1Gxm1aaQLb+Qep
+  </data>
+ </layer>
+ <layer name="Top" width="25" height="45">
   <data encoding="base64" compression="zlib">
    eJztwTEBAAAAwqD1T20LL6AAAAAAeBsRlAAB
   </data>
  </layer>
  <objectgroup name="Transition" width="25" height="45">
-  <object name="tower1" x="352" y="1344" width="34" height="66"/>
+  <object name="tower1" x="352" y="1344" width="32" height="64">
+   <properties>
+    <property name="cx" value="0"/>
+    <property name="cy" value="0"/>
+    <property name="d" value="0"/>
+    <property name="x" value="288"/>
+    <property name="y" value="64"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

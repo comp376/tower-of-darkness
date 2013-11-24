@@ -81,6 +81,11 @@ namespace tower_of_darkness_xna {
                 transitions[i].tRect = new Rectangle(transitions[i].tRect.X - xChange, transitions[i].tRect.Y - yChange, transitions[i].tRect.Width, transitions[i].tRect.Height);
             }
 
+            //Move latter rectangles
+            for (int i = 0; i < ladders.Count; i++)
+            {
+                ladders[i] = new Rectangle(ladders[i].X - xChange, ladders[i].Y - yChange, ladders[i].Width, ladders[i].Height);
+            }
             //Set player direction
             character.movementStatus = (MovementStatus)transition.direction;
         }
@@ -142,6 +147,12 @@ namespace tower_of_darkness_xna {
                     //Move transition rectangles
                     for (int i = 0; i < transitions.Count; i++) {
                         transitions[i].tRect = new Rectangle(transitions[i].tRect.X - xChange, transitions[i].tRect.Y - yChange, transitions[i].tRect.Width, transitions[i].tRect.Height);
+                    }
+
+                    //Move latter rectangles
+                    for (int i = 0; i < ladders.Count; i++)
+                    {
+                        ladders[i] = new Rectangle(ladders[i].X - xChange, ladders[i].Y - yChange, ladders[i].Width, ladders[i].Height);
                     }
 
                     character.movementStatus = (MovementStatus)mo.Properties["direction"].AsInt32;
