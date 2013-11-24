@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="25" height="45" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="25" height="46" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="spritesheet" tilewidth="32" tileheight="32">
   <image source="spritesheets/spritesheet.png" trans="ff00ff" width="320" height="320"/>
  </tileset>
- <layer name="Background" width="25" height="45">
+ <layer name="Background" width="25" height="46">
   <data encoding="base64" compression="zlib">
-   eJzt0UsKgDAMRdEM3YRk6P536MRCKTHamgQHt3Ao9PPSj4qIXqTrpRtvNmNMhn3jvLXem3+qMcNq3prZ/Lv9q1lvs7+c1/uPyNzINwaAKK1l52fVqc7PqqFJ2UCFvaDG8YN7AgBqnPrDggY=
+   eJzt0cEKgCAMxvEde4nQW+//huEhkLFMaxsd/oMfQdNvaVVEaqBWpSPdU/eazXgnap/uW+tH/acZK6warVnNv9v/Nms2+8v3jv6HZ67nHQOAl6ui86PmZOdHzShB2UCGPWHG8YNzAgBynFxRhQY=
   </data>
  </layer>
- <layer name="Foreground" width="25" height="45">
+ <layer name="Foreground" width="25" height="46">
   <data encoding="base64" compression="zlib">
-   eJzdlusKwCAIhXsDYXv/d92fDUK0nJ7TLoIwRvlpXkoaV+TUtzCy/kT2VWMd7Uedo2UHnSNp/LxL43M0g8GxGFvhe8Rg+M5maF5Vo/aZgmRc+e9rABkHu65mNpgzNbIGUVceA11vT/Qgk6F5LIb+tyIfKNaKucY6F6+PopzZ3PC4TJnVFaJ/PAbCn5GP6Dl9J44sx4ohO6/vrK3sHa2L5iPD+cJ93ov37kX3myUr7j8WY7V91t2tdf+JHnmDEf0=
+   eJzdluEKwCAIhHuDYHv/d92vQUiZ2d2xJgRjVJ9OPVdLKVWwmPY1RtafyLndWL3zqO/YuwedI0VtKWpY0Ss9xrXx7DEYvrMZlsfUuhM18c1/WwPIONh1NbuDqamRPagZ6ukushbUPchkWB6LYd8p8oFiKXSN9V1GfRTlzHRjxGXarK4Q/TNiIPzxfETr9EocWU4vhqxer+zdOevti+Yjwzlhnrc2+u9F91vPFPOPxVDfz5rddt0/WQ+HZRN0
   </data>
  </layer>
- <layer name="Top" width="25" height="45">
+ <layer name="Top" width="25" height="46">
   <data encoding="base64" compression="zlib">
-   eJztwTEBAAAAwqD1T20LL6AAAAAAeBsRlAAB
+   eJztwQENAAAAwqD3T20PBxQAAAAAjwYR+AAB
   </data>
  </layer>
- <objectgroup name="Transition" width="25" height="45">
-  <object name="bridge" x="0" y="1312" width="32" height="64">
+ <objectgroup name="Transition" width="25" height="46">
+  <properties>
+   <property name="cx" value="480"/>
+   <property name="cy" value="480"/>
+   <property name="d" value="1"/>
+   <property name="x" value="300"/>
+   <property name="y" value="300"/>
+  </properties>
+  <object name="bridge" x="0" y="1344" width="32" height="64">
    <properties>
     <property name="cx" value="0"/>
     <property name="cy" value="0"/>
@@ -28,6 +35,14 @@
     <property name="y" value="288"/>
    </properties>
   </object>
-  <object name="tower2" x="351" y="0" width="32" height="64"/>
+  <object name="tower2" x="351" y="32" width="32" height="64">
+   <properties>
+    <property name="cx" value="0"/>
+    <property name="cy" value="960"/>
+    <property name="d" value="0"/>
+    <property name="x" value="390"/>
+    <property name="y" value="330"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
