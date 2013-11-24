@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="32" height="32" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="Tileset" tilewidth="32" tileheight="32">
-  <image source="../../../../../tower-of-darkness/tower-of-darkness-xna/tower-of-darkness-xna/tower-of-darkness-xnaContent/maps/spritesheets/spritesheet2.png" trans="ff00ff" width="320" height="320"/>
+  <image source="spritesheets/spritesheet2.png" trans="ff00ff" width="320" height="320"/>
  </tileset>
  <layer name="Background" width="32" height="32">
   <data encoding="base64" compression="zlib">
@@ -26,6 +26,15 @@
     <property name="d" value="0"/>
     <property name="x" value="80"/>
     <property name="y" value="64"/>
+   </properties>
+  </object>
+  <object name="tower5" x="33" y="32" width="30" height="63">
+   <properties>
+    <property name="cx" value="0"/>
+    <property name="cy" value="960"/>
+    <property name="d" value="0"/>
+    <property name="x" value="672"/>
+    <property name="y" value="416"/>
    </properties>
   </object>
  </objectgroup>

@@ -1,11 +1,13 @@
 Content\audio\pop.xnb
 Content\audio\pop2.xnb
+Content\fonts\spriteFont.xnb
 Content\maps\sandbox.xnb
 Content\maps\bridge.xnb
 Content\maps\map1.xnb
 Content\maps\tower1.xnb
 Content\maps\tower2.xnb
 Content\maps\tower3.xnb
+Content\maps\tower4.xnb
 Content\sprites\background.xnb
 Content\sprites\character.xnb
 Content\sprites\character2.xnb
@@ -38,6 +40,7 @@ Content\debug\char.xnb
 Content\debug\collision.xnb
 Content\debug\ladder.xnb
 Content\debug\transition.xnb
+Content\maps\spritesheets\spritesheet2.xnb
 Content\maps\sandbox\00.xnb
 Content\maps\bridge\00.xnb
 Content\maps\map1\00.xnb
@@ -45,9 +48,11 @@ Content\maps\tower1\00.xnb
 Content\maps\tower2\00.xnb
 Content\maps\tower3\00.xnb
 Content\maps\tower3\01.xnb
-Content\maps\tower4.xnb
-Content\maps\spritesheets\spritesheet2.xnb
 Content\maps\tower4\00.xnb
+Content\maps\tower5.xnb
+Content\maps\tower5\00.xnb
+Content\maps\tower6.xnb
+Content\maps\tower6\00.xnb
 Content\fonts\spriteFont.xnb
 Content\maps\tower6.xnb
 Content\maps\tower6\00.xnb

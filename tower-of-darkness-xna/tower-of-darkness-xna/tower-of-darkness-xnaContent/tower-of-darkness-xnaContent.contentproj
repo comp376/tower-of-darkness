@@ -320,6 +320,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="maps\tower5.tmx">
+      <Name>tower5</Name>
+      <Importer>TMXContentImporter</Importer>
+      <Processor>TMXContentProcessor</Processor>
+    </Compile>
     <Compile Include="maps\tower6.tmx">
       <Name>tower6</Name>
       <Importer>TMXContentImporter</Importer>
