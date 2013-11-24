@@ -5,12 +5,12 @@
  </tileset>
  <layer name="Background" width="25" height="46">
   <data encoding="base64" compression="zlib">
-   eJzt0cEKgCAMxvEde4nQW+//huEhkLFMaxsd/oMfQdNvaVVEaqBWpSPdU/eazXgnap/uW+tH/acZK6warVnNv9v/Nms2+8v3jv6HZ67nHQOAl6ui86PmZOdHzShB2UCGPWHG8YNzAgBynFxRhQY=
+   eJzt0dEKgDAIhWEve4v5/k8ZuwiGmLXSEfELH4O5HaOpiGihXm0gw2p73ebsibln+975qH81Y4ZX0ZnZ/LP7T7PuZr/53ug9MnMz/zEAZDmqOr9qzur8qhmtKBtYQX8yAwDwDTtFrYUC
   </data>
  </layer>
  <layer name="Foreground" width="25" height="46">
   <data encoding="base64" compression="zlib">
-   eJzdluEKwCAIhHuDYHv/d92vQUiZ2d2xJgRjVJ9OPVdLKVWwmPY1RtafyLndWL3zqO/YuwedI0VtKWpY0Ss9xrXx7DEYvrMZlsfUuhM18c1/WwPIONh1NbuDqamRPagZ6ukushbUPchkWB6LYd8p8oFiKXSN9V1GfRTlzHRjxGXarK4Q/TNiIPzxfETr9EocWU4vhqxer+zdOevti+Yjwzlhnrc2+u9F91vPFPOPxVDfz5rddt0/WQ+HZRN0
+   eJzdlVEOgDAIQ7mBH97/rv4TRGBtdZosMbr1jcHKYWaHYDCfrzGm+6msW401W486x0gHnSNFbSlqWHFX7hjddzN+7US6bIbnMb1uR0+McoCMg+1JTxpMT63MQfXQzHeRtaC+g0yG57EY/psiHyiWwtdY55L1vqpO599b3r7iGx0GYj/ZHtE+3YljyolimPp1Z+7K2mxeNR8Tzg79vKKHvm9VLlqbxVDrs3q3H+dPxgX4QRLV
   </data>
  </layer>
  <layer name="Top" width="25" height="46">
@@ -42,6 +42,48 @@
     <property name="d" value="0"/>
     <property name="x" value="384"/>
     <property name="y" value="352"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="Doors" width="25" height="46">
+  <data encoding="base64" compression="zlib">
+   eJztzTENAAAIA7AZ4ca/Q1wsHK2BJgAAwBdTOLZwAPDDAbIrAEU=
+  </data>
+ </layer>
+ <layer name="Breakable" width="25" height="46">
+  <data encoding="base64" compression="zlib">
+   eJzt1qEBAAAIAjBv8P9jrWajbAkyhSogTR/y7mSxPwCQwufhowHKcQCj
+  </data>
+ </layer>
+ <objectgroup name="Objects" width="25" height="46">
+  <object x="32" y="1216" width="32" height="32">
+   <properties>
+    <property name="Type" value="key"/>
+   </properties>
+  </object>
+  <object x="32" y="768" width="32" height="32">
+   <properties>
+    <property name="Type" value="essence"/>
+   </properties>
+  </object>
+  <object x="608" y="832" width="32" height="32">
+   <properties>
+    <property name="Type" value="super essence"/>
+   </properties>
+  </object>
+  <object x="32" y="384" width="32" height="32">
+   <properties>
+    <property name="Type" value="essence"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="NPC" width="25" height="46">
+  <object x="704" y="928" width="32" height="64">
+   <properties>
+    <property name="spritesheet" value="npc"/>
+    <property name="text" value="You're a faggot Harry."/>
+    <property name="xFrames" value="3"/>
+    <property name="yFrames" value="1"/>
    </properties>
   </object>
  </objectgroup>

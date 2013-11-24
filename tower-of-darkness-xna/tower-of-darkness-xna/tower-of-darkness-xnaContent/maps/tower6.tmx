@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="64" height="16" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="TileSet" tilewidth="32" tileheight="32">
-  <image source="../../../../../tower-of-darkness/tower-of-darkness-xna/tower-of-darkness-xna/tower-of-darkness-xnaContent/maps/spritesheets/spritesheet2.png" trans="ff00ff" width="320" height="320"/>
+  <image source="spritesheets/spritesheet2.png" trans="ff00ff" width="320" height="320"/>
  </tileset>
  <layer name="Background" width="64" height="16">
   <data encoding="base64" compression="zlib">
-   eJyTZ2BgkB/Fo5jOWGsQuGEg/WEyCNxODTxc/EFtPFzSN7l4NF2M4lE8iocaxlZuj6SyHFu5TcuyfKDDlp2KZjFQKbyHqv9H8dDDAEAufHI=
+   eJyTZ2BgkB/Fo5jOWGsQuIFSDAPk6DUZBO6nVhgMtBsGIx7p4TLS/T+KR/EoHnoYW7tkOLRViMEgYILEhonTsq0y0GHLjsW/DGSaRY6+gW4HsuPxO7nhMIqHDgYAJR56vg==
   </data>
  </layer>
  <layer name="Foreground" width="64" height="16">
   <data encoding="base64" compression="zlib">
-   eJztVkkOgCAM7A94B///oDHxQJAuMzQKUZIeLF1mKLYUESkfl6xlxYrk6W0YbIjPz1+3Z85mlr8Xu8ek6dCY2rflh+i9vcg6/avc8Y50SEzPHjljlL9Vz2itM+qfdc8j/FF86GLrn4Er+/5rPvWS2Txs/3+bf5YP+1Z4mj/Sk3eof49V61/tvhd7J/5onnbOjaTK+vyZHKNZP5KZ+cdiy4wXzWP1JAZDNn/NlsW0Yv+f+WdWlAOrpxI3
+   eJztVkkOwCAI5Ae+g/9/sJcejAXssBhNS8KhyiADFG1E1D6uVYKeM9p4YkMwP3/dPiM3mX0m+dHWUJ/at4VD/GfxZ3rGK60hPmf2kRzP+Fv1fFvrjPqjtYnwR+NDxVv/irii/a9h+FYEo9lW5riKfxbG+1ZYzR+ZySfUf4xVm1/9vnVm5D8+of/7e05Spj35R0TqGVY0cv95Y1sh4znWTNIwiP9qHOp7x/nvfS/tqheAPxNU
   </data>
  </layer>
  <layer name="Ladder" width="64" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApoC+QG2gEDDDQG2gF0APjieDj4n1AaRvcjsnojKrtlIAChOESXHw5xjgxG/U+a/Ej3/3DI88iAkH+Gm39xATkceKgBALeXBCU=
+   eJxjYBgFo2AUjIJRMApoC+QG2gEDDDQG2gEDDIaD/ylJw0ZUc8XAgeEQh5SAUf+PbDDS/T8cyrBRgAAA1/gBkQ==
   </data>
  </layer>
  <objectgroup name="Transition" width="64" height="16">
@@ -31,7 +31,7 @@
  </objectgroup>
  <layer name="Breakable" width="64" height="16">
   <data encoding="base64" compression="zlib">
-   eJzt1KEBADAIA0E2YP9t6ysqG5G7CXhBZoC0TR8Q1tZ/97b1A1123rtnA8Ef8M8BIggAiA==
+   eJxjYBgFo2AUDDTgH2gHkAD40TAuOVLNHKqAHLdjC7ehCsiJ7+EIRsMAAUZyWIzk/IDP77jqC2zsoQLw1YXDHYw0/9ILDMVwHWnpH1e+Rxcf7GECAATtAmg=
   </data>
  </layer>
 </map>
