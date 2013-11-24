@@ -53,4 +53,14 @@
    eJzt1DERAAAIxDCMMOPfISa4X0gMdGsVSR1oTKAB8JWPAwBwZQH9dgCJ
   </data>
  </layer>
+ <objectgroup name="NPC" width="25" height="45">
+  <object x="608" y="960" width="32" height="64">
+   <properties>
+    <property name="spritesheet" value="npc"/>
+    <property name="text" value="8====D"/>
+    <property name="xFrames" value="3"/>
+    <property name="yFrames" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

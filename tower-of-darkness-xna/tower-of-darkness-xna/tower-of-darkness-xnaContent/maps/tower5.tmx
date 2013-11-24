@@ -3,14 +3,17 @@
  <tileset firstgid="1" name="spritesheet" tilewidth="32" tileheight="32">
   <image source="spritesheets/spritesheet.png" trans="ff00ff" width="320" height="320"/>
  </tileset>
+ <tileset firstgid="101" name="spritesheet2" tilewidth="32" tileheight="32">
+  <image source="spritesheets/spritesheet2.png" width="320" height="320"/>
+ </tileset>
  <layer name="Background" width="25" height="46">
   <data encoding="base64" compression="zlib">
-   eJzt1UsOwjAMBFDfAnYx3P+QlEUkM7VJak8Di1qyiKp2Xj4URMalTjMryn6PGynfOnbcArtiYaNXzcVrvfpaWtLRoG1+M/dW19LkMxPnXTFsXmTY/cpkzxgKn9nyzhSNSrbn4DoqDs6fbajsz8GzVfIOGtF5WIdl4H6p8IxeOGYZNtN7x6uGLW/vGMaoL+M3hgRjthHdxzIi6wwjcx7RbxLTWLGOiiHgVAyRfbaY6wxj9F+VNTLnnjUUrrEN751bYXxz/tnwvkdnGLN9GeuMGT9rzGQfzb9tfYdnZ/eoPzuqx9bPiVxv7v1ZrMzZHu0XHIc67w==
+   eJzt1VEOwjAIBmBuoW9Fz+ohPK7zoQn+A0uBVR9GQtyala8tTonGwUpaz7zjueVDjM/Wl+MN7tGy1oP1rXlNsWfro4WJXiSwHin3fS8t6LCRsn4Tz2b30uizJq47Y8h6liHPK1LbYzB8RkPrKRqZ2pqD+8g4uP5qg2nfB81mijtoWP2QTpWB58VUZ/TA6ypD1tTe8awhQzu7CmOUp/Ebg4zrasN6rsqwrCOMSD+s36RKY8U+MgaBkzGI9rVJjFcYo/+qqBHpe9RgGKs2tHduhfHN+WdD+x4dYXjzNNYZHj9qeGrP1r9seYW53jPqc0dx2/LuqKutvc/FiPR2Nl+DCj2L
   </data>
  </layer>
  <layer name="Foreground" width="25" height="46">
   <data encoding="base64" compression="zlib">
-   eJztVkEOwCAI8wf8/7e7bgakBVGXjcQsMZSWiWBruomxP9O+yBHVI7evtGccUVaWA/WNcsz2tXCjGNl/5fGgOiKcGe1vNqvOtTtgreZgNc4eg2pl7VQOtrfMzmN0lgyGtZ3ngeyj+a3Mo0pTBLO6dnfdDwvD5G71PqSfojo1fxbjGatp5MPcwSgH4o/OIKYn9nGra7fy7fdznMNROWsj9YpyaD0t03f7mN77kuWo9M9yVL4BWHsbBzJzs+sCMxgMTw==
+   eJztVkEOwCAI2w/8/293XQiMlsrUZCRmiaG0OgSuy7cR7Ku+M3Anc4xkZRyeLxMn0/b8Ir5Vjtm+ES67U4Uj40F1VDgV7SdblOfZu7KYN6zHaTGoVtZ25WBry+xzsPUywrC28n8g+2z/UDUhmC5NFczXubvqfUQY5uxR7WNmFuRNevFZXSwHi2H2lftF/dEexNREG7c7dztnv59jH47OXlvJV5TDq2lK3bUxs/mS5ej0Vzk6ZwDWTuNAeq66bv5FDMc=
   </data>
  </layer>
  <layer name="Ladder" width="25" height="46">
@@ -60,4 +63,31 @@
    eJzt0jERAAAIxDAcoIAZ/w5x8QOXGOjSKibQ2ECDXzrQ8D4AAMBvBwIbAJg=
   </data>
  </layer>
+ <objectgroup name="NPC" width="25" height="46">
+  <object x="32" y="480" width="32" height="64">
+   <properties>
+    <property name="spritesheet" value="npc"/>
+    <property name="text" value="I've been stuck here a long time"/>
+    <property name="xFrames" value="3"/>
+    <property name="yFrames" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Objects" width="25" height="46">
+  <object x="736" y="896" width="32" height="32">
+   <properties>
+    <property name="Type" value="super essence"/>
+   </properties>
+  </object>
+  <object x="128" y="800" width="32" height="32">
+   <properties>
+    <property name="Type" value="essence"/>
+   </properties>
+  </object>
+  <object x="160" y="704" width="32" height="32">
+   <properties>
+    <property name="Type" value="super essence"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

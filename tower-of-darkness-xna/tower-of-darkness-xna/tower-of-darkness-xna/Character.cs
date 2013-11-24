@@ -192,11 +192,11 @@ namespace tower_of_darkness_xna {
                     } else
                         objectRectangle.Y += (int)jumpingHeight;
                     //jumpingHeight += JUMPING_INCREMENT;
-                    //float apex = JUMPING_HEIGHT / JUMPING_INCREMENT;
+                    float apex = JUMPING_HEIGHT / JUMPING_INCREMENT;
                     //Console.WriteLine((startingY - apex) + ", " + (startingY - spriteHeight));
-                    //if (objectRectangle.Y < (startingY + apex - spriteHeight)) {
-                    //    jumping = false;
-                    //}
+                    if (objectRectangle.Y < (startingY - spriteHeight)) {
+                        jumping = false;
+                    }
                 }
             } else {
                 if (kbs.IsKeyDown(Keys.Space) && !falling) {
