@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="32" height="32" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="Tileset" tilewidth="32" tileheight="32">
+  <image source="../../../../../tower-of-darkness/tower-of-darkness-xna/tower-of-darkness-xna/tower-of-darkness-xnaContent/maps/spritesheets/spritesheet2.png" trans="ff00ff" width="320" height="320"/>
+ </tileset>
+ <layer name="Background" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztkkEOwCAIBPmJvbbn/v9tvXggpLawQqUJJJuYiM660oiolULFS+7tCkVwn/rlGuFZz3pmjHpA3z/qtXqZ4aMeSz75RjJW8t988Zrlj8raj/j5G391/pFzuJKfVQeYoRf/BPnePlB+Bg+ac1sXsfWXGWTg80L56B948u88RM2N9k7t/0vNeijl1AUrw2mK
+  </data>
+ </layer>
+ <layer name="Foreground" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztlm0KgDAIhneILrF+d/+zRT8GMtzmx1sOUhixNB+1ptVSSg1eUbIL31Mfz/PS/BHvjrPX+Gh2Z7e3SCVXLf8C8KlPLX+0t/rQ8C11m8Wxy/lLfvKT/y8+ar5a2dS3NEZvrTT9n+NaZ9XMjpsrfVzefxlJjm+I9NuKkuSvz/Nz71joOD3VjfRR+SN6GIr9JR/Zw1Hs6HUDhDEj6g==
+  </data>
+ </layer>
+ <layer name="Ladder" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt1bENACAIAEEmsbZ2/+FcwSBBi7tevpEQAXBmPJ4zi/rZOfr6+vdW8zv+VnVXsqr+tX6OvYZ+G37RA8E=
+  </data>
+ </layer>
+</map>
