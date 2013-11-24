@@ -10,7 +10,7 @@
  </layer>
  <layer name="Foreground" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJztlmEOgCAIhTlEl/D+F2z9c+4pIAi1eJurBb1PtIaNiFryyNJb+Jb1sbwvrf/U3mk8xjwtG+VH8meekXzkoeE3cL8jLx+ril/84v+T79Vfd9m9t3SOHv0W+a/YBK5azioP9ZVxXtazjKTGE5J+W1kqPv8/P88uJobifWwWz6rf8wz/ZXYkn+sjWeMG+5si6A==
+   eJztltsNgDAIRRmiS7D/gn6ZNAQpFAoauUnjA7ynaA1FAMDiUaW38D3vx/O8tv5T387iQfOsbC4/k//kmcnnPCx8ZM53FOXjVfOb3/x/8qP66y579tbOMaLfcv4SG5ijlSPlcX2Fzsu7l9HUeELatVWl5sv/831vCPExxWlsdV1Vf+Qe/svsTP6qj1SNC0iiIv4=
   </data>
  </layer>
  <layer name="Ladder" width="32" height="32">
@@ -38,4 +38,9 @@
    </properties>
   </object>
  </objectgroup>
+ <layer name="Breakable" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt0DEKACAMA8B+p///oIOLoFOXCr2D7EkiAG7ZXaDJxN0TN7/4YfMDQF0egR8tRgcBSQ==
+  </data>
+ </layer>
 </map>

@@ -21,11 +21,11 @@
  <objectgroup name="Transition" width="64" height="16">
   <object name="tower5" x="1" y="416" width="30" height="63">
    <properties>
-    <property name="cx" value="480"/>
+    <property name="cx" value="240"/>
     <property name="cy" value="0"/>
     <property name="d" value="0"/>
-    <property name="x" value="408"/>
-    <property name="y" value="128"/>
+    <property name="x" value="248"/>
+    <property name="y" value="0"/>
    </properties>
   </object>
  </objectgroup>
