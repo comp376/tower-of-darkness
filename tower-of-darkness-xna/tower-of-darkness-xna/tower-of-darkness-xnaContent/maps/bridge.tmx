@@ -38,4 +38,14 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="NPC" width="25" height="15">
+  <object x="608" y="352" width="32" height="64">
+   <properties>
+    <property name="spritesheet" value="npc"/>
+    <property name="text" value="...******"/>
+    <property name="xFrames" value="3"/>
+    <property name="yFrames" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

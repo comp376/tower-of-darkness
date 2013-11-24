@@ -10,7 +10,7 @@
  </layer>
  <layer name="Foreground" width="25" height="45">
   <data encoding="base64" compression="zlib">
-   eJztlmEOgCAIhbkBW/c/bP+dKA94bhZsrlzQZz7AVET0wGBaM2IMhr5RzVf+s2dfYexiKhmIlqt5ZZ0jMTcyqvIqymDU+/gupjUDZyDaZfs98zua4Wcw+/RNe8XKXTXuLX7W/sR4xKfb6vyrOqNO1ceJdaFxM19vfMZPh2uWs8sdhGPlkHcdGUP2tBk4g/nvk+mfL0B8ERE=
+   eJztllkKwDAIRHMD73/b/oe6TEal0gilCWheXFtZa0nDw4p1xiSGx+9kVOT3NOde7C0/JjM8m0wGkktrn9nniM1ERlZdnTIq+n0/K8MHS/+LDFQ6GUju2Hlf6cdlxBmVc3pSrKpqV5S1xmflbwymbjO/UV390XEv1O5NN2rP6Mn2Zjle7SAcrYai92AEiell4IzKfx9mfj4jsRE7
   </data>
  </layer>
  <layer name="Ladder" width="25" height="45">
@@ -43,4 +43,14 @@
    </properties>
   </object>
  </objectgroup>
+ <layer name="Breakable" width="25" height="45">
+  <data encoding="base64" compression="zlib">
+   eJztzjEBAAAIA6BlsH9YW0wPSEACAADQM9cBgCcWbLQAEw==
+  </data>
+ </layer>
+ <layer name="Doors" width="25" height="45">
+  <data encoding="base64" compression="zlib">
+   eJzt1DERAAAIxDCMMOPfISa4X0gMdGsVSR1oTKAB8JWPAwBwZQH9dgCJ
+  </data>
+ </layer>
 </map>
