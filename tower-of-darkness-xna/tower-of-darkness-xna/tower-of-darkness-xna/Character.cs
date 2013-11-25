@@ -443,6 +443,30 @@ namespace tower_of_darkness_xna {
             return collision;
         }
 
+        public bool Collides(List<Scene2DNode> objects)
+        {
+            bool collision = false;
+            bool isTouched = false;
+            Rectangle tempRect = objectRectangle;
+            if (movementStatus == MovementStatus.Left)
+                tempRect.X -= MOVE_SPEED;
+            if (movementStatus == MovementStatus.Right)
+                tempRect.X += MOVE_SPEED;
+            if (movementStatus == MovementStatus.Fall) {
+                tempRect.Y += GRAVITY_SPEED;
+            }
+            if (movementStatus == MovementStatus.Jump)
+                tempRect.Y += (int)jumpingHeight;
+            if (movementStatus == MovementStatus.Up)
+                tempRect.Y += MOVE_SPEED;
+            if (movementStatus == MovementStatus.Down)
+                tempRect.Y += -MOVE_SPEED;
+            foreach (Scene2DNode node in objects)
+            {
+                
+            }            
+        }
+
         private void hitTransition(List<Transition> transitions, Rectangle mapView) {
             foreach (Transition t in transitions) {
                 if (objectRectangle.Intersects(t.tRect)) {
