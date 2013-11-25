@@ -11,7 +11,7 @@ using FuncWorks.XNA.XTiled;
 namespace tower_of_darkness_xna {
     class LevelState : GameState {
 
-        private bool DEBUG = true;
+        private bool DEBUG = false;
         private bool PAUSE_SCREEN = false;
 
         private const int BACKGROUND_LAYER = 0;
