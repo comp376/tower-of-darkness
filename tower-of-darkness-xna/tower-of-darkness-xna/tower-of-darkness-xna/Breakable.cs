@@ -12,21 +12,27 @@ namespace tower_of_darkness_xna {
         private float breakInterval = 500;
         public bool isTouched = false;
         public bool isBroken = false;
+        public string type;
         public int i;
         public int j;
 
-        public Breakable(Rectangle bRect, int i, int j) {
+        public Breakable(Rectangle bRect, int i, int j, string type) {
             this.bRect = bRect;
             this.i = i;
             this.j = j;
+            this.type = type;
         }
 
         public void Update(GameTime gameTime) {
-            if (!isBroken && isTouched) {
+            if (!isBroken && isTouched && type == "breakable") {
                 breakTimer += gameTime.ElapsedGameTime.Milliseconds;
                 if (breakTimer >= breakInterval) {
+                    Console.WriteLine("breaking a stone");
                     isBroken = true;
                 }
+            }
+            else if (!isBroken && isTouched && type == "door"){
+                isBroken = true;
             }
         }
 

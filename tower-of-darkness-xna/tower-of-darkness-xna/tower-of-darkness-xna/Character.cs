@@ -42,6 +42,8 @@ namespace tower_of_darkness_xna {
         private const float FORWARDS_BOUNDARY = -10;
         private const float ANGLE_CHANGE = 0.5f;
 
+        public int keyCount = 0;
+
         public Character(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, ContentManager Content)
             : base(spriteSheet, xNumberOfFrames, yNumberOfFrames, spriteWidth, spriteHeight) {
             this.Content = Content;
@@ -460,8 +462,23 @@ namespace tower_of_darkness_xna {
                 tempRect.Y += -MOVE_SPEED;
             foreach (Breakable r in cRectangles) {
                 if (tempRect.Intersects(r.bRect)) {
-                    collision = true;
-                    r.isTouched = isTouched;
+                    switch (r.type){
+                        case "breakable": 
+                            Console.WriteLine("Hit stone");
+                            collision = true;
+                            r.isTouched = isTouched;
+                            break;
+                        case "door":
+                            if(keyCount > 0){
+                                Console.WriteLine("Opening a door!");
+                                collision = true;
+                                r.isTouched = isTouched;
+                                keyCount--;
+                            }
+                            break;
+                        default:
+                            break;
+                    }//End of switch
                 }
             }
             return collision;
@@ -472,6 +489,18 @@ namespace tower_of_darkness_xna {
             for (int i = 0; i < objects.Count; i++) {
                 Rectangle objectRect = new Rectangle((int)objects[i].worldPosition.X, (int)objects[i].worldPosition.Y, objects[i].TextureWidth, objects[i].TextureHeight);
                 if (objectRect.Intersects(objectRectangle)) {
+                    if (objects[i].type == "key")
+                    {
+                        keyCount++;
+                    }else if (objects[i].type == "essence")
+                    {
+                        //Increase lantern power
+
+                    }else if (objects[i].type == "super essence")
+                    {
+                        //Give global lighting for a small duration
+                        
+                    }
                     objects.RemoveAt(i);
                     //check type (essence, key) and handle accordingly
                 }
