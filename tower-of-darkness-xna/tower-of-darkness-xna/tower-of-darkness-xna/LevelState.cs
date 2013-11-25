@@ -112,10 +112,12 @@ namespace tower_of_darkness_xna {
             }
 
             //Move enemies
+            /*
             for (int i = 0; i < npcs.Count; i++) {
                 enemies[i].objectRectangle = new Rectangle(enemies[i].objectRectangle.X - xChange, enemies[i].objectRectangle.Y - yChange, enemies[i].objectRectangle.Width, enemies[i].objectRectangle.Height);
 
             }
+             */
                 
             //Set player direction
             character.movementStatus = (MovementStatus)transition.direction;
@@ -483,6 +485,7 @@ namespace tower_of_darkness_xna {
                 batch.DrawString(font, "MAP: " + mapName, new Vector2(), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
                 string fps = (1 / (float)gameTime.ElapsedGameTime.TotalSeconds).ToString();
                 batch.DrawString(font, "FPS: " + fps, new Vector2(0, 16), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
+                //batch.DrawString(font, "KEYS: " + character.keyCount, new Vector2(0, 32), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
             }
 
             batch.End();    //Stops additive blending from player drawing batch
