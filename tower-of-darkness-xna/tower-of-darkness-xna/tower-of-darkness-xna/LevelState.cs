@@ -33,6 +33,7 @@ namespace tower_of_darkness_xna {
         private List<Breakable> breakables;
         private List<Scene2DNode> objects;
         private List<NPC> npcs;
+        private List<Enemy> enemies;
         private SpriteFont font;
 
         //debug
@@ -41,6 +42,8 @@ namespace tower_of_darkness_xna {
         private Texture2D ladder;
         private Texture2D charDebug;
         private Texture2D breakable;
+        private Texture2D npc;
+        private Texture2D enemy;
         private Texture2D keyTexture;
         private Texture2D essenceTexture;
 
@@ -107,6 +110,12 @@ namespace tower_of_darkness_xna {
                 objects[i] = new Scene2DNode(objects[i].texture, new Vector2(objects[i].worldPosition.X - xChange,objects[i].worldPosition.Y - yChange), objects[i].type);
             }
 
+            //Move enemies
+            for (int i = 0; i < npcs.Count; i++) {
+                enemies[i].objectRectangle = new Rectangle(enemies[i].objectRectangle.X - xChange, enemies[i].objectRectangle.Y - yChange, enemies[i].objectRectangle.Width, enemies[i].objectRectangle.Height);
+
+            }
+                
             //Set player direction
             character.movementStatus = (MovementStatus)transition.direction;
         }
@@ -125,6 +134,8 @@ namespace tower_of_darkness_xna {
             loadBreakables();
             loadObjects();
             loadNPCs();
+            loadEnemies();
+            //loadMapObjects();
             loadMapInfo();
 
             //debug
@@ -133,6 +144,8 @@ namespace tower_of_darkness_xna {
             ladder = Content.Load<Texture2D>("debug/ladder");
             charDebug = Content.Load<Texture2D>("debug/char");
             breakable = Content.Load<Texture2D>("debug/ladder");
+            npc = Content.Load<Texture2D>("debug/char");
+            enemy = Content.Load<Texture2D>("debug/char");
 
 
             //pause
@@ -279,18 +292,21 @@ namespace tower_of_darkness_xna {
             foreach (MapObject mo in map.ObjectLayers["Objects"].MapObjects)
             {
                 Console.WriteLine("HEY");
-                if (mo.Properties["Type"].ToString() == "key")
+                if (mo.Properties["Type"].Value == "key")
                 {
+                    Console.WriteLine("Making a key");
                     Scene2DNode node = new Scene2DNode(keyTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "key");
                     objects.Add(node);
                 }
-                else if (mo.Properties["Type"].ToString() == "essence")
+                else if (mo.Properties["Type"].Value == "essence")
                 {
+                    Console.WriteLine("Making an essence");
                     Scene2DNode node = new Scene2DNode(essenceTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "essence");
                     objects.Add(node);
                 }
-                else if (mo.Properties["Type"].ToString() == "super essence")
+                else if (mo.Properties["Type"].Value == "super essence")
                 {
+                    Console.WriteLine("Making a super essence");
                     Scene2DNode node = new Scene2DNode(essenceTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "super essence");
                     objects.Add(node);
                 }                
@@ -308,10 +324,28 @@ namespace tower_of_darkness_xna {
                 int yNumberOfFrames = (int)mo.Properties["yFrames"].AsInt32;
                 Rectangle npcRect = mo.Bounds;
                 string text = mo.Properties["text"].Value;
-                NPC npc = new NPC(npcSpriteSheet, xNumberOfFrames, yNumberOfFrames, npcRect.Width, npcRect.Height, text, spritesheetName, font);
-                Console.WriteLine(npc.ToString());
-                npc.objectRectangle = npcRect; //also provides npc(x,y) 
-                npcs.Add(npc);
+                NPC n = new NPC(npcSpriteSheet, xNumberOfFrames, yNumberOfFrames, npcRect.Width, npcRect.Height, text, spritesheetName, font);
+                Console.WriteLine(n.ToString());
+                n.objectRectangle = npcRect; //also provides npc(x,y) 
+                npcs.Add(n);
+            }
+        }
+
+        private void loadEnemies() {
+            enemies = new List<Enemy>();
+            if (map.ObjectLayers["Enemy"] == null)
+                return;
+            foreach (MapObject mo in map.ObjectLayers["Enemy"].MapObjects) {
+                string spritesheetName = mo.Properties["spritesheet"].Value;
+                Texture2D enemySpriteSheet = Content.Load<Texture2D>("sprites/" + spritesheetName);
+                int xNumberOfFrames = (int)mo.Properties["xFrames"].AsInt32;
+                int yNumberOfFrames = (int)mo.Properties["yFrames"].AsInt32;
+                Rectangle enemyRect = mo.Bounds;
+                int hits = (int)mo.Properties["hits"].AsInt32;
+                Enemy e = new Enemy(enemySpriteSheet, xNumberOfFrames, yNumberOfFrames, enemyRect.Width, enemyRect.Height, hits, spritesheetName);
+                Console.WriteLine(e.ToString());
+                e.objectRectangle = enemyRect;
+                enemies.Add(e);
             }
         }
 
@@ -420,6 +454,12 @@ namespace tower_of_darkness_xna {
                 }
                 foreach (Breakable r in breakables) {
                     batch.Draw(breakable, r.bRect, OPAQUE_COLOR);
+                }
+                foreach (NPC n in npcs) {
+                    batch.Draw(npc, n.objectRectangle, OPAQUE_COLOR);
+                }
+                foreach (Enemy e in enemies) {
+                    batch.Draw(enemy, e.objectRectangle, OPAQUE_COLOR);
                 }
                 batch.Draw(charDebug, character.objectRectangle, OPAQUE_COLOR);
                 batch.DrawString(font, "MAP: " + mapName, new Vector2(), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);

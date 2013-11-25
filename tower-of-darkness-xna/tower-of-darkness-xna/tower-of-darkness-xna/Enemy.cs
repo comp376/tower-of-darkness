@@ -14,12 +14,13 @@ namespace tower_of_darkness_xna {
         public bool isMoving;
         public MovementStatus movementStatus;
 
-        public int hp;
+        public int hits;
+        private string spritesheetName;
 
-
-        public Enemy(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight)
+        public Enemy(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, int hits, string spritesheetName)
             : base(spriteSheet, xNumberOfFrames, yNumberOfFrames, spriteWidth, spriteHeight) {
-
+                this.hits = hits;
+                this.spritesheetName = spritesheetName;
         }
 
         public void Update(GameTime gameTime) {
@@ -56,6 +57,13 @@ namespace tower_of_darkness_xna {
                     break;
             }
 
+        }
+
+        public override string ToString() {
+            return "ENEMY: spritesheet: [" + spritesheetName + "]"
+                 + ", hits: [" + hits + "]"
+                 + ", xFrames: [" + xNumberOfFrames + "]"
+                 + ", yFrames: [" + yNumberOfFrames + "]";
         }
     }
 }

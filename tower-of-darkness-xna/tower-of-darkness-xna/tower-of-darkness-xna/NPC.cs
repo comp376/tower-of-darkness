@@ -93,7 +93,7 @@ namespace tower_of_darkness_xna {
         }
 
         public override string ToString() {
-            return "spritesheet: [" + spritesheetName + "]"
+            return "NPC: spritesheet: [" + spritesheetName + "]"
                  + ", text: [" + text + "]"
                  + ", xFrames: [" + xNumberOfFrames + "]"
                  + ", yFrames: [" + yNumberOfFrames + "]";

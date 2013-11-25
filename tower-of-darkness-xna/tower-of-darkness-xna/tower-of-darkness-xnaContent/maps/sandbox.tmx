@@ -7533,4 +7533,14 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="Enemy" width="50" height="30">
+  <object x="576" y="128" width="32" height="64">
+   <properties>
+    <property name="hits" value="2"/>
+    <property name="spritesheet" value="enemy1"/>
+    <property name="xFrames" value="3"/>
+    <property name="yFrames" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
