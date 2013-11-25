@@ -112,6 +112,7 @@
   <ItemGroup>
     <Compile Include="Breakable.cs" />
     <Compile Include="Character.cs" />
+    <Compile Include="Enemy.cs" />
     <Compile Include="MovementStatus.cs" />
     <Compile Include="NPC.cs" />
     <Compile Include="GameState.cs" />
