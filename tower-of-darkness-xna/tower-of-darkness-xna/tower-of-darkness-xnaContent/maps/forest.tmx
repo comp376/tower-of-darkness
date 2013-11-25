@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="45" height="15" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="Tileset" tilewidth="32" tileheight="32">
+  <image source="spritesheets/spritesheet2.png" trans="ff00ff" width="320" height="320"/>
+ </tileset>
+ <tileset firstgid="101" name="TileSet2" tilewidth="32" tileheight="32">
+  <image source="spritesheets/spritesheet3.png" trans="ff00ff" width="320" height="320"/>
+ </tileset>
+ <layer name="Foreground" width="45" height="15">
+  <data encoding="base64" compression="zlib">
+   eJztzjEOACAIwEB8rI9yNPpQXdxQZKIDTbqfSJZlkXXlFiqym8pD2G7NTHffzGT3y0x1W2ai+8dMc/+aSW6P+bjrvgTuNRNeE1BV7g==
+  </data>
+ </layer>
+ <layer name="Background" width="45" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRgA9IArEUFEvTUYwSoAzEKlCsCsRqdBKjBOgCsT4SNqCTGCXAHIgtoNgSiK3oJEYNwA2lq4G4Bk2MFHXiQCyBJAbj4zKPEgAzrxWI2/DYQUidIhArIYnB+LjMIwWsGWA8FAEAFjQtuQ==
+  </data>
+ </layer>
+</map>

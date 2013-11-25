@@ -332,8 +332,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sprites\enemy1.png">
-      <Name>enemy1</Name>
+    <Compile Include="maps\forest.tmx">
+      <Name>forest</Name>
+      <Importer>TMXContentImporter</Importer>
+      <Processor>TMXContentProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="maps\spritesheets\spritesheet3.png">
+      <Name>spritesheet3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
