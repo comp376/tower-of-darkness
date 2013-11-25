@@ -32,6 +32,7 @@ namespace tower_of_darkness_xna {
         private List<Rectangle> ladders;
         private List<Breakable> breakables;
         private List<NPC> npcs;
+        private List<Enemy> enemies;
         private SpriteFont font;
 
         //debug
@@ -40,6 +41,8 @@ namespace tower_of_darkness_xna {
         private Texture2D ladder;
         private Texture2D charDebug;
         private Texture2D breakable;
+        private Texture2D npc;
+        private Texture2D enemy;
 
         //pause content
         private const int NUM_PAUSE_ITEMS = 3;
@@ -99,6 +102,11 @@ namespace tower_of_darkness_xna {
                 npcs[i].objectRectangle = new Rectangle(npcs[i].objectRectangle.X - xChange, npcs[i].objectRectangle.Y - yChange, npcs[i].objectRectangle.Width, npcs[i].objectRectangle.Height);
             }
 
+            //Move enemies
+            for (int i = 0; i < npcs.Count; i++) {
+                enemies[i].objectRectangle = new Rectangle(enemies[i].objectRectangle.X - xChange, enemies[i].objectRectangle.Y - yChange, enemies[i].objectRectangle.Width, enemies[i].objectRectangle.Height);
+            }
+
             //Set player direction
             character.movementStatus = (MovementStatus)transition.direction;
         }
@@ -114,6 +122,7 @@ namespace tower_of_darkness_xna {
             loadLadderRectangles();
             loadBreakables();
             loadNPCs();
+            loadEnemies();
             //loadMapObjects();
             loadMapInfo();
 
@@ -123,6 +132,8 @@ namespace tower_of_darkness_xna {
             ladder = Content.Load<Texture2D>("debug/ladder");
             charDebug = Content.Load<Texture2D>("debug/char");
             breakable = Content.Load<Texture2D>("debug/ladder");
+            npc = Content.Load<Texture2D>("debug/char");
+            enemy = Content.Load<Texture2D>("debug/char");
 
             //pause
             pauseBackground = Content.Load<Texture2D>("sprites/pausescreen");
@@ -265,10 +276,28 @@ namespace tower_of_darkness_xna {
                 int yNumberOfFrames = (int)mo.Properties["yFrames"].AsInt32;
                 Rectangle npcRect = mo.Bounds;
                 string text = mo.Properties["text"].Value;
-                NPC npc = new NPC(npcSpriteSheet, xNumberOfFrames, yNumberOfFrames, npcRect.Width, npcRect.Height, text, spritesheetName, font);
-                Console.WriteLine(npc.ToString());
-                npc.objectRectangle = npcRect; //also provides npc(x,y) 
-                npcs.Add(npc);
+                NPC n = new NPC(npcSpriteSheet, xNumberOfFrames, yNumberOfFrames, npcRect.Width, npcRect.Height, text, spritesheetName, font);
+                Console.WriteLine(n.ToString());
+                n.objectRectangle = npcRect; //also provides npc(x,y) 
+                npcs.Add(n);
+            }
+        }
+
+        private void loadEnemies() {
+            enemies = new List<Enemy>();
+            if (map.ObjectLayers["Enemy"] == null)
+                return;
+            foreach (MapObject mo in map.ObjectLayers["Enemy"].MapObjects) {
+                string spritesheetName = mo.Properties["spritesheet"].Value;
+                Texture2D enemySpriteSheet = Content.Load<Texture2D>("sprites/" + spritesheetName);
+                int xNumberOfFrames = (int)mo.Properties["xFrames"].AsInt32;
+                int yNumberOfFrames = (int)mo.Properties["yFrames"].AsInt32;
+                Rectangle enemyRect = mo.Bounds;
+                int hits = (int)mo.Properties["hits"].AsInt32;
+                Enemy e = new Enemy(enemySpriteSheet, xNumberOfFrames, yNumberOfFrames, enemyRect.Width, enemyRect.Height, hits, spritesheetName);
+                Console.WriteLine(e.ToString());
+                e.objectRectangle = enemyRect;
+                enemies.Add(e);
             }
         }
 
@@ -370,6 +399,12 @@ namespace tower_of_darkness_xna {
                 }
                 foreach (Breakable r in breakables) {
                     batch.Draw(breakable, r.bRect, OPAQUE_COLOR);
+                }
+                foreach (NPC n in npcs) {
+                    batch.Draw(npc, n.objectRectangle, OPAQUE_COLOR);
+                }
+                foreach (Enemy e in enemies) {
+                    batch.Draw(enemy, e.objectRectangle, OPAQUE_COLOR);
                 }
                 batch.Draw(charDebug, character.objectRectangle, OPAQUE_COLOR);
                 batch.DrawString(font, "MAP: " + mapName, new Vector2(), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
