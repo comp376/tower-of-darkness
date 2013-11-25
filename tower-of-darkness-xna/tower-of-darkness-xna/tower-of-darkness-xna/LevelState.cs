@@ -102,6 +102,11 @@ namespace tower_of_darkness_xna {
                 npcs[i].objectRectangle = new Rectangle(npcs[i].objectRectangle.X - xChange, npcs[i].objectRectangle.Y - yChange, npcs[i].objectRectangle.Width, npcs[i].objectRectangle.Height);
             }
 
+            //Move Objects
+            for (int i = 0; i < objects.Count; i++){
+                objects[i] = new Scene2DNode(objects[i].texture, new Vector2(objects[i].worldPosition.X - xChange,objects[i].worldPosition.Y - yChange), objects[i].type);
+            }
+
             //Set player direction
             character.movementStatus = (MovementStatus)transition.direction;
         }
@@ -186,6 +191,11 @@ namespace tower_of_darkness_xna {
                         npcs[i].objectRectangle = new Rectangle(npcs[i].objectRectangle.X - xChange, npcs[i].objectRectangle.Y - yChange, npcs[i].objectRectangle.Width, npcs[i].objectRectangle.Height);
                     }
 
+                    //Move Objects
+                    for (int i = 0; i < objects.Count; i++)
+                    {
+                        objects[i] = new Scene2DNode(objects[i].texture, new Vector2(objects[i].worldPosition.X - xChange, objects[i].worldPosition.Y - yChange), objects[i].type);
+                    }
                     character.movementStatus = (MovementStatus)mo.Properties["direction"].AsInt32;
                 }
             }
