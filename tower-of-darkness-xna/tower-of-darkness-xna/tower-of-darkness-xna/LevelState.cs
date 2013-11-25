@@ -105,11 +105,17 @@ namespace tower_of_darkness_xna {
                 npcs[i].objectRectangle = new Rectangle(npcs[i].objectRectangle.X - xChange, npcs[i].objectRectangle.Y - yChange, npcs[i].objectRectangle.Width, npcs[i].objectRectangle.Height);
             }
 
+            //Move Objects
+            for (int i = 0; i < objects.Count; i++){
+                objects[i] = new Scene2DNode(objects[i].texture, new Vector2(objects[i].worldPosition.X - xChange,objects[i].worldPosition.Y - yChange), objects[i].type);
+            }
+
             //Move enemies
             for (int i = 0; i < npcs.Count; i++) {
                 enemies[i].objectRectangle = new Rectangle(enemies[i].objectRectangle.X - xChange, enemies[i].objectRectangle.Y - yChange, enemies[i].objectRectangle.Width, enemies[i].objectRectangle.Height);
-            }
 
+            }
+                
             //Set player direction
             character.movementStatus = (MovementStatus)transition.direction;
         }
@@ -198,6 +204,11 @@ namespace tower_of_darkness_xna {
                         npcs[i].objectRectangle = new Rectangle(npcs[i].objectRectangle.X - xChange, npcs[i].objectRectangle.Y - yChange, npcs[i].objectRectangle.Width, npcs[i].objectRectangle.Height);
                     }
 
+                    //Move Objects
+                    for (int i = 0; i < objects.Count; i++)
+                    {
+                        objects[i] = new Scene2DNode(objects[i].texture, new Vector2(objects[i].worldPosition.X - xChange, objects[i].worldPosition.Y - yChange), objects[i].type);
+                    }
                     character.movementStatus = (MovementStatus)mo.Properties["direction"].AsInt32;
                 }
             }
@@ -281,18 +292,21 @@ namespace tower_of_darkness_xna {
             foreach (MapObject mo in map.ObjectLayers["Objects"].MapObjects)
             {
                 Console.WriteLine("HEY");
-                if (mo.Properties["Type"].ToString() == "key")
+                if (mo.Properties["Type"].Value == "key")
                 {
+                    Console.WriteLine("Making a key");
                     Scene2DNode node = new Scene2DNode(keyTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "key");
                     objects.Add(node);
                 }
-                else if (mo.Properties["Type"].ToString() == "essence")
+                else if (mo.Properties["Type"].Value == "essence")
                 {
+                    Console.WriteLine("Making an essence");
                     Scene2DNode node = new Scene2DNode(essenceTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "essence");
                     objects.Add(node);
                 }
-                else if (mo.Properties["Type"].ToString() == "super essence")
+                else if (mo.Properties["Type"].Value == "super essence")
                 {
+                    Console.WriteLine("Making a super essence");
                     Scene2DNode node = new Scene2DNode(essenceTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "super essence");
                     objects.Add(node);
                 }                

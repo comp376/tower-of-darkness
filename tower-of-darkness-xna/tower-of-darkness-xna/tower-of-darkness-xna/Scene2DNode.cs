@@ -8,10 +8,10 @@ using Microsoft.Xna.Framework;
 
 namespace tower_of_darkness_xna {
     public class Scene2DNode {
-        private Texture2D texture;
+        public Texture2D texture;
         public Vector2 worldPosition;
         public Vector2 startingPosition;
-        private string type;
+        public string type;
         private const int MAX_HOVER_HEIGHT = 20;
 
         enum hoverDirections {
@@ -70,10 +70,6 @@ namespace tower_of_darkness_xna {
                     this.hoverDirection = hoverDirections.Up;
                 }
             }
-        }
-
-        public string getNodeType() {
-            return this.type;
         }
 
     }
