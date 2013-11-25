@@ -369,7 +369,7 @@ namespace tower_of_darkness_xna {
                     PAUSE_SCREEN = true;
                 }
             }
-            character.Update(gameTime, mapRect, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies);
+            character.Update(gameTime, mapRect, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects);
             for (int i = 0; i < breakables.Count; i++) {
                 breakables[i].Update(gameTime);
                 if (breakables[i].isBroken) {
