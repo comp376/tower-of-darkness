@@ -311,7 +311,6 @@ namespace tower_of_darkness_xna {
             int tileSize = map.TileWidth / 2;   //Not sure why dividing by 2
             foreach (MapObject mo in map.ObjectLayers["Objects"].MapObjects)
             {
-                Console.WriteLine("HEY");
                 if (mo.Properties["Type"].Value == "key")
                 {
                     Scene2DNode node = new Scene2DNode(keyTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "key");
@@ -387,8 +386,14 @@ namespace tower_of_darkness_xna {
             character.Update(gameTime, mapRect, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects);
             for (int i = 0; i < breakables.Count; i++) {
                 breakables[i].Update(gameTime);
-                if (breakables[i].isBroken) {
+                if (breakables[i].isBroken && breakables[i].type == "breakable") {
                     map.TileLayers["Breakable"].Tiles[breakables[i].i][breakables[i].j] = null;
+                    breakables.RemoveAt(i);
+                }
+
+                if (breakables[i].isBroken && breakables[i].type == "door")
+                {
+                    map.TileLayers["Doors"].Tiles[breakables[i].i][breakables[i].j] = null;
                     breakables.RemoveAt(i);
                 }
             }

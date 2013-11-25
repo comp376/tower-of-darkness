@@ -24,14 +24,14 @@ namespace tower_of_darkness_xna {
         }
 
         public void Update(GameTime gameTime) {
-            if (!isBroken && isTouched && type == "breakable") {
+            if (!isBroken && isTouched && this.type == "breakable") {
                 breakTimer += gameTime.ElapsedGameTime.Milliseconds;
                 if (breakTimer >= breakInterval) {
-                    Console.WriteLine("breaking a stone");
                     isBroken = true;
                 }
             }
-            else if (!isBroken && isTouched && type == "door"){
+            else if (!isBroken && isTouched && this.type == "door")
+            {
                 isBroken = true;
             }
         }

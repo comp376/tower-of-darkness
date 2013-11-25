@@ -465,16 +465,15 @@ namespace tower_of_darkness_xna {
             foreach (Breakable r in cRectangles) {
                 if (tempRect.Intersects(r.bRect)) {
                     switch (r.type){
-                        case "breakable": 
-                            Console.WriteLine("Hit stone");
+                        case "breakable":
                             collision = true;
                             r.isTouched = isTouched;
                             break;
                         case "door":
-                            if(keyCount > 0){
-                                Console.WriteLine("Opening a door!");
-                                collision = true;
-                                r.isTouched = isTouched;
+                            collision = true;
+                            if (keyCount > 0)
+                            {
+                                r.isTouched = true;
                                 keyCount--;
                             }
                             break;
@@ -493,7 +492,7 @@ namespace tower_of_darkness_xna {
                 if (objectRect.Intersects(objectRectangle)) {
                     if (objects[i].type == "key")
                     {
-                        keyCount++;
+                        keyCount+=2;
                     }else if (objects[i].type == "essence")
                     {
                         //Increase lantern power
