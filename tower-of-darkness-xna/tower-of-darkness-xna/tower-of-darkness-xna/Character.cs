@@ -66,6 +66,7 @@ namespace tower_of_darkness_xna {
             hitTransition(transitions, mapView);
             lanternSwinging(gameTime);
             talk(gameTime, ref npcs);
+            attack(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color) {
@@ -87,6 +88,10 @@ namespace tower_of_darkness_xna {
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
             spriteBatch.Draw(lightTexture, new Rectangle((int)(lightPosition.X), (int)(lightPosition.Y - (currentLightSize * 6)), (int)(lightTexture.Width + (currentLightSize * 15)), (int)(lightTexture.Height + (currentLightSize * 15))), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), lightColor, degreeToRadian(lanternAngle), new Vector2(lightTexture.Width / 2, 0), walkingDirection, 0);
             base.Draw(spriteBatch, color);
+        }
+
+        private void attack(GameTime gameTime) {
+
         }
 
         private void talk(GameTime gameTime, ref List<NPC> npcs) {
