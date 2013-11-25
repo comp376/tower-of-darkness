@@ -469,7 +469,8 @@ namespace tower_of_darkness_xna {
             foreach (Scene2DNode node in objects)
             {
                 
-            }            
+            }
+            return false;
         }
 
         private void hitTransition(List<Transition> transitions, Rectangle mapView) {
