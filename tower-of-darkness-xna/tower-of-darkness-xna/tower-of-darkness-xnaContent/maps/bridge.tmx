@@ -19,9 +19,9 @@
   </data>
  </layer>
  <objectgroup name="Transition" width="25" height="15">
-  <object name="map1" x="0" y="0" width="32" height="416">
+  <object name="town" x="0" y="0" width="32" height="416">
    <properties>
-    <property name="cx" value="800"/>
+    <property name="cx" value="640"/>
     <property name="cy" value="0"/>
     <property name="d" value="0"/>
     <property name="x" value="736"/>

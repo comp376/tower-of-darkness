@@ -111,10 +111,12 @@ namespace tower_of_darkness_xna {
             }
 
             //Move enemies
+            /*
             for (int i = 0; i < npcs.Count; i++) {
                 enemies[i].objectRectangle = new Rectangle(enemies[i].objectRectangle.X - xChange, enemies[i].objectRectangle.Y - yChange, enemies[i].objectRectangle.Width, enemies[i].objectRectangle.Height);
 
             }
+             */
                 
             //Set player direction
             character.movementStatus = (MovementStatus)transition.direction;
