@@ -67,6 +67,7 @@ namespace tower_of_darkness_xna {
             lanternSwinging(gameTime);
             talk(gameTime, ref npcs);
             attack(gameTime);
+            collides(ref objects);
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color) {
@@ -466,29 +467,36 @@ namespace tower_of_darkness_xna {
             return collision;
         }
 
-        public bool Collides(List<Scene2DNode> objects)
+        private void collides(ref List<Scene2DNode> objects)
         {
-            bool collision = false;
-            bool isTouched = false;
-            Rectangle tempRect = objectRectangle;
-            if (movementStatus == MovementStatus.Left)
-                tempRect.X -= MOVE_SPEED;
-            if (movementStatus == MovementStatus.Right)
-                tempRect.X += MOVE_SPEED;
-            if (movementStatus == MovementStatus.Fall) {
-                tempRect.Y += GRAVITY_SPEED;
+            for (int i = 0; i < objects.Count; i++) {
+                Rectangle objectRect = new Rectangle((int)objects[i].worldPosition.X, (int)objects[i].worldPosition.Y, objects[i].TextureWidth, objects[i].TextureHeight);
+                if (objectRect.Intersects(objectRectangle)) {
+                    objects.RemoveAt(i);
+                    //check type (essence, key) and handle accordingly
+                }
             }
-            if (movementStatus == MovementStatus.Jump)
-                tempRect.Y += (int)jumpingHeight;
-            if (movementStatus == MovementStatus.Up)
-                tempRect.Y += MOVE_SPEED;
-            if (movementStatus == MovementStatus.Down)
-                tempRect.Y += -MOVE_SPEED;
-            foreach (Scene2DNode node in objects)
-            {
+            //bool collision = false;
+            //bool isTouched = false;
+            //Rectangle tempRect = objectRectangle;
+            //if (movementStatus == MovementStatus.Left)
+            //    tempRect.X -= MOVE_SPEED;
+            //if (movementStatus == MovementStatus.Right)
+            //    tempRect.X += MOVE_SPEED;
+            //if (movementStatus == MovementStatus.Fall) {
+            //    tempRect.Y += GRAVITY_SPEED;
+            //}
+            //if (movementStatus == MovementStatus.Jump)
+            //    tempRect.Y += (int)jumpingHeight;
+            //if (movementStatus == MovementStatus.Up)
+            //    tempRect.Y += MOVE_SPEED;
+            //if (movementStatus == MovementStatus.Down)
+            //    tempRect.Y += -MOVE_SPEED;
+            //foreach (Scene2DNode node in objects)
+            //{
                 
-            }
-            return false;
+            //}
+            //return false;
         }
 
         private void hitTransition(List<Transition> transitions, Rectangle mapView) {
