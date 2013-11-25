@@ -8,8 +8,6 @@ Content\maps\tower1.xnb
 Content\maps\tower2.xnb
 Content\maps\tower3.xnb
 Content\maps\tower4.xnb
-Content\maps\tower5.xnb
-Content\maps\tower6.xnb
 Content\sprites\background.xnb
 Content\sprites\character.xnb
 Content\sprites\character2.xnb
@@ -51,6 +49,7 @@ Content\maps\tower2\00.xnb
 Content\maps\tower3\00.xnb
 Content\maps\tower3\01.xnb
 Content\maps\tower4\00.xnb
+Content\maps\tower5.xnb
 Content\maps\tower5\00.xnb
 Content\maps\tower5\01.xnb
 Content\maps\tower6\00.xnb
@@ -59,6 +58,7 @@ Content\maps\spritesheets\spritesheet3.xnb
 Content\maps\forest\00.xnb
 Content\maps\forest\01.xnb
 Content\sprites\enemy1.xnb
+Content\sprites\superEssence.xnb
 Content\maps\town.xnb
 Content\maps\town\00.xnb
 Content\maps\town\01.xnb

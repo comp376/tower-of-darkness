@@ -353,6 +353,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="sprites\superEssence.png">
+      <Name>superEssence</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="maps\town.tmx">
       <Name>town</Name>
       <Importer>TMXContentImporter</Importer>

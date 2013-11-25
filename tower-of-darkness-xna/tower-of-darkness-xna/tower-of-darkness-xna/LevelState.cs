@@ -46,6 +46,7 @@ namespace tower_of_darkness_xna {
         private Texture2D enemy;
         private Texture2D keyTexture;
         private Texture2D essenceTexture;
+        private Texture2D superEssenceTexture;
 
         //pause content
         private const int NUM_PAUSE_ITEMS = 3;
@@ -126,6 +127,7 @@ namespace tower_of_darkness_xna {
             backgroundTexture = Content.Load<Texture2D>("sprites/background");
             keyTexture = Content.Load<Texture2D>("sprites/key");
             essenceTexture = Content.Load<Texture2D>("sprites/essence");
+            superEssenceTexture = Content.Load<Texture2D>("sprites/superEssence");
             font = Content.Load<SpriteFont>("fonts/spriteFont");
             map = Content.Load<Map>("maps/" + mapName);
             modifyLayerOpacity();
@@ -278,7 +280,23 @@ namespace tower_of_darkness_xna {
                         Rectangle lRect = map.TileLayers["Breakable"].Tiles[i][j].Target;
                         lRect.X -= tileSize;
                         lRect.Y -= tileSize;
-                        Breakable b = new Breakable(lRect, i, j);
+                        Breakable b = new Breakable(lRect, i, j, "breakable");
+                        breakables.Add(b);
+                    }
+                }
+            }
+            if (map.TileLayers["Doors"] == null)
+                return;
+            for (int i = 0; i < map.TileLayers["Doors"].Tiles.Length; i++)
+            {
+                for (int j = 0; j < map.TileLayers["Doors"].Tiles[i].Length; j++)
+                {
+                    if (map.TileLayers["Doors"].Tiles[i][j] != null)
+                    {
+                        Rectangle lRect = map.TileLayers["Doors"].Tiles[i][j].Target;
+                        lRect.X -= tileSize;
+                        lRect.Y -= tileSize;
+                        Breakable b = new Breakable(lRect, i, j, "door");
                         breakables.Add(b);
                     }
                 }
@@ -296,20 +314,17 @@ namespace tower_of_darkness_xna {
                 Console.WriteLine("HEY");
                 if (mo.Properties["Type"].Value == "key")
                 {
-                    Console.WriteLine("Making a key");
                     Scene2DNode node = new Scene2DNode(keyTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "key");
                     objects.Add(node);
                 }
                 else if (mo.Properties["Type"].Value == "essence")
                 {
-                    Console.WriteLine("Making an essence");
                     Scene2DNode node = new Scene2DNode(essenceTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "essence");
                     objects.Add(node);
                 }
                 else if (mo.Properties["Type"].Value == "super essence")
                 {
-                    Console.WriteLine("Making a super essence");
-                    Scene2DNode node = new Scene2DNode(essenceTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "super essence");
+                    Scene2DNode node = new Scene2DNode(superEssenceTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "super essence");
                     objects.Add(node);
                 }                
             }
