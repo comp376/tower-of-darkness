@@ -353,7 +353,7 @@ namespace tower_of_darkness_xna {
                     PAUSE_SCREEN = true;
                 }
             }
-            character.Update(gameTime, mapRect, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs);
+            character.Update(gameTime, mapRect, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies);
             for (int i = 0; i < breakables.Count; i++) {
                 breakables[i].Update(gameTime);
                 if (breakables[i].isBroken) {
@@ -422,6 +422,9 @@ namespace tower_of_darkness_xna {
             character.Draw(batch, Color.White);
             foreach (NPC npc in npcs) {
                 npc.Draw(batch, Color.White);
+            }
+            foreach (Enemy e in enemies) {
+                e.Draw(batch, Color.White);
             }
             foreach (Scene2DNode node in objects){
                 node.Draw(batch);
