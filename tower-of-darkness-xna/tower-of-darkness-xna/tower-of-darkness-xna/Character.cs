@@ -30,6 +30,7 @@ namespace tower_of_darkness_xna {
         private float apexCounter = 0;
         //Lighting
         private Color lightColor;
+        private float lightAlpha;
         private Texture2D lightTexture;
         private Texture2D lanternTexture;
         private Vector2 lanternPosition;
@@ -55,7 +56,8 @@ namespace tower_of_darkness_xna {
         }
 
         public void LoadContent() {
-            lightColor = new Color(120, 120, 90);
+            lightColor = new Color(239, 228, 176);
+            lightAlpha = 0.8f;
             lightTexture = Content.Load<Texture2D>("sprites/light3");
             lanternTexture = Content.Load<Texture2D>("sprites/lantern");
             lanternPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
@@ -93,7 +95,7 @@ namespace tower_of_darkness_xna {
             spriteBatch.Draw(lanternTexture, lanternPosition, null, Color.White, degreeToRadian(lanternAngle), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), 1, walkingDirection, 0);
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
-            spriteBatch.Draw(lightTexture, new Rectangle((int)(lightPosition.X), (int)(lightPosition.Y - (currentLightSize * 6)), (int)(lightTexture.Width + (currentLightSize * 15)), (int)(lightTexture.Height + (currentLightSize * 15))), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), lightColor, degreeToRadian(lanternAngle), new Vector2(lightTexture.Width / 2, 0), walkingDirection, 0);
+            spriteBatch.Draw(lightTexture, new Rectangle((int)(lightPosition.X), (int)(lightPosition.Y - (currentLightSize * 6)), (int)(lightTexture.Width + (currentLightSize * 15)), (int)(lightTexture.Height + (currentLightSize * 15))), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), lightColor * lightAlpha, degreeToRadian(lanternAngle), new Vector2(lightTexture.Width / 2, 0), walkingDirection, 0);
             base.Draw(spriteBatch, color);
         }
 
