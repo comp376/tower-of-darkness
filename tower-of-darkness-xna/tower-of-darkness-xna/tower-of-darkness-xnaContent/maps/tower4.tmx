@@ -5,42 +5,42 @@
  </tileset>
  <layer name="Background" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJztlT0KwDAIhd16jHRt597/bF06SIiJP7EaiPAg0Oj3qkIKAJQtV+Gov10MeXB79+uzhifN5epmsi3+e///DPIs/eDwqTxJ7S35XkQyIvkjXzisfCqk9zV+VuNH999zDyP5WUW9e6MezuK33r2sM6Qi2gMn7/wE6PxnDzLwcWj52hnM5Lc8eO0NtyZ3/rWsHigdjrVX4EfrBY9SaXo=
+   eJztlUEKwCAMBHPzGfbcs/9/Wy8Vgk00GmMsuLAgqc1so9AIAPHY1Fi5FohnnGZySz61v1yP8DS5W4wa+1ZkkHw/V8v1pJiHhN8zE673cf+98GR48lu5sLR8Tr37R/L8je89f8t76Mnf1T1zwP9AD36Cr1bPipJ3Bsl712tA65Uz2IGPNcofPYOZfCqD1b2R9pSef2lthlo2q94thw34XuzsBzVzZ3w=
   </data>
  </layer>
  <layer name="Foreground" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJztltsNgDAIRRmiS7D/gn6ZNAQpFAoauUnjA7ynaA1FAMDiUaW38D3vx/O8tv5T387iQfOsbC4/k//kmcnnPCx8ZM53FOXjVfOb3/x/8qP66y579tbOMaLfcv4SG5ijlSPlcX2Fzsu7l9HUeELatVWl5sv/831vCPExxWlsdV1Vf+Qe/svsTP6qj1SNC0iiIv4=
+   eJztlsESABAIRPsd//+D7k2kWtahZjoY8VYZGiIyyM6y3/m384c6P7r+GU16zckeyPqj+Fk9VX41D3qv1/nPWPOb33w+v/LmVf5F5Pu30nTK9+IifK0jwo/G7/jeGm8uY9a5rZp0/9n81R2IjK05r7dF9/FZY2v4IQ9sDd4fdtsncPcjPQ==
   </data>
  </layer>
  <layer name="Ladder" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJzt1bENACAIAEEmsbZ2/+FcwSBBi7tevpEQAXBmPJ4zi/rZOfr6+vdW8zv+VnVXsqr+tX6OvYZ+G37RA8E=
+   eJzt1SEWABAQRVErkWX7X5wgC5xPcO7tMy8NpQC/qI9mVtqjGX19/cyuHuwnd8ENyf/uRPLe9fd5o2AaY6ADwQ==
+  </data>
+ </layer>
+ <layer name="Breakable" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt0DEOACAIA0C+w/8/6MDiZNwUvUs6dYFGAK/K0wdcwg7l1x38DcCOnLLqobMBbg4Bmw==
   </data>
  </layer>
  <objectgroup name="Transition" width="32" height="32">
-  <object name="tower3" x="0" y="928" width="31" height="62">
+  <object name="tower3" x="991" y="927" width="31" height="63">
    <properties>
     <property name="cx" value="0"/>
     <property name="cy" value="0"/>
     <property name="d" value="0"/>
-    <property name="x" value="80"/>
+    <property name="x" value="64"/>
     <property name="y" value="64"/>
    </properties>
   </object>
-  <object name="tower5" x="33" y="32" width="30" height="63">
+  <object name="tower5" x="961" y="64" width="31" height="62">
    <properties>
-    <property name="cx" value="0"/>
-    <property name="cy" value="960"/>
-    <property name="d" value="0"/>
-    <property name="x" value="672"/>
-    <property name="y" value="416"/>
+    <property name="cx" value="220"/>
+    <property name="cy" value="994"/>
+    <property name="d" value="1"/>
+    <property name="x" value="480"/>
+    <property name="y" value="384"/>
    </properties>
   </object>
  </objectgroup>
- <layer name="Breakable" width="32" height="32">
-  <data encoding="base64" compression="zlib">
-   eJzt0DEKACAMA8B+p///oIOLoFOXCr2D7EkiAG7ZXaDJxN0TN7/4YfMDQF0egR8tRgcBSQ==
-  </data>
- </layer>
 </map>

@@ -33,10 +33,10 @@
   </object>
   <object name="tower4" x="33" y="32" width="29" height="94">
    <properties>
-    <property name="cx" value="0"/>
+    <property name="cx" value="480"/>
     <property name="cy" value="544"/>
     <property name="d" value="1"/>
-    <property name="x" value="64"/>
+    <property name="x" value="480"/>
     <property name="y" value="384"/>
    </properties>
   </object>
