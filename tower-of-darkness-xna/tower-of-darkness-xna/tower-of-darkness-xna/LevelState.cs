@@ -389,9 +389,7 @@ namespace tower_of_darkness_xna {
                 if (breakables[i].isBroken && breakables[i].type == "breakable") {
                     map.TileLayers["Breakable"].Tiles[breakables[i].i][breakables[i].j] = null;
                     breakables.RemoveAt(i);
-                }
-
-                if (breakables[i].isBroken && breakables[i].type == "door")
+                }else if (breakables[i].isBroken && breakables[i].type == "door")
                 {
                     map.TileLayers["Doors"].Tiles[breakables[i].i][breakables[i].j] = null;
                     breakables.RemoveAt(i);
