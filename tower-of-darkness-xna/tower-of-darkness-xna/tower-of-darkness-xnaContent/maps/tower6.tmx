@@ -3,9 +3,12 @@
  <tileset firstgid="1" name="TileSet" tilewidth="32" tileheight="32">
   <image source="spritesheets/spritesheet2.png" trans="ff00ff" width="320" height="320"/>
  </tileset>
+ <tileset firstgid="101" name="Tileset2" tilewidth="32" tileheight="32">
+  <image source="spritesheets/spritesheet2.png" trans="ff00ff" width="320" height="320"/>
+ </tileset>
  <layer name="Background" width="64" height="16">
   <data encoding="base64" compression="zlib">
-   eJyTZ2BgkB/Fo5jOWGsQuIFSDAPk6DUZBO6nVhgMtBsGIx7p4TLS/T+KR/EoHnoYW7tkKLRVFKhgBgiYILFh4rRsq1ArbBnI1MeORT+5ZpGjj1phS244suPxO7nhMBB4uLSn6Y0B9396wA==
+   eJyTZ2BgkB/Fo5jOWGsQuIFSDAPk6DUZBO6nVhgMtBsGIx7p4TLS/T+KBy+eD8QLBoE7BgqvBOJVg8AdA4GnAzEbFGOTx9YuGQptFQUS/Y7N/yBggsSGidOyrUKtsGUgII/ud5j/2bHoJ2QWuW7AhqkVtvjCEZvfkf2Py+/khsNAYFzhiMvvuPL/SMMA0zt9Og==
   </data>
  </layer>
  <layer name="Foreground" width="64" height="16">
