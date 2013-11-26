@@ -5,7 +5,7 @@
  </tileset>
  <layer name="Background" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRQApgx4EHkx0AJ/wAVQ==
+   eJxjYBgFo2AUjIJRQArQxIGpCbRwYGIBAM8AAfM=
   </data>
  </layer>
  <layer name="Foreground" width="25" height="15">
@@ -15,7 +15,7 @@
  </layer>
  <layer name="Top" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJzVk8EOgkAMRPs7KDfUG+AN9bbq/3+L3cOEyWQpELIHm7w02aHtZLs0ZtZU4OScndbpKqAz+grojKkCel86s0Taid5XtKsbna1l9ri285J+CXLpTqBdySd7Uj3vcAhyRz1QC2107uQf3lTPO3wEuaceqIX2dF42vzd4Uz3v8B3kiXqgFtrH+dr83uCN9S3/c6IeKfiGvam+JZZ6I5b87Y2j9f8QP/aRQNA=
+   eJztkjkOgDAMBP0f0hHoOLoAXQL/fwvrAgEOIJHgjpWmsuz1RaSnAhhQKiA9GgWOYg+ngNyXnOsK/xK5L20Zpbo8hwUVqDPq8G3bm9pbrAM97f9mH3Lf+vLdBzCCieJ/k3Gf4MU5AcxgofOvORH/WoHSeqaMvF+xVs3yIKE=
   </data>
  </layer>
  <objectgroup name="Transition" width="25" height="15">
