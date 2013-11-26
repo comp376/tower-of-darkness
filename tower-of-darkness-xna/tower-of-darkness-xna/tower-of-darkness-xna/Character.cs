@@ -72,6 +72,7 @@ namespace tower_of_darkness_xna {
             talk(gameTime, ref npcs);
             attack(gameTime);
             collides(ref objects);
+           
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color) {

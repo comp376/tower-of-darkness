@@ -6,19 +6,22 @@
  <tileset firstgid="101" name="spritesheet2" tilewidth="32" tileheight="32">
   <image source="spritesheets/spritesheet2.png" width="320" height="320"/>
  </tileset>
+ <tileset firstgid="201" name="Tileset3" tilewidth="32" tileheight="32">
+  <image source="spritesheets/spritesheet3.png" trans="ff00ff" width="320" height="320"/>
+ </tileset>
  <layer name="Background" width="25" height="46">
   <data encoding="base64" compression="zlib">
-   eJzt1VEOwjAIBmBuoW9Fz+ohPK7zoQn+A0uBVR9GQtyala8tTonGwUpaz7zjueVDjM/Wl+MN7tGy1oP1rXlNsWfro4WJXiSwHin3fS8t6LCRsn4Tz2b30uizJq47Y8h6liHPK1LbYzB8RkPrKRqZ2pqD+8g4uP5qg2nfB81mijtoWP2QTpWB58VUZ/TA6ypD1tTe8awhQzu7CmOUp/Ebg4zrasN6rsqwrCOMSD+s36RKY8U+MgaBkzGI9rVJjFcYo/+qqBHpe9RgGKs2tHduhfHN+WdD+x4dYXjzNNYZHj9qeGrP1r9seYW53jPqc0dx2/LuqKutvc/FiPR2Nl+DCj2L
+   eJztlUsOwjAMRH0L2MVwVk7MmgVhEclM7ca13cKiI42aRsm8JO6HaC5WbI356Nn9EP1b82V/g/txfSnctXwcO9pNYVttj1gx8iLCPFLux15akMOGZX4TY7N7afSdievOMGSexZDnFcn2MBiuUWk1RUYmW+PgPjIcXH81g2lZB43NFOcgw6qH5FQx8LyY6hhD2K5iyEztHc8ypLSzq2DMfDJ+wyCjXc2wxlUxLNYejEg9rG9SJeOIfWQYBJwMg2iZTaK/gjH7V0UZkbpHGQx91QztnTuCscb5Z4b2HO3B8PpkHMfw8KMMT/bW/Ev3FeZ6z2jMnenWfXfkamsfc1GR2m71G4rtPsE=
   </data>
  </layer>
  <layer name="Foreground" width="25" height="46">
   <data encoding="base64" compression="zlib">
-   eJztVlsKwDAI6w16/9vut0iDSbRjhQllwxpjX+oYe5lAv87P5d8RBuf67sJ3c8xkZBw7W8VPFtv6ZWxdjm5bhMv2tMKR8bBxOJyV2G8WdM+zdxUxCIs4I4aNldEp890c7ltX18HmN6RT8yXCqNJxHi6G1Sv1oxoTg1FrmsOh2KvnX9mrNzgUjLJ29AaVnqU7LzA+GQ4Vo+gr+8vaszVIyYnR7+m7e7L3+zm+w3Gy1jr3leXY5bRK3o0+Ucy39SWM/ckeQJXbOJiaWx0PhCQNEg==
+   eJztllsOxSAIRLsD97/b/hrjhDmAvY+UxLRBhsEXcF17GUI/z4/pPyMOLuu7C9/NMYIRcexsiZ8otvnr2GY5um0VLtrTCkfE48aR4azE/sui7nn0rlaMwirOFePG6ujIfDdH9q3Tdbj5TelovlQYKh3nkcW4elI/qjE5GFrTMhzEnp5/Za+e4CAYsnb1BknP0p0XHJ8OB8UQfWV/XXu3BpGcuPo9fXdP9n4vx/dwnKy1mfvqcuxyWiXvrj5VzJ/uS9zcTjiqfReVf+J4Ytwjzw1s
   </data>
  </layer>
  <layer name="Ladder" width="25" height="46">
   <data encoding="base64" compression="zlib">
-   eJztlbsRACAIQ53E2tr9h3MDFMkhYFKL7/gEWqMyqzswhgNjOjCqiD236aZ+2pib+mljojK0fd2995hFMjAM1G6SGKgcXzNQ+4+38y+hPCb9U8VjKIbksdc7l4yYDKtPTxjWXE9uR5R6ZmBkucULDQkH2w==
+   eJztlbsRACAIQ53E2tr9h3MBD0ERJJJafMcnUErqlqoBo4EwugHDQtlzvmY936mfNGYnN2nML4xZ7aVeXr1HmXdvhtZuohhaOf7A0Lp5KLcTQVoeo/5Bmf9IDMpj3ns9GXLGqU85jNNcLRic2/FKzyIwotziAWxLCTk=
   </data>
  </layer>
  <layer name="Top" width="25" height="46">
@@ -43,7 +46,7 @@
     <property name="y" value="352"/>
    </properties>
   </object>
-  <object name="tower4" x="768" y="1376" width="32" height="64">
+  <object name="tower4" x="0" y="1372" width="32" height="64">
    <properties>
     <property name="cx" value="480"/>
     <property name="cy" value="0"/>

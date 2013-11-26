@@ -18,7 +18,7 @@
  </layer>
  <layer name="Ladder" width="45" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApwA7mBdgAZQGOgHUAGGHUzfYDRQDtgFGAAAENqAMk=
+   eJxjYBgFo2AUjIJRMAqGFpAbaAeQATQG2gFkgKHoZqOBdsAoIBkAAK7DAKE=
   </data>
  </layer>
  <objectgroup name="Transition" width="45" height="15">

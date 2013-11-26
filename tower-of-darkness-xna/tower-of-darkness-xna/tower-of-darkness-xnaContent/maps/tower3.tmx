@@ -18,7 +18,7 @@
  </layer>
  <layer name="Ladder" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJztljEKACAMA327s7PvdRJBDARbq2Bu6WJ7CDWYkviNfHluOeRn51r96J5RftR/yp+nivorOY891ymgRlFBFeI1VtnkkfeWbPd4r5Zsu+33yAvWz7h29sEz86LzW3755R/o/yI6Df8lGJ0=
+   eJztljEKACEMBH27tbXvvUoOQhYWTSLCTpPGZEB0tTVRTb88dyT52bmv+9E+V/lRf5a/m4r6JzmPXbcYoFYxQRXC4mVDVt57eHcj4r6cvC0R/pNsu+23ebFzHlg/k007+xGZedX5Lb/88v/o/yIWH6r4G1k=
   </data>
  </layer>
  <objectgroup name="Transition" width="32" height="32">
