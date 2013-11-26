@@ -26,13 +26,13 @@
    <property name="x" value="300"/>
    <property name="y" value="300"/>
   </properties>
-  <object name="bridge" x="0" y="1344" width="32" height="64">
+  <object name="outside" x="0" y="1344" width="32" height="64">
    <properties>
-    <property name="cx" value="0"/>
-    <property name="cy" value="0"/>
+    <property name="cx" value="214"/>
+    <property name="cy" value="32"/>
     <property name="d" value="0"/>
-    <property name="x" value="736"/>
-    <property name="y" value="288"/>
+    <property name="x" value="516"/>
+    <property name="y" value="328"/>
    </properties>
   </object>
   <object name="tower2" x="352" y="32" width="32" height="64">
