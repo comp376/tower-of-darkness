@@ -5,12 +5,12 @@
  </tileset>
  <layer name="Background" width="64" height="16">
   <data encoding="base64" compression="zlib">
-   eJyTZ2BgkB/Fo5jOWGsQuIFSDAPk6DUZBO6nVhgMtBsGIx7p4TLS/T+KR/EoHnoYW7tkKLRVqOFGEDBBYsPEadlWoVbYkutGdiz+ZSDTLHL0DXQ7kB2P38kNh1E8dDAAlx563g==
+   eJyTZ2BgkB/Fo5jOWGsQuIFSDAPk6DUZBO6nVhgMtBsGIx7p4TLS/T+KR/EoHnoYW7tkKLRVFKhgBgiYILFh4rRsq1ArbBnI1MeORT+5ZpGjj1phS244suPxO7nhMBB4uLSn6Y0B9396wA==
   </data>
  </layer>
  <layer name="Foreground" width="64" height="16">
   <data encoding="base64" compression="zlib">
-   eJztlmEOgCAIhb2B979tfxsD4fHAbMXmyg0ffKDlHGPMj48uQ+NIH22Np4Pw/Py2f0VtOvbZvD01XYY/2ydPv4M/Ove0IvtJqxOib8Wx6u+tQebR/BBj+NH8VpqaT7b/bF4r/ez+z/Qf1a/Ka6V/Oj96VziBv+I+81T/ZR2tb2u0/2/jZ+JY/PI9qt/Jzxjy/2P4M7aDPxqH3f8Z6+T3zr/0rTj/2f/Ajjjd4wLL3RHR
+   eJztVlsKwDAI6w16/9vudxRfidoVVqGMDo1GxTrHGPPnp0tQP6uOZOPhIHwuf12/IjcdfTZfXwk3w5+tk4ffwT9697Ai/STlCcHX/Gj592yQezQ+RDL80fgsTEmHrX82Lguf7X+m/ih+VVwW/un80V3hBP4Vc/Wr+q951Gbr7X//X6YHuvlnBHn/dvPYwT/qh33DGP2sHYqN7mZoHzDzn92XTj0PHJAQ/w==
   </data>
  </layer>
  <layer name="Ladder" width="64" height="16">
