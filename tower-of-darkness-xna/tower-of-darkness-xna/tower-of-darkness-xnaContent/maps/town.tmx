@@ -6,19 +6,19 @@
  <tileset firstgid="101" name="spritesheet" tilewidth="32" tileheight="32">
   <image source="spritesheets/spritesheet.png" trans="ff00ff" width="320" height="320"/>
  </tileset>
- <layer name="Foreground" width="45" height="15">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgYIDBA9pILBJDwUAAwt3ozDA13C+DBgxHgc9tgdDeh8KR3eJeg4cEO0N072N2Ny32D1d34wnQohPcoGL6AaQhiniGIAbjEDWI=
-  </data>
- </layer>
  <layer name="Background" width="45" height="15">
   <data encoding="base64" compression="zlib">
-   eJztksEKwjAQRPderLnZqj2otQVB60GwetP//yhHTCCETWCTIgoZeKQEJvtIQ5STkyPJ0/qeMfx6/s1Z0cfx4Kwq4qwaLMEKrKcSZGKcL84a47wDLdiDTtiV/GdF/NuIcT6CExjAWdh9z5xrJM4PSnO+ghHcwF3Q4+4tNH+qe16AChQadz/UMQ6lxsz3dW3nJsF5A7aMs9kPdXzOvq7t3Cc453wnL1CZCko=
+   eJztkssKgzAQRWdf2rqrfbiorQpCHwtB687+/0f1BhMIIZFODOIiFw4JITdzFiGKiYnh5KvttxbWHuFYG+uak9Do2Bhr4vHWEZzAGVxCCVqinAWDtvdxvoE7KEDJ7HL+pu6c0TznB3iCF3gzu2LmXsJxrmiecws68AE9o6c7/DPfdt/H+QBSsJGY51Md5bCTqPmubijnK8gtzup8quNydnVDOccskx9SAApK
+  </data>
+ </layer>
+ <layer name="Foreground" width="45" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgYIDBA9pILBJDwUAAwt3ozDA13C+DBgxHgc9tgdDeh8KR3eJeg4cEO0N072N2Ny32D1d34wnQohDepYCiVdSMdMA1BzDMEMQDckw3C
   </data>
  </layer>
  <layer name="Ladder" width="45" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AU0ArIDbQDyAAaA+0AMsCom+kDRt1MHzDqZvoAo4F2wCiAAwDz9wFp
+   eJxjYBgFo2AUjIJRMApwA7mBdgAZQGOgHUAGGHUzfYDRQDtgFGAAAENqAMk=
   </data>
  </layer>
  <objectgroup name="Transition" width="45" height="15">
@@ -37,6 +37,15 @@
     <property name="cy" value="0"/>
     <property name="d" value="1"/>
     <property name="x" value="32"/>
+    <property name="y" value="352"/>
+   </properties>
+  </object>
+  <object name="house" x="961" y="256" width="29" height="62">
+   <properties>
+    <property name="cx" value="0"/>
+    <property name="cy" value="64"/>
+    <property name="d" value="1"/>
+    <property name="x" value="48"/>
     <property name="y" value="352"/>
    </properties>
   </object>
