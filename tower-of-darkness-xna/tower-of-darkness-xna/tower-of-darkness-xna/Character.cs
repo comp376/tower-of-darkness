@@ -26,7 +26,8 @@ namespace tower_of_darkness_xna {
         private int talkInterval = 2000;
         private int attackTimer = 0;
         private int attackInterval = 1000;
-
+        private float apex = 2f;
+        private float apexCounter = 0;
         //Lighting
         private Color lightColor;
         private Texture2D lightTexture;
@@ -188,31 +189,49 @@ namespace tower_of_darkness_xna {
 
         private void jump(ref List<Rectangle> cRectangles, ref Rectangle mapView, ref Rectangle mapRect, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects) {
             int middleY = mapView.Height / 2;
+            Console.WriteLine(jumping + " and " + falling);
             KeyboardState kbs = Keyboard.GetState();
-            if (jumping) {
+            if (jumping && !climbing) {
                 if (collides(cRectangles, MovementStatus.Jump) || collides(ref breakables, MovementStatus.Jump)) {
                     jumping = false;
-                } else {
-                    if (mapInView(mapView, mapRect, 0, (int)jumpingHeight, MovementStatus.Jump)) {
-                        if (objectRectangle.Y > middleY)
-                            objectRectangle.Y += (int)jumpingHeight;
-                        else {
+                } 
+                else 
+                {
+                    apexCounter += JUMPING_INCREMENT;//Going up!
+                    Console.WriteLine(objectRectangle.Y);
+                    if (mapInView(mapView, mapRect, 0, (int)jumpingHeight, MovementStatus.Jump))
+                    {
+                        Console.WriteLine("Tier 1");
+                        if (objectRectangle.Y <= middleY)//Are we scrolling?
+                        {
+                            Console.WriteLine("Tier 2");
                             scroll(MovementStatus.Jump, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects);
                         }
-                    } else
-                        objectRectangle.Y += (int)jumpingHeight;
-                    //jumpingHeight += JUMPING_INCREMENT;
-                    float apex = JUMPING_HEIGHT / JUMPING_INCREMENT;
-                    //Console.WriteLine((startingY - apex) + ", " + (startingY - spriteHeight));
-                    if (objectRectangle.Y < (startingY - spriteHeight)) {
-                        jumping = false;
+                        else
+                        {
+                            Console.WriteLine("Tier 3");
+                            objectRectangle.Y += (int)jumpingHeight;//Not scrolling.  Increment.
+
+                        }
                     }
+                    else
+                    {
+                        Console.WriteLine("Tier 3");
+                        objectRectangle.Y += (int)jumpingHeight;//Not scrolling.  Increment.
+
+                    }
+
+                    if (apexCounter >= apex)//Max jump height?
+                        {
+                            jumping = false;
+                            apexCounter = 0f;
+                        }
+
                 }
             } else {
                 if (kbs.IsKeyDown(Keys.Space) && !falling) {
                     jumping = true;
                     jumpingHeight = -JUMPING_HEIGHT;
-                    startingY = objectRectangle.Y;
                 }
             }
         }
