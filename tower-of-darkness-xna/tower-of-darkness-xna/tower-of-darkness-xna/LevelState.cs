@@ -18,8 +18,9 @@ namespace tower_of_darkness_xna {
         private const int LADDER_LAYER = 1;
         private const int FOREGROUND_LAYER = 2;
         private const int TOP_LAYER = 3;
-        private Color OPAQUE_COLOR = new Color(25, 25, 25);
-        private Color BACKGROUND_COLOR = new Color(100, 100, 100);
+        private Color OPAQUE_COLOR = new Color(70, 70, 70);
+        private float alpha = 0.2f;
+        private Color BACKGROUND_COLOR = new Color(255, 255, 255, 1);
 
         private Texture2D backgroundTexture;
         private Map map;
@@ -163,7 +164,7 @@ namespace tower_of_darkness_xna {
                 OPAQUE_COLOR = new Color(100, 100, 100);
 
             foreach (TileLayer tl in map.TileLayers) {
-                tl.OpacityColor = OPAQUE_COLOR;
+                tl.OpacityColor = OPAQUE_COLOR * alpha;
             }
         }
 
@@ -451,7 +452,7 @@ namespace tower_of_darkness_xna {
 
         public override void Draw(GameTime gameTime, SpriteBatch batch) {
             batch.Begin();
-            batch.Draw(backgroundTexture, new Vector2(), BACKGROUND_COLOR);
+            batch.Draw(backgroundTexture, new Vector2(), BACKGROUND_COLOR * alpha);
             map.Draw(batch, mapView);
             character.Draw(batch, Color.White);
             foreach (NPC npc in npcs) {
@@ -467,24 +468,24 @@ namespace tower_of_darkness_xna {
             //Debug
             if (DEBUG) {
                 foreach (Rectangle r in cRectangles) {
-                    batch.Draw(collision, r, OPAQUE_COLOR);
+                    batch.Draw(collision, r, OPAQUE_COLOR * alpha);
                 }
                 foreach (Transition t in transitions) {
-                    batch.Draw(transition, t.tRect, OPAQUE_COLOR);
+                    batch.Draw(transition, t.tRect, OPAQUE_COLOR * alpha);
                 }
                 foreach (Rectangle r in ladders) {
-                    batch.Draw(ladder, r, OPAQUE_COLOR);
+                    batch.Draw(ladder, r, OPAQUE_COLOR * alpha);
                 }
                 foreach (Breakable r in breakables) {
-                    batch.Draw(breakable, r.bRect, OPAQUE_COLOR);
+                    batch.Draw(breakable, r.bRect, OPAQUE_COLOR * alpha);
                 }
                 foreach (NPC n in npcs) {
-                    batch.Draw(npc, n.objectRectangle, OPAQUE_COLOR);
+                    batch.Draw(npc, n.objectRectangle, OPAQUE_COLOR * alpha);
                 }
                 foreach (Enemy e in enemies) {
-                    batch.Draw(enemy, e.objectRectangle, OPAQUE_COLOR);
+                    batch.Draw(enemy, e.objectRectangle, OPAQUE_COLOR * alpha);
                 }
-                batch.Draw(charDebug, character.objectRectangle, OPAQUE_COLOR);
+                batch.Draw(charDebug, character.objectRectangle, OPAQUE_COLOR * alpha);
                 batch.DrawString(font, "MAP: " + mapName, new Vector2(), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
                 string fps = (1 / (float)gameTime.ElapsedGameTime.TotalSeconds).ToString();
                 batch.DrawString(font, "FPS: " + fps, new Vector2(0, 16), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
