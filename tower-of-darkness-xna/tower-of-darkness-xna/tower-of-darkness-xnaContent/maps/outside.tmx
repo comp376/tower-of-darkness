@@ -10,7 +10,7 @@
  </layer>
  <layer name="Background" width="32" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYKAtcCJAj4JRMAqwA2LyCC3zkSCV1JBrNwxTooZc4AU114tCNeSCEKjZIRSqiQTiKDLsj4OaHUehmmQgTiHD/lFAHwAAjTQH5Q==
+   eJxjYKAtcCJAj4JRMAqwA2LyCC3zkSCV1JBrNwxTooZc4AM11wePGi+oGi8a2B8GNTsMj5oQqJoQPGoigTiKDPsToGYn4FETB1UTh0dNMhCnkGH/KKAPAACp5Afx
   </data>
  </layer>
  <objectgroup name="Transition" width="32" height="16">
