@@ -13,7 +13,7 @@
  </layer>
  <layer name="Foreground" width="64" height="16">
   <data encoding="base64" compression="zlib">
-   eJztlkEOxCAIRbmB9/RCs+xs21PWxTQxFoQP2piZISGNiX55QtFEROnHfZah+7RzuDWaDsLz55fnjzibGXWWqi+nG+H35knTn8FvHWtalnrizgnRl/aRzl9bg4yt8SEW4Ufj62lyc7z5j8bV0/fWvyf/qP6ouHr6q/Fvxd/kfyuswB/R3Ysfg+OS5vX6J3eeWp+N5v9VPH/8W+rfql2zP8EfMeT+s3C07Be/N7YnzPoW0/oSx74qP/LO4vpyu0Ziz3T/P9F7AGFa1U80AR7M
+   eJztllEKgCAMhr2B9+xCPdZrnTIfCkI2t39TGZQwQpi/+7al5pRS/riNGug+tQ+1RtJBeH5+3r9Hbkb0WX59KV0Pv7VOkv4Ifu1c0tL0E5UnRJ/bh8u/tAaZa+NDhocfja+lSflY6++Nq6Vv7X9L/VH9XnG19KPxb8X2ZH8rROD36B7Fzs5xcX6t81PK54j6r8WW2yL1v/Yup3y08bzZZ/B7BnL/aThq9offGtuMoX2LSf8RxR6VH3lnUedyvYZjX6r1lnsAYYpqF2hFHts=
   </data>
  </layer>
  <layer name="Ladder" width="64" height="16">
@@ -34,7 +34,7 @@
  </objectgroup>
  <layer name="Breakable" width="64" height="16">
   <data encoding="base64" compression="zlib">
-   eJzt1cEJACAIBVA3CNp/2A4VRWSRh+ynD4TwpJZE5JzTFrULOBAo11ujx+V3kPofSWqfzQ2V5L5/5DNoLM/C8j6seuf+i9kZRST5n4fOWr+3IM7V2vvn9r7PhRIvS9t3Ato=
+   eJzt1TEKACAIBVBvEHT/wzZUJJFFDtVPH7g4qSUSOedui7cL2BAo11uDk/IrSP33NLWP5oZK894/8hk0lmdheR9mvUv3Alkk/c1DZ63fUxDnau3/S3vPc6HEyxJ5TwLI
   </data>
  </layer>
 </map>
