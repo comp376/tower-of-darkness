@@ -15,12 +15,12 @@
  </layer>
  <layer name="Ladder" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJzt1SEWABAQRVErkWX7X5wgC5xPcO7tMy8NpQC/qI9mVtqjGX19/cyuHuwnd8ENyf/uRPLe9fd5o2AaY6ADwQ==
+   eJzt1bENACAMxMBMQk2d/YejYIPI0gvkG+BdBaokJa3w1gb7ky379u3n+g32yS39ifzvJsh7s/9e3zdKug4rDQQR
   </data>
  </layer>
  <layer name="Breakable" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJzt0DEOACAIA0C+w/8/6MDiZNwUvUs6dYFGAK/K0wdcwg7l1x38DcCOnLLqobMBbg4Bmw==
+   eJzt0DEOACAIA0DewP8f68DiZNwUvUs6dYFGAK/K0wdcwg7l1x38DcCOnLLqobMBnSwAtQ==
   </data>
  </layer>
  <objectgroup name="Transition" width="32" height="32">
@@ -35,10 +35,10 @@
   </object>
   <object name="tower5" x="961" y="64" width="31" height="62">
    <properties>
-    <property name="cx" value="220"/>
+    <property name="cx" value="0"/>
     <property name="cy" value="994"/>
     <property name="d" value="1"/>
-    <property name="x" value="480"/>
+    <property name="x" value="48"/>
     <property name="y" value="384"/>
    </properties>
   </object>
