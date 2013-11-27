@@ -43,10 +43,10 @@
   <object name="house" x="961" y="256" width="29" height="62">
    <properties>
     <property name="cx" value="0"/>
-    <property name="cy" value="64"/>
+    <property name="cy" value="32"/>
     <property name="d" value="1"/>
     <property name="x" value="48"/>
-    <property name="y" value="352"/>
+    <property name="y" value="392"/>
    </properties>
   </object>
  </objectgroup>
