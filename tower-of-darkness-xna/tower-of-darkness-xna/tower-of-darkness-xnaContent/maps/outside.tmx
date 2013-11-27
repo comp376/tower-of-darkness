@@ -39,4 +39,5 @@
    <property name="visited" value="false"/>
   </properties>
  </objectgroup>
+ <objectgroup name="Load" width="32" height="16"/>
 </map>

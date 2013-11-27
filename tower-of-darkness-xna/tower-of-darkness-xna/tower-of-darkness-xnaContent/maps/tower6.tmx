@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="64" height="16" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="96" height="16" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="TileSet" tilewidth="32" tileheight="32">
   <image source="spritesheets/spritesheet2.png" trans="ff00ff" width="320" height="320"/>
  </tileset>
@@ -9,22 +9,22 @@
  <tileset firstgid="201" name="Tileset3" tilewidth="32" tileheight="32">
   <image source="spritesheets/spritesheet3.png" trans="ff00ff" width="320" height="320"/>
  </tileset>
- <layer name="Background" width="64" height="16">
+ <layer name="Background" width="96" height="16">
   <data encoding="base64" compression="zlib">
-   eJztlsEKgDAMQ3vzM+bZ8/7XXxWRgoe2Yq2msgYejLGOJKc2ImpF8TFLAg9PYXlmewL/UR2gPWRk9F5Gz1/kZaVDaB8oWGgfyOxafmkv+cOuMt/MLuXf1U9nvn9zV4nqVspjZef3kzB/9ZfXg0RUt1aPmji/lt3bAwKtR0tozxnYABrld9w=
+   eJztl0EOhDAIRdl5jO5n7c16hDks15i4MPkhTCcdwU9Ukh9JjRUfqNBEpN1YbGM/f4R0Uux4Mfese78S+Peb8ZcDe6yF+b9BlflH7RGlDmpffDXrv/hn5iCTHSMv3TnaNZUxe8s/M94r8o+o/0d5+VHw2fFIgRjOZO+9Fw//fN67FI4V+tAr8ff+vTYX2Kcy6x/NnvPmoshZ6Uz+3hrOCWz2lv9mK/j7euSslJVb7H1sj1ml/j1bHN7oz+4/e01Ubr0a93xG/Y9sGbD/hydL3ne/Gd6s/n9kbG5sse0DwTTzLA==
   </data>
  </layer>
- <layer name="Foreground" width="64" height="16">
+ <layer name="Foreground" width="96" height="16">
   <data encoding="base64" compression="zlib">
-   eJzlVjsOwyAMhROwdO7cs+VCWbu2p2yGIlnIf8eppVqyLCf45T1DgNFaG3/uWWb9zjoGq5Fw5vtb5yPkl2W/1H/vfIT8KJxobzLW2QARw535o/MRYlC5xEEzLku/NpewNOsJ65MFn/oO1X+pxpJr+Vksot/Kj8PExnjnP8qLw/euf8/8W/HP4sXhV9T/bP67QgX9EdzX4e+TeVHjuP1T6mfG/O+Hb1+vtP65s5x7ZtEAtV+hP2KW80+jY9U+9Xu5XWHau5j0H2Haq+q33LOwfXmtobRvS73nHLBoquofxUcfsA==
+   eJztmL8KwjAQxpMnKIijOIq7q6u+kPhc6qiO6ura1/GKFWLIXXN3aZpCP/go+XdJfw3XtJUxpposdq10E6Mv+WuN6U+VsTqpDsJxNVI/s9/r3NJlN87Eny+M/6Llu7R02Y2D3U8sM0pc/rEx/dhSYfxP4DP4grRj/Fct37Wly24cd/3SfUr164s/dy0hYfyv4Bv4jrRj/LmKyT8hfqn4h+LGjKHKHGH8H+An+IW0p+bPvQcNf85c1DOTxPOVOv9L4qTigvXT5J+h9n+XcuafkCb+em3Nf/6JtTFl8O/z/NMlLf8deG+G2//+c6TOwF11Y+O/Ab9bl5R/Qn1y8G8s+W8gkcs+B3+Ncpw/j4qxXPnsf/wlysE/dp4x8A+xL5U/5ztP+/7NwR9j7+YfiTmSzlG6tf+eG38Al6xs7w==
   </data>
  </layer>
- <layer name="Ladder" width="64" height="16">
+ <layer name="Ladder" width="96" height="16">
   <data encoding="base64" compression="zlib">
-   eJztkzESABAMBL1Erfb/x6nSanJsQrY25nas1ooiF50eADPoATBZ/VXdTvF9t1C/W7YOXvD3NKfaaxvm9tQZPA6qvWT3Ef7c7/5E90YEf5Lf/cn2Cj0LxDUDwQ==
+   eJzt1DEOACAIA0Be4uzM/x/nxGqiNAFtbzYGGsBMRF4yqgsgN6sLIKf876DuhoP/Y4GeW+3BGeWfl9l5VF5Rg29f/SmTISovxrkPHXrvUEOVDr0z3p3QIX9myr8W8+7LfxaWFgPB
   </data>
  </layer>
- <objectgroup name="Transition" width="64" height="16">
+ <objectgroup name="Transition" width="96" height="16">
   <object name="tower5" x="1" y="416" width="30" height="63">
    <properties>
     <property name="cx" value="240"/>
@@ -35,15 +35,24 @@
    </properties>
   </object>
  </objectgroup>
- <layer name="Breakable" width="64" height="16">
+ <layer name="Breakable" width="96" height="16">
   <data encoding="base64" compression="zlib">
-   eJzt1TEKACAIBVBvEHT/wzZUJJFFDtVPH7g4qSUSOedui7cL2BAo11uDk/IrSP33NLWP5oZK894/8hk0lmdheR9mvUv3Alkk/c1DZ63fUxDnau3/S3vPc6HEyxJ5TwLI
+   eJzt1kEKgDAMRNHcoNDTenwXKnRhFMZiTPwPssmqTEqIGQD8W49+QCLNtryOGnn9O+SvU7I7mxs0yn/HfMzgO5hFHPZRnKvsvXsJum76zYlnKuS9iFXZm3Otkn/W/ZM1f2/vj722F3wrl+MWeA==
   </data>
  </layer>
- <objectgroup name="Visited" width="64" height="16">
+ <objectgroup name="Visited" width="96" height="16">
   <properties>
    <property name="mapId" value="9"/>
    <property name="visited" value="false"/>
   </properties>
+ </objectgroup>
+ <objectgroup name="Load" width="96" height="16">
+  <object name="Spawn" x="47" y="416" width="29" height="63">
+   <properties>
+    <property name="direction" value="1"/>
+    <property name="xChange" value="0"/>
+    <property name="yChange" value="0"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
