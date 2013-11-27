@@ -83,6 +83,7 @@
  <objectgroup name="NPC" width="25" height="46">
   <object x="704" y="928" width="32" height="64">
    <properties>
+    <property name="questAdvance" value="none"/>
     <property name="spritesheet" value="npc"/>
     <property name="text" value="You're a faggot Harry."/>
     <property name="xFrames" value="3"/>
