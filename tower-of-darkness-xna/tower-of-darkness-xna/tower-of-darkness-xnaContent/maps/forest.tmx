@@ -6,14 +6,17 @@
  <tileset firstgid="101" name="TileSet2" tilewidth="32" tileheight="32">
   <image source="spritesheets/spritesheet3.png" trans="ff00ff" width="320" height="320"/>
  </tileset>
+ <tileset firstgid="201" name="Tileset3" tilewidth="32" tileheight="32">
+  <image source="spritesheets/spritesheet.png" trans="ff00ff" width="320" height="320"/>
+ </tileset>
  <layer name="Foreground" width="45" height="15">
   <data encoding="base64" compression="zlib">
-   eJztzjEOACAIwEB8rI9yNPpQXdxQZKIDTbqfSJZlkXXlFiqym8pD2G7NTHffzGT3y0x1W2ai+8dMc/+aSW6P+bjrvgTuNRNeE1BV7g==
+   eJztzjEKACAIhWE7bIdqjLplSy1BhKZB0Bt88A86fUQ+n+/nMlP6KtJXmQphuzkzulsyI7tPZlS3ZkZ0W8xobqsZyX1jnu44Ckttu6Xfq27NCHU6Nlfi
   </data>
  </layer>
  <layer name="Background" width="45" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFowA/2ArE2wbaESSC/QPtgFEwrIAkEEtB8VosYtI0UkcJUAZiFShWBWI1OolRAnSBWB8JG9BJjBJgDsQWUGwJxFZ0EqMGWA2lq4G4BsrOx6Iun4A6cSCWAOLtaHxc5lECuKF0KxC3oYmRok4RiJWQxGB8XOaRAtYMMB6KAABczzR1
+   eJxjYBgFowA/2ArE2wbaESSC/QPtgFEwrIAkEEtB8VosYtI0UkcJUAZiFShWBWI1OolRAnSBWB+If0NpAyQxfSxixKojpJcSYA7EFlBsCcRWdBKjBlgNpauBuAbKzseiLp+AOnEglgDi7Wh8XOZRArihdCsQt6GJkaJOEYiVkMRgfFzmkQLWDDAeigAAYRY22Q==
   </data>
  </layer>
  <objectgroup name="Transition" width="45" height="15">
@@ -35,5 +38,11 @@
     <property name="yChange" value="0"/>
    </properties>
   </object>
+ </objectgroup>
+ <objectgroup name="Visited" width="45" height="15">
+  <properties>
+   <property name="mapId" value="0"/>
+   <property name="visited" value="false"/>
+  </properties>
  </objectgroup>
 </map>

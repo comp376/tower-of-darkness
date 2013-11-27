@@ -15,7 +15,7 @@
  </layer>
  <layer name="Top" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYKAt0AFiYxpgdDtsaYDRgTsNMKGww4ZJBejhRWtAjhuJASB/mACxKRCbUWAOKG7tsIibIMnZA7EDAyK9mRDQSywA6QXFuwcQewKxFwNmekOWpxQEA3EIA2paI5TuRsHwAACziRg6
+   eJxjYKAt0KGx+TA7bKmE8QF3GuDhCGgZ5yZAbArEZhSYAYpnOxxmw+TsgdiBBL3EApBeULx7ALEnEHsxYKY9ZHlKQTAQhzCgprXhmu5GASoAAKWeEUw=
   </data>
  </layer>
  <objectgroup name="Transition" width="25" height="15">
@@ -47,5 +47,11 @@
     <property name="yFrames" value="1"/>
    </properties>
   </object>
+ </objectgroup>
+ <objectgroup name="Visited" width="25" height="15">
+  <properties>
+   <property name="mapId" value="3"/>
+   <property name="visited" value="false"/>
+  </properties>
  </objectgroup>
 </map>

@@ -4,11 +4,11 @@
   <image source="spritesheets/spritesheet3.png" trans="ff00ff" width="320" height="320"/>
  </tileset>
  <tileset firstgid="101" name="Tileset2" tilewidth="32" tileheight="32">
-  <image source="spritesheets/spritesheet3.png" trans="ff00ff" width="320" height="320"/>
+  <image source="spritesheets/spritesheet2.png" trans="ff00ff" width="320" height="320"/>
  </tileset>
  <layer name="Background" width="25" height="16">
   <data encoding="base64" compression="zlib">
-   eJxjYCAfCJKgloVMLEikulE7Ru0YtYM8O5yB2IXGdvgCsR8Os9ExtcMKZKYmEiZkBzsFdnDTwY5YIu0gJ6xIBQACIQkW
+   eJxjYCAfCJKgdiqZWJAINSyjdozaMcLsYKGiHc5A7EJjO3yB2A9HGKFjaocVyExNJEzIDnYK7OCmgx2xRNrBAKVJwaQCAIQEqxQ=
   </data>
  </layer>
  <layer name="Foreground" width="25" height="16" opacity="0.9">
@@ -26,5 +26,11 @@
     <property name="y" value="264"/>
    </properties>
   </object>
+ </objectgroup>
+ <objectgroup name="Visited" width="25" height="16">
+  <properties>
+   <property name="mapId" value="2"/>
+   <property name="visited" value="false"/>
+  </properties>
  </objectgroup>
 </map>

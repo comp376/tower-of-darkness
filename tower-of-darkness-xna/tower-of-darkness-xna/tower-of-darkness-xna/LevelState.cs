@@ -34,6 +34,7 @@ namespace tower_of_darkness_xna {
         private List<Rectangle> ladders;
         private List<Breakable> breakables;
         private List<Scene2DNode> objects;
+
         private List<NPC> npcs;
         private List<Enemy> enemies;
         private SpriteFont font;
@@ -61,17 +62,23 @@ namespace tower_of_darkness_xna {
         private float pausePlayTimer = 1000;
         private float pausePlayInterval = 1000;
 
-
         public LevelState(ContentManager Content, int PreferredBackBufferWidth, int PreferredBackBufferHeight, string mapName, Character character)
-            : base(Content) {
-                this.mapView = new Rectangle(0, 0, PreferredBackBufferWidth, PreferredBackBufferHeight);
-                this.mapName = mapName;
-                this.character = character;
-                LoadContent();
+            : base(Content) 
+        {
+            this.mapView = new Rectangle(0, 0, PreferredBackBufferWidth, PreferredBackBufferHeight);
+            this.mapName = mapName;
+            this.character = character;
+           
+            LoadContent(); 
         }
 
         public LevelState(ContentManager Content, int PreferredBackBufferWidth, int PreferredBackBufferHeight, string mapName, Character character, Transition transition)
-            : this(Content, PreferredBackBufferWidth, PreferredBackBufferHeight, mapName, character) {
+        :base(Content){
+            this.mapView = new Rectangle(0, 0, PreferredBackBufferWidth, PreferredBackBufferHeight);
+            this.mapName = mapName;
+            this.character = character;
+            LoadContent();
+
             int xChange = transition.xChange;
             int yChange = transition.yChange;
 
@@ -141,7 +148,6 @@ namespace tower_of_darkness_xna {
             loadObjects();
             loadNPCs();
             loadEnemies();
-            //loadMapObjects();
             loadMapInfo();
 
             //debug
@@ -152,7 +158,6 @@ namespace tower_of_darkness_xna {
             breakable = Content.Load<Texture2D>("debug/ladder");
             npc = Content.Load<Texture2D>("debug/char");
             enemy = Content.Load<Texture2D>("debug/char");
-
 
             //pause
             pauseBackground = Content.Load<Texture2D>("sprites/pausescreen");
@@ -307,28 +312,47 @@ namespace tower_of_darkness_xna {
 
         private void loadObjects()
         {
+            //for (int i = 0; i < MAP_COUNT; i++)
+           // {
+            //    Console.WriteLine(theMapObjects[i].Count);
+           // }
+
             objects = new List<Scene2DNode>();
             if (map.ObjectLayers["Objects"] == null)
                 return;
-            int tileSize = map.TileWidth / 2;   //Not sure why dividing by 2
-            foreach (MapObject mo in map.ObjectLayers["Objects"].MapObjects)
+            
+            if (character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Contains(character.emptyNode))
             {
-                if (mo.Properties["Type"].Value == "key")
+                character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Remove(character.emptyNode);
+
+                int tileSize = map.TileWidth / 2;
+                foreach (MapObject mo in map.ObjectLayers["Objects"].MapObjects)
                 {
-                    Scene2DNode node = new Scene2DNode(keyTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "key");
-                    objects.Add(node);
+                    if (mo.Properties["Type"].Value == "key")
+                    {
+                        Scene2DNode node = new Scene2DNode(keyTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "key");
+                        objects.Add(node);
+                    }
+                    else if (mo.Properties["Type"].Value == "essence")
+                    {
+                        Scene2DNode node = new Scene2DNode(essenceTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "essence");
+                        objects.Add(node);
+                    }
+                    else if (mo.Properties["Type"].Value == "super essence")
+                    {
+                        Scene2DNode node = new Scene2DNode(superEssenceTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "super essence");
+                        objects.Add(node);
+                    }
                 }
-                else if (mo.Properties["Type"].Value == "essence")
-                {
-                    Scene2DNode node = new Scene2DNode(essenceTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "essence");
-                    objects.Add(node);
-                }
-                else if (mo.Properties["Type"].Value == "super essence")
-                {
-                    Scene2DNode node = new Scene2DNode(superEssenceTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "super essence");
-                    objects.Add(node);
-                }                
+
+                character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32] = objects;
             }
+            else
+            {
+                Console.WriteLine("Loading OLD new objects");
+                objects = character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32];
+            }
+                       
         }
 
         private void loadNPCs() {
@@ -395,6 +419,13 @@ namespace tower_of_darkness_xna {
                 {
                     map.TileLayers["Doors"].Tiles[breakables[i].i][breakables[i].j] = null;
                     breakables.RemoveAt(i);
+                }
+            }
+            for (int i = 0; i < objects.Count; i++)
+            {
+                if (objects[i].consumed)
+                {
+                    objects.RemoveAt(i);
                 }
             }
             foreach (NPC npc in npcs) {

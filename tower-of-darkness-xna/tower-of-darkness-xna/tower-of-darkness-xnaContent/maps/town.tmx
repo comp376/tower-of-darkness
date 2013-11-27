@@ -8,7 +8,7 @@
  </tileset>
  <layer name="Background" width="45" height="15">
   <data encoding="base64" compression="zlib">
-   eJztkssKwjAQRbMv1e7qqwvfIGhdCFV39v8/yhvMQBgmiYNFusiFQ0J6JzmLGpOTk6NJ7+1LgbHHOp7YOuZU5uN4Y2vlvs/BAizBKnGXpvtLyNny8vbkvAU7sAeHxF2aLo/m3/SdG8H5DC6gBdfEXZqu5Dx1aJyPgnMH7uABnom7NN2QA3//2z6fKRyx1GAmdOk8NkMOEwe9H5odynkNNkKXzmMzIefQ7FDOOf/JG4ygDSQ=
+   eJztkssKwjAQRbMv1e7qqwvfIIhdCFZ3+pP9XW8wA2GYJA4W6SIXDgnpneQsakxOTo4mL29fCow91vHE1jGnMh/HK1sr930OFmAJVom7NN1fQs6Wp7cn5y3YgT04JO7SdHk0/6bv3AjOZ9CDC2gTd2m6kvPUoXE+Cs430IE7eCTu0nRDDvz9b/t8pnDEUoOZ0KXz2Aw5TBz0fmh2KOc12AhdOo/NhJxDs0M55/wnbw5IDfY=
   </data>
  </layer>
  <layer name="Foreground" width="45" height="15">
@@ -49,5 +49,11 @@
     <property name="y" value="392"/>
    </properties>
   </object>
+ </objectgroup>
+ <objectgroup name="Visited" width="45" height="15">
+  <properties>
+   <property name="mapId" value="1"/>
+   <property name="visited" value="false"/>
+  </properties>
  </objectgroup>
 </map>
