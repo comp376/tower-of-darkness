@@ -34,6 +34,7 @@ namespace tower_of_darkness_xna {
         private List<Rectangle> ladders;
         private List<Breakable> breakables;
         private List<Scene2DNode> objects;
+        private bool[] visited = new bool[13];
 
         private List<NPC> npcs;
         private List<Enemy> enemies;
@@ -68,6 +69,10 @@ namespace tower_of_darkness_xna {
             this.mapView = new Rectangle(0, 0, PreferredBackBufferWidth, PreferredBackBufferHeight);
             this.mapName = mapName;
             this.character = character;
+            for (int i = 0; i < 13; i++)
+            {
+                visited[i] = false;
+            }
             LoadContent(); 
         }
 
@@ -114,10 +119,13 @@ namespace tower_of_darkness_xna {
                 npcs[i].objectRectangle = new Rectangle(npcs[i].objectRectangle.X - xChange, npcs[i].objectRectangle.Y - yChange, npcs[i].objectRectangle.Width, npcs[i].objectRectangle.Height);
             }
 
-            //Move Objects
-            for (int i = 0; i < objects.Count; i++){
-                objects[i] = new Scene2DNode(objects[i].texture, new Vector2(objects[i].worldPosition.X - xChange,objects[i].worldPosition.Y - yChange), objects[i].type);
-                
+            if (visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32])
+            {
+                //Move Objects
+                for (int i = 0; i < objects.Count; i++)
+                {
+                    objects[i] = new Scene2DNode(objects[i].texture, new Vector2(objects[i].worldPosition.X - xChange, objects[i].worldPosition.Y - yChange), objects[i].type);
+                }
             }
 
             //Move enemies
@@ -215,14 +223,15 @@ namespace tower_of_darkness_xna {
                         npcs[i].objectRectangle = new Rectangle(npcs[i].objectRectangle.X - xChange, npcs[i].objectRectangle.Y - yChange, npcs[i].objectRectangle.Width, npcs[i].objectRectangle.Height);
                     }
 
-                    Console.WriteLine("Gonna be moving..");
-                    //Move Objects
-                    for (int i = 0; i < objects.Count; i++)
+                    if (visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32])
                     {
-                        Console.WriteLine("Moving some objects");
-                        objects[i] = new Scene2DNode(objects[i].texture, new Vector2(objects[i].worldPosition.X - xChange, objects[i].worldPosition.Y - yChange), objects[i].type);
-                    }
-
+                        //Move Objects
+                        for (int i = 0; i < objects.Count; i++)
+                        {
+                            Console.WriteLine("Moving some objects");
+                            objects[i] = new Scene2DNode(objects[i].texture, new Vector2(objects[i].worldPosition.X - xChange, objects[i].worldPosition.Y - yChange), objects[i].type);
+                        }
+                    }   
                     character.movementStatus = (MovementStatus)mo.Properties["direction"].AsInt32;
                 }
             }
@@ -324,11 +333,9 @@ namespace tower_of_darkness_xna {
             {
                 if (character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Contains(character.emptyNode))
                 {
-                    Console.WriteLine("1");
                     int tileSize = map.TileWidth / 2;
                     foreach (MapObject mo in map.ObjectLayers["Objects"].MapObjects)
                     {
-                        Console.WriteLine("2");
                         if (mo.Properties["Type"].Value == "key")
                         {
                             Scene2DNode node = new Scene2DNode(keyTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "key");
@@ -345,13 +352,12 @@ namespace tower_of_darkness_xna {
                             objects.Add(node);
                         }
                     }
-                    Console.WriteLine("3");
+                    visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32] = true;
                     character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Remove(character.emptyNode);
                     character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32] = objects;
                 }
                 else
                 {
-                    Console.WriteLine("Loading OLD new objects");
                     objects = character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32];
                 }
             }

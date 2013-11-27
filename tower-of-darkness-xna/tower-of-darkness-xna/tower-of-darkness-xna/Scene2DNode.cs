@@ -13,7 +13,7 @@ namespace tower_of_darkness_xna {
         public Vector2 startingPosition;
         public string type;
         private const int MAX_HOVER_HEIGHT = 20;
-        private bool consumed = false;
+        public bool consumed = false;
 
         enum hoverDirections {
             Up,
@@ -50,6 +50,13 @@ namespace tower_of_darkness_xna {
 
         public void Draw(SpriteBatch spriteBatch) {
             spriteBatch.Draw(texture, new Vector2(worldPosition.X, worldPosition.Y), Color.White);
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Color colorEssence, Color other){ 
+            Color color; 
+            if (type == "essence" || type == "super essence") 
+                color = colorEssence; else color = other; 
+            spriteBatch.Draw(texture, new Vector2(worldPosition.X, worldPosition.Y), color); 
         }
 
         //This draw function is used for spinning textures.
