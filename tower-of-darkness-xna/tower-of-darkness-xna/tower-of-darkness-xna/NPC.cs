@@ -21,7 +21,10 @@ namespace tower_of_darkness_xna {
         private SpriteFont font;
         private bool isNPC = false;
         public bool showText = false;
+
         public string questAdvance;
+        public bool wizardSpokenTo = false;
+        public bool lanternPickedUp = false;
 
         //character inherited constructor
         public NPC(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight)
@@ -91,6 +94,15 @@ namespace tower_of_darkness_xna {
                     y = 0;
                     break;
             }
+            /*
+             if (yNumberOfFrames == 2){
+                if (lanternPickedUp)
+                    y = (int)MovementStatus.Left * spriteHeight;
+                else
+                    y = (int)MovementStatus.Right * spriteHeight;
+            }else
+                y = (int)MovementStatus.Right * spriteHeight;
+              */
 
         }
 
