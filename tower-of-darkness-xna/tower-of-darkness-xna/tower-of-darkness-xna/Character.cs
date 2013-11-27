@@ -36,7 +36,7 @@ namespace tower_of_darkness_xna {
         KeyboardState oldState;
 
         public bool wizardSpokenTo = false;
-        public bool lanternPickedUp = true;
+        public bool lanternPickedUp = false;
 
         public List<Scene2DNode>[] theMapObjects = new List<Scene2DNode>[MAP_COUNT];
         public Scene2DNode emptyNode;
