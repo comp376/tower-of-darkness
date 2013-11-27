@@ -147,7 +147,7 @@ namespace tower_of_darkness_xna {
             superEssenceTexture = Content.Load<Texture2D>("sprites/superEssence");
             font = Content.Load<SpriteFont>("fonts/spriteFont");
             map = Content.Load<Map>("maps/" + mapName);
-            //modifyLayerOpacity();
+            modifyLayerOpacity();
             mapRect = new Rectangle(0, 0, map.Width * map.TileWidth, map.Height * map.TileHeight);
             loadCollisionRectangles();
             loadTransitionRectangles();
@@ -460,14 +460,7 @@ namespace tower_of_darkness_xna {
 
             if ((int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32 == 0)
             {
-                if (isSet == false)
-                {
-                    if (character.objectRectangle.X == 400)
-                    {
-                        modifyLayerOpacity();
-                        isSet = true;
-                    }
-                }
+                
             }
         }
 
