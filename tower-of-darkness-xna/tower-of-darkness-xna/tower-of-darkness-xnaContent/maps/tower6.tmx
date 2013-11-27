@@ -37,4 +37,10 @@
    eJzt1cEJACAIBVA3CNp/2A4VRWSRh+ynD4TwpJZE5JzTFrULOBAo11ujx+V3kPofSWqfzQ2V5L5/5DNoLM/C8j6seuf+i9kZRST5n4fOWr+3IM7V2vvn9r7PhRIvS9t3Ato=
   </data>
  </layer>
+ <objectgroup name="Visited" width="64" height="16">
+  <properties>
+   <property name="mapId" value="9"/>
+   <property name="visited" value="false"/>
+  </properties>
+ </objectgroup>
 </map>

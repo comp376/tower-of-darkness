@@ -13,6 +13,7 @@ namespace tower_of_darkness_xna {
         public Vector2 startingPosition;
         public string type;
         private const int MAX_HOVER_HEIGHT = 20;
+        public bool consumed = false;
 
         enum hoverDirections {
             Up,

@@ -190,7 +190,6 @@ namespace tower_of_darkness_xna {
 
         private void jump(ref List<Rectangle> cRectangles, ref Rectangle mapView, ref Rectangle mapRect, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects) {
             int middleY = mapView.Height / 2;
-            Console.WriteLine(jumping + " and " + falling);
             KeyboardState kbs = Keyboard.GetState();
             if (jumping && !climbing) {
                 if (collides(cRectangles, MovementStatus.Jump) || collides(ref breakables, MovementStatus.Jump)) {
@@ -202,24 +201,18 @@ namespace tower_of_darkness_xna {
                     Console.WriteLine(objectRectangle.Y);
                     if (mapInView(mapView, mapRect, 0, (int)jumpingHeight, MovementStatus.Jump))
                     {
-                        Console.WriteLine("Tier 1");
                         if (objectRectangle.Y <= middleY)//Are we scrolling?
                         {
-                            Console.WriteLine("Tier 2");
                             scroll(MovementStatus.Jump, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects);
                         }
                         else
                         {
-                            Console.WriteLine("Tier 3");
                             objectRectangle.Y += (int)jumpingHeight;//Not scrolling.  Increment.
-
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Tier 3");
                         objectRectangle.Y += (int)jumpingHeight;//Not scrolling.  Increment.
-
                     }
 
                     if (apexCounter >= apex)//Max jump height?
@@ -513,40 +506,18 @@ namespace tower_of_darkness_xna {
                     if (objects[i].type == "key")
                     {
                         keyCount+=2;
+                        objects[i].consumed = true;
                     }else if (objects[i].type == "essence")
                     {
                         //Increase lantern power
-
+                        objects[i].consumed = true;
                     }else if (objects[i].type == "super essence")
                     {
                         //Give global lighting for a small duration
-                        
+                        objects[i].consumed = true;
                     }
-                    objects.RemoveAt(i);
-                    //check type (essence, key) and handle accordingly
                 }
             }
-            //bool collision = false;
-            //bool isTouched = false;
-            //Rectangle tempRect = objectRectangle;
-            //if (movementStatus == MovementStatus.Left)
-            //    tempRect.X -= MOVE_SPEED;
-            //if (movementStatus == MovementStatus.Right)
-            //    tempRect.X += MOVE_SPEED;
-            //if (movementStatus == MovementStatus.Fall) {
-            //    tempRect.Y += GRAVITY_SPEED;
-            //}
-            //if (movementStatus == MovementStatus.Jump)
-            //    tempRect.Y += (int)jumpingHeight;
-            //if (movementStatus == MovementStatus.Up)
-            //    tempRect.Y += MOVE_SPEED;
-            //if (movementStatus == MovementStatus.Down)
-            //    tempRect.Y += -MOVE_SPEED;
-            //foreach (Scene2DNode node in objects)
-            //{
-                
-            //}
-            //return false;
         }
 
         private void hitTransition(List<Transition> transitions, Rectangle mapView) {
