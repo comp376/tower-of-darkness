@@ -49,13 +49,5 @@
    <property name="visited" value="false"/>
   </properties>
  </objectgroup>
- <objectgroup name="Load" width="32" height="32">
-  <object name="Spawn" x="945" y="927" width="26" height="62">
-   <properties>
-    <property name="direction" value="0"/>
-    <property name="xChange" value="0"/>
-    <property name="yChange" value="0"/>
-   </properties>
-  </object>
- </objectgroup>
+ <objectgroup name="Load" width="32" height="32"/>
 </map>

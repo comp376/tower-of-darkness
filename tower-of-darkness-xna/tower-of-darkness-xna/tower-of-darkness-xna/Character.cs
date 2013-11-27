@@ -138,6 +138,20 @@ namespace tower_of_darkness_xna {
                         e.hits--;
                     }
                 }
+
+            }
+        }
+
+        private void blockHit(ref List<Breakable> breakable)
+        {
+
+            if (attacking)
+            {
+                foreach (Breakable b in breakable)
+                {
+                    
+                }
+
             }
         }
 
