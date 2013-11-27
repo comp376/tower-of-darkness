@@ -20,7 +20,7 @@
     <property name="cy" value="0"/>
     <property name="d" value="0"/>
     <property name="x" value="736"/>
-    <property name="y" value="288"/>
+    <property name="y" value="296"/>
    </properties>
   </object>
   <object name="tower1" x="769" y="352" width="30" height="63">
