@@ -54,7 +54,7 @@ namespace tower_of_darkness_xna {
 
         public void Draw(SpriteBatch spriteBatch, Color colorEssence, Color other){ 
             Color color; 
-            if (type == "essence" || type == "super essence") 
+            if (type == "essence" || type == "super essence" || type == "lantern") 
                 color = colorEssence; else color = other; 
             spriteBatch.Draw(texture, new Vector2(worldPosition.X, worldPosition.Y), color); 
         }

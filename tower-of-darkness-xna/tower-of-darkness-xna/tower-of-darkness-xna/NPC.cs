@@ -21,6 +21,7 @@ namespace tower_of_darkness_xna {
         private SpriteFont font;
         private bool isNPC = false;
         public bool showText = false;
+        public string questAdvance;
 
         //character inherited constructor
         public NPC(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight)
@@ -28,11 +29,12 @@ namespace tower_of_darkness_xna {
         }
 
         //npc constructor
-        public NPC(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, string text, string spritesheetName, SpriteFont font)
+        public NPC(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, string text, string spritesheetName, string quest, SpriteFont font)
             : base(spriteSheet, xNumberOfFrames, yNumberOfFrames, spriteWidth, spriteHeight) {
                 this.text = text;
                 this.spritesheetName = spritesheetName;
                 this.font = font;
+                this.questAdvance = quest;
                 isNPC = true;
         }
 
