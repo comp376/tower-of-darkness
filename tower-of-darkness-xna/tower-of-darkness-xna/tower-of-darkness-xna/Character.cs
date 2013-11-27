@@ -33,6 +33,7 @@ namespace tower_of_darkness_xna {
         private float apex = 2f;
         private float apexCounter = 0;
         private const int MAP_COUNT = 13;
+        KeyboardState oldState;
 
         public bool wizardSpokenTo = false;
         public bool lanternPickedUp = false;
@@ -72,6 +73,7 @@ namespace tower_of_darkness_xna {
                 theMapObjects[i] = new List<Scene2DNode>();
                 theMapObjects[i].Add(emptyNode);
             }
+            oldState = Keyboard.GetState();
         }
 
         public void LoadContent() {
@@ -100,13 +102,28 @@ namespace tower_of_darkness_xna {
             attackSwing(gameTime);
             attackHit(ref enemies);
             collides(ref objects);
-            if (Keyboard.GetState().IsKeyDown(Keys.L)) {
+
+            KeyboardState newState = Keyboard.GetState();
+
+            if (newState.IsKeyDown(Keys.L))
+            {
+                if (!oldState.IsKeyDown(Keys.L))
+                {
                 if(currentLightSize > -17)
                     currentLightSize -= 1f;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.K)) {
+            }
+
+            if (newState.IsKeyDown(Keys.K))
+            {
+                if (!oldState.IsKeyDown(Keys.K))
+                {
                 currentLightSize += 1f;
             }
+            }
+           
+
+            oldState = newState;
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color) {
@@ -133,6 +150,12 @@ namespace tower_of_darkness_xna {
                 spriteBatch.Draw(lightTexture, new Rectangle((int)(lightPosition.X), (int)(lightPosition.Y - (currentLightSize * 6)), (int)(lightTexture.Width + (currentLightSize * 15)), (int)(lightTexture.Height + (currentLightSize * 15))), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), lightColor * lightAlpha, degreeToRadian(lanternAngle), new Vector2(lightTexture.Width / 2, 0), walkingDirection, 0);
             }
                 base.Draw(spriteBatch, color);
+        }
+
+        private void enemyCollision(ref List<Enemy> enemies) {
+            //for (int i = 0; i < enemies.Count; i++) {
+            //    //Rectangle tempRect
+            //}
         }
 
         private void attackHit(ref List<Enemy> enemies) {
@@ -636,6 +659,7 @@ namespace tower_of_darkness_xna {
                     }else if (objects[i].type == "essence")
                     {
                         //Increase lantern power
+                        currentLightSize += 1f;
                         objects[i].consumed = true;
                     }else if (objects[i].type == "super essence")
                     {
