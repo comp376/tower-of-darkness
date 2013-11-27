@@ -487,14 +487,17 @@ namespace tower_of_darkness_xna {
                     batch.Draw(enemy, e.objectRectangle, OPAQUE_COLOR);
                 }
                 batch.Draw(charDebug, character.objectRectangle, OPAQUE_COLOR * alpha);
-                batch.DrawString(font, "MAP: " + mapName, new Vector2(), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
+                batch.DrawString(font, "MAP: " + mapName, new Vector2(mapView.Width - 144, 0), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
                 string fps = (1 / (float)gameTime.ElapsedGameTime.TotalSeconds).ToString();
-                batch.DrawString(font, "FPS: " + fps, new Vector2(0, 16), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
-                batch.DrawString(font, "KEYS: " + character.keyCount / 2, new Vector2(0, 32), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
+                batch.DrawString(font, "FPS: " + fps, new Vector2(mapView.Width - 144, 16), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
+                batch.DrawString(font, "KEYS: " + character.keyCount / 2, new Vector2(mapView.Width - 144, 32), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
             }
 
             batch.End();    //Stops additive blending from player drawing batch
             batch.Begin();
+            batch.Draw(keyTexture, new Vector2(), Color.White);
+            batch.DrawString(font, "x" + character.keyCount / 2, new Vector2(32,8), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
+
             //Pause
             if (PAUSE_SCREEN) {
                 batch.Draw(pauseBackground, new Vector2(100, 60), Color.White);
