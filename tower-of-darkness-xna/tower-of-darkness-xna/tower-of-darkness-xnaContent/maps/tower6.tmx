@@ -6,6 +6,9 @@
  <tileset firstgid="101" name="Tileset2" tilewidth="32" tileheight="32">
   <image source="spritesheets/spritesheet2.png" trans="ff00ff" width="320" height="320"/>
  </tileset>
+ <tileset firstgid="201" name="Tileset3" tilewidth="32" tileheight="32">
+  <image source="spritesheets/spritesheet3.png" trans="ff00ff" width="320" height="320"/>
+ </tileset>
  <layer name="Background" width="64" height="16">
   <data encoding="base64" compression="zlib">
    eJztljEKgDAMRbN5jDo79/5nE4dAh5+IMTaRJvCgiC3//SmNiFpRTOZIkOEtPJa7PUF+rw6iM2Rk9V5W9y/ywhOdo/zj3CV/tJf8YVfZH7oj/2v6cObvX+4qXt0iH82d/9/A/bu3rBkQXt1qPUrD/pK7tYcIpB61ic6cgRO6Jnc9
@@ -13,7 +16,7 @@
  </layer>
  <layer name="Foreground" width="64" height="16">
   <data encoding="base64" compression="zlib">
-   eJztllEKgCAMhr2B9+xCPdZrnTIfCkI2t39TGZQwQpi/+7al5pRS/riNGug+tQ+1RtJBeH5+3r9Hbkb0WX59KV0Pv7VOkv4Ifu1c0tL0E5UnRJ/bh8u/tAaZa+NDhocfja+lSflY6++Nq6Vv7X9L/VH9XnG19KPxb8X2ZH8rROD36B7Fzs5xcX6t81PK54j6r8WW2yL1v/Yup3y08bzZZ/B7BnL/aThq9offGtuMoX2LSf8RxR6VH3lnUedyvYZjX6r1lnsAYYpqF2hFHts=
+   eJzlVjsOwyAMhROwdO7cs+VCHZs1PWUZimQh/4lTS7VkWU7wy3uGAK2U0v7co8z6nXkMViPhjPe3ykfIL8p+qf9e+Qj5UTirvYlYZw1EDHfkj8pHiEHlEgfNuCj92lzC0qwnrE8WfOo7VP+lGkuu5WexFf1WfhwmNsY7/6u8OHzv+vfMvxX/LF4cfjb9r+578d8VMuhfwT26v0/mRY3j9k+pnxHz/+y+fT3T+ufOcu6ZRQPUfoX+FbOcfxods/ah38vtCtPexaT/CNOeVb/lnoXty3MNpX2b6j3ngEVTVv8AJgYgTw==
   </data>
  </layer>
  <layer name="Ladder" width="64" height="16">

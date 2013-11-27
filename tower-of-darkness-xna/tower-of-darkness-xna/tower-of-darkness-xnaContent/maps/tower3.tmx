@@ -6,9 +6,12 @@
  <tileset firstgid="101" name="TileSet2" tilewidth="32" tileheight="32">
   <image source="spritesheets/spritesheet.png" trans="ff00ff" width="320" height="320"/>
  </tileset>
+ <tileset firstgid="201" name="Tileset3" tilewidth="32" tileheight="32">
+  <image source="spritesheets/spritesheet2.png" trans="ff00ff" width="320" height="320"/>
+ </tileset>
  <layer name="Background" width="32" height="32" opacity="0.79">
   <data encoding="base64" compression="zlib">
-   eJztkkEOgEAIA7n5DB/o/++eTAwhbFm6oEYSLqbtsMguIntzb8Y3aeRfNfKhOq3XHoufycvo2XmR7EiW5iM+T5dlo/zobSJcNJfB//u7ravKa/lnsli+u79qBsYOrZyMn3lLjHex+JVzePNU8pn39aaOvhXRojuc2fVIbxXzf3tar1bzR8XgR2dddasdM1hVwT2adv0Ufnefhadn2g==
+   eJzlkrEOgDAIRNn8DD/Qv+/cwcmkIYRCuYJGEhZzd48iJxGdxX0I36iQ/9TMZ9VxPfdI/EheRI/O82R7sjhf8zVDfpStefvgWb1RjWvNteiaMWtX92L+n5tXllfyr2ShfKM/awbEDqWciB95S4h3ofiZc2jzZPKR9/Wl9r7VorXucGXXM71UyP+tacdqhmwkn1ffwPfOuutWK2aQKoN7Fe36LfzqvgG9p20o
   </data>
  </layer>
  <layer name="Foreground" width="32" height="32">
