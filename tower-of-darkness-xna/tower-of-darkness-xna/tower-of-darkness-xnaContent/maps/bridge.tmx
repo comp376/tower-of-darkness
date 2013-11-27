@@ -48,4 +48,10 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="Visited" width="25" height="15">
+  <properties>
+   <property name="mapId" value="3"/>
+   <property name="visited" value="false"/>
+  </properties>
+ </objectgroup>
 </map>
