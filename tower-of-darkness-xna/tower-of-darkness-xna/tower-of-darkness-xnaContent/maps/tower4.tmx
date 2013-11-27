@@ -29,7 +29,7 @@
     <property name="cx" value="0"/>
     <property name="cy" value="0"/>
     <property name="d" value="0"/>
-    <property name="x" value="48"/>
+    <property name="x" value="72"/>
     <property name="y" value="72"/>
    </properties>
   </object>
