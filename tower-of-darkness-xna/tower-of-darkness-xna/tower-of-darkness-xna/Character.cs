@@ -28,6 +28,11 @@ namespace tower_of_darkness_xna {
         private int attackInterval = 1000;
         private float apex = 2f;
         private float apexCounter = 0;
+        private const int MAP_COUNT = 13;
+
+        public List<Scene2DNode>[] theMapObjects = new List<Scene2DNode>[MAP_COUNT];
+        public Scene2DNode emptyNode;
+
         //Lighting
         private Color lightColor;
         private float lightAlpha;
@@ -53,6 +58,12 @@ namespace tower_of_darkness_xna {
             this.Content = Content;
             LoadContent();
             objectRectangle = new Rectangle(objectRectangle.X + 64, objectRectangle.Y + 64, objectRectangle.Width, objectRectangle.Height - 8); //8 to offset tight jumps
+            emptyNode = new Scene2DNode(lanternTexture, new Vector2(-100f, -100f), "empty");
+            for (int i = 0; i < MAP_COUNT; i++)
+            {
+                theMapObjects[i] = new List<Scene2DNode>();
+                theMapObjects[i].Add(emptyNode);
+            }
         }
 
         public void LoadContent() {

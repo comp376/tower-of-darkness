@@ -18,7 +18,6 @@ namespace tower_of_darkness_xna {
         private const int LADDER_LAYER = 1;
         private const int FOREGROUND_LAYER = 2;
         private const int TOP_LAYER = 3;
-        private const int MAP_COUNT = 13;
         private Color OPAQUE_COLOR = new Color(25, 25, 25);
         private Color ITEM_COLOR = new Color(255, 255, 255);
         private float alpha = 0.9f;
@@ -35,8 +34,6 @@ namespace tower_of_darkness_xna {
         private List<Rectangle> ladders;
         private List<Breakable> breakables;
         private List<Scene2DNode> objects;
-        private List<Scene2DNode>[] theMapObjects = new List<Scene2DNode>[MAP_COUNT];
-        private Scene2DNode emptyNode;
 
         private List<NPC> npcs;
         private List<Enemy> enemies;
@@ -71,19 +68,12 @@ namespace tower_of_darkness_xna {
             this.mapView = new Rectangle(0, 0, PreferredBackBufferWidth, PreferredBackBufferHeight);
             this.mapName = mapName;
             this.character = character;
-            Console.WriteLine("LOADING 1");
-            emptyNode = new Scene2DNode(keyTexture, new Vector2(-100f, -100f), "empty");
-            for (int i = 0; i < MAP_COUNT; i++)
-            {
-                theMapObjects[i] = new List<Scene2DNode>();
-                theMapObjects[i].Add(emptyNode);
-            }
+           
             LoadContent(); 
         }
 
         public LevelState(ContentManager Content, int PreferredBackBufferWidth, int PreferredBackBufferHeight, string mapName, Character character, Transition transition)
         :base(Content){
-            Console.WriteLine("LOADING 2");
             this.mapView = new Rectangle(0, 0, PreferredBackBufferWidth, PreferredBackBufferHeight);
             this.mapName = mapName;
             this.character = character;
@@ -322,24 +312,20 @@ namespace tower_of_darkness_xna {
 
         private void loadObjects()
         {
-            for (int i = 0; i < MAP_COUNT; i++)
-            {
-                Console.WriteLine(theMapObjects[i].Count);
-            }
+            //for (int i = 0; i < MAP_COUNT; i++)
+           // {
+            //    Console.WriteLine(theMapObjects[i].Count);
+           // }
 
             objects = new List<Scene2DNode>();
             if (map.ObjectLayers["Objects"] == null)
                 return;
             
-            Console.WriteLine(theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Contains(emptyNode));
-
-            if(theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Contains(emptyNode))//IF EMPTYNODE IS THERE, MEANS FIRST TIME LIST HAS NEVER BEEN USED BEFORE.
+            if (character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Contains(character.emptyNode))
             {
-                theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Remove(emptyNode);//REMOVE EMPTY NODE WHEN MAKING THE NEW LIST.
+                character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Remove(character.emptyNode);
 
-                Console.WriteLine(theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Contains(emptyNode));
-                Console.WriteLine("Loading brand new objects");
-                int tileSize = map.TileWidth / 2;   //Not sure why dividing by 2
+                int tileSize = map.TileWidth / 2;
                 foreach (MapObject mo in map.ObjectLayers["Objects"].MapObjects)
                 {
                     if (mo.Properties["Type"].Value == "key")
@@ -359,12 +345,12 @@ namespace tower_of_darkness_xna {
                     }
                 }
 
-                theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32] = objects;
+                character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32] = objects;
             }
             else
             {
                 Console.WriteLine("Loading OLD new objects");
-                objects = theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32];
+                objects = character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32];
             }
                        
         }
