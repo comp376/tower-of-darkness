@@ -79,7 +79,7 @@ namespace tower_of_darkness_xna {
             lanternPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
             lanternRectangle = new Rectangle(objectRectangle.X, objectRectangle.Y, lanternTexture.Width, lanternTexture.Height);
             lightPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
-            currentLightSize = lowerBoundary;
+            currentLightSize = 100.0f;
         }
 
         public void Update(GameTime gameTime, Rectangle mapRect, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects) {
@@ -93,7 +93,12 @@ namespace tower_of_darkness_xna {
             attackSwing(gameTime);
             attackHit(ref enemies);
             collides(ref objects);
-           
+            if (Keyboard.GetState().IsKeyDown(Keys.L)) {
+                currentLightSize -= 1f;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.K)) {
+                currentLightSize += 1f;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color) {
@@ -113,7 +118,6 @@ namespace tower_of_darkness_xna {
             lanternPosition.Y += 32;
             lanternRectangle.Y += 32;
             lightPosition.Y -= ((lightTexture.Height - currentLightSize) / 2) - spriteHeight - 9;
-            //spriteBatch.Draw(lanternTexture, lanternPosition, null, Color.White, degreeToRadian(lanternAngle), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), 1, walkingDirection, 0);
             spriteBatch.Draw(lanternTexture, lanternRectangle, null, Color.White, degreeToRadian(lanternAngle), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), walkingDirection, 0);
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
