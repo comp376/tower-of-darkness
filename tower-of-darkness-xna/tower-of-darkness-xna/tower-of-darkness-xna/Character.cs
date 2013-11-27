@@ -265,7 +265,7 @@ namespace tower_of_darkness_xna {
             int middleY = mapView.Height / 2;
             if (!collides(cRectangles, MovementStatus.Fall) && !collides(ref breakables, MovementStatus.Fall)) {
                 if (mapInView(mapView, mapRect, 0, GRAVITY_SPEED, MovementStatus.Fall)) {
-                    if (objectRectangle.Y < middleY) {
+                    if (objectRectangle.Y < middleY - 5) {
                         objectRectangle.Y += GRAVITY_SPEED;
                     } else {
                         scroll(MovementStatus.Fall, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects);
