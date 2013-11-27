@@ -18,7 +18,8 @@ namespace tower_of_darkness_xna {
         private const int LADDER_LAYER = 1;
         private const int FOREGROUND_LAYER = 2;
         private const int TOP_LAYER = 3;
-        private Color STARTING_COLOR = new Color(255, 255, 255);
+        private Color STARTING_COLOR = new Color(200, 200, 200);
+        private float LIGHT_CHANGE = 5.0f;
         private Color OPAQUE_COLOR = new Color(25, 25, 25);
         private Color ITEM_COLOR = new Color(255, 255, 255);
         private float alpha = 0.9f;
@@ -467,7 +468,7 @@ namespace tower_of_darkness_xna {
             }
             for (int i = 0; i < dims.Count; i++) {
                 if (dims[i].isPassed) {
-                    Color newForestColor = new Color(STARTING_COLOR.R - (int)(6.7f * dims[i].id), STARTING_COLOR.G - (int)(6.7f * dims[i].id), STARTING_COLOR.B - (int)(6.7f * dims[i].id));
+                    Color newForestColor = new Color(STARTING_COLOR.R - (int)(LIGHT_CHANGE * dims[i].id), STARTING_COLOR.G - (int)(LIGHT_CHANGE * dims[i].id), STARTING_COLOR.B - (int)(LIGHT_CHANGE * dims[i].id));
                     if (dims[i].id == dimsCount)
                         modifyLayerOpacity(OPAQUE_COLOR, alpha);
                     else
@@ -556,10 +557,10 @@ namespace tower_of_darkness_xna {
             map.Draw(batch, mapView);
             character.Draw(batch, Color.White);
             foreach (NPC npc in npcs) {
-                npc.Draw(batch, OPAQUE_COLOR * alpha);
+                npc.Draw(batch, Color.White * alpha);
             }
             foreach (Enemy e in enemies) {
-                e.Draw(batch, OPAQUE_COLOR * alpha);
+                e.Draw(batch, Color.White * alpha);
             }
             foreach (Scene2DNode node in objects){
                 node.Draw(batch, ITEM_COLOR, OPAQUE_COLOR * alpha);
