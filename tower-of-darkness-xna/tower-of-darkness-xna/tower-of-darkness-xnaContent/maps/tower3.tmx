@@ -6,19 +6,22 @@
  <tileset firstgid="101" name="TileSet2" tilewidth="32" tileheight="32">
   <image source="spritesheets/spritesheet.png" trans="ff00ff" width="320" height="320"/>
  </tileset>
+ <tileset firstgid="201" name="Tileset3" tilewidth="32" tileheight="32">
+  <image source="spritesheets/spritesheet2.png" trans="ff00ff" width="320" height="320"/>
+ </tileset>
  <layer name="Background" width="32" height="32" opacity="0.79">
   <data encoding="base64" compression="zlib">
-   eJztkkEOgEAIA7n5DB/o/++eTAwhbFm6oEYSLqbtsMguIntzb8Y3aeRfNfKhOq3XHoufycvo2XmR7EiW5iM+T5dlo/zobSJcNJfB//u7ravKa/lnsli+u79qBsYOrZyMn3lLjHex+JVzePNU8pn39aaOvhXRojuc2fVIbxXzf3tar1bzR8XgR2dddasdM1hVwT2adv0Ufnefhadn2g==
+   eJzlkrEOgDAIRNn8DD/Qv+/cwcmkIYRCuYJGEhZzd48iJxGdxX0I36iQ/9TMZ9VxPfdI/EheRI/O82R7sjhf8zVDfpStefvgWb1RjWvNteiaMWtX92L+n5tXllfyr2ShfKM/awbEDqWciB95S4h3ofiZc2jzZPKR9/Wl9r7VorXucGXXM71UyP+tacdqhmwkn1ffwPfOuutWK2aQKoN7Fe36LfzqvgG9p20o
   </data>
  </layer>
  <layer name="Foreground" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJztlVEKwCAMQ3sDD7v7g+xvH9M1M226YcAPKfSFqrGZWRMvppB+f+V75n3dH6T11qtKm/99frX8QVSdH+1txs+YzYiRdS53nIg3gfAzVYWv8pGVRU//P+qBlaXqXK5y/zaf21PJR8Tkj/6xLL6Hs5I1s/qKL289Yk5o/rHz8ezRAReiErI=
+   eJztlVEKwCAMQ3sDD7v7w9jfPqa2Nm06MeCHFPpC1dhEpJEXUpZ+u/I1837vL9Ba9crS4f+fXy1/LKrOj/Y24mfMpsfIOpcvTsSb0PJXMtyjKvef5SEri2b/v9UDKkvZuVzl/h0+tieTbxGS3/vHsvgajidrRnWPL209Yk7W/EPn49PjBkHjExY=
   </data>
  </layer>
  <layer name="Ladder" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJztljEKACEMBH27tbXvvUoOQhYWTSLCTpPGZEB0tTVRTb88dyT52bmv+9E+V/lRf5a/m4r6JzmPXbcYoFYxQRXC4mVDVt57eHcj4r6cvC0R/pNsu+23ebFzHlg/k007+xGZedX5Lb/88v/o/yIWH6r4G1k=
+   eJztlrEKwCAMRP12Z2e/t5MUxCPXJkZa7i1Z6j0aNFqKyKYezm2b/Gzu1/2oz1l+tH6Xv04Vre9kHvvdoIGaRQdV/IPIebzKsvIj9/Mqy8pn/J67xcpnzpNntkX01+Of/+/NfmP9kb18msuSPb/ll1/+G71fxOACoEYdiQ==
   </data>
  </layer>
  <objectgroup name="Transition" width="32" height="32">

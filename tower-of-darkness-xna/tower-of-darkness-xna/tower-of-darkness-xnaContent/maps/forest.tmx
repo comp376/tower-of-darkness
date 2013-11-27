@@ -28,7 +28,7 @@
   </object>
  </objectgroup>
  <objectgroup name="Load" width="45" height="15">
-  <object name="Spawn" x="0" y="102" width="27" height="52">
+  <object name="Spawn" x="0" y="102" width="27" height="57">
    <properties>
     <property name="direction" value="1"/>
     <property name="xChange" value="0"/>

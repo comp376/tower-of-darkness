@@ -5,7 +5,7 @@
  </tileset>
  <layer name="Background" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRQApgx4EHkx0AJ/wAVQ==
+   eJxjYBgFo2AUjALqgkAgDqKxHdFAHENjO3ABTSDWhtLIbGoCLRyYWAAAk7oDUQ==
   </data>
  </layer>
  <layer name="Foreground" width="25" height="15">
@@ -15,7 +15,7 @@
  </layer>
  <layer name="Top" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJzVk8EOgkAMRPs7KDfUG+AN9bbq/3+L3cOEyWQpELIHm7w02aHtZLs0ZtZU4OScndbpKqAz+grojKkCel86s0Taid5XtKsbna1l9ri285J+CXLpTqBdySd7Uj3vcAhyRz1QC2107uQf3lTPO3wEuaceqIX2dF42vzd4Uz3v8B3kiXqgFtrH+dr83uCN9S3/c6IeKfiGvam+JZZ6I5b87Y2j9f8QP/aRQNA=
+   eJxjYKAt0AFiYxpgdDtsaYDRgTsNMKGww4ZJBejhRWtAjhuJASB/mACxKRCbUWAOKG7tsIibIMnZA7EDAyK9mRDQSywA6QXFuwcQewKxFwNmekOWpxQEA3EIA2paI5TuRsHwAACziRg6
   </data>
  </layer>
  <objectgroup name="Transition" width="25" height="15">
@@ -31,10 +31,10 @@
   <object name="outside" x="768" y="1" width="30" height="350">
    <properties>
     <property name="cx" value="0"/>
-    <property name="cy" value="0"/>
+    <property name="cy" value="32"/>
     <property name="d" value="0"/>
     <property name="x" value="32"/>
-    <property name="y" value="352"/>
+    <property name="y" value="320"/>
    </properties>
   </object>
  </objectgroup>

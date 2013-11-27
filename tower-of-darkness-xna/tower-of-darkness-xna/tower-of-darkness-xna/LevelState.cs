@@ -20,7 +20,9 @@ namespace tower_of_darkness_xna {
         private const int TOP_LAYER = 3;
         private const int MAP_COUNT = 13;
         private Color OPAQUE_COLOR = new Color(25, 25, 25);
-        private Color BACKGROUND_COLOR = new Color(100, 100, 100);
+        private Color ITEM_COLOR = new Color(255, 255, 255);
+        private float alpha = 0.9f;
+        private Color BACKGROUND_COLOR = new Color(255, 255, 255, 1);
 
         private Texture2D backgroundTexture;
         private Map map;
@@ -63,28 +65,30 @@ namespace tower_of_darkness_xna {
         private float pausePlayTimer = 1000;
         private float pausePlayInterval = 1000;
 
-
         public LevelState(ContentManager Content, int PreferredBackBufferWidth, int PreferredBackBufferHeight, string mapName, Character character)
             : base(Content) 
         {
             this.mapView = new Rectangle(0, 0, PreferredBackBufferWidth, PreferredBackBufferHeight);
             this.mapName = mapName;
             this.character = character;
-            emptyNode = new Scene2DNode(keyTexture, new Vector2(-100f, -100f), "new");
+            Console.WriteLine("LOADING 1");
+            emptyNode = new Scene2DNode(keyTexture, new Vector2(-100f, -100f), "empty");
             for (int i = 0; i < MAP_COUNT; i++)
             {
                 theMapObjects[i] = new List<Scene2DNode>();
                 theMapObjects[i].Add(emptyNode);
             }
-            LoadContent();
-                
-            
-
-           
+            LoadContent(); 
         }
 
         public LevelState(ContentManager Content, int PreferredBackBufferWidth, int PreferredBackBufferHeight, string mapName, Character character, Transition transition)
-            : this(Content, PreferredBackBufferWidth, PreferredBackBufferHeight, mapName, character) {
+        :base(Content){
+            Console.WriteLine("LOADING 2");
+            this.mapView = new Rectangle(0, 0, PreferredBackBufferWidth, PreferredBackBufferHeight);
+            this.mapName = mapName;
+            this.character = character;
+            LoadContent();
+
             int xChange = transition.xChange;
             int yChange = transition.yChange;
 
@@ -176,7 +180,7 @@ namespace tower_of_darkness_xna {
                 OPAQUE_COLOR = new Color(100, 100, 100);
 
             foreach (TileLayer tl in map.TileLayers) {
-                tl.OpacityColor = OPAQUE_COLOR;
+                tl.OpacityColor = OPAQUE_COLOR * alpha;
             }
         }
 
@@ -318,13 +322,22 @@ namespace tower_of_darkness_xna {
 
         private void loadObjects()
         {
+            for (int i = 0; i < MAP_COUNT; i++)
+            {
+                Console.WriteLine(theMapObjects[i].Count);
+            }
+
             objects = new List<Scene2DNode>();
             if (map.ObjectLayers["Objects"] == null)
                 return;
+            
             Console.WriteLine(theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Contains(emptyNode));
-            if(theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Contains(emptyNode))
+
+            if(theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Contains(emptyNode))//IF EMPTYNODE IS THERE, MEANS FIRST TIME LIST HAS NEVER BEEN USED BEFORE.
             {
-                theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Remove(emptyNode);
+                theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Remove(emptyNode);//REMOVE EMPTY NODE WHEN MAKING THE NEW LIST.
+
+                Console.WriteLine(theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Contains(emptyNode));
                 Console.WriteLine("Loading brand new objects");
                 int tileSize = map.TileWidth / 2;   //Not sure why dividing by 2
                 foreach (MapObject mo in map.ObjectLayers["Objects"].MapObjects)
@@ -485,17 +498,17 @@ namespace tower_of_darkness_xna {
 
         public override void Draw(GameTime gameTime, SpriteBatch batch) {
             batch.Begin();
-            batch.Draw(backgroundTexture, new Vector2(), BACKGROUND_COLOR);
+            batch.Draw(backgroundTexture, new Vector2(), BACKGROUND_COLOR * alpha);
             map.Draw(batch, mapView);
             character.Draw(batch, Color.White);
             foreach (NPC npc in npcs) {
-                npc.Draw(batch, Color.White);
+                npc.Draw(batch, OPAQUE_COLOR * alpha);
             }
             foreach (Enemy e in enemies) {
-                e.Draw(batch, Color.White);
+                e.Draw(batch, OPAQUE_COLOR * alpha);
             }
             foreach (Scene2DNode node in objects){
-                node.Draw(batch);
+                node.Draw(batch, ITEM_COLOR, OPAQUE_COLOR * alpha);
             }
 
             //Debug
@@ -518,11 +531,11 @@ namespace tower_of_darkness_xna {
                 foreach (Enemy e in enemies) {
                     batch.Draw(enemy, e.objectRectangle, OPAQUE_COLOR);
                 }
-                batch.Draw(charDebug, character.objectRectangle, OPAQUE_COLOR);
+                batch.Draw(charDebug, character.objectRectangle, OPAQUE_COLOR * alpha);
                 batch.DrawString(font, "MAP: " + mapName, new Vector2(), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
                 string fps = (1 / (float)gameTime.ElapsedGameTime.TotalSeconds).ToString();
                 batch.DrawString(font, "FPS: " + fps, new Vector2(0, 16), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
-                //batch.DrawString(font, "KEYS: " + character.keyCount, new Vector2(0, 32), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
+                batch.DrawString(font, "KEYS: " + character.keyCount / 2, new Vector2(0, 32), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
             }
 
             batch.End();    //Stops additive blending from player drawing batch
