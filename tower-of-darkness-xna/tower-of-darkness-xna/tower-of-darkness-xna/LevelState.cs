@@ -350,6 +350,11 @@ namespace tower_of_darkness_xna {
                             Scene2DNode node = new Scene2DNode(superEssenceTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "super essence");
                             objects.Add(node);
                         }
+                        else if (mo.Properties["Type"].Value == "lantern")
+                        {
+                            Scene2DNode node = new Scene2DNode(character.lanternTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "lantern");
+                            objects.Add(node);
+                        }
                     }
                     visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32] = true;
                     character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Remove(character.emptyNode);
@@ -369,12 +374,13 @@ namespace tower_of_darkness_xna {
                 return;            
             foreach (MapObject mo in map.ObjectLayers["NPC"].MapObjects) {
                 string spritesheetName = mo.Properties["spritesheet"].Value;
+                string quest = mo.Properties["questAdvance"].Value;
                 Texture2D npcSpriteSheet = Content.Load<Texture2D>("sprites/" + spritesheetName);
                 int xNumberOfFrames = (int)mo.Properties["xFrames"].AsInt32;
                 int yNumberOfFrames = (int)mo.Properties["yFrames"].AsInt32;
                 Rectangle npcRect = mo.Bounds;
                 string text = mo.Properties["text"].Value;
-                NPC n = new NPC(npcSpriteSheet, xNumberOfFrames, yNumberOfFrames, npcRect.Width, npcRect.Height, text, spritesheetName, font);
+                NPC n = new NPC(npcSpriteSheet, xNumberOfFrames, yNumberOfFrames, npcRect.Width, npcRect.Height, text, spritesheetName, quest, font);
                 Console.WriteLine(n.ToString());
                 n.objectRectangle = npcRect; //also provides npc(x,y) 
                 npcs.Add(n);

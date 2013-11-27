@@ -34,6 +34,9 @@ namespace tower_of_darkness_xna {
         private float apexCounter = 0;
         private const int MAP_COUNT = 13;
 
+        public bool wizardSpokenTo = false;
+        public bool lanternPickedUp = false;
+
         public List<Scene2DNode>[] theMapObjects = new List<Scene2DNode>[MAP_COUNT];
         public Scene2DNode emptyNode;
 
@@ -41,7 +44,7 @@ namespace tower_of_darkness_xna {
         private Color lightColor;
         private float lightAlpha;
         private Texture2D lightTexture;
-        private Texture2D lanternTexture;
+        public Texture2D lanternTexture;
         private Vector2 lanternPosition;
         private Rectangle lanternRectangle;
         private Vector2 lightPosition;
@@ -123,11 +126,13 @@ namespace tower_of_darkness_xna {
             lanternPosition.Y += 32;
             lanternRectangle.Y += 32;
             lightPosition.Y -= ((lightTexture.Height - currentLightSize) / 2) - spriteHeight - 9;
-            spriteBatch.Draw(lanternTexture, lanternRectangle, null, Color.White, degreeToRadian(lanternAngle), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), walkingDirection, 0);
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
-            spriteBatch.Draw(lightTexture, new Rectangle((int)(lightPosition.X), (int)(lightPosition.Y - (currentLightSize * 6)), (int)(lightTexture.Width + (currentLightSize * 15)), (int)(lightTexture.Height + (currentLightSize * 15))), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), lightColor * lightAlpha, degreeToRadian(lanternAngle), new Vector2(lightTexture.Width / 2, 0), walkingDirection, 0);
-            base.Draw(spriteBatch, color);
+            if (lanternPickedUp){
+                spriteBatch.Draw(lanternTexture, lanternRectangle, null, Color.White, degreeToRadian(lanternAngle), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), walkingDirection, 0);
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
+                spriteBatch.Draw(lightTexture, new Rectangle((int)(lightPosition.X), (int)(lightPosition.Y - (currentLightSize * 6)), (int)(lightTexture.Width + (currentLightSize * 15)), (int)(lightTexture.Height + (currentLightSize * 15))), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), lightColor * lightAlpha, degreeToRadian(lanternAngle), new Vector2(lightTexture.Width / 2, 0), walkingDirection, 0);
+            }
+                base.Draw(spriteBatch, color);
         }
 
         private void attackHit(ref List<Enemy> enemies) {
@@ -217,6 +222,8 @@ namespace tower_of_darkness_xna {
                         if (npc.objectRectangle.Intersects(objectRectangle)) {
                             npc.showText = true;
                             talkTimer = 0;
+                            if (npc.questAdvance == "lanternPickup")
+                                wizardSpokenTo = true;
                         }
                     }
                 } else {
@@ -634,6 +641,14 @@ namespace tower_of_darkness_xna {
                     {
                         //Give global lighting for a small duration
                         objects[i].consumed = true;
+                    }
+                    else if (objects[i].type == "lantern")
+                    {
+                        if (wizardSpokenTo)
+                        {
+                            objects[i].consumed = true;
+                            lanternPickedUp = true;
+                        }
                     }
                 }
             }
