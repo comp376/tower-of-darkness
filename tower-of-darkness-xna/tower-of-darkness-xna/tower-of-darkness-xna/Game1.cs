@@ -53,7 +53,6 @@ namespace tower_of_darkness_xna {
         protected override void LoadContent() {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2D characterSpriteSheet = Content.Load<Texture2D>("sprites/character2");
-            character = new Character(characterSpriteSheet, 3, 1, 32, 64, Content);
             currentGameState = new MenuState(Content, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, STARTING_MAP_NAME, character);
         }
 
