@@ -11,7 +11,7 @@ using FuncWorks.XNA.XTiled;
 namespace tower_of_darkness_xna {
     class LevelState : GameState {
 
-        private bool DEBUG = true;
+        private bool DEBUG = false;
         private bool PAUSE_SCREEN = false;
 
         private const int BACKGROUND_LAYER = 0;
@@ -68,7 +68,6 @@ namespace tower_of_darkness_xna {
             this.mapView = new Rectangle(0, 0, PreferredBackBufferWidth, PreferredBackBufferHeight);
             this.mapName = mapName;
             this.character = character;
-           
             LoadContent(); 
         }
 
@@ -316,41 +315,42 @@ namespace tower_of_darkness_xna {
            // {
             //    Console.WriteLine(theMapObjects[i].Count);
            // }
-
             objects = new List<Scene2DNode>();
-            if (map.ObjectLayers["Objects"] == null)
-                return;
-            
-            if (character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Contains(character.emptyNode))
+            if (map.ObjectLayers["Objects"] != null)
             {
-                character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Remove(character.emptyNode);
-
-                int tileSize = map.TileWidth / 2;
-                foreach (MapObject mo in map.ObjectLayers["Objects"].MapObjects)
+                if (character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Contains(character.emptyNode))
                 {
-                    if (mo.Properties["Type"].Value == "key")
-                    {
-                        Scene2DNode node = new Scene2DNode(keyTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "key");
-                        objects.Add(node);
-                    }
-                    else if (mo.Properties["Type"].Value == "essence")
-                    {
-                        Scene2DNode node = new Scene2DNode(essenceTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "essence");
-                        objects.Add(node);
-                    }
-                    else if (mo.Properties["Type"].Value == "super essence")
-                    {
-                        Scene2DNode node = new Scene2DNode(superEssenceTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "super essence");
-                        objects.Add(node);
-                    }
-                }
 
-                character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32] = objects;
-            }
-            else
-            {
-                Console.WriteLine("Loading OLD new objects");
-                objects = character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32];
+                    int tileSize = map.TileWidth / 2;
+                    foreach (MapObject mo in map.ObjectLayers["Objects"].MapObjects)
+                    {
+                        if (mo.Properties["Type"].Value == "key")
+                        {
+                            Scene2DNode node = new Scene2DNode(keyTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "key");
+                            objects.Add(node);
+                        }
+                        else if (mo.Properties["Type"].Value == "essence")
+                        {
+                            Scene2DNode node = new Scene2DNode(essenceTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "essence");
+                            objects.Add(node);
+                        }
+                        else if (mo.Properties["Type"].Value == "super essence")
+                        {
+                            Scene2DNode node = new Scene2DNode(superEssenceTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "super essence");
+                            objects.Add(node);
+                        }
+                    }
+                    character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Remove(character.emptyNode);
+                    character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32] = objects;
+                    objects = character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32];
+                }
+                else
+                {
+
+                    Console.WriteLine("Loading OLD new objects");
+                    character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32].Remove(character.emptyNode);
+                    objects = character.theMapObjects[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32];
+                }
             }
                        
         }
