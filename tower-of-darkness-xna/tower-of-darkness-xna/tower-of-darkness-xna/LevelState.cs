@@ -18,9 +18,10 @@ namespace tower_of_darkness_xna {
         private const int LADDER_LAYER = 1;
         private const int FOREGROUND_LAYER = 2;
         private const int TOP_LAYER = 3;
+        private Color STARTING_COLOR = new Color(255, 255, 255);
         private Color OPAQUE_COLOR = new Color(25, 25, 25);
         private Color ITEM_COLOR = new Color(255, 255, 255);
-        private float alpha = 0.5f;
+        private float alpha = 0.9f;
         private Color BACKGROUND_COLOR = new Color(255, 255, 255, 1);
 
         private Texture2D backgroundTexture;
@@ -34,6 +35,8 @@ namespace tower_of_darkness_xna {
         private List<Rectangle> ladders;
         private List<Breakable> breakables;
         private List<Scene2DNode> objects;
+        private List<Dim> dims;
+        private int dimsCount = 0;
         private bool[] visited = new bool[13];
         private bool isSet;
 
@@ -135,6 +138,11 @@ namespace tower_of_darkness_xna {
             for (int i = 0; i < enemies.Count; i++) {
                 enemies[i].objectRectangle = new Rectangle(enemies[i].objectRectangle.X - xChange, enemies[i].objectRectangle.Y - yChange, enemies[i].objectRectangle.Width, enemies[i].objectRectangle.Height);
             }
+
+            //Move dim rectangles
+            for (int i = 0; i < dims.Count; i++) {
+                dims[i].dRect = new Rectangle(dims[i].dRect.X - xChange, dims[i].dRect.Y - yChange, dims[i].dRect.Width, dims[i].dRect.Height);
+            }
                 
             //Set player direction
             character.movementStatus = (MovementStatus)transition.direction;
@@ -147,7 +155,8 @@ namespace tower_of_darkness_xna {
             superEssenceTexture = Content.Load<Texture2D>("sprites/superEssence");
             font = Content.Load<SpriteFont>("fonts/spriteFont");
             map = Content.Load<Map>("maps/" + mapName);
-            modifyLayerOpacity();
+            if(mapName != "forest")
+                modifyLayerOpacity(OPAQUE_COLOR, alpha);
             mapRect = new Rectangle(0, 0, map.Width * map.TileWidth, map.Height * map.TileHeight);
             loadCollisionRectangles();
             loadTransitionRectangles();
@@ -156,6 +165,7 @@ namespace tower_of_darkness_xna {
             loadObjects();
             loadNPCs();
             loadEnemies();
+            loadDimRectangles();
             loadMapInfo();
 
             //debug
@@ -173,13 +183,11 @@ namespace tower_of_darkness_xna {
             pauseSelectorPosition = new Vector2(128, 150);
         }
 
-        private void modifyLayerOpacity() {
-            if(DEBUG)
-                OPAQUE_COLOR = new Color(100, 100, 100);
-
+        private void modifyLayerOpacity(Color c, float a) {
             foreach (TileLayer tl in map.TileLayers) {
-                tl.OpacityColor = OPAQUE_COLOR * alpha;
+                tl.OpacityColor = c * a;
             }
+            
         }
 
         private void loadMapInfo() {
@@ -232,6 +240,12 @@ namespace tower_of_darkness_xna {
                             objects[i] = new Scene2DNode(objects[i].texture, new Vector2(objects[i].worldPosition.X - xChange, objects[i].worldPosition.Y - yChange), objects[i].type);
                         }
                     }
+
+                    //Move dim rectangles
+                    for (int i = 0; i < dims.Count; i++) {
+                        dims[i].dRect = new Rectangle(dims[i].dRect.X - xChange, dims[i].dRect.Y - yChange, dims[i].dRect.Width, dims[i].dRect.Height);
+                    }
+
                     character.movementStatus = (MovementStatus)mo.Properties["direction"].AsInt32;
                 }
             }
@@ -286,6 +300,21 @@ namespace tower_of_darkness_xna {
                 Transition t = new Transition(mo.Name, tRect, direction, xChange, yChange, xPlayer, yPlayer);
                 transitions.Add(t);
             }
+        }
+
+        private void loadDimRectangles() {
+            dims = new List<Dim>();
+            if (map.ObjectLayers["Dim"] == null)
+                return;
+            int tileSize = map.TileWidth / 2;   //Not sure why dividing by 2
+            int id = 1;
+            foreach (MapObject mo in map.ObjectLayers["Dim"].MapObjects) {
+                Rectangle dRect = mo.Bounds;
+                Dim dim = new Dim(id, dRect);
+                dims.Add(dim);
+                id++;
+            }
+            dimsCount = dims.Count;
         }
 
         private void loadBreakables() {
@@ -424,7 +453,7 @@ namespace tower_of_darkness_xna {
                     PAUSE_SCREEN = true;
                 }
             }
-            character.Update(gameTime, mapRect, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects);
+            character.Update(gameTime, mapRect, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims);
             for (int i = 0; i < breakables.Count; i++) {
                 breakables[i].Update(gameTime);
                 if (breakables[i].isBroken && breakables[i].type == "breakable") {
@@ -434,6 +463,16 @@ namespace tower_of_darkness_xna {
                 {
                     map.TileLayers["Doors"].Tiles[breakables[i].i][breakables[i].j] = null;
                     breakables.RemoveAt(i);
+                }
+            }
+            for (int i = 0; i < dims.Count; i++) {
+                if (dims[i].isPassed) {
+                    Color newForestColor = new Color(STARTING_COLOR.R - (int)(6.7f * dims[i].id), STARTING_COLOR.G - (int)(6.7f * dims[i].id), STARTING_COLOR.B - (int)(6.7f * dims[i].id));
+                    if (dims[i].id == dimsCount)
+                        modifyLayerOpacity(OPAQUE_COLOR, alpha);
+                    else
+                        modifyLayerOpacity(newForestColor, alpha);
+                    dims.RemoveAt(i);
                 }
             }
             for (int i = 0; i < objects.Count; i++)
@@ -458,6 +497,8 @@ namespace tower_of_darkness_xna {
                 node.hover();
             }
 
+            if (map.ObjectLayers["Visited"] == null)
+                return; 
             if ((int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32 == 0)
             {
                 
@@ -527,24 +568,24 @@ namespace tower_of_darkness_xna {
             //Debug
             if (DEBUG) {
                 foreach (Rectangle r in cRectangles) {
-                    batch.Draw(collision, r, OPAQUE_COLOR);
+                    batch.Draw(collision, r, Color.White);
                 }
                 foreach (Transition t in transitions) {
-                    batch.Draw(transition, t.tRect, OPAQUE_COLOR);
+                    batch.Draw(transition, t.tRect, Color.White);
                 }
                 foreach (Rectangle r in ladders) {
-                    batch.Draw(ladder, r, OPAQUE_COLOR);
+                    batch.Draw(ladder, r, Color.White);
                 }
                 foreach (Breakable r in breakables) {
-                    batch.Draw(breakable, r.bRect, OPAQUE_COLOR);
+                    batch.Draw(breakable, r.bRect, Color.White);
                 }
                 foreach (NPC n in npcs) {
-                    batch.Draw(npc, n.objectRectangle, OPAQUE_COLOR);
+                    batch.Draw(npc, n.objectRectangle, Color.White);
                 }
                 foreach (Enemy e in enemies) {
-                    batch.Draw(enemy, e.objectRectangle, OPAQUE_COLOR);
+                    batch.Draw(enemy, e.objectRectangle, Color.White);
                 }
-                batch.Draw(charDebug, character.objectRectangle, OPAQUE_COLOR * alpha);
+                batch.Draw(charDebug, character.objectRectangle, Color.White);
                 batch.DrawString(font, "MAP: " + mapName, new Vector2(mapView.Width - 144, 0), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
                 string fps = (1 / (float)gameTime.ElapsedGameTime.TotalSeconds).ToString();
                 batch.DrawString(font, "FPS: " + fps, new Vector2(mapView.Width - 144, 16), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
