@@ -9,6 +9,10 @@ using Microsoft.Xna.Framework.Input;
 
 namespace tower_of_darkness_xna {
     class Character : NPC {
+        private float STARTING_LIGHT_SIZE = 50.0f;
+        private float lightTimer = 0;
+        private float lightInterval = 2000;
+
         //Character
         private int moveTimer = 0;
         private int moveInterval = 5;
@@ -85,7 +89,7 @@ namespace tower_of_darkness_xna {
             lanternRectangle = new Rectangle(objectRectangle.X, objectRectangle.Y, lanternTexture.Width, lanternTexture.Height);
             lightPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
 
-            currentLightSize = 1f;
+            currentLightSize = STARTING_LIGHT_SIZE;
         }
 
         public void Update(GameTime gameTime, Rectangle mapRect, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects, ref List<Dim> dims) {
@@ -101,6 +105,7 @@ namespace tower_of_darkness_xna {
             collides(ref objects);
             enemyCollision(enemies);
             crossDim(ref dims);
+            decreaseLight(gameTime);
             KeyboardState newState = Keyboard.GetState();
 
             if (newState.IsKeyDown(Keys.L))
@@ -149,6 +154,17 @@ namespace tower_of_darkness_xna {
                 spriteBatch.Draw(lightTexture, new Rectangle((int)(lightPosition.X), (int)(lightPosition.Y - (currentLightSize * 6)), (int)(lightTexture.Width + (currentLightSize * 15)), (int)(lightTexture.Height + (currentLightSize * 15))), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), lightColor * lightAlpha, degreeToRadian(lanternAngle), new Vector2(lightTexture.Width / 2, 0), walkingDirection, 0);
             }
                 base.Draw(spriteBatch, color);
+        }
+
+        private void decreaseLight(GameTime gameTime) {
+            if (lanternPickedUp) {
+                lightTimer += gameTime.ElapsedGameTime.Milliseconds;
+                if (lightTimer >= lightInterval) {
+                    if (currentLightSize > -17)
+                        currentLightSize -= 1.0f;
+                    lightTimer = 0;
+                }
+            }
         }
 
         private void crossDim(ref List<Dim> dims) {
@@ -680,7 +696,7 @@ namespace tower_of_darkness_xna {
                     }else if (objects[i].type == "essence")
                     {
                         //Increase lantern power
-                        currentLightSize += 1f;
+                        currentLightSize += 5f;
                         objects[i].consumed = true;
                     }else if (objects[i].type == "super essence")
                     {

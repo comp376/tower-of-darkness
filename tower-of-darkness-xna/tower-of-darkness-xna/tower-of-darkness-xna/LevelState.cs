@@ -563,7 +563,7 @@ namespace tower_of_darkness_xna {
                 e.Draw(batch, Color.White * alpha);
             }
             foreach (Scene2DNode node in objects){
-                node.Draw(batch, ITEM_COLOR, OPAQUE_COLOR * alpha);
+                node.Draw(batch, Color.White * alpha);
             }
 
             //Debug
