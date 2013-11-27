@@ -70,4 +70,21 @@
   </properties>
  </objectgroup>
  <objectgroup name="Load" width="25" height="45"/>
+ <objectgroup name="Objects" width="25" height="45">
+  <object x="544" y="225" width="28" height="30">
+   <properties>
+    <property name="Type" value="super essence"/>
+   </properties>
+  </object>
+  <object x="736" y="127" width="30" height="32">
+   <properties>
+    <property name="Type" value="essence"/>
+   </properties>
+  </object>
+  <object x="705" y="768" width="30" height="30">
+   <properties>
+    <property name="Type" value="key"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
