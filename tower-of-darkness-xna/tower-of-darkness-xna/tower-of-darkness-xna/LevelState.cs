@@ -11,7 +11,7 @@ using FuncWorks.XNA.XTiled;
 namespace tower_of_darkness_xna {
     class LevelState : GameState {
 
-        private bool DEBUG = false;
+        private bool DEBUG = true;
         private bool PAUSE_SCREEN = false;
 
         private const int BACKGROUND_LAYER = 0;
@@ -117,16 +117,14 @@ namespace tower_of_darkness_xna {
 
             //Move Objects
             for (int i = 0; i < objects.Count; i++){
-                objects[i] = new Scene2DNode(objects[i].texture, new Vector2(objects[i].worldPosition.X - xChange,objects[i].worldPosition.Y - yChange), objects[i].type);
+                objects[i].worldPosition = new Vector2(objects[i].worldPosition.X - xChange, objects[i].worldPosition.Y - yChange);
+                objects[i].startingPosition = new Vector2(objects[i].startingPosition.X - xChange, objects[i].startingPosition.Y - yChange);
             }
 
             //Move enemies
-            /*
-            for (int i = 0; i < npcs.Count; i++) {
+            for (int i = 0; i < enemies.Count; i++) {
                 enemies[i].objectRectangle = new Rectangle(enemies[i].objectRectangle.X - xChange, enemies[i].objectRectangle.Y - yChange, enemies[i].objectRectangle.Width, enemies[i].objectRectangle.Height);
-
             }
-             */
                 
             //Set player direction
             character.movementStatus = (MovementStatus)transition.direction;
@@ -216,9 +214,9 @@ namespace tower_of_darkness_xna {
                     }
 
                     //Move Objects
-                    for (int i = 0; i < objects.Count; i++)
-                    {
-                        objects[i] = new Scene2DNode(objects[i].texture, new Vector2(objects[i].worldPosition.X - xChange, objects[i].worldPosition.Y - yChange), objects[i].type);
+                    for (int i = 0; i < objects.Count; i++) {
+                        objects[i].worldPosition = new Vector2(objects[i].worldPosition.X - xChange, objects[i].worldPosition.Y - yChange);
+                        objects[i].startingPosition = new Vector2(objects[i].startingPosition.X - xChange, objects[i].startingPosition.Y - yChange);
                     }
                     character.movementStatus = (MovementStatus)mo.Properties["direction"].AsInt32;
                 }
