@@ -79,7 +79,7 @@ namespace tower_of_darkness_xna {
             lanternPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
             lanternRectangle = new Rectangle(objectRectangle.X, objectRectangle.Y, lanternTexture.Width, lanternTexture.Height);
             lightPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
-            currentLightSize = 100.0f;
+            currentLightSize = 1f;
         }
 
         public void Update(GameTime gameTime, Rectangle mapRect, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects) {
