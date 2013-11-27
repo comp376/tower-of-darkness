@@ -69,6 +69,7 @@
  <objectgroup name="NPC" width="25" height="46">
   <object x="32" y="480" width="32" height="64">
    <properties>
+    <property name="questAdvance" value="none"/>
     <property name="spritesheet" value="npc"/>
     <property name="text" value="I've been stuck here a long time"/>
     <property name="xFrames" value="3"/>

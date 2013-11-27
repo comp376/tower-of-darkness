@@ -41,6 +41,7 @@
  <objectgroup name="NPC" width="50" height="15">
   <object x="1152" y="352" width="32" height="64">
    <properties>
+    <property name="questAdvance" value="none"/>
     <property name="spritesheet" value="npc"/>
     <property name="text" value="..Save Us."/>
     <property name="xFrames" value="3"/>
