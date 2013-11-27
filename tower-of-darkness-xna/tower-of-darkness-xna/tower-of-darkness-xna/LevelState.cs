@@ -11,7 +11,7 @@ using FuncWorks.XNA.XTiled;
 namespace tower_of_darkness_xna {
     class LevelState : GameState {
 
-        private bool DEBUG = true;
+        private bool DEBUG = false;
         private bool PAUSE_SCREEN = false;
 
         private const int BACKGROUND_LAYER = 0;
@@ -20,7 +20,7 @@ namespace tower_of_darkness_xna {
         private const int TOP_LAYER = 3;
         private Color OPAQUE_COLOR = new Color(25, 25, 25);
         private Color ITEM_COLOR = new Color(255, 255, 255);
-        private float alpha = 0.9f;
+        private float alpha = 0.5f;
         private Color BACKGROUND_COLOR = new Color(255, 255, 255, 1);
 
         private Texture2D backgroundTexture;
@@ -433,6 +433,13 @@ namespace tower_of_darkness_xna {
             {
                 if (objects[i].consumed)
                 {
+                    if (objects[i].type == "super essence")
+                    {
+                        foreach (TileLayer tl in map.TileLayers)
+                        {
+                            tl.OpacityColor = OPAQUE_COLOR * 1.5f;
+                        }
+                    }
                     objects.RemoveAt(i);
                 }
             }

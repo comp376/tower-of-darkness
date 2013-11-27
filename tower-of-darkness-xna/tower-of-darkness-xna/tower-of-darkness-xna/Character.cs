@@ -33,6 +33,7 @@ namespace tower_of_darkness_xna {
         private float apex = 2f;
         private float apexCounter = 0;
         private const int MAP_COUNT = 13;
+        KeyboardState oldState;
 
         public List<Scene2DNode>[] theMapObjects = new List<Scene2DNode>[MAP_COUNT];
         public Scene2DNode emptyNode;
@@ -69,6 +70,7 @@ namespace tower_of_darkness_xna {
                 theMapObjects[i] = new List<Scene2DNode>();
                 theMapObjects[i].Add(emptyNode);
             }
+            oldState = Keyboard.GetState();
         }
 
         public void LoadContent() {
@@ -97,13 +99,28 @@ namespace tower_of_darkness_xna {
             attackSwing(gameTime);
             attackHit(ref enemies);
             collides(ref objects);
-            if (Keyboard.GetState().IsKeyDown(Keys.L)) {
-                if(currentLightSize > -17)
+
+            KeyboardState newState = Keyboard.GetState();
+
+            if (newState.IsKeyDown(Keys.L))
+            {
+                if (!oldState.IsKeyDown(Keys.L))
+                {
+                    if(currentLightSize > -17)
                     currentLightSize -= 1f;
+                }
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.K)) {
-                currentLightSize += 1f;
+
+            if (newState.IsKeyDown(Keys.K))
+            {
+                if (!oldState.IsKeyDown(Keys.K))
+                {
+                    currentLightSize += 1f;
+                }
             }
+           
+
+            oldState = newState;
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color) {
@@ -629,6 +646,7 @@ namespace tower_of_darkness_xna {
                     }else if (objects[i].type == "essence")
                     {
                         //Increase lantern power
+                        currentLightSize += 1f;
                         objects[i].consumed = true;
                     }else if (objects[i].type == "super essence")
                     {
