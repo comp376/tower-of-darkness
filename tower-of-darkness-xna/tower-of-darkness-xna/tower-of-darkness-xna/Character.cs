@@ -40,7 +40,7 @@ namespace tower_of_darkness_xna {
         KeyboardState oldState;
 
         public bool wizardSpokenTo = false;
-        public bool lanternPickedUp = false;
+        public bool lanternPickedUp = true;
 
         public List<Scene2DNode>[] theMapObjects = new List<Scene2DNode>[MAP_COUNT];
         public Scene2DNode emptyNode;
@@ -178,7 +178,8 @@ namespace tower_of_darkness_xna {
         private void enemyCollision(List<Enemy> enemies) {
             foreach (Enemy e in enemies) {
                 if (e.objectRectangle.Intersects(objectRectangle)) {
-                    currentLightSize--;
+                    if (currentLightSize > -17)
+                        currentLightSize -= 0.5f;
                 }
             }
         }
