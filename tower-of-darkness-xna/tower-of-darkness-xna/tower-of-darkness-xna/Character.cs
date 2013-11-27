@@ -25,7 +25,11 @@ namespace tower_of_darkness_xna {
         private int talkTimer = 0;
         private int talkInterval = 2000;
         private int attackTimer = 0;
-        private int attackInterval = 1000;
+        private int attackInterval = 500;
+        private int attackSwingInterval = 100;
+        private float attackAngleMax = 50f;
+        private bool attacking = false;
+        private bool swingingRight = false;
         private float apex = 2f;
         private float apexCounter = 0;
         private const int MAP_COUNT = 13;
@@ -63,7 +67,7 @@ namespace tower_of_darkness_xna {
             {
                 theMapObjects[i] = new List<Scene2DNode>();
                 theMapObjects[i].Add(emptyNode);
-            }
+        }
         }
 
         public void LoadContent() {
@@ -111,7 +115,33 @@ namespace tower_of_darkness_xna {
         }
 
         private void attack(GameTime gameTime) {
+            if (!attacking) {
+                attackTimer += gameTime.ElapsedGameTime.Milliseconds;
+                if (attackTimer >= attackInterval) {
+                    KeyboardState kbs = Keyboard.GetState();
+                    if (kbs.IsKeyDown(Keys.Q)) {
+                        Console.WriteLine("q");
+                        if (!attacking) {
+                            attacking = true;
+                            if (movementStatus == MovementStatus.Right) {
+                                attackAngleMax = -attackAngleMax;
+                                swingingRight = true;
+                            }
+                        }
+                        attackTimer = 0;
+                    }
+                }
+            } else {
+                attackTimer += gameTime.ElapsedGameTime.Milliseconds;
+                if (attackTimer >= attackSwingInterval) {
+                    if (!swingingRight) {
+                        if (lanternAngle > attackAngleMax) {
+                            lanternAngle += -5f;
+                        }
+                    }
 
+        }
+            }
         }
 
         private void talk(GameTime gameTime, ref List<NPC> npcs) {
@@ -134,6 +164,8 @@ namespace tower_of_darkness_xna {
         }
 
         private void lanternSwinging(GameTime gameTime) {
+            if (attacking)
+                return;
             KeyboardState kbs = Keyboard.GetState();
             lanternTimer += gameTime.ElapsedGameTime.Milliseconds;
 
@@ -203,6 +235,7 @@ namespace tower_of_darkness_xna {
 
         private void jump(ref List<Rectangle> cRectangles, ref Rectangle mapView, ref Rectangle mapRect, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects) {
             int middleY = mapView.Height / 2;
+            //Console.WriteLine(jumping + " and " + falling);
             KeyboardState kbs = Keyboard.GetState();
             if (jumping && !climbing) {
                 if (collides(cRectangles, MovementStatus.Jump) || collides(ref breakables, MovementStatus.Jump)) {
