@@ -8,12 +8,12 @@
  </tileset>
  <layer name="Foreground" width="45" height="15">
   <data encoding="base64" compression="zlib">
-   eJztziESACAIAEH+/wOjo9FHmmgokLjAzVxfka7rKpvGo1Tkt42XsN2Wme5+mcnun5nq9sxEd8RMc0fNJHfGrO5TfNZM+AImbGrq
+   eJztzjEOACAIwEB8rI9yNPpQXdxQZKIDTbqfSJZlkXXlFiqym8pD2G7NTHffzGT3y0x1W2ai+8dMc/+aSW6P+bjrvgTuNRNeE1BV7g==
   </data>
  </layer>
  <layer name="Background" width="45" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFowA/2ArE2wbaESSC/QPtgFEwrIAkEEtB8VosYtI0UkcJUAZiFShWBWI1OolRAnSBWB8JG9BJjBJgDsQWUGwJxFZ0EqMGWA2lq4G4BsrOx6Iun4A6cSCWAOLtaHxc5lECuKF0KxC3oYmRok4RiJWQxGB8XOaNAtoCALKUHvU=
+   eJxjYBgFowA/2ArE2wbaESSC/QPtgFEwrIAkEEtB8VosYtI0UkcJUAZiFShWBWI1OolRAnSBWB8JG9BJjBJgDsQWUGwJxFZ0EqMGWA2lq4G4BsrOx6Iun4A6cSCWAOLtaHxc5lECuKF0KxC3oYmRok4RiJWQxGB8XOaRAtYMMB6KAABczzR1
   </data>
  </layer>
  <objectgroup name="Transition" width="45" height="15">
@@ -28,7 +28,7 @@
   </object>
  </objectgroup>
  <objectgroup name="Load" width="45" height="15">
-  <object name="Spawn" x="0" y="102" width="27" height="52">
+  <object name="Spawn" x="0" y="102" width="27" height="57">
    <properties>
     <property name="direction" value="1"/>
     <property name="xChange" value="0"/>

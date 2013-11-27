@@ -8,12 +8,12 @@
  </tileset>
  <layer name="Background" width="45" height="15">
   <data encoding="base64" compression="zlib">
-   eJztlMsKwjAQRbMXtTur1oX1BYKPRUHtrv3/j+otzUAIMwmjUrrIhUNCOjM5hVJjUlJSNGmd/Zxh6ukdr9465WRmcKy8NbPP12ADtqCIzNLU/hJy7mmcPTkfwBGcwDkyS1PrR/Ntus47xvkG7uABnpFZmlrOeWnROF8Y5xd4gw+oI7M0tZKDf78U7r/h9swsoaxAztTSeaiHnBcWul/q5d7xG+c9KJlaOg/1SM5S77+cU8ZJB1sgDRQ=
+   eJztkssKwjAQRbMv1e7qqwvfIGhdCFV39v8/yhvMQBgmiYNFusiFQ0J6JzmLGpOTk6NJ7+1LgbHHOp7YOuZU5uN4Y2vlvs/BAizBKnGXpvtLyNny8vbkvAU7sAeHxF2aLo/m3/SdG8H5DC6gBdfEXZqu5Dx1aJyPgnMH7uABnom7NN2QA3//2z6fKRyx1GAmdOk8NkMOEwe9H5odynkNNkKXzmMzIefQ7FDOOf/JG4ygDSQ=
   </data>
  </layer>
  <layer name="Foreground" width="45" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBgYIDBA9pILBJDwUAAwt3ozDA13C+DBgxHgc9tgdDeh8KR3eJeg4cEO0N072N2Ny32D1d34wnQohDcpYKiVdSMdMA1BzDMEMQAOIg3S
+   eJxjYBgYIDBA9pILBJDwUAAwt3ozDA13C+DBgxHgc9tgdDeh8KR3eJeg4cEO0N072N2Ny32D1d34wnQohDepgA8LHgWDEzANQcwzBDEAjhsNqA==
   </data>
  </layer>
  <layer name="Ladder" width="45" height="15">
@@ -43,10 +43,10 @@
   <object name="house" x="961" y="256" width="29" height="62">
    <properties>
     <property name="cx" value="0"/>
-    <property name="cy" value="64"/>
+    <property name="cy" value="32"/>
     <property name="d" value="1"/>
     <property name="x" value="48"/>
-    <property name="y" value="352"/>
+    <property name="y" value="392"/>
    </properties>
   </object>
  </objectgroup>
