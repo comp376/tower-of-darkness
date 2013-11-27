@@ -36,7 +36,7 @@ namespace tower_of_darkness_xna {
         KeyboardState oldState;
 
         public bool wizardSpokenTo = false;
-        public bool lanternPickedUp = false;
+        public bool lanternPickedUp = true;
 
         public List<Scene2DNode>[] theMapObjects = new List<Scene2DNode>[MAP_COUNT];
         public Scene2DNode emptyNode;
@@ -85,9 +85,6 @@ namespace tower_of_darkness_xna {
             lanternRectangle = new Rectangle(objectRectangle.X, objectRectangle.Y, lanternTexture.Width, lanternTexture.Height);
             lightPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
 
-            currentLightSize = lowerBoundary;
-            currentLightSize = 100.0f;
-
             currentLightSize = 1f;
         }
 
@@ -102,7 +99,7 @@ namespace tower_of_darkness_xna {
             attackSwing(gameTime);
             attackHit(ref enemies);
             collides(ref objects);
-
+            enemyCollision(enemies);
             KeyboardState newState = Keyboard.GetState();
 
             if (newState.IsKeyDown(Keys.L))
@@ -152,10 +149,12 @@ namespace tower_of_darkness_xna {
                 base.Draw(spriteBatch, color);
         }
 
-        private void enemyCollision(ref List<Enemy> enemies) {
-            //for (int i = 0; i < enemies.Count; i++) {
-            //    //Rectangle tempRect
-            //}
+        private void enemyCollision(List<Enemy> enemies) {
+            foreach (Enemy e in enemies) {
+                if (e.objectRectangle.Intersects(objectRectangle)) {
+                    currentLightSize--;
+                }
+            }
         }
 
         private void attackHit(ref List<Enemy> enemies) {
