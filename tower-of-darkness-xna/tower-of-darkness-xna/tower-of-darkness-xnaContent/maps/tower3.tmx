@@ -51,4 +51,16 @@
   </properties>
  </objectgroup>
  <objectgroup name="Load" width="32" height="32"/>
+ <objectgroup name="Objects" width="32" height="32">
+  <object x="318" y="737" width="32" height="28">
+   <properties>
+    <property name="Type" value="essence"/>
+   </properties>
+  </object>
+  <object x="704" y="65" width="31" height="29">
+   <properties>
+    <property name="Type" value="key"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
