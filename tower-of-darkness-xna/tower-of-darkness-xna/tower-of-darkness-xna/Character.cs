@@ -118,7 +118,8 @@ namespace tower_of_darkness_xna {
                 currentLightSize += 1f;
             }
             }
-           
+
+        
 
             oldState = newState;
         }
