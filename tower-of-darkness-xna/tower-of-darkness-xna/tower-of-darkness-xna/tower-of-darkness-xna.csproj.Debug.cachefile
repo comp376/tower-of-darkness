@@ -14,6 +14,8 @@ Content\maps\forest.xnb
 Content\maps\town.xnb
 Content\maps\outside.xnb
 Content\maps\house.xnb
+Content\maps\tower5.xnb
+Content\maps\tower6.xnb
 Content\sprites\background.xnb
 Content\sprites\character.xnb
 Content\sprites\character2.xnb
@@ -79,4 +81,16 @@ Content\maps\town\00.xnb
 Content\maps\town\01.xnb
 Content\maps\outside\00.xnb
 Content\maps\house\00.xnb
+Content\maps\tower5\02.xnb
+Content\maps\tower6\01.xnb
+Content\sprites\light4.xnb
+Content\sprites\light5.xnb
+Content\sprites\light6.xnb
+Content\sprites\light7.xnb
+Content\sprites\light8.xnb
+Content\sprites\light2.xnb
+Content\maps\tower1\01.xnb
+Content\maps\tower3\02.xnb
+Content\maps\tower6\02.xnb
+Content\sprites\light2.xnb
 Content\maps\house\01.xnb

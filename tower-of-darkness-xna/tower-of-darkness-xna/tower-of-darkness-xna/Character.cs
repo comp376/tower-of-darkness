@@ -25,9 +25,9 @@ namespace tower_of_darkness_xna {
         private int talkTimer = 0;
         private int talkInterval = 2000;
         private int attackTimer = 0;
-        private int attackInterval = 500;
-        private int attackSwingInterval = 100;
-        private float attackAngleMax = 50f;
+        private int attackInterval = 5;
+        private int attackSwingInterval = 5;
+        private float attackAngleMax = 100f;
         private bool attacking = false;
         private bool swingingRight = false;
         private float apex = 2f;
@@ -43,6 +43,7 @@ namespace tower_of_darkness_xna {
         private Texture2D lightTexture;
         private Texture2D lanternTexture;
         private Vector2 lanternPosition;
+        private Rectangle lanternRectangle;
         private Vector2 lightPosition;
         private float lanternTimer = 0;
         private float lanternInterval = 5;
@@ -76,6 +77,7 @@ namespace tower_of_darkness_xna {
             lightTexture = Content.Load<Texture2D>("sprites/light3");
             lanternTexture = Content.Load<Texture2D>("sprites/lantern");
             lanternPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
+            lanternRectangle = new Rectangle(objectRectangle.X, objectRectangle.Y, lanternTexture.Width, lanternTexture.Height);
             lightPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
             currentLightSize = lowerBoundary;
         }
@@ -88,13 +90,15 @@ namespace tower_of_darkness_xna {
             hitTransition(transitions, mapView);
             lanternSwinging(gameTime);
             talk(gameTime, ref npcs);
-            attack(gameTime);
+            attackSwing(gameTime);
+            attackHit(ref enemies);
             collides(ref objects);
            
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color) {
             lanternPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
+            lanternRectangle = new Rectangle(objectRectangle.X, objectRectangle.Y, lanternTexture.Width, lanternTexture.Height);
             lightPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
             SpriteEffects walkingDirection = SpriteEffects.None;
             switch (movementStatus) {
@@ -103,28 +107,51 @@ namespace tower_of_darkness_xna {
                     break;
             } if (walkingDirection == SpriteEffects.None) {
                 lanternPosition.X += 32;
+                lanternRectangle.X += 32;
                 lightPosition.X += ((lightTexture.Width + currentLightSize) / 2) - spriteWidth - 45;
             }
             lanternPosition.Y += 32;
+            lanternRectangle.Y += 32;
             lightPosition.Y -= ((lightTexture.Height - currentLightSize) / 2) - spriteHeight - 9;
-            spriteBatch.Draw(lanternTexture, lanternPosition, null, Color.White, degreeToRadian(lanternAngle), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), 1, walkingDirection, 0);
+            //spriteBatch.Draw(lanternTexture, lanternPosition, null, Color.White, degreeToRadian(lanternAngle), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), 1, walkingDirection, 0);
+            spriteBatch.Draw(lanternTexture, lanternRectangle, null, Color.White, degreeToRadian(lanternAngle), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), walkingDirection, 0);
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
             spriteBatch.Draw(lightTexture, new Rectangle((int)(lightPosition.X), (int)(lightPosition.Y - (currentLightSize * 6)), (int)(lightTexture.Width + (currentLightSize * 15)), (int)(lightTexture.Height + (currentLightSize * 15))), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), lightColor * lightAlpha, degreeToRadian(lanternAngle), new Vector2(lightTexture.Width / 2, 0), walkingDirection, 0);
             base.Draw(spriteBatch, color);
         }
 
-        private void attack(GameTime gameTime) {
+        private void attackHit(ref List<Enemy> enemies) {
+            for (int i = 0; i < enemies.Count; i++) {
+                if (enemies[i].hits < 0)
+                    enemies.RemoveAt(i);
+            }
+
+            if (attacking) {
+                foreach (Enemy e in enemies) {
+                    if (e.objectRectangle.Intersects(lanternRectangle)) {
+                        Console.WriteLine("HIT!");
+                        e.hits--;
+                    }
+                }
+            }
+        }
+
+        private void attackSwing(GameTime gameTime) {
             if (!attacking) {
                 attackTimer += gameTime.ElapsedGameTime.Milliseconds;
                 if (attackTimer >= attackInterval) {
                     KeyboardState kbs = Keyboard.GetState();
                     if (kbs.IsKeyDown(Keys.Q)) {
-                        Console.WriteLine("q");
+                        Console.WriteLine("q: " + movementStatus);
                         if (!attacking) {
                             attacking = true;
+                            if (movementStatus == MovementStatus.Left) {
+                                attackAngleMax *= -1;
+                                swingingRight = false;
+                            }
                             if (movementStatus == MovementStatus.Right) {
-                                attackAngleMax = -attackAngleMax;
+                                attackAngleMax *= -1;
                                 swingingRight = true;
                             }
                         }
@@ -135,8 +162,22 @@ namespace tower_of_darkness_xna {
                 attackTimer += gameTime.ElapsedGameTime.Milliseconds;
                 if (attackTimer >= attackSwingInterval) {
                     if (!swingingRight) {
+                        if (lanternAngle < attackAngleMax) {
+                            lanternAngle += attackSwingInterval;
+                            attackTimer = 0;
+                        }else {
+                            lanternAngle = 0;
+                            attackTimer = 0;
+                            attacking = false;
+                        }
+                    } else {
                         if (lanternAngle > attackAngleMax) {
-                            lanternAngle += -5f;
+                            lanternAngle += -attackSwingInterval;
+                            attackTimer = 0;
+                        } else {
+                            lanternAngle = 0;
+                            attackTimer = 0;
+                            attacking = false;
                         }
                     }
 
