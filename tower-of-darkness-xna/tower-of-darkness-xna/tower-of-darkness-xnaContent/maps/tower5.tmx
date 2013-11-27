@@ -117,4 +117,5 @@
    <property name="visited" value="false"/>
   </properties>
  </objectgroup>
+ <objectgroup name="Load" width="25" height="46"/>
 </map>

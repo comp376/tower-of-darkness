@@ -15,18 +15,22 @@ namespace tower_of_darkness_xna {
         public string type;
         public int i;
         public int j;
+        public int hit;
 
         public Breakable(Rectangle bRect, int i, int j, string type) {
             this.bRect = bRect;
             this.i = i;
             this.j = j;
             this.type = type;
+            this.hit = 0;
         }
 
         public void Update(GameTime gameTime) {
-            if (!isBroken && isTouched && this.type == "breakable") {
+            if (!isBroken && isTouched && this.type == "breakable")
+            {
                 breakTimer += gameTime.ElapsedGameTime.Milliseconds;
-                if (breakTimer >= breakInterval) {
+                if (breakTimer >= breakInterval)
+                {
                     isBroken = true;
                 }
             }
@@ -34,6 +38,9 @@ namespace tower_of_darkness_xna {
             {
                 isBroken = true;
             }
+            else if(this.hit == 1)
+                isBroken = true;
+            
         }
 
     }

@@ -98,7 +98,8 @@ namespace tower_of_darkness_xna {
             attackHit(ref enemies);
             collides(ref objects);
             if (Keyboard.GetState().IsKeyDown(Keys.L)) {
-                currentLightSize -= 1f;
+                if(currentLightSize > -17)
+                    currentLightSize -= 1f;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.K)) {
                 currentLightSize += 1f;
@@ -142,6 +143,20 @@ namespace tower_of_darkness_xna {
                         e.hits--;
                     }
                 }
+
+            }
+        }
+
+        private void blockHit(ref List<Breakable> breakable)
+        {
+
+            if (attacking)
+            {
+                foreach (Breakable b in breakable)
+                {
+                    
+                }
+
             }
         }
 

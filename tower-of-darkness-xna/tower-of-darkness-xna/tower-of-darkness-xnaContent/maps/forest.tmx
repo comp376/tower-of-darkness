@@ -33,8 +33,6 @@
  <objectgroup name="Load" width="45" height="15">
   <object name="Spawn" x="0" y="102" width="27" height="57">
    <properties>
-    <property name="cx" value=""/>
-    <property name="cy" value=""/>
     <property name="direction" value="1"/>
     <property name="xChange" value="0"/>
     <property name="yChange" value="0"/>

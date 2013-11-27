@@ -122,29 +122,18 @@ namespace tower_of_darkness_xna {
 
             if (visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32])
             {
+                
                 //Move Objects
                 for (int i = 0; i < objects.Count; i++)
                 {
                     objects[i] = new Scene2DNode(objects[i].texture, new Vector2(objects[i].worldPosition.X - xChange, objects[i].worldPosition.Y - yChange), objects[i].type);
                 }
             }
-
-            //Move Objects
-            for (int i = 0; i < objects.Count; i++){
-                Console.WriteLine("before change: " + objects[i].worldPosition);
-                objects[i].worldPosition = new Vector2(objects[i].worldPosition.X - xChange, objects[i].worldPosition.Y - yChange);
-                objects[i].startingPosition = new Vector2(objects[i].startingPosition.X - xChange, objects[i].startingPosition.Y - yChange);
-                Console.WriteLine("after change: " + objects[i].worldPosition);
-
-            }
-
+            
             //Move enemies
-            /*
-            for (int i = 0; i < npcs.Count; i++) {
+            for (int i = 0; i < enemies.Count; i++) {
                 enemies[i].objectRectangle = new Rectangle(enemies[i].objectRectangle.X - xChange, enemies[i].objectRectangle.Y - yChange, enemies[i].objectRectangle.Width, enemies[i].objectRectangle.Height);
-
             }
-             */
                 
             //Set player direction
             character.movementStatus = (MovementStatus)transition.direction;
@@ -233,7 +222,7 @@ namespace tower_of_darkness_xna {
                         npcs[i].objectRectangle = new Rectangle(npcs[i].objectRectangle.X - xChange, npcs[i].objectRectangle.Y - yChange, npcs[i].objectRectangle.Width, npcs[i].objectRectangle.Height);
                     }
 
-                    if (visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32])
+                    if (!visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32])
                     {
                         //Move Objects
                         for (int i = 0; i < objects.Count; i++)
@@ -241,12 +230,6 @@ namespace tower_of_darkness_xna {
                             Console.WriteLine("Moving some objects");
                             objects[i] = new Scene2DNode(objects[i].texture, new Vector2(objects[i].worldPosition.X - xChange, objects[i].worldPosition.Y - yChange), objects[i].type);
                         }
-                    } 
- 
-                    //Move Objects
-                    for (int i = 0; i < objects.Count; i++) {
-                        objects[i].worldPosition = new Vector2(objects[i].worldPosition.X - xChange, objects[i].worldPosition.Y - yChange);
-                        objects[i].startingPosition = new Vector2(objects[i].startingPosition.X - xChange, objects[i].startingPosition.Y - yChange);
                     }
                     character.movementStatus = (MovementStatus)mo.Properties["direction"].AsInt32;
                 }
