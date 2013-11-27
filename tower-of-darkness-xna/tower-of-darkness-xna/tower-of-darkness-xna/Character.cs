@@ -56,8 +56,8 @@ namespace tower_of_darkness_xna {
         }
 
         public void LoadContent() {
-            lightColor = new Color(239, 228, 176);
-            lightAlpha = 0.8f;
+            lightColor = new Color(220, 220, 175);  //239 228 176
+            lightAlpha = 0.6f;
             lightTexture = Content.Load<Texture2D>("sprites/light3");
             lanternTexture = Content.Load<Texture2D>("sprites/lantern");
             lanternPosition = new Vector2(objectRectangle.X, objectRectangle.Y);

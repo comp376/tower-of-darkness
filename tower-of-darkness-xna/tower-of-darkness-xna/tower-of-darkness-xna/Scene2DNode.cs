@@ -47,8 +47,8 @@ namespace tower_of_darkness_xna {
             spriteBatch.Draw(texture, drawPosition, Color.White);
         }
 
-        public void Draw(SpriteBatch spriteBatch) {
-            spriteBatch.Draw(texture, new Vector2(worldPosition.X, worldPosition.Y), Color.White);
+        public void Draw(SpriteBatch spriteBatch, Color color) {
+            spriteBatch.Draw(texture, new Vector2(worldPosition.X, worldPosition.Y), color);
         }
 
         //This draw function is used for spinning textures.
