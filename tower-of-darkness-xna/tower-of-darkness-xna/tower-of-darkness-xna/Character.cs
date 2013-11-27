@@ -97,6 +97,8 @@ namespace tower_of_darkness_xna {
             attackSwing(gameTime);
             attackHit(ref enemies);
             collides(ref objects);
+            enemyCollision(ref enemies);
+
             if (Keyboard.GetState().IsKeyDown(Keys.L)) {
                 if(currentLightSize > -17)
                     currentLightSize -= 1f;
@@ -128,6 +130,12 @@ namespace tower_of_darkness_xna {
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
             spriteBatch.Draw(lightTexture, new Rectangle((int)(lightPosition.X), (int)(lightPosition.Y - (currentLightSize * 6)), (int)(lightTexture.Width + (currentLightSize * 15)), (int)(lightTexture.Height + (currentLightSize * 15))), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), lightColor * lightAlpha, degreeToRadian(lanternAngle), new Vector2(lightTexture.Width / 2, 0), walkingDirection, 0);
             base.Draw(spriteBatch, color);
+        }
+
+        private void enemyCollision(ref List<Enemy> enemies) {
+            //for (int i = 0; i < enemies.Count; i++) {
+            //    //Rectangle tempRect
+            //}
         }
 
         private void attackHit(ref List<Enemy> enemies) {
