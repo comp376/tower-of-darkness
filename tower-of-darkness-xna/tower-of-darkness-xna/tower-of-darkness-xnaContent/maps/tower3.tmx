@@ -16,7 +16,7 @@
  </layer>
  <layer name="Foreground" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJztlVEKwCAMQ3sDD7v7w9jfPqa2Nm06MeCHFPpC1dhEpJEXUpZ+u/I1837vL9Ba9crS4f+fXy1/LKrOj/Y24mfMpsfIOpcvTsSb0PJXMtyjKvef5SEri2b/v9UDKkvZuVzl/h0+tieTbxGS3/vHsvgajidrRnWPL209Yk7W/EPn49PjBkHjExY=
+   eJzjZ2Bg4B9gTE1AinnD1X5iwhuZX0wlTK5bBwqM2j/07R9s5Q8pYLDbT2u34bOfHmGDyw56xQs2e2iRJ4i1n5wynBIwWNL/QLmBXmURofqfVDdQqywd6HJ5sKS/UftH7R/O9lOjrKHEbnLk0OXJcQMx5pMSNtRu14LUAADxrBNw
   </data>
  </layer>
  <layer name="Ladder" width="32" height="32">
@@ -84,8 +84,16 @@
   </object>
   <object x="800" y="32" width="32" height="64">
    <properties>
-    <property name="hits" value="50"/>
-    <property name="spritesheet" value="enemy1"/>
+    <property name="hits" value="100"/>
+    <property name="spritesheet" value="enemy2"/>
+    <property name="xFrames" value="3"/>
+    <property name="yFrames" value="1"/>
+   </properties>
+  </object>
+  <object x="576" y="928" width="32" height="64">
+   <properties>
+    <property name="hits" value="100"/>
+    <property name="spritesheet" value="enemy2"/>
     <property name="xFrames" value="3"/>
     <property name="yFrames" value="1"/>
    </properties>

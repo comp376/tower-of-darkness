@@ -55,26 +55,26 @@
   </object>
  </objectgroup>
  <objectgroup name="Enemy" width="96" height="16">
-  <object x="224" y="416" width="32" height="64">
+  <object x="320" y="416" width="32" height="64">
    <properties>
-    <property name="hits" value="50"/>
-    <property name="spritesheet" value="enemy1"/>
+    <property name="hits" value="100"/>
+    <property name="spritesheet" value="enemy2"/>
     <property name="xFrames" value="3"/>
     <property name="yFrames" value="1"/>
    </properties>
   </object>
   <object x="992" y="416" width="32" height="64">
    <properties>
-    <property name="hits" value="50"/>
-    <property name="spritesheet" value="enemy1"/>
+    <property name="hits" value="100"/>
+    <property name="spritesheet" value="enemy2"/>
     <property name="xFrames" value="3"/>
     <property name="yFrames" value="1"/>
    </properties>
   </object>
   <object x="1472" y="416" width="32" height="64">
    <properties>
-    <property name="hits" value="50"/>
-    <property name="spritesheet" value="enemy1"/>
+    <property name="hits" value="100"/>
+    <property name="spritesheet" value="enemy2"/>
     <property name="xFrames" value="3"/>
     <property name="yFrames" value="1"/>
    </properties>
