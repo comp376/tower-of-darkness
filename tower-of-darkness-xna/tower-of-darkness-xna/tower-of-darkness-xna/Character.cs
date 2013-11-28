@@ -34,6 +34,11 @@ namespace tower_of_darkness_xna {
         private float attackAngleMax = 100f;
         private bool attacking = false;
         private bool swingingRight = false;
+        private int enemyHitTimer = 0;
+        private int enemyHitInterval = 500;
+        private int flashColorTimer = 0;
+        private int flashColorInterval = 1000;
+        private Color playerColor = Color.White;
         private float apex = 2f;
         private float apexCounter = 0;
         private const int MAP_COUNT = 13;
@@ -103,7 +108,7 @@ namespace tower_of_darkness_xna {
             attackSwing(gameTime);
             attackHit(ref enemies);
             collides(ref objects);
-            enemyCollision(enemies);
+            enemyCollision(gameTime, enemies);
             crossDim(ref dims);
             decreaseLight(gameTime);
             KeyboardState newState = Keyboard.GetState();
@@ -153,7 +158,7 @@ namespace tower_of_darkness_xna {
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
                 spriteBatch.Draw(lightTexture, new Rectangle((int)(lightPosition.X), (int)(lightPosition.Y - (currentLightSize * 6)), (int)(lightTexture.Width + (currentLightSize * 15)), (int)(lightTexture.Height + (currentLightSize * 15))), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), lightColor * lightAlpha, degreeToRadian(lanternAngle), new Vector2(lightTexture.Width / 2, 0), walkingDirection, 0);
             }
-                base.Draw(spriteBatch, color);
+                base.Draw(spriteBatch, playerColor);
         }
 
         private void decreaseLight(GameTime gameTime) {
@@ -175,13 +180,32 @@ namespace tower_of_darkness_xna {
             }
         }
 
-        private void enemyCollision(List<Enemy> enemies) {
-            foreach (Enemy e in enemies) {
-                if (e.objectRectangle.Intersects(objectRectangle)) {
-                    if (currentLightSize > -17)
-                        currentLightSize -= 0.5f;
+        private void enemyCollision(GameTime gameTime, List<Enemy> enemies) {
+            enemyHitTimer += gameTime.ElapsedGameTime.Milliseconds;
+            if (enemyHitTimer >= enemyHitInterval) {
+                if (playerColor != Color.Red) {
+                    foreach (Enemy e in enemies) {
+                        if (e.objectRectangle.Intersects(objectRectangle)) {
+                            if (currentLightSize > -17)
+                                currentLightSize -= 5.0f;
+                            Console.WriteLine("flash player");
+                            playerColor = Color.Red;
+                            flashColorTimer = 0;
+                        }
+                    }
+                } else {
+                    flashColorTimer += gameTime.ElapsedGameTime.Milliseconds;
+                    if (flashColorTimer >= flashColorInterval) {
+                        playerColor = Color.White;
+                        enemyHitTimer = 0;
+                        flashColorTimer = 0;
+                    }
                 }
+                
             }
+            
+
+            
         }
 
         private void attackHit(ref List<Enemy> enemies) {
@@ -193,7 +217,6 @@ namespace tower_of_darkness_xna {
             if (attacking) {
                 foreach (Enemy e in enemies) {
                     if (e.objectRectangle.Intersects(lanternRectangle)) {
-                        Console.WriteLine("HIT!");
                         e.hits--;
                     }
                 }
