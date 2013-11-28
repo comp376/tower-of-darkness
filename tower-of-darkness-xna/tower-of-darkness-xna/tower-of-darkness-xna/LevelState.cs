@@ -17,6 +17,7 @@ namespace tower_of_darkness_xna {
         private int enemiesKilled = 0;
 
         SoundEffect pickUp;
+        KeyboardState oldState;
 
         private const int BACKGROUND_LAYER = 0;
         private const int LADDER_LAYER = 1;
@@ -217,6 +218,7 @@ namespace tower_of_darkness_xna {
             bookKeyTexture = Content.Load<Texture2D>("sprites/book_key_item");
 
             pickUp = Content.Load<SoundEffect>("audio/pop2");
+            oldState = Keyboard.GetState();
         }
 
         private void modifyLayerOpacity(Color c, float a) {
@@ -520,13 +522,17 @@ namespace tower_of_darkness_xna {
         }
 
         private void UpdatePlaying(GameTime gameTime) {
+            KeyboardState newState = Keyboard.GetState();
             pausePlayTimer += gameTime.ElapsedGameTime.Milliseconds;
             if(character.goToMainMenu)
                 Game1.currentGameState = new MenuState(Content, Game1.WIDTH, Game1.HEIGHT, Game1.STARTING_MAP_NAME, character);
 
             if (pausePlayTimer >= pausePlayInterval) {
-                if (Keyboard.GetState().IsKeyDown(Keys.Escape)) {
-                    PAUSE_SCREEN = true;
+                if (newState.IsKeyDown(Keys.Escape)) {
+                    if (!oldState.IsKeyDown(Keys.Escape))
+                    {
+                        PAUSE_SCREEN = true;
+                    }
                 }
             }
             character.Update(gameTime, mapRect, (int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims, ref lights);
@@ -589,12 +595,14 @@ namespace tower_of_darkness_xna {
             {
                 
             }*/
+
+            oldState = newState;
         }
 
         private void UpdatePause(GameTime gameTime) {
             pauseSelectTimer += gameTime.ElapsedGameTime.Milliseconds;
+            KeyboardState kbs = Keyboard.GetState();
             if (pauseSelectTimer >= pauseSelectInterval) {
-                KeyboardState kbs = Keyboard.GetState();
                 if (kbs.IsKeyDown(Keys.Up)) {
                     if (pauseSelectorIndex > 0) {
                         pauseSelectorIndex--;
@@ -627,13 +635,18 @@ namespace tower_of_darkness_xna {
                     }
                 }
                 if (kbs.IsKeyDown(Keys.Escape)) {
-                    PAUSE_SCREEN = false;
-                    pauseSelectorIndex = 0;
-                    pauseSelectTimer = 0;
-                    pausePlayTimer = 0;
+                    if (!oldState.IsKeyDown(Keys.Escape))
+                    {
+                        PAUSE_SCREEN = false;
+                        pauseSelectorIndex = 0;
+                        pauseSelectTimer = 0;
+                        pausePlayTimer = 0;
+                    }
                 }
                 pauseSelectorPosition = new Vector2(128, 150 + pauseSelectorIndex * 30);
             }
+            Console.WriteLine(PAUSE_SCREEN);
+            oldState = kbs;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch batch) {
