@@ -61,5 +61,10 @@
     <property name="Type" value="key"/>
    </properties>
   </object>
+  <object x="672" y="192" width="32" height="32">
+   <properties>
+    <property name="Type" value="book"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
