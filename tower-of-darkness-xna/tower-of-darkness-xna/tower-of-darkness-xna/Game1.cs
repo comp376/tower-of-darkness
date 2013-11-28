@@ -55,7 +55,7 @@ namespace tower_of_darkness_xna {
         protected override void LoadContent() {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2D characterSpriteSheet = Content.Load<Texture2D>("sprites/character2");
-            currentGameState = new MenuState(Content, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, STARTING_MAP_NAME, character);
+            currentGameState = new MenuState(Content, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, STARTING_MAP_NAME, character, false);
             background = Content.Load<SoundEffect>("audio/Amnesia");
 
             instance = background.CreateInstance();

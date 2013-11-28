@@ -19,6 +19,7 @@ namespace tower_of_darkness_xna {
         private Texture2D menuBackground;
         private Texture2D menuSelector;
         private Texture2D howToPlayBackground;
+        private Texture2D creditsScreen;
         private Vector2 menuSelectorPosition;
         private int menuSelectorIndex = 0;
         private float menuTimer = 0;
@@ -28,12 +29,15 @@ namespace tower_of_darkness_xna {
         private float howToPlayTimer = 0;
         private float howToPlayInterval = 1000;
 
-        public MenuState(ContentManager Content, int PreferredBackBufferWidth, int PreferredBackBufferHeight, string startingMapName, Character character)
+        private bool isCredits;
+
+        public MenuState(ContentManager Content, int PreferredBackBufferWidth, int PreferredBackBufferHeight, string startingMapName, Character character, bool isCredits)
             : base(Content) {
             this.PreferredBackBufferWidth = PreferredBackBufferWidth;
             this.PreferredBackBufferHeight = PreferredBackBufferHeight;
             this.startingMapName = startingMapName;
             this.character = character;
+            this.isCredits = isCredits;
             LoadContent();
         }
 
@@ -41,6 +45,7 @@ namespace tower_of_darkness_xna {
             menuBackground = Content.Load<Texture2D>("sprites/menuscreen");
             howToPlayBackground = Content.Load<Texture2D>("sprites/howtoplay");
             menuSelector = Content.Load<Texture2D>("sprites/menu_selector");
+            creditsScreen = Content.Load<Texture2D>("sprites/creditscreen");
             menuSelectorPosition = new Vector2(70, 320);
             oldState = Keyboard.GetState();
         }
@@ -110,8 +115,17 @@ namespace tower_of_darkness_xna {
             oldState = newState;
         }
 
+        private void UpdateCredits(GameTime gameTime) {
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter) || Keyboard.GetState().IsKeyDown(Keys.Enter)) {
+                menuTimer = -100;
+                isCredits = false;
+            }
+        }
+
         public override void Update(GameTime gameTime) {
-            if (!howToPlay) {
+            if (isCredits) {
+                UpdateCredits(gameTime);
+            }else if (!howToPlay) {
                 UpdateMenu(gameTime);
             } else {
                 UpdateHowToPlay(gameTime);
@@ -122,7 +136,11 @@ namespace tower_of_darkness_xna {
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch batch) {
-            if (!howToPlay) {
+            if (isCredits) {
+                batch.Begin();
+                batch.Draw(creditsScreen, new Vector2(), Color.White);
+                batch.End();
+            }else if (!howToPlay) {
                 batch.Begin();
                 batch.Draw(menuBackground, new Vector2(), Color.White);
                 batch.Draw(menuSelector, menuSelectorPosition, Color.White);

@@ -14,7 +14,6 @@ namespace tower_of_darkness_xna {
 
         private bool DEBUG = false;
         private bool PAUSE_SCREEN = false;
-        private int enemiesKilled = 0;
 
         SoundEffect pickUp;
         KeyboardState oldState;
@@ -525,7 +524,7 @@ namespace tower_of_darkness_xna {
             KeyboardState newState = Keyboard.GetState();
             pausePlayTimer += gameTime.ElapsedGameTime.Milliseconds;
             if(character.goToMainMenu)
-                Game1.currentGameState = new MenuState(Content, Game1.WIDTH, Game1.HEIGHT, Game1.STARTING_MAP_NAME, character);
+                Game1.currentGameState = new MenuState(Content, Game1.WIDTH, Game1.HEIGHT, Game1.STARTING_MAP_NAME, character, true);
 
             if (pausePlayTimer >= pausePlayInterval) {
                 if (newState.IsKeyDown(Keys.Escape)) {
@@ -628,7 +627,7 @@ namespace tower_of_darkness_xna {
                             pausePlayTimer = 0;
                             break;
                         case 1:         //Go to menu
-                            Game1.currentGameState = new MenuState(Content, Game1.WIDTH, Game1.HEIGHT, Game1.STARTING_MAP_NAME, character);
+                            Game1.currentGameState = new MenuState(Content, Game1.WIDTH, Game1.HEIGHT, Game1.STARTING_MAP_NAME, character, false);
                             pauseSelectorIndex = 0;
                             pauseSelectTimer = 0;
                             break;
@@ -706,6 +705,8 @@ namespace tower_of_darkness_xna {
                     batch.Draw(lanternKeyTexture, new Vector2(327, 262), Color.White);
                 if(character.bookPickedUp)
                     batch.Draw(bookKeyTexture, new Vector2(441,262), Color.White);
+                batch.DrawString(font, (character.keyCount / 3).ToString(), new Vector2(560, 155), Color.White, 0, new Vector2(), 1.25f, SpriteEffects.None, 0);
+                batch.DrawString(font, character.enemiesKilled.ToString(), new Vector2(560, 185), Color.White, 0, new Vector2(), 1.25f, SpriteEffects.None, 0);
                 batch.Draw(pauseSelector, pauseSelectorPosition, Color.White);
             }
             batch.End();

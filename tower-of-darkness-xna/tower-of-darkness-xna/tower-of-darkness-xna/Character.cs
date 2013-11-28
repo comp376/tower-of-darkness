@@ -14,7 +14,8 @@ namespace tower_of_darkness_xna {
         private float lightTimer = 0;
         private float lightInterval = 5000;
         KeyboardState oldstate;
-        private bool godMode = true;
+        private bool godMode = false;
+        public int enemiesKilled = 0;
 
         //Character
         private int moveTimer = 0;
@@ -266,8 +267,10 @@ namespace tower_of_darkness_xna {
 
         private void attackHit(ref List<Enemy> enemies) {
             for (int i = 0; i < enemies.Count; i++) {
-                if (enemies[i].hits < 0)
+                if (enemies[i].hits < 0) {
+                    enemiesKilled++;
                     enemies.RemoveAt(i);
+                }
             }
 
             if (attacking) {
