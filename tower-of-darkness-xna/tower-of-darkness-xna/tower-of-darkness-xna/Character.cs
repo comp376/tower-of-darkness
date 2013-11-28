@@ -169,7 +169,6 @@ namespace tower_of_darkness_xna {
             {
                 if (currentLightSize <= -17f)
                 {
-                    Console.WriteLine("I'm dead.");
                     foreach (Transition t in transitions)
                     {
                         currentLightSize = 50f;
