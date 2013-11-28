@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace tower_of_darkness_xna {
     class Character : NPC {
@@ -223,6 +224,7 @@ namespace tower_of_darkness_xna {
                             Console.WriteLine("flash player");
                             playerColor = Color.Red;
                             flashColorTimer = 0;
+                    
                         }
                     }
                 } else {
