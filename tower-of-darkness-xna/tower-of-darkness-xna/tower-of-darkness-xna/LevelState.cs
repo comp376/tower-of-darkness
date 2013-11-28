@@ -546,6 +546,18 @@ namespace tower_of_darkness_xna {
             foreach (Enemy e in enemies) {
                 e.Update(gameTime, cRectangles, breakables);
             }
+            if (character.isBossDead) {
+                for (int i = 0; i < map.TileLayers["Breakable"].Tiles.Length; i++) {
+                    for (int j = 0; j < map.TileLayers["Breakable"].Tiles[i].Length; j++) {
+                        if (map.TileLayers["Breakable"].Tiles[i][j] != null) {
+                            map.TileLayers["Breakable"].Tiles[i][j] = null;
+                        }
+                    }
+                }
+                for (int i = 0; i < breakables.Count; i++) {
+                    breakables.RemoveAt(i);
+                }
+            }
             for (int i = 0; i < objects.Count; i++)
             {
                 if (objects[i].consumed)
