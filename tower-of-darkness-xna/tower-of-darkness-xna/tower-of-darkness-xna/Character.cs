@@ -176,12 +176,18 @@ namespace tower_of_darkness_xna {
                 lanternPosition.X += 32;
                 lanternRectangle.X += 32;
                 lightPosition.X += ((lightTexture.Width + currentLightSize) / 2) - spriteWidth - 45;
+            } else {
+                lanternPosition.X -= 32;
+                lanternRectangle.X -= 32;
             }
             lanternPosition.Y += 32;
             lanternRectangle.Y += 32;
             lightPosition.Y -= ((lightTexture.Height - currentLightSize) / 2) - spriteHeight - 9;
             if (lanternPickedUp) {
-                spriteBatch.Draw(lanternTexture, lanternRectangle, null, Color.White, degreeToRadian(lanternAngle), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), walkingDirection, 0);
+                if(walkingDirection == SpriteEffects.FlipHorizontally)
+                    spriteBatch.Draw(lanternTexture, new Rectangle(lanternRectangle.X + 32, lanternRectangle.Y, lanternRectangle.Width, lanternRectangle.Height), null, Color.White, degreeToRadian(lanternAngle), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), walkingDirection, 0);
+                else
+                    spriteBatch.Draw(lanternTexture, lanternRectangle, null, Color.White, degreeToRadian(lanternAngle), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), walkingDirection, 0);
                 spriteBatch.End();
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
                 spriteBatch.Draw(lightTexture, new Rectangle((int)(lightPosition.X), (int)(lightPosition.Y - (currentLightSize * 6)), (int)(lightTexture.Width + (currentLightSize * 15)), (int)(lightTexture.Height + (currentLightSize * 15))), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), lightColor * lightAlpha, degreeToRadian(lanternAngle), new Vector2(lightTexture.Width / 2, 0), walkingDirection, 0);
