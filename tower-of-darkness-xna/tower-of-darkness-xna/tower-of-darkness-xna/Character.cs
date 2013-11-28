@@ -49,6 +49,8 @@ namespace tower_of_darkness_xna {
         public string characterWords = "";
         public bool showText = false;
 
+        public bool firstEncounter = true;
+        public int encounterCount = 0;
         public List<Scene2DNode>[] theMapObjects = new List<Scene2DNode>[MAP_COUNT];
         public Scene2DNode emptyNode;
 
@@ -117,6 +119,7 @@ namespace tower_of_darkness_xna {
             enemyCollision(gameTime, enemies);
             crossDim(ref dims);
             decreaseLight(gameTime);
+            checkDeath(transitions, mapView, mapId);
 
             KeyboardState newState = Keyboard.GetState();
 
@@ -144,6 +147,19 @@ namespace tower_of_darkness_xna {
             oldState = newState;
         }
 
+
+        public void checkDeath(List<Transition> transitions, Rectangle mapView, int mapId){
+            if (currentLightSize <= -17f)
+            {
+                Console.WriteLine("I'm dead.");
+                foreach (Transition t in transitions)
+                {
+                    currentLightSize = 50f;
+                    Game1.currentGameState = new LevelState(Content, mapView.Width, mapView.Height, t.nextMapName, this, t);
+                    break; 
+                }
+            }
+        }
         public override void Draw(SpriteBatch spriteBatch, Color color) {
             lanternPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
             lanternRectangle = new Rectangle(objectRectangle.X, objectRectangle.Y, lanternTexture.Width, lanternTexture.Height);
@@ -367,21 +383,32 @@ namespace tower_of_darkness_xna {
                                     npc.text = "????";
                                     npc.showText = true;
                                     talkTimer = 0;
+                                    if (firstEncounter)
+                                        firstEncounter = false;
                                 }
                             }
                         }
                     }
                 } else {
+
+                    if (showText)
+                    {
+                        characterTalkTimer = 0;
+                        showText = false;
+                    }
+
                     foreach (NPC npc in npcs) {
                         npc.showText = false;
+                        if (!firstEncounter && encounterCount == 0){
+                            encounterCount++;
+                            characterWords = "..I don't understand what they're saying.";
+                            talkTimer = 0;
+                            showText = true;   
+                        }
                     }
                 }
 
-                if (showText)
-                {
-                    characterTalkTimer = 0;
-                    showText = false;
-                }
+                
             }
         }
 
@@ -861,7 +888,7 @@ namespace tower_of_darkness_xna {
                         {
                             if (t.nextMapName == "bridge")
                             {
-                                characterWords = "I can't see well.\nIshould see if someone\nin that house over\nthere can help me out.";
+                                characterWords = "I can't see well.\nI should see if someone\nin that house over\nthere can help me out.";
                                 talkTimer = 0;
                                 showText = true;
                             }
