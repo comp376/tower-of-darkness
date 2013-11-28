@@ -29,7 +29,7 @@ namespace tower_of_darkness_xna {
         public int hits;
         private string spritesheetName;
         private const int MAX_HOVER_HEIGHT = 500;
-        private bool isBoss = false;
+        public bool isBoss = false;
 
         private float hoverTimer = 0;
         private float hoverInterval = 100;

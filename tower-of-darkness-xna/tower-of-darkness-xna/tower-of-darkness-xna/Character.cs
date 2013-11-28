@@ -123,6 +123,7 @@ namespace tower_of_darkness_xna {
             crossDim(ref dims);
             decreaseLight(gameTime);
             checkDeath(transitions, mapView, mapId);
+            checkBossDeath(enemies);
 
             KeyboardState newState = Keyboard.GetState();
 
@@ -150,6 +151,17 @@ namespace tower_of_darkness_xna {
             oldState = newState;
         }
 
+        private void checkBossDeath(List<Enemy> enemies) {
+            if (!isBossDead) {
+                foreach (Enemy e in enemies) {
+                    if (e.isBoss) {
+                        if (e.hits <= 0) {
+                            isBossDead = true;
+                        }
+                    }
+                }
+            }
+        }
 
         public void checkDeath(List<Transition> transitions, Rectangle mapView, int mapId){
             if (currentLightSize <= -17f)
