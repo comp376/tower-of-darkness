@@ -75,6 +75,7 @@ namespace tower_of_darkness_xna {
         private const float FORWARDS_BOUNDARY = -10;
         private const float ANGLE_CHANGE = 0.5f;
 
+        public bool isBossDead = false;
         
         public bool bookPickedUp = false;
 
@@ -251,7 +252,6 @@ namespace tower_of_darkness_xna {
             if (attacking) {
                 foreach (Enemy e in enemies) {
                     if (e.objectRectangle.Intersects(lanternRectangle)) {
-                        //e.hits--;
                         e.hit = true;
                     }
                 }
@@ -859,7 +859,7 @@ namespace tower_of_darkness_xna {
                     {
                         //Give global lighting for a small duration
 
-                        currentLightSize += 10f;
+                        currentLightSize += 20f;
                         objects[i].consumed = true;
                     }
                     else if (objects[i].type == "lantern")
