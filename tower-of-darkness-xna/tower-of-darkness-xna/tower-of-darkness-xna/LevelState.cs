@@ -210,7 +210,7 @@ namespace tower_of_darkness_xna {
             enemy = Content.Load<Texture2D>("debug/char");
 
             //pause
-            pauseBackground = Content.Load<Texture2D>("sprites/pausescreen");
+            pauseBackground = Content.Load<Texture2D>("sprites/pausescreen"); 
             pauseSelector = Content.Load<Texture2D>("sprites/pause_selector");
             pauseSelectorPosition = new Vector2(128, 150);
             lanternKeyTexture = Content.Load<Texture2D>("sprites/lantern_key_item");
