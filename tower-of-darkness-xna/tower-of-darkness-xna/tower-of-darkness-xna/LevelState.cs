@@ -641,7 +641,7 @@ namespace tower_of_darkness_xna {
             batch.End();    //Stops additive blending from player drawing batch
             batch.Begin();
             batch.Draw(keyTexture, new Vector2(), Color.White);
-            batch.DrawString(font, "x" + character.keyCount / 2, new Vector2(32,8), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
+            batch.DrawString(font, "x" + character.keyCount / 3, new Vector2(32,8), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
 
             //Pause
             if (PAUSE_SCREEN) {
