@@ -30,6 +30,7 @@
     <property name="cx" value="240"/>
     <property name="cy" value="0"/>
     <property name="d" value="0"/>
+    <property name="map" value="tower6"/>
     <property name="x" value="272"/>
     <property name="y" value="32"/>
    </properties>

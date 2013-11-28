@@ -25,7 +25,7 @@ namespace tower_of_darkness_xna {
         public string questAdvance;
         public bool wizardSpokenTo = false;
 
-        public bool lanternPickedUp = false;
+        public bool lanternPickedUp = true;
         
 
         //character inherited constructor

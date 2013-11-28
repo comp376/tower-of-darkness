@@ -42,15 +42,17 @@
     <property name="cx" value="0"/>
     <property name="cy" value="0"/>
     <property name="d" value="0"/>
+    <property name="map" value="tower5"/>
     <property name="x" value="64"/>
     <property name="y" value="352"/>
    </properties>
   </object>
-  <object name="tower4" x="0" y="1372" width="32" height="64">
+  <object name="tower4" x="0" y="1376" width="32" height="64">
    <properties>
     <property name="cx" value="480"/>
     <property name="cy" value="0"/>
     <property name="d" value="1"/>
+    <property name="map" value="tower5"/>
     <property name="x" value="426"/>
     <property name="y" value="72"/>
    </properties>
