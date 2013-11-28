@@ -12,6 +12,7 @@ namespace tower_of_darkness_xna {
         private float STARTING_LIGHT_SIZE = 50.0f;
         private float lightTimer = 0;
         private float lightInterval = 2000;
+        KeyboardState oldstate;
 
         //Character
         private int moveTimer = 0;
@@ -99,7 +100,7 @@ namespace tower_of_darkness_xna {
             lanternPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
             lanternRectangle = new Rectangle(objectRectangle.X, objectRectangle.Y, lanternTexture.Width, lanternTexture.Height);
             lightPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
-
+            oldstate = Keyboard.GetState();
             currentLightSize = STARTING_LIGHT_SIZE;
         }
 
@@ -117,7 +118,6 @@ namespace tower_of_darkness_xna {
             enemyCollision(gameTime, enemies);
             crossDim(ref dims);
             decreaseLight(gameTime);
-
             KeyboardState newState = Keyboard.GetState();
 
             if (newState.IsKeyDown(Keys.L))
@@ -456,12 +456,16 @@ namespace tower_of_darkness_xna {
         }
 
         private void jump(ref List<Rectangle> cRectangles, ref Rectangle mapView, ref Rectangle mapRect, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects, ref List<Dim> dims, ref List<Light> lights) {
-            int middleY = mapView.Height / 2;
+            double middleY = mapView.Height / 2;
             //Console.WriteLine(jumping + " and " + falling);
             KeyboardState kbs = Keyboard.GetState();
+            if (climbing)
+                apexCounter = 0;
+
             if (jumping && !climbing) {
                 if (collides(cRectangles, MovementStatus.Jump) || collides(ref breakables, MovementStatus.Jump)) {
                     jumping = false;
+                    apexCounter = 0;
                 } 
                 else 
                 {
@@ -476,13 +480,14 @@ namespace tower_of_darkness_xna {
                         {
                             objectRectangle.Y += (int)jumpingHeight;//Not scrolling.  Increment.
                         }
+
                     }
                     else
                     {
                         objectRectangle.Y += (int)jumpingHeight;//Not scrolling.  Increment.
                     }
 
-                    if (apexCounter >= apex)//Max jump height?
+                    if (apexCounter > apex)//Max jump height?
                         {
                             jumping = false;
                             apexCounter = 0f;
@@ -490,11 +495,19 @@ namespace tower_of_darkness_xna {
 
                 }
             } else {
-                if (kbs.IsKeyDown(Keys.Space) && !falling) {
-                    jumping = true;
-                    jumpingHeight = -JUMPING_HEIGHT;
+                if (kbs.IsKeyDown(Keys.Space) && !falling)
+                {
+                    if (!oldState.IsKeyDown(Keys.Space) && !falling)
+                    {
+                         jumping = true;
+                         jumpingHeight = -JUMPING_HEIGHT;
+                    }
                 }
+                
             }
+
+           
+            oldState = kbs;
         }
 
         private void move(GameTime gameTime, Rectangle mapRect, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects, ref List<Dim> dims, ref List<Light> lights) {
