@@ -12,6 +12,7 @@ namespace tower_of_darkness_xna {
         private float STARTING_LIGHT_SIZE = 50.0f;
         private float lightTimer = 0;
         private float lightInterval = 2000;
+        KeyboardState oldstate;
 
         //Character
         private int moveTimer = 0;
@@ -49,6 +50,8 @@ namespace tower_of_darkness_xna {
         public string characterWords = "";
         public bool showText = false;
 
+        public bool firstEncounter = true;
+        public int encounterCount = 0;
         public List<Scene2DNode>[] theMapObjects = new List<Scene2DNode>[MAP_COUNT];
         public Scene2DNode emptyNode;
 
@@ -99,7 +102,7 @@ namespace tower_of_darkness_xna {
             lanternPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
             lanternRectangle = new Rectangle(objectRectangle.X, objectRectangle.Y, lanternTexture.Width, lanternTexture.Height);
             lightPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
-
+            oldstate = Keyboard.GetState();
             currentLightSize = STARTING_LIGHT_SIZE;
         }
 
@@ -117,6 +120,7 @@ namespace tower_of_darkness_xna {
             enemyCollision(gameTime, enemies);
             crossDim(ref dims);
             decreaseLight(gameTime);
+            checkDeath(transitions, mapView, mapId);
 
             KeyboardState newState = Keyboard.GetState();
 
@@ -144,6 +148,19 @@ namespace tower_of_darkness_xna {
             oldState = newState;
         }
 
+
+        public void checkDeath(List<Transition> transitions, Rectangle mapView, int mapId){
+            if (currentLightSize <= -17f)
+            {
+                Console.WriteLine("I'm dead.");
+                foreach (Transition t in transitions)
+                {
+                    currentLightSize = 50f;
+                    Game1.currentGameState = new LevelState(Content, mapView.Width, mapView.Height, t.nextMapName, this, t);
+                    break; 
+                }
+            }
+        }
         public override void Draw(SpriteBatch spriteBatch, Color color) {
             lanternPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
             lanternRectangle = new Rectangle(objectRectangle.X, objectRectangle.Y, lanternTexture.Width, lanternTexture.Height);
@@ -367,21 +384,32 @@ namespace tower_of_darkness_xna {
                                     npc.text = "????";
                                     npc.showText = true;
                                     talkTimer = 0;
+                                    if (firstEncounter)
+                                        firstEncounter = false;
                                 }
                             }
                         }
                     }
                 } else {
+
+                    if (showText)
+                    {
+                        characterTalkTimer = 0;
+                        showText = false;
+                    }
+
                     foreach (NPC npc in npcs) {
                         npc.showText = false;
+                        if (!firstEncounter && encounterCount == 0){
+                            encounterCount++;
+                            characterWords = "..I don't understand what they're saying.";
+                            talkTimer = 0;
+                            showText = true;   
+                        }
                     }
                 }
 
-                if (showText)
-                {
-                    characterTalkTimer = 0;
-                    showText = false;
-                }
+                
             }
         }
 
@@ -456,12 +484,16 @@ namespace tower_of_darkness_xna {
         }
 
         private void jump(ref List<Rectangle> cRectangles, ref Rectangle mapView, ref Rectangle mapRect, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects, ref List<Dim> dims, ref List<Light> lights) {
-            int middleY = mapView.Height / 2;
+            double middleY = mapView.Height / 2;
             //Console.WriteLine(jumping + " and " + falling);
             KeyboardState kbs = Keyboard.GetState();
+            if (climbing)
+                apexCounter = 0;
+
             if (jumping && !climbing) {
                 if (collides(cRectangles, MovementStatus.Jump) || collides(ref breakables, MovementStatus.Jump)) {
                     jumping = false;
+                    apexCounter = 0;
                 } 
                 else 
                 {
@@ -476,13 +508,14 @@ namespace tower_of_darkness_xna {
                         {
                             objectRectangle.Y += (int)jumpingHeight;//Not scrolling.  Increment.
                         }
+
                     }
                     else
                     {
                         objectRectangle.Y += (int)jumpingHeight;//Not scrolling.  Increment.
                     }
 
-                    if (apexCounter >= apex)//Max jump height?
+                    if (apexCounter > apex)//Max jump height?
                         {
                             jumping = false;
                             apexCounter = 0f;
@@ -490,11 +523,19 @@ namespace tower_of_darkness_xna {
 
                 }
             } else {
-                if (kbs.IsKeyDown(Keys.Space) && !falling) {
-                    jumping = true;
-                    jumpingHeight = -JUMPING_HEIGHT;
+                if (kbs.IsKeyDown(Keys.Space) && !falling)
+                {
+                    if (!oldState.IsKeyDown(Keys.Space) && !falling)
+                    {
+                         jumping = true;
+                         jumpingHeight = -JUMPING_HEIGHT;
+                    }
                 }
+                
             }
+
+           
+            oldState = kbs;
         }
 
         private void move(GameTime gameTime, Rectangle mapRect, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects, ref List<Dim> dims, ref List<Light> lights) {
@@ -815,6 +856,8 @@ namespace tower_of_darkness_xna {
                     }else if (objects[i].type == "super essence")
                     {
                         //Give global lighting for a small duration
+
+                        currentLightSize += 10f;
                         objects[i].consumed = true;
                     }
                     else if (objects[i].type == "lantern")
@@ -861,7 +904,7 @@ namespace tower_of_darkness_xna {
                         {
                             if (t.nextMapName == "bridge")
                             {
-                                characterWords = "I can't see well.\nIshould see if someone\nin that house over\nthere can help me out.";
+                                characterWords = "I can't see well.\nI should see if someone\nin that house over\nthere can help me out.";
                                 talkTimer = 0;
                                 showText = true;
                             }
