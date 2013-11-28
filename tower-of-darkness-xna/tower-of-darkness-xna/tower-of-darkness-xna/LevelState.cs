@@ -552,6 +552,9 @@ namespace tower_of_darkness_xna {
                         }
                     }
                 }
+                for (int i = 0; i < breakables.Count; i++) {
+                    breakables.RemoveAt(i);
+                }
             }
             for (int i = 0; i < objects.Count; i++)
             {
