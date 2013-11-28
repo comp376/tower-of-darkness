@@ -24,7 +24,7 @@ namespace tower_of_darkness_xna {
 
         public string questAdvance;
         public bool wizardSpokenTo = false;
-        protected bool lanternPickedUp = false;
+        public bool lanternPickedUp = true;
 
         //character inherited constructor
         public NPC(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, SpriteFont font)
