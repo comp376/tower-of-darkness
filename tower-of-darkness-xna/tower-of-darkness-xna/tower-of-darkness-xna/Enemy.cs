@@ -70,11 +70,11 @@ namespace tower_of_darkness_xna {
                     isBoss = true;
         }
 
-        public void Update(GameTime gameTime, List<Rectangle> cRectangles, List<Breakable> breakables) {
+        public void Update(GameTime gameTime, List<Rectangle> cRectangles, List<Breakable> breakables, List<Transition> transitions) {
             changeMoveDirection(gameTime);
             animate(gameTime);
-            gravity(cRectangles, breakables);
-            move(gameTime, cRectangles, breakables);
+            gravity(cRectangles, breakables, transitions);
+            move(gameTime, cRectangles, breakables, transitions);
             hover(gameTime);
             hitting(gameTime);
         }
@@ -155,12 +155,12 @@ namespace tower_of_darkness_xna {
             }
         }
 
-        private void move(GameTime gameTime, List<Rectangle> cRectangles, List<Breakable> breakables) {
+        private void move(GameTime gameTime, List<Rectangle> cRectangles, List<Breakable> breakables, List<Transition> transitions) {
             moveTimer += gameTime.ElapsedGameTime.Milliseconds;
             if (moveTimer >= moveInterval && !falling) {
                 switch (movementStatus) {
                     case MovementStatus.Left:
-                        if (!collides(cRectangles, movementStatus) && !collides(breakables, movementStatus)) {
+                        if (!collides(cRectangles, movementStatus) && !collides(breakables, movementStatus) && !collides(transitions, movementStatus)) {
                             objectRectangle.X -= MOVE_SPEED;
                         } else {
                             switch (movementStatus) {
@@ -174,7 +174,7 @@ namespace tower_of_darkness_xna {
                         }
                         break;
                     case MovementStatus.Right:
-                        if (!collides(cRectangles, movementStatus) && !collides(breakables, movementStatus)) {
+                        if (!collides(cRectangles, movementStatus) && !collides(breakables, movementStatus) && !collides(transitions, movementStatus)) {
                             objectRectangle.X += MOVE_SPEED;
                         } else {
                             switch (movementStatus) {
@@ -193,8 +193,8 @@ namespace tower_of_darkness_xna {
             }
         }
 
-        private void gravity(List<Rectangle> cRectangles, List<Breakable> breakables) {
-            if (!collides(cRectangles, MovementStatus.Fall) && !collides(breakables, MovementStatus.Fall)) {
+        private void gravity(List<Rectangle> cRectangles, List<Breakable> breakables, List<Transition> transitions) {
+            if (!collides(cRectangles, MovementStatus.Fall) && !collides(breakables, MovementStatus.Fall) && !collides(transitions, movementStatus)) {
                 objectRectangle.Y += GRAVITY_SPEED;
                 falling = true;
             } else {
@@ -238,6 +238,27 @@ namespace tower_of_darkness_xna {
                 tempRect.Y += -MOVE_SPEED;
             foreach (Breakable b in breakables) {
                 if (tempRect.Intersects(b.bRect)) {
+                    collision = true;
+                }
+            }
+            return collision;
+        }
+
+        private bool collides(List<Transition> transitions, MovementStatus movementStatus) {
+            bool collision = false;
+            Rectangle tempRect = objectRectangle;
+            if (movementStatus == MovementStatus.Left)
+                tempRect.X -= MOVE_SPEED;
+            if (movementStatus == MovementStatus.Right)
+                tempRect.X += MOVE_SPEED;
+            if (movementStatus == MovementStatus.Fall)
+                tempRect.Y += GRAVITY_SPEED;
+            if (movementStatus == MovementStatus.Up)
+                tempRect.Y += MOVE_SPEED;
+            if (movementStatus == MovementStatus.Down)
+                tempRect.Y += -MOVE_SPEED;
+            foreach (Transition t in transitions) {
+                if (tempRect.Intersects(t.tRect)) {
                     collision = true;
                 }
             }

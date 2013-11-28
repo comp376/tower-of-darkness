@@ -65,7 +65,7 @@ namespace tower_of_darkness_xna {
         private Texture2D lightTexture;
 
         //pause content
-        private const int NUM_PAUSE_ITEMS = 3;
+        private const int NUM_PAUSE_ITEMS = 2;
         private Texture2D pauseBackground;
         private Texture2D pauseSelector;
         private Texture2D lanternKeyTexture;
@@ -207,7 +207,7 @@ namespace tower_of_darkness_xna {
 
             //pause
             pauseBackground = Content.Load<Texture2D>("sprites/pausescreen");
-            pauseSelector = Content.Load<Texture2D>("sprites/menu_selector");
+            pauseSelector = Content.Load<Texture2D>("sprites/pause_selector");
             pauseSelectorPosition = new Vector2(128, 150);
             lanternKeyTexture = Content.Load<Texture2D>("sprites/lantern_key_item");
             bookKeyTexture = Content.Load<Texture2D>("sprites/book_key_item");
@@ -542,7 +542,7 @@ namespace tower_of_darkness_xna {
                 }
             }
             foreach (Enemy e in enemies) {
-                e.Update(gameTime, cRectangles, breakables);
+                e.Update(gameTime, cRectangles, breakables, transitions);
             }
             if (character.isBossDead) {
                 for (int i = 0; i < map.TileLayers["Breakable"].Tiles.Length; i++) {
@@ -615,7 +615,7 @@ namespace tower_of_darkness_xna {
                             pauseSelectTimer = 0;
                             pausePlayTimer = 0;
                             break;
-                        case 2:         //Go to menu
+                        case 1:         //Go to menu
                             Game1.currentGameState = new MenuState(Content, Game1.WIDTH, Game1.HEIGHT, Game1.STARTING_MAP_NAME, character);
                             pauseSelectorIndex = 0;
                             pauseSelectTimer = 0;
