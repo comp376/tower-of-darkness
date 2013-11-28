@@ -103,10 +103,10 @@ namespace tower_of_darkness_xna {
             currentLightSize = STARTING_LIGHT_SIZE;
         }
 
-        public void Update(GameTime gameTime, Rectangle mapRect, int mapId, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects, ref List<Dim> dims) {
-            jump(ref cRectangles, ref mapView, ref mapRect, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims);
-            move(gameTime, mapRect, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims);
-            gravity(ref cRectangles, ref mapView, ref mapRect, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims);
+        public void Update(GameTime gameTime, Rectangle mapRect, int mapId, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects, ref List<Dim> dims, ref List<Light> lights) {
+            jump(ref cRectangles, ref mapView, ref mapRect, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims, ref lights);
+            move(gameTime, mapRect, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims, ref lights);
+            gravity(ref cRectangles, ref mapView, ref mapRect, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims, ref lights);
             animate(gameTime);
             hitTransition(transitions, mapView, mapId);
             lanternSwinging(gameTime);
@@ -141,7 +141,6 @@ namespace tower_of_darkness_xna {
                 Console.WriteLine("it appears you've fallen on the map.");
                 
             }
-
             oldState = newState;
         }
 
@@ -172,7 +171,7 @@ namespace tower_of_darkness_xna {
             if (showText) {
                 Vector2 fontOrigin = font.MeasureString(characterWords) / 2;
                 Vector2 fontPosition = new Vector2(objectRectangle.X, objectRectangle.Y - 16);
-                spriteBatch.DrawString(font, characterWords, fontPosition, Color.White, 0, fontOrigin, 1.1f, SpriteEffects.None, 0);
+                spriteBatch.DrawString(font, characterWords, fontPosition, Color.White, 0, fontOrigin, 0.75f, SpriteEffects.None, 0);
             }
                 base.Draw(spriteBatch, playerColor);
         }
@@ -311,7 +310,7 @@ namespace tower_of_darkness_xna {
                             if (npc.questAdvance == "lanternPickup")
                                 wizardSpokenTo = true;
 
-                            if (this.id == 0)
+                            if (npc.id == 0)
                             {//Wizard?
                                 if (!lanternPickedUp)
                                 {
@@ -332,8 +331,13 @@ namespace tower_of_darkness_xna {
                                 Console.WriteLine(bookPickedUp);
                                 if (bookPickedUp)
                                 {
-                                    Console.WriteLine("Trying to talk to npc " + npc.id);
-                                    if (npc.id == 2)
+                                    if (npc.id == 1)
+                                    {
+                                        npc.text = "You found the book!\nYou're so brave!";
+                                        npc.showText = true;
+                                        talkTimer = 0;
+                                    }
+                                    else if (npc.id == 2)
                                     {
                                         npc.text = "I locked myself in here.\nThe tower has been overun\nwith monsters!";
                                         npc.showText = true;
@@ -341,13 +345,19 @@ namespace tower_of_darkness_xna {
                                     }
                                     else if (npc.id == 3)
                                     {
-                                        npc.text = "I'm npc 3.";
+                                        npc.text = "I'm glad you're here.\nLooks like there's some magical\nessences lying around..";
                                         npc.showText = true;
                                         talkTimer = 0;
                                     }
                                     else if (npc.id == 4)
                                     {
                                         npc.text = "I saw a blue skeleton higher up\nthe tower. They seem be\nstronger than the white ones.";
+                                        npc.showText = true;
+                                        talkTimer = 0;
+                                    }
+                                    else if (npc.id == 5)
+                                    {
+                                        npc.text = "Thank goodness\nyou're here!\nThere's great evil\n in the next room..";
                                         npc.showText = true;
                                         talkTimer = 0;
                                     }
@@ -359,17 +369,6 @@ namespace tower_of_darkness_xna {
                                     talkTimer = 0;
                                 }
                             }
-
-
-
-
-
-
-
-
-
-
-
                         }
                     }
                 } else {
@@ -437,7 +436,7 @@ namespace tower_of_darkness_xna {
             }
         }
 
-        private void gravity(ref List<Rectangle> cRectangles, ref Rectangle mapView, ref Rectangle mapRect, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects, ref List<Dim> dims) {
+        private void gravity(ref List<Rectangle> cRectangles, ref Rectangle mapView, ref Rectangle mapRect, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects, ref List<Dim> dims, ref List<Light> lights) {
             if (climbing)
                 return;
             int middleY = mapView.Height / 2;
@@ -446,7 +445,7 @@ namespace tower_of_darkness_xna {
                     if (objectRectangle.Y < middleY - 5) {
                         objectRectangle.Y += GRAVITY_SPEED;
                     } else {
-                        scroll(MovementStatus.Fall, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims);
+                        scroll(MovementStatus.Fall, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims, ref lights);
                     }
                 } else {
                     objectRectangle.Y += GRAVITY_SPEED;
@@ -456,7 +455,7 @@ namespace tower_of_darkness_xna {
                 falling = false;
         }
 
-        private void jump(ref List<Rectangle> cRectangles, ref Rectangle mapView, ref Rectangle mapRect, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects, ref List<Dim> dims) {
+        private void jump(ref List<Rectangle> cRectangles, ref Rectangle mapView, ref Rectangle mapRect, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects, ref List<Dim> dims, ref List<Light> lights) {
             int middleY = mapView.Height / 2;
             //Console.WriteLine(jumping + " and " + falling);
             KeyboardState kbs = Keyboard.GetState();
@@ -471,7 +470,7 @@ namespace tower_of_darkness_xna {
                     {
                         if (objectRectangle.Y <= middleY)//Are we scrolling?
                         {
-                            scroll(MovementStatus.Jump, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims);
+                            scroll(MovementStatus.Jump, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims, ref lights);
                         }
                         else
                         {
@@ -498,7 +497,7 @@ namespace tower_of_darkness_xna {
             }
         }
 
-        private void move(GameTime gameTime, Rectangle mapRect, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects, ref List<Dim> dims) {
+        private void move(GameTime gameTime, Rectangle mapRect, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects, ref List<Dim> dims, ref List<Light> lights) {
             int middleX = mapView.Width / 2;
             int middleY = mapView.Height / 2;
             KeyboardState kbs = Keyboard.GetState();
@@ -517,7 +516,7 @@ namespace tower_of_darkness_xna {
                                 if (objectRectangle.X > middleX) {
                                     objectRectangle.X -= MOVE_SPEED;
                                 } else {
-                                    scroll(movementStatus, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims);
+                                    scroll(movementStatus, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims, ref lights);
                                 }
                             } else if (objectRectangle.X > 0) {
                                 objectRectangle.X -= MOVE_SPEED;
@@ -532,7 +531,7 @@ namespace tower_of_darkness_xna {
                                 if (objectRectangle.X < middleX)
                                     objectRectangle.X += MOVE_SPEED;
                                 else {
-                                    scroll(movementStatus, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims);
+                                    scroll(movementStatus, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims, ref lights);
                                 }
                             } else if (objectRectangle.X + spriteWidth < mapView.Width)
                                 objectRectangle.X += MOVE_SPEED;
@@ -548,7 +547,7 @@ namespace tower_of_darkness_xna {
                                     if (objectRectangle.Y > middleY) {
                                         objectRectangle.Y -= MOVE_SPEED;
                                     } else {
-                                        scroll(movementStatus, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims);
+                                        scroll(movementStatus, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims, ref lights);
                                     }
                                 } else if (objectRectangle.Y > 0)
                                     objectRectangle.Y -= MOVE_SPEED;
@@ -565,7 +564,7 @@ namespace tower_of_darkness_xna {
                                     if (objectRectangle.Y < middleY)
                                         objectRectangle.Y += MOVE_SPEED;
                                     else {
-                                        scroll(movementStatus, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims);
+                                        scroll(movementStatus, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims, ref lights);
                                     }
                                 } else if (objectRectangle.Y + MOVE_SPEED < mapView.Height)
                                     objectRectangle.Y += MOVE_SPEED;
@@ -581,7 +580,7 @@ namespace tower_of_darkness_xna {
             }
         }
 
-        private void scroll(MovementStatus movementStatus, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects, ref List<Dim> dims) {
+        private void scroll(MovementStatus movementStatus, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects, ref List<Dim> dims, ref List<Light> lights) {
             switch (movementStatus) {
                 case MovementStatus.Left:
                     mapView.X += -MOVE_SPEED;
@@ -602,6 +601,8 @@ namespace tower_of_darkness_xna {
                         objects[i].startingPosition = new Vector2(objects[i].startingPosition.X + MOVE_SPEED, objects[i].startingPosition.Y);
                     } for(int i = 0; i < dims.Count; i++){
                         dims[i].dRect = new Rectangle(dims[i].dRect.X + MOVE_SPEED, dims[i].dRect.Y, dims[i].dRect.Width, dims[i].dRect.Height);
+                    } for(int i = 0; i < lights.Count; i++){
+                        lights[i].lRect = new Rectangle(lights[i].lRect.X + MOVE_SPEED, lights[i].lRect.Y, lights[i].lRect.Width, lights[i].lRect.Height);
                     }
                     break;
                 case MovementStatus.Right:
@@ -623,6 +624,8 @@ namespace tower_of_darkness_xna {
                         objects[i].startingPosition = new Vector2(objects[i].startingPosition.X - MOVE_SPEED, objects[i].startingPosition.Y);
                     } for(int i = 0; i < dims.Count; i++){
                         dims[i].dRect = new Rectangle(dims[i].dRect.X - MOVE_SPEED, dims[i].dRect.Y, dims[i].dRect.Width, dims[i].dRect.Height);
+                    } for(int i = 0; i < lights.Count; i++){
+                        lights[i].lRect = new Rectangle(lights[i].lRect.X - MOVE_SPEED, lights[i].lRect.Y, lights[i].lRect.Width, lights[i].lRect.Height);
                     }
                     break;
                 case MovementStatus.Up:
@@ -644,6 +647,8 @@ namespace tower_of_darkness_xna {
                         objects[i].startingPosition = new Vector2(objects[i].startingPosition.X, objects[i].startingPosition.Y + MOVE_SPEED);
                     } for(int i = 0; i < dims.Count; i++){
                         dims[i].dRect = new Rectangle(dims[i].dRect.X, dims[i].dRect.Y + MOVE_SPEED, dims[i].dRect.Width, dims[i].dRect.Height);
+                    } for(int i = 0; i < lights.Count; i++){
+                        lights[i].lRect = new Rectangle(lights[i].lRect.X, lights[i].lRect.Y + MOVE_SPEED, lights[i].lRect.Width, lights[i].lRect.Height);
                     }
                     break;
                 case MovementStatus.Down:
@@ -665,6 +670,8 @@ namespace tower_of_darkness_xna {
                         objects[i].startingPosition = new Vector2(objects[i].startingPosition.X, objects[i].startingPosition.Y - MOVE_SPEED);
                     } for(int i = 0; i < dims.Count; i++){
                         dims[i].dRect = new Rectangle(dims[i].dRect.X, dims[i].dRect.Y - MOVE_SPEED, dims[i].dRect.Width, dims[i].dRect.Height);
+                    } for(int i = 0; i < lights.Count; i++){
+                        lights[i].lRect = new Rectangle(lights[i].lRect.X, lights[i].lRect.Y - MOVE_SPEED, lights[i].lRect.Width, lights[i].lRect.Height);
                     }
                     break;
                 case MovementStatus.Jump:
@@ -686,6 +693,8 @@ namespace tower_of_darkness_xna {
                         objects[i].startingPosition = new Vector2(objects[i].startingPosition.X, objects[i].startingPosition.Y - (int)jumpingHeight);
                     } for(int i = 0; i < dims.Count; i++){
                         dims[i].dRect = new Rectangle(dims[i].dRect.X, dims[i].dRect.Y - (int)jumpingHeight, dims[i].dRect.Width, dims[i].dRect.Height);
+                    } for(int i = 0; i < lights.Count; i++){
+                        lights[i].lRect = new Rectangle(lights[i].lRect.X, lights[i].lRect.Y - (int)jumpingHeight, lights[i].lRect.Width, lights[i].lRect.Height);
                     }
                     break;
                 case MovementStatus.Fall:
@@ -707,6 +716,8 @@ namespace tower_of_darkness_xna {
                         objects[i].startingPosition = new Vector2(objects[i].startingPosition.X, objects[i].startingPosition.Y - GRAVITY_SPEED);
                     } for(int i = 0; i < dims.Count; i++){
                         dims[i].dRect = new Rectangle(dims[i].dRect.X, dims[i].dRect.Y - GRAVITY_SPEED, dims[i].dRect.Width, dims[i].dRect.Height);
+                    } for(int i = 0; i < lights.Count; i++){
+                        lights[i].lRect = new Rectangle(lights[i].lRect.X, lights[i].lRect.Y - GRAVITY_SPEED, lights[i].lRect.Width, lights[i].lRect.Height);
                     }
                     break;
                 case MovementStatus.None:
@@ -772,7 +783,7 @@ namespace tower_of_darkness_xna {
                                 doorTouched = true;
                             }
                             else if(keyCount == 0 && !doorTouched){
-                                doorTouched = false;
+                               doorTouched = false;
                                 characterWords = "I'll need a key to open this door. ";
                                 talkTimer = 0;
                                 showText = true;
@@ -794,7 +805,7 @@ namespace tower_of_darkness_xna {
                 if (objectRect.Intersects(objectRectangle)) {
                     if (objects[i].type == "key")
                     {
-                        keyCount+=2;
+                        keyCount+=3;
                         objects[i].consumed = true;
                     }else if (objects[i].type == "essence")
                     {
@@ -852,7 +863,7 @@ namespace tower_of_darkness_xna {
                         {
                             if (t.nextMapName == "bridge")
                             {
-                                characterWords = "I can't see well.  \nI should see if someone \nin that house over \nthere can help me out.";
+                                characterWords = "I can't see well.\nIshould see if someone\nin that house over\nthere can help me out.";
                                 talkTimer = 0;
                                 showText = true;
                             }
