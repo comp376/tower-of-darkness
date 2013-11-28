@@ -11,7 +11,7 @@
  </tileset>
  <layer name="Background" width="96" height="16">
   <data encoding="base64" compression="zlib">
-   eJztl0EOhDAIRdl5jO5n7c16hDks15i4MPkhTCcdwU9Ukh9JjRUfqNBEpN1YbGM/f4R0Uux4Mfese78S+Peb8ZcDe6yF+b9BlflH7RGlDmpffDXrv/hn5iCTHSMv3TnaNZUxe8s/M94r8o+o/0d5+VHw2fFIgRjOZO+9Fw//fN67FI4V+tAr8ff+vTYX2Kcy6x/NnvPmoshZ6Uz+3hrOCWz2lv9mK/j7euSslJVb7H1sj1ml/j1bHN7oz+4/e01Ubr0a93xG/Y9sGbD/hydL3ne/Gd6s/n9kbG5sse0DwTTzLA==
+   eJztl1EKgCAMhvfWMXzv2Rt2WK8RQcEYKlnTfzgHH42kad8iWCCi4Bh0oN9fg3TD8xro8/Leo/belf3LXnjwTz9qRMP+D4Zl/1o1RtLqv2cPerqz2pfZvv8Z/S98+CcDZ/DM8r/8e4SHXMvNRZqzEhr0/1+GXIssf+5rzkojeot2/Nb9FVvGN89b67c+06O3Jf9yTkZ65/5L7r/4tEYqXEdSC7QfNOg4Aeqq0mA=
   </data>
  </layer>
  <layer name="Foreground" width="96" height="16">
@@ -76,6 +76,14 @@
     <property name="hits" value="100"/>
     <property name="spritesheet" value="enemy2"/>
     <property name="xFrames" value="3"/>
+    <property name="yFrames" value="1"/>
+   </properties>
+  </object>
+  <object x="1728" y="352" width="128" height="128">
+   <properties>
+    <property name="hits" value="500"/>
+    <property name="spritesheet" value="boss"/>
+    <property name="xFrames" value="1"/>
     <property name="yFrames" value="1"/>
    </properties>
   </object>
