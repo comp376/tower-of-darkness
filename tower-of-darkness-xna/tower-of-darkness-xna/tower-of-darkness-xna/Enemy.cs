@@ -24,10 +24,24 @@ namespace tower_of_darkness_xna {
         private int changeDirectionInterval;// = 5000;
 
         public int hits;
-        private string spritesheetName; 
+        private string spritesheetName;
+        private const int MAX_HOVER_HEIGHT = 500;
+        private bool isBoss = false;
+
+        private float hoverTimer = 0;
+        private float hoverInterval = 100;
+        private int startingY;
+
+        enum HoverDirections {
+            Up,
+            Down,
+        }
+        HoverDirections hoverDirection;
 
         public Enemy(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, int hits, string spritesheetName, SpriteFont font, int moveInterval, int changeDirectionInterval, int startingDirection)
             : base(spriteSheet, xNumberOfFrames, yNumberOfFrames, spriteWidth, spriteHeight, font) {
+                hoverDirection = HoverDirections.Up;
+                startingY = objectRectangle.Y;
                 this.hits = hits;
                 this.spritesheetName = spritesheetName;
                 this.moveInterval = moveInterval;
@@ -43,6 +57,9 @@ namespace tower_of_darkness_xna {
             
                 if (spritesheetName == "enemy2")
                     MOVE_SPEED = 8;
+
+                if (spritesheetName == "boss")
+                    isBoss = true;
         }
 
         public void Update(GameTime gameTime, List<Rectangle> cRectangles, List<Breakable> breakables) {
@@ -50,6 +67,30 @@ namespace tower_of_darkness_xna {
             animate(gameTime);
             gravity(cRectangles, breakables);
             move(gameTime, cRectangles, breakables);
+            hover(gameTime);
+        }
+
+        private void hover(GameTime gameTime) {
+            if (!isBoss)
+                return;
+            hoverTimer += gameTime.ElapsedGameTime.Milliseconds;
+            if (hoverTimer >= hoverInterval) {
+                if (hoverDirection == HoverDirections.Up) {
+                    if (objectRectangle.Y > (startingY - MAX_HOVER_HEIGHT)) {
+                        objectRectangle.Y -= 1;
+                    } else {
+                        hoverDirection = HoverDirections.Down;
+                    }
+                } else if (hoverDirection == HoverDirections.Down) {
+                    if (startingY > objectRectangle.Y) {
+                        objectRectangle.Y += 1;
+                    } else {
+                        hoverDirection = HoverDirections.Up;
+                    }
+                }
+                hoverTimer = 0;
+            }
+
         }
 
         private void changeMoveDirection(GameTime gameTime){
@@ -184,6 +225,7 @@ namespace tower_of_darkness_xna {
                     break;
             }
             spriteBatch.Draw(spriteSheet, objectRectangle, sourceRect, color, 0f, new Vector2(), flip, 0);
+
         }
 
         private void getSourceRect(ref int x, ref int y) {
