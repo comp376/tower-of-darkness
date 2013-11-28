@@ -20,12 +20,16 @@ namespace tower_of_darkness_xna {
 
         public static int HEIGHT = 480;
 
+
         public static string STARTING_MAP_NAME = "house";
+
 
         public static GameState currentGameState;
         public static bool exitGame = false;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SoundEffect background;
+        SoundEffectInstance instance;
 
         Character character;
 
@@ -55,7 +59,12 @@ namespace tower_of_darkness_xna {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2D characterSpriteSheet = Content.Load<Texture2D>("sprites/character2");
             currentGameState = new MenuState(Content, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, STARTING_MAP_NAME, character);
-            
+            background = Content.Load<SoundEffect>("audio/Amnesia");
+
+            instance = background.CreateInstance();
+            instance.IsLooped = true;
+           // instance.Play();
+           
 
         }
 
@@ -76,6 +85,7 @@ namespace tower_of_darkness_xna {
             currentGameState.Update(gameTime);
             if (exitGame) this.Exit();
 
+            instance.Play();
             
             base.Update(gameTime);
         }

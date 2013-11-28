@@ -445,6 +445,7 @@ namespace tower_of_darkness_xna {
                 int xNumberOfFrames = (int)mo.Properties["xFrames"].AsInt32;
                 int yNumberOfFrames = (int)mo.Properties["yFrames"].AsInt32;
                 int id = (int)mo.Properties["id"].AsInt32;
+                Console.WriteLine("Making npc with id:" + id);
                 Rectangle npcRect = mo.Bounds;
                 string text = mo.Properties["text"].Value.ToString();
                 NPC n = new NPC(npcSpriteSheet, xNumberOfFrames, yNumberOfFrames, npcRect.Width, npcRect.Height, text, spritesheetName, quest, font, id);

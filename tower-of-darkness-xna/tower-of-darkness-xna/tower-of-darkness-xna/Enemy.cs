@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace tower_of_darkness_xna {
     class Enemy : Object {
-        private const int MOVE_SPEED = 4;
+        private int MOVE_SPEED = 4;
         private const int GRAVITY_SPEED = 4;
 
         protected int xCurrentFrame = 0;
@@ -40,6 +40,9 @@ namespace tower_of_darkness_xna {
                         movementStatus = MovementStatus.Right;
                         break;
                 }
+            
+                if (spritesheetName == "enemy2")
+                    MOVE_SPEED = 8;
         }
 
         public void Update(GameTime gameTime, List<Rectangle> cRectangles, List<Breakable> breakables) {

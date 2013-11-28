@@ -10,7 +10,7 @@
  </layer>
  <layer name="Foreground" width="25" height="45">
   <data encoding="base64" compression="zlib">
-   eJztllkKwDAIRHMD73/b/oe6TEal0gilCWheXFtZa0nDw4p1xiSGx+9kVOT3NOde7C0/JjM8m0wGkktrn9nniM1ERlZdnTIq+n0/K8MHS/+LDFQ6GUju2Hlf6cdlxBmVc3pSrKpqV5S1xmflbwymbjO/UV390XEv1O5NN2rP6Mn2Zjle7SAcrYai92AEiell4IzKfx9mfj4jsRE7
+   eJztll0OgDAIg7kB97+t74v8dAXi4poYNYF9Y3RTFREduFh5Y5zEiPiTjI7+7vY8WnuvjpMZUU4lA+ml9+75BxWScyKjyle7jI79vo5VUYMX/0UGqkkG0jv2vO+s4zLyDLS3O4xOVTG6vKvGs8Vn9TcG49vKb9TU/piYF5r3FpvNZ+J0ubOcyDsIx/JQdh6MkDW9DJzR+e/DnJ8PWz4RLA==
   </data>
  </layer>
  <layer name="Ladder" width="25" height="45">
@@ -45,7 +45,7 @@
  </objectgroup>
  <layer name="Breakable" width="25" height="45">
   <data encoding="base64" compression="zlib">
-   eJztzjEBAAAIA6BlsH9YW0wPSEACAADQM9cBgCcWbLQAEw==
+   eJzt1jENAAAIBLHXgH+xDChgIiStghsvAdip6wAA4DUvATAaXTsAJQ==
   </data>
  </layer>
  <layer name="Doors" width="25" height="45">
@@ -64,6 +64,16 @@
     <property name="yFrames" value="1"/>
    </properties>
   </object>
+  <object x="545" y="417" width="29" height="61">
+   <properties>
+    <property name="id" value="4"/>
+    <property name="questAdvance" value="none"/>
+    <property name="spritesheet" value="npc"/>
+    <property name="text" value=""/>
+    <property name="xFrames" value="3"/>
+    <property name="yFrames" value="1"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Visited" width="25" height="45">
   <properties>
@@ -73,7 +83,7 @@
  </objectgroup>
  <objectgroup name="Load" width="25" height="45"/>
  <objectgroup name="Objects" width="25" height="45">
-  <object x="544" y="225" width="28" height="30">
+  <object x="416" y="288" width="32" height="32">
    <properties>
     <property name="Type" value="super essence"/>
    </properties>
@@ -96,6 +106,11 @@
   <object x="450" y="864" width="28" height="31">
    <properties>
     <property name="Type" value="essence"/>
+   </properties>
+  </object>
+  <object x="576" y="288" width="32" height="32">
+   <properties>
+    <property name="Type" value="book"/>
    </properties>
   </object>
  </objectgroup>

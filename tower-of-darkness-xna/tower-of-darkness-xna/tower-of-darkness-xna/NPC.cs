@@ -24,7 +24,9 @@ namespace tower_of_darkness_xna {
 
         public string questAdvance;
         public bool wizardSpokenTo = false;
+
         public bool lanternPickedUp = false;
+        
 
         //character inherited constructor
         public NPC(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, SpriteFont font)
@@ -71,15 +73,11 @@ namespace tower_of_darkness_xna {
                     break;
             }
             spriteBatch.Draw(spriteSheet, objectRectangle, sourceRect, color, 0f, new Vector2(), flip, 0);
-            if (isNPC && showText) {
+            if (isNPC && showText){
                 Vector2 fontOrigin = font.MeasureString(text) / 2;
                 Vector2 fontPosition = new Vector2(objectRectangle.X, objectRectangle.Y - 16);
-                if (this.id == 0)
-                    text = "An evil force has taken over the land.\nTake my lantern and head to the tower.\nSave us.. ";
-                if (this.id == 2)
-                    text = "I locked myself in here.\nThe tower has been overun\nwith monsters!";
-                spriteBatch.DrawString(font, text, fontPosition, Color.White, 0, fontOrigin, 0.75f, SpriteEffects.None, 0);
-            }
+                spriteBatch.DrawString(font, text, fontPosition, Color.White, 0, fontOrigin, 0.75f, SpriteEffects.None, 0);     
+            }//Show text?
         }
 
         private void getSourceRect(ref int x, ref int y) {

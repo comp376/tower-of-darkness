@@ -6,18 +6,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Media;
-
 
 namespace tower_of_darkness_xna {
     class Character : NPC {
         private float STARTING_LIGHT_SIZE = 50.0f;
         private float lightTimer = 0;
         private float lightInterval = 2000;
-        SoundEffect hitSound;
-        SoundEffect jumpSound;
-        
 
         //Character
         private int moveTimer = 0;
@@ -33,7 +27,7 @@ namespace tower_of_darkness_xna {
         private int startingY = 0;
         private bool climbing = false;
         private int talkTimer = 0;
-        private int characterTalkTimer = 0; 
+        private int characterTalkTimer = 0;
         private int talkInterval = 2000;
         private int attackTimer = 0;
         private int attackInterval = 5;
@@ -52,7 +46,6 @@ namespace tower_of_darkness_xna {
         public const int MAP_COUNT = 20;
         KeyboardState oldState;
         public bool wizardSpokenTo = false;
-        public bool bookPickedUp = true;
         public string characterWords = "";
         public bool showText = false;
 
@@ -77,6 +70,9 @@ namespace tower_of_darkness_xna {
         private const float BACKWARDS_BOUNDARY = 10;
         private const float FORWARDS_BOUNDARY = -10;
         private const float ANGLE_CHANGE = 0.5f;
+
+        
+        public bool bookPickedUp = false;
 
         public int keyCount = 0;
         public bool doorTouched = false;
@@ -103,11 +99,8 @@ namespace tower_of_darkness_xna {
             lanternPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
             lanternRectangle = new Rectangle(objectRectangle.X, objectRectangle.Y, lanternTexture.Width, lanternTexture.Height);
             lightPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
-            hitSound = Content.Load<SoundEffect>("audio/Jump");
-            jumpSound = Content.Load<SoundEffect>("audio/Jump");
-            
-            currentLightSize = STARTING_LIGHT_SIZE;
 
+            currentLightSize = STARTING_LIGHT_SIZE;
         }
 
         public void Update(GameTime gameTime, Rectangle mapRect, int mapId, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects, ref List<Dim> dims) {
@@ -124,7 +117,6 @@ namespace tower_of_darkness_xna {
             enemyCollision(gameTime, enemies);
             crossDim(ref dims);
             decreaseLight(gameTime);
-
 
             KeyboardState newState = Keyboard.GetState();
 
@@ -180,7 +172,7 @@ namespace tower_of_darkness_xna {
             if (showText) {
                 Vector2 fontOrigin = font.MeasureString(characterWords) / 2;
                 Vector2 fontPosition = new Vector2(objectRectangle.X, objectRectangle.Y - 16);
-                spriteBatch.DrawString(font, characterWords, fontPosition, Color.White, 0, fontOrigin, 0.75f, SpriteEffects.None, 0);
+                spriteBatch.DrawString(font, characterWords, fontPosition, Color.White, 0, fontOrigin, 1.1f, SpriteEffects.None, 0);
             }
                 base.Draw(spriteBatch, playerColor);
         }
@@ -215,7 +207,6 @@ namespace tower_of_darkness_xna {
                             Console.WriteLine("flash player");
                             playerColor = Color.Red;
                             flashColorTimer = 0;
-                            hitSound.Play();
                         }
                     }
                 } else {
@@ -319,22 +310,66 @@ namespace tower_of_darkness_xna {
                         if (npc.objectRectangle.Intersects(objectRectangle)) {
                             if (npc.questAdvance == "lanternPickup")
                                 wizardSpokenTo = true;
-                            if (mapId < 3)
-                            {
-                                npc.showText = true;
-                                talkTimer = 0;   
-                            }
-                            else if (bookPickedUp)
-                            {
-                                npc.showText = true;
-                                talkTimer = 0;
+
+                            if (this.id == 0)
+                            {//Wizard?
+                                if (!lanternPickedUp)
+                                {
+                                    npc.text = "An evil force has taken over the land.\nTake my lantern and head to the tower.\nSave us.. ";
+                                    npc.showText = true;
+                                    talkTimer = 0;
+                                }
+                                else
+                                {
+                                    npc.text = "There's a magical book hidden in the tower.\nIf you find it, it may help you.";
+                                    npc.showText = true;
+                                    talkTimer = 0;
+                                }
                             }
                             else
                             {
-                                npc.showText = true;
-                                npc.text = "????";
-                                talkTimer = 0;
+
+                                Console.WriteLine(bookPickedUp);
+                                if (bookPickedUp)
+                                {
+                                    Console.WriteLine("Trying to talk to npc " + npc.id);
+                                    if (npc.id == 2)
+                                    {
+                                        npc.text = "I locked myself in here.\nThe tower has been overun\nwith monsters!";
+                                        npc.showText = true;
+                                        talkTimer = 0;
+                                    }
+                                    else if (npc.id == 3)
+                                    {
+                                        npc.text = "I'm npc 3.";
+                                        npc.showText = true;
+                                        talkTimer = 0;
+                                    }
+                                    else if (npc.id == 4)
+                                    {
+                                        npc.text = "I saw a blue skeleton higher up\nthe tower. They seem be\nstronger than the white ones.";
+                                        npc.showText = true;
+                                        talkTimer = 0;
+                                    }
+                                }
+                                else
+                                {
+                                    npc.text = "????";
+                                    npc.showText = true;
+                                    talkTimer = 0;
+                                }
                             }
+
+
+
+
+
+
+
+
+
+
+
                         }
                     }
                 } else {
@@ -456,18 +491,10 @@ namespace tower_of_darkness_xna {
 
                 }
             } else {
-                if (kbs.IsKeyDown(Keys.Space) && !falling)
-                {
-                    if (!oldState.IsKeyDown(Keys.Space) && !falling)
-                    {
-                        jumpSound.Play();
-                        jumping = true;
-                        jumpingHeight = -JUMPING_HEIGHT;
-                    }
+                if (kbs.IsKeyDown(Keys.Space) && !falling) {
+                    jumping = true;
+                    jumpingHeight = -JUMPING_HEIGHT;
                 }
-
-                oldState = kbs;
-
             }
         }
 
