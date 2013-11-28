@@ -143,7 +143,6 @@ namespace tower_of_darkness_xna {
                 lights[i].lRect = new Rectangle(lights[i].lRect.X - xChange, lights[i].lRect.Y - yChange, lights[i].lRect.Width, lights[i].lRect.Height);
             }
 
-            Console.WriteLine("been to this map before? : " + visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32]);
             if (visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32])
             {
                 visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32] = true;
@@ -279,11 +278,9 @@ namespace tower_of_darkness_xna {
 
                     if (!visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32])
                     {
-                        Console.WriteLine("Moving map "+(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32 +" objects");
                         //Move Objects
                         for (int i = 0; i < objects.Count; i++)
                         {
-                            Console.WriteLine("Moving some objects");
                             objects[i] = new Scene2DNode(objects[i].texture, new Vector2(objects[i].worldPosition.X - xChange, objects[i].worldPosition.Y - yChange), objects[i].type);
                         }
                     }
@@ -405,10 +402,7 @@ namespace tower_of_darkness_xna {
 
         private void loadObjects()
         {
-            //for (int i = 0; i < MAP_COUNT; i++)
-           // {
-            //    Console.WriteLine(theMapObjects[i].Count);
-           // }
+            
             objects = new List<Scene2DNode>();
             if (map.ObjectLayers["Objects"] != null)
             {
@@ -466,11 +460,9 @@ namespace tower_of_darkness_xna {
                 int xNumberOfFrames = (int)mo.Properties["xFrames"].AsInt32;
                 int yNumberOfFrames = (int)mo.Properties["yFrames"].AsInt32;
                 int id = (int)mo.Properties["id"].AsInt32;
-                Console.WriteLine("Making npc with id:" + id);
                 Rectangle npcRect = mo.Bounds;
                 string text = mo.Properties["text"].Value.ToString();
                 NPC n = new NPC(npcSpriteSheet, xNumberOfFrames, yNumberOfFrames, npcRect.Width, npcRect.Height, text, spritesheetName, quest, font, id);
-                Console.WriteLine(n.ToString());
                 n.objectRectangle = npcRect; //also provides npc(x,y) 
                 npcs.Add(n);
             }
@@ -503,7 +495,6 @@ namespace tower_of_darkness_xna {
                 int enemyDirectionInterval = rand.Next(enemyDirectionTuple.Item1, enemyDirectionTuple.Item2);
                 int startingDirection = rand.Next(0, 2);
                 Enemy e = new Enemy(enemySpriteSheet, xNumberOfFrames, yNumberOfFrames, enemyRect.Width, enemyRect.Height, hits, spritesheetName, font, enemyMoveInterval, enemyDirectionInterval, startingDirection);
-                Console.WriteLine(e.ToString());
                 e.objectRectangle = enemyRect;
                 enemies.Add(e);
             }
@@ -644,7 +635,6 @@ namespace tower_of_darkness_xna {
                 }
                 pauseSelectorPosition = new Vector2(128, 150 + pauseSelectorIndex * 30);
             }
-            Console.WriteLine(PAUSE_SCREEN);
             oldState = kbs;
         }
 

@@ -147,7 +147,7 @@ namespace tower_of_darkness_xna {
 
             if (objectRectangle.Y > 450)
             {
-                Console.WriteLine("it appears you've fallen on the map.");
+                
                 
             }
             oldState = newState;
@@ -244,7 +244,6 @@ namespace tower_of_darkness_xna {
                         if (e.objectRectangle.Intersects(objectRectangle)) {
                             if (currentLightSize > -17)
                                 currentLightSize -= 5.0f;
-                            Console.WriteLine("flash player");
                             playerColor = Color.Red;
                             flashColorTimer = 0;
                     
@@ -301,7 +300,6 @@ namespace tower_of_darkness_xna {
                 if (attackTimer >= attackInterval) {
                     KeyboardState kbs = Keyboard.GetState();
                     if (kbs.IsKeyDown(Keys.Q)) {
-                        Console.WriteLine("q: " + movementStatus);
                         if (!attacking) {
                             attacking = true;
                             if (movementStatus == MovementStatus.Left) {
@@ -378,7 +376,6 @@ namespace tower_of_darkness_xna {
                             else
                             {
 
-                                Console.WriteLine(bookPickedUp);
                                 if (bookPickedUp)
                                 {
                                     if (npc.id == 1)
@@ -523,7 +520,6 @@ namespace tower_of_darkness_xna {
 
         private void jump(ref List<Rectangle> cRectangles, ref Rectangle mapView, ref Rectangle mapRect, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects, ref List<Dim> dims, ref List<Light> lights) {
             double middleY = mapView.Height / 2;
-            //Console.WriteLine(jumping + " and " + falling);
             KeyboardState kbs = Keyboard.GetState();
             if (climbing)
                 apexCounter = 0;
@@ -851,10 +847,8 @@ namespace tower_of_darkness_xna {
                             r.isTouched = isTouched;
                             break;
                         case "door":
-                            Console.WriteLine(keyCount);
                             if (keyCount > 0)
                             {
-                                Console.WriteLine("touched");
                                 r.isTouched = true;
                                 keyCount--;
                                 doorTouched = true;
