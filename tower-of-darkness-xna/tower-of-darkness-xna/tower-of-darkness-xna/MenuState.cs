@@ -25,6 +25,8 @@ namespace tower_of_darkness_xna {
         private float menuInterval = 100;
 
         private bool howToPlay = false;
+        private float howToPlayTimer = 0;
+        private float howToPlayInterval = 1000;
 
         public MenuState(ContentManager Content, int PreferredBackBufferWidth, int PreferredBackBufferHeight, string startingMapName, Character character)
             : base(Content) {
@@ -90,12 +92,18 @@ namespace tower_of_darkness_xna {
 
         public void UpdateHowToPlay(GameTime gameTime) {
             KeyboardState newState = Keyboard.GetState();
-
+            howToPlayTimer += gameTime.ElapsedGameTime.Milliseconds;
             if (newState.IsKeyDown(Keys.Enter))
             {
                 if (!oldState.IsKeyDown(Keys.Enter))
                 {
-                    howToPlay = false;
+                    
+                    if (howToPlayTimer >= howToPlayInterval) {
+                        howToPlay = false;
+                        howToPlayTimer = 0;
+                        menuTimer = -500;
+                    }
+                    
                 }
             }
 

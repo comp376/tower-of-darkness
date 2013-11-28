@@ -1,7 +1,6 @@
 Content\audio\pop.xnb
 Content\audio\pop2.xnb
 Content\audio\Jump.xnb
-Content\audio\Hit.xnb
 Content\fonts\spriteFont.xnb
 Content\maps\sandbox.xnb
 Content\maps\bridge.xnb
@@ -85,10 +84,11 @@ Content\maps\town\01.xnb
 Content\maps\outside\00.xnb
 Content\maps\house\00.xnb
 Content\maps\house\01.xnb
-Content\audio\Amnesia.xnb
 Content\sprites\enemy2.xnb
 Content\sprites\wizard.xnb
+Content\audio\Hit.xnb
+Content\audio\Amnesia.xnb
 Content\sprites\boss.xnb
-Content\sprites\creditscreen.xnb
 Content\sprites\howtoplay.xnb
 Content\sprites\pause_selector.xnb
+Content\sprites\creditscreen.xnb
