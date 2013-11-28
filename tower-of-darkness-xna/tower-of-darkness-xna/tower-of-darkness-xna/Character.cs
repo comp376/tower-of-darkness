@@ -46,7 +46,7 @@ namespace tower_of_darkness_xna {
         public const int MAP_COUNT = 20;
         KeyboardState oldState;
         public bool wizardSpokenTo = false;
-        public bool lanternPickedUp = true;
+        //public bool lanternPickedUp = false;
 
         public string characterWords = "";
         public bool showText = false;
