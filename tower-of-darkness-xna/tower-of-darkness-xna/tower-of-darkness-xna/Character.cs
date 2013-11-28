@@ -27,7 +27,7 @@ namespace tower_of_darkness_xna {
         private int startingY = 0;
         private bool climbing = false;
         private int talkTimer = 0;
-        private int characterTalkTimer = 0;
+        private int characterTalkTimer = 0; 
         private int talkInterval = 2000;
         private int attackTimer = 0;
         private int attackInterval = 5;
