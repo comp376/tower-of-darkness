@@ -141,7 +141,6 @@ namespace tower_of_darkness_xna {
                 Console.WriteLine("it appears you've fallen on the map.");
                 
             }
-
             oldState = newState;
         }
 
@@ -172,7 +171,7 @@ namespace tower_of_darkness_xna {
             if (showText) {
                 Vector2 fontOrigin = font.MeasureString(characterWords) / 2;
                 Vector2 fontPosition = new Vector2(objectRectangle.X, objectRectangle.Y - 16);
-                spriteBatch.DrawString(font, characterWords, fontPosition, Color.White, 0, fontOrigin, 1.1f, SpriteEffects.None, 0);
+                spriteBatch.DrawString(font, characterWords, fontPosition, Color.White, 0, fontOrigin, 0.75f, SpriteEffects.None, 0);
             }
                 base.Draw(spriteBatch, playerColor);
         }
@@ -311,7 +310,7 @@ namespace tower_of_darkness_xna {
                             if (npc.questAdvance == "lanternPickup")
                                 wizardSpokenTo = true;
 
-                            if (this.id == 0)
+                            if (npc.id == 0)
                             {//Wizard?
                                 if (!lanternPickedUp)
                                 {
@@ -332,8 +331,13 @@ namespace tower_of_darkness_xna {
                                 Console.WriteLine(bookPickedUp);
                                 if (bookPickedUp)
                                 {
-                                    Console.WriteLine("Trying to talk to npc " + npc.id);
-                                    if (npc.id == 2)
+                                    if (npc.id == 1)
+                                    {
+                                        npc.text = "You found the book!\nYou're so brave!";
+                                        npc.showText = true;
+                                        talkTimer = 0;
+                                    }
+                                    else if (npc.id == 2)
                                     {
                                         npc.text = "I locked myself in here.\nThe tower has been overun\nwith monsters!";
                                         npc.showText = true;
@@ -341,13 +345,19 @@ namespace tower_of_darkness_xna {
                                     }
                                     else if (npc.id == 3)
                                     {
-                                        npc.text = "I'm npc 3.";
+                                        npc.text = "I'm glad you're here.\nLooks like there's some magical\nessences lying around..";
                                         npc.showText = true;
                                         talkTimer = 0;
                                     }
                                     else if (npc.id == 4)
                                     {
                                         npc.text = "I saw a blue skeleton higher up\nthe tower. They seem be\nstronger than the white ones.";
+                                        npc.showText = true;
+                                        talkTimer = 0;
+                                    }
+                                    else if (npc.id == 5)
+                                    {
+                                        npc.text = "Thank goodness\nyou're here!\nThere's great evil\n in the next room..";
                                         npc.showText = true;
                                         talkTimer = 0;
                                     }
@@ -359,17 +369,6 @@ namespace tower_of_darkness_xna {
                                     talkTimer = 0;
                                 }
                             }
-
-
-
-
-
-
-
-
-
-
-
                         }
                     }
                 } else {
@@ -784,7 +783,7 @@ namespace tower_of_darkness_xna {
                                 doorTouched = true;
                             }
                             else if(keyCount == 0 && !doorTouched){
-                                doorTouched = false;
+                               doorTouched = false;
                                 characterWords = "I'll need a key to open this door. ";
                                 talkTimer = 0;
                                 showText = true;
@@ -806,7 +805,7 @@ namespace tower_of_darkness_xna {
                 if (objectRect.Intersects(objectRectangle)) {
                     if (objects[i].type == "key")
                     {
-                        keyCount+=2;
+                        keyCount+=3;
                         objects[i].consumed = true;
                     }else if (objects[i].type == "essence")
                     {
@@ -862,7 +861,7 @@ namespace tower_of_darkness_xna {
                         {
                             if (t.nextMapName == "bridge")
                             {
-                                characterWords = "I can't see well.  \nI should see if someone \nin that house over \nthere can help me out.";
+                                characterWords = "I can't see well.\nIshould see if someone\nin that house over\nthere can help me out.";
                                 talkTimer = 0;
                                 showText = true;
                             }
