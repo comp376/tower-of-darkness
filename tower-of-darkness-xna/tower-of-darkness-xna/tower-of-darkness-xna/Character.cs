@@ -106,8 +106,6 @@ namespace tower_of_darkness_xna {
             lanternRectangle = new Rectangle(objectRectangle.X, objectRectangle.Y, lanternTexture.Width, lanternTexture.Height);
             lightPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
 
-            jumpSound = Content.Load<SoundEffect>("audio/Jump");
-            hitSound = Content.Load < SoundEffect> ("audio/Hit");
 
             
             currentLightSize = STARTING_LIGHT_SIZE;
@@ -219,7 +217,6 @@ namespace tower_of_darkness_xna {
                             Console.WriteLine("flash player");
                             playerColor = Color.Red;
                             flashColorTimer = 0;
-                            hitSound.Play();
                         }
                     }
                 } else {
@@ -464,7 +461,6 @@ namespace tower_of_darkness_xna {
                 {
                     if (!oldState.IsKeyDown(Keys.Space) && !falling)
                     {
-                        jumpSound.Play();
                         jumping = true;
                         jumpingHeight = -JUMPING_HEIGHT;
                     }
