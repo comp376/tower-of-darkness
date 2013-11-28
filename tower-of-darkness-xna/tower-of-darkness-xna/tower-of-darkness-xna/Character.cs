@@ -456,11 +456,18 @@ namespace tower_of_darkness_xna {
 
                 }
             } else {
-                if (kbs.IsKeyDown(Keys.Space) && !falling) {
-                    jumpSound.Play();
-                    jumping = true;
-                    jumpingHeight = -JUMPING_HEIGHT;
+                if (kbs.IsKeyDown(Keys.Space) && !falling)
+                {
+                    if (!oldState.IsKeyDown(Keys.Space) && !falling)
+                    {
+                        jumpSound.Play();
+                        jumping = true;
+                        jumpingHeight = -JUMPING_HEIGHT;
+                    }
                 }
+
+                oldState = kbs;
+
             }
         }
 
