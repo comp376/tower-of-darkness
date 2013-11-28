@@ -259,6 +259,7 @@ namespace tower_of_darkness_xna {
 
                     if (!visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32])
                     {
+                        Console.WriteLine("Moving map "+(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32 +" objects");
                         //Move Objects
                         for (int i = 0; i < objects.Count; i++)
                         {
@@ -267,7 +268,7 @@ namespace tower_of_darkness_xna {
                         }
                     }
 
-                    if (!visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32+1])
+                    if (!visited[1])
                     {
                         //Move dim rectangles
                         for (int i = 0; i < dims.Count; i++)

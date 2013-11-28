@@ -114,7 +114,7 @@
  </objectgroup>
  <objectgroup name="Visited" width="25" height="46">
   <properties>
-   <property name="mapId" value="8"/>
+   <property name="mapId" value="9"/>
    <property name="visited" value="false"/>
   </properties>
  </objectgroup>
