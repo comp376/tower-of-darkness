@@ -13,7 +13,7 @@
  </layer>
  <layer name="Foreground" width="25" height="16" opacity="0.9">
   <data encoding="base64" compression="zlib">
-   eJzjY2Bg4KMDpiUYtWPUjpFmhzUa34YGdrii8d1oYAcpgF524APhQBxBYzsSgTiJCnbQAwMA0ZAGnQ==
+   eJzjY2Bg4KMDpiUYtWPUjpFmhzUa34YGdrii8d1oYAcpgF520AKEA3EEje1IBOIkJDvogQGAoAad
   </data>
  </layer>
  <objectgroup name="Transition" width="25" height="16">
@@ -34,7 +34,7 @@
   </properties>
  </objectgroup>
  <objectgroup name="Objects" width="25" height="16">
-  <object name="lantern" x="672" y="416" width="32" height="32">
+  <object name="lantern" x="704" y="384" width="32" height="32">
    <properties>
     <property name="Type" value="lantern"/>
    </properties>
@@ -50,5 +50,8 @@
     <property name="yFrames" value="1"/>
    </properties>
   </object>
+ </objectgroup>
+ <objectgroup name="Light" width="25" height="16">
+  <object x="480" y="448" width="32" height="32"/>
  </objectgroup>
 </map>

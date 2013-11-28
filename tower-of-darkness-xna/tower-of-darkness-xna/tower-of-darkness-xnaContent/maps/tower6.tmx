@@ -42,7 +42,7 @@
  </layer>
  <objectgroup name="Visited" width="96" height="16">
   <properties>
-   <property name="mapId" value="9"/>
+   <property name="mapId" value="10"/>
    <property name="visited" value="false"/>
   </properties>
  </objectgroup>
