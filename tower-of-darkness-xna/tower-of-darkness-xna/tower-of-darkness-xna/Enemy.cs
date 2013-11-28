@@ -23,11 +23,33 @@ namespace tower_of_darkness_xna {
         private int changeDirectionTimer = 0;
         private int changeDirectionInterval;// = 5000;
 
+        private Color enemyColor = Color.White;
+
+        public bool hit = false;
         public int hits;
-        private string spritesheetName; 
+        private string spritesheetName;
+        private const int MAX_HOVER_HEIGHT = 500;
+        private bool isBoss = false;
+
+        private float hoverTimer = 0;
+        private float hoverInterval = 100;
+        private int startingY;
+
+        private float hitTimer = 0;
+        private float hitInterval = 10;
+        private float flashColorTimer = 0;
+        private float flashColorInterval = 100;
+
+        enum HoverDirections {
+            Up,
+            Down,
+        }
+        HoverDirections hoverDirection;
 
         public Enemy(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, int hits, string spritesheetName, SpriteFont font, int moveInterval, int changeDirectionInterval, int startingDirection)
             : base(spriteSheet, xNumberOfFrames, yNumberOfFrames, spriteWidth, spriteHeight, font) {
+                hoverDirection = HoverDirections.Up;
+                startingY = objectRectangle.Y;
                 this.hits = hits;
                 this.spritesheetName = spritesheetName;
                 this.moveInterval = moveInterval;
@@ -43,6 +65,9 @@ namespace tower_of_darkness_xna {
             
                 if (spritesheetName == "enemy2")
                     MOVE_SPEED = 8;
+
+                if (spritesheetName == "boss")
+                    isBoss = true;
         }
 
         public void Update(GameTime gameTime, List<Rectangle> cRectangles, List<Breakable> breakables) {
@@ -50,6 +75,52 @@ namespace tower_of_darkness_xna {
             animate(gameTime);
             gravity(cRectangles, breakables);
             move(gameTime, cRectangles, breakables);
+            hover(gameTime);
+            hitting(gameTime);
+        }
+
+        private void hitting(GameTime gameTime) {
+            if (hit == true) {
+                hitTimer += gameTime.ElapsedGameTime.Milliseconds;
+                if (hitTimer >= hitInterval) {
+                    if (enemyColor != Color.Red) {
+                        hits--;
+                        enemyColor = Color.Red;
+                        flashColorTimer = 0;
+                    } else {
+                        flashColorTimer += gameTime.ElapsedGameTime.Milliseconds;
+                        if (flashColorTimer >= flashColorInterval) {
+                            enemyColor = Color.White;
+                            hitTimer = 0;
+                            flashColorTimer = 0;
+                            hit = false;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void hover(GameTime gameTime) {
+            if (!isBoss)
+                return;
+            hoverTimer += gameTime.ElapsedGameTime.Milliseconds;
+            if (hoverTimer >= hoverInterval) {
+                if (hoverDirection == HoverDirections.Up) {
+                    if (objectRectangle.Y > (startingY - MAX_HOVER_HEIGHT)) {
+                        objectRectangle.Y -= 1;
+                    } else {
+                        hoverDirection = HoverDirections.Down;
+                    }
+                } else if (hoverDirection == HoverDirections.Down) {
+                    if (startingY > objectRectangle.Y) {
+                        objectRectangle.Y += 1;
+                    } else {
+                        hoverDirection = HoverDirections.Up;
+                    }
+                }
+                hoverTimer = 0;
+            }
+
         }
 
         private void changeMoveDirection(GameTime gameTime){
@@ -183,7 +254,8 @@ namespace tower_of_darkness_xna {
                     flip = SpriteEffects.FlipHorizontally;
                     break;
             }
-            spriteBatch.Draw(spriteSheet, objectRectangle, sourceRect, color, 0f, new Vector2(), flip, 0);
+            spriteBatch.Draw(spriteSheet, objectRectangle, sourceRect, enemyColor, 0f, new Vector2(), flip, 0);
+
         }
 
         private void getSourceRect(ref int x, ref int y) {

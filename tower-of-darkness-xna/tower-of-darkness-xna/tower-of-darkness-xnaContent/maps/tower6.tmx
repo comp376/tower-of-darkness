@@ -11,12 +11,12 @@
  </tileset>
  <layer name="Background" width="96" height="16">
   <data encoding="base64" compression="zlib">
-   eJztl0EOhDAIRdl5jO5n7c16hDks15i4MPkhTCcdwU9Ukh9JjRUfqNBEpN1YbGM/f4R0Uux4Mfese78S+Peb8ZcDe6yF+b9BlflH7RGlDmpffDXrv/hn5iCTHSMv3TnaNZUxe8s/M94r8o+o/0d5+VHw2fFIgRjOZO+9Fw//fN67FI4V+tAr8ff+vTYX2Kcy6x/NnvPmoshZ6Uz+3hrOCWz2lv9mK/j7euSslJVb7H1sj1ml/j1bHN7oz+4/e01Ubr0a93xG/Y9sGbD/hydL3ne/Gd6s/n9kbG5sse0DwTTzLA==
+   eJztl1EKgCAMhvfWMXzv2Rt2WK8RQcEYKlnTfzgHH42kad8iWCCi4Bh0oN9fg3TD8xro8/Leo/belf3LXnjwTz9qRMP+D4Zl/1o1RtLqv2cPerqz2pfZvv8Z/S98+CcDZ/DM8r/8e4SHXMvNRZqzEhr0/1+GXIssf+5rzkojeot2/Nb9FVvGN89b67c+06O3Jf9yTkZ65/5L7r/4tEYqXEdSC7QfNOg4Aeqq0mA=
   </data>
  </layer>
  <layer name="Foreground" width="96" height="16">
   <data encoding="base64" compression="zlib">
-   eJztmEsKwjAQhpMTFMSluBT3bt3qhcRzqUt1qW7d9jqm2EIMmcnM5NFW+sNPyWuSfg1DmkopVU0Wu450EyOX3LVS+mNlqE6qg3BcDdTP9Pc513jZjjPx5wviv2j5LjVetuNA70NlhonLnxrTjS0VxP9kfDa+AO0Q/1XLd63xsh3HXr90n2L9cvHnrsUniP/V+GZ8B9oh/lxR8o+PXyr+vriUMViZI4j/w/hp/ALaU/PnvkMMf85c2DeTxHOVOv9L4qTiAvWLyT997f+QSuYfnyb+8dqq3/xDtVLD4J/z/BNSLP+d8V71t//d74idgUN1Y+O/MX63HlL+8fUpwb+x5N5AIpt9Cf4xKnH+PEaM5cpl3/GXqAR/6jxj4O9jn4N/qjuL0Dyp5ivBH2Jv559U7kT5r/0Hx949N/4AaUNtdg==
+   eJztmL8OwiAQxuEJmhhH42jcXV31hXwwdVRHdXXt63iNbYKEO+A4oJp+yZeGPz3gV3KhNEqpZjLbbaK7GLlkzzWkP1XG6rg6MN9rkfqZ/jznmi6bcSb+8cL4L3q+S02XzTjYekKZUYrlHxrTjs0Vxv8IPoHPSDvGf9XzXWu6bMYx58/dp1S/XPxj5+ISxv8CvoJvSDvGP1Yh+cfFT4q/K27IO1Q5Rhj/O/gBfiLt0vxj15DCP2Ys6ptx4tmSzv+cOFJcsH4p+afW/vepZP5xaeKfrq36zj+hVmoc/HOef3xK5b8D71W9/W9/R+oM7Kv7Nf4b8Kv3mPKPq08J/p059wYcmexL8E9RifNnSdnsB/4clVqz5L9gTbnY5+AvdWfhG0dyvNzC2Jv5R8qDQv5r/8Gpd8+d35b8bBc=
   </data>
  </layer>
  <layer name="Ladder" width="96" height="16">
@@ -38,7 +38,7 @@
  </objectgroup>
  <layer name="Breakable" width="96" height="16">
   <data encoding="base64" compression="zlib">
-   eJzt1kEKwCAMRNHcQPC0Ht9FW+iisTCVpqb/QTauZEYkZgDwbzX6AgsptuV1zJl3fof8dUp2V71Bo7x3zEcH30EXcfiP4oyy9/Yl6KrpOyeeyZB3EyezN3sl/1iZ8y/7wNcBnGQV1g==
+   eJzt1lEKgCAQhOG9gSAd1uMnVOBDmzBFm/Z/MC8+yazImgHAv+XoCwwk2dbXkZZ33kP/OqW7s7lBo7x3PI8ZfAeziMN/FOeqe29fgi6bvnPintH7XmqKmJm9NVf6jzV7/2kPfCtvYxYS
   </data>
  </layer>
  <objectgroup name="Visited" width="96" height="16">
@@ -58,7 +58,7 @@
  <objectgroup name="Enemy" width="96" height="16">
   <object x="320" y="416" width="32" height="64">
    <properties>
-    <property name="hits" value="100"/>
+    <property name="hits" value="10"/>
     <property name="spritesheet" value="enemy2"/>
     <property name="xFrames" value="3"/>
     <property name="yFrames" value="1"/>
@@ -66,7 +66,7 @@
   </object>
   <object x="992" y="416" width="32" height="64">
    <properties>
-    <property name="hits" value="100"/>
+    <property name="hits" value="10"/>
     <property name="spritesheet" value="enemy2"/>
     <property name="xFrames" value="3"/>
     <property name="yFrames" value="1"/>
@@ -74,9 +74,17 @@
   </object>
   <object x="1472" y="416" width="32" height="64">
    <properties>
-    <property name="hits" value="100"/>
+    <property name="hits" value="10"/>
     <property name="spritesheet" value="enemy2"/>
     <property name="xFrames" value="3"/>
+    <property name="yFrames" value="1"/>
+   </properties>
+  </object>
+  <object x="1728" y="352" width="128" height="128">
+   <properties>
+    <property name="hits" value="30"/>
+    <property name="spritesheet" value="boss"/>
+    <property name="xFrames" value="1"/>
     <property name="yFrames" value="1"/>
    </properties>
   </object>

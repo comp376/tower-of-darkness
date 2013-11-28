@@ -6,12 +6,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace tower_of_darkness_xna {
     class Character : NPC {
         private float STARTING_LIGHT_SIZE = 50.0f;
         private float lightTimer = 0;
-        private float lightInterval = 2000;
+        private float lightInterval = 5000;
         KeyboardState oldstate;
 
         //Character
@@ -74,6 +75,7 @@ namespace tower_of_darkness_xna {
         private const float FORWARDS_BOUNDARY = -10;
         private const float ANGLE_CHANGE = 0.5f;
 
+        public bool isBossDead = false;
         
         public bool bookPickedUp = false;
 
@@ -174,12 +176,18 @@ namespace tower_of_darkness_xna {
                 lanternPosition.X += 32;
                 lanternRectangle.X += 32;
                 lightPosition.X += ((lightTexture.Width + currentLightSize) / 2) - spriteWidth - 45;
+            } else {
+                lanternPosition.X -= 32;
+                lanternRectangle.X -= 32;
             }
             lanternPosition.Y += 32;
             lanternRectangle.Y += 32;
             lightPosition.Y -= ((lightTexture.Height - currentLightSize) / 2) - spriteHeight - 9;
             if (lanternPickedUp) {
-                spriteBatch.Draw(lanternTexture, lanternRectangle, null, Color.White, degreeToRadian(lanternAngle), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), walkingDirection, 0);
+                if(walkingDirection == SpriteEffects.FlipHorizontally)
+                    spriteBatch.Draw(lanternTexture, new Rectangle(lanternRectangle.X + 32, lanternRectangle.Y, lanternRectangle.Width, lanternRectangle.Height), null, Color.White, degreeToRadian(lanternAngle), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), walkingDirection, 0);
+                else
+                    spriteBatch.Draw(lanternTexture, lanternRectangle, null, Color.White, degreeToRadian(lanternAngle), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), walkingDirection, 0);
                 spriteBatch.End();
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
                 spriteBatch.Draw(lightTexture, new Rectangle((int)(lightPosition.X), (int)(lightPosition.Y - (currentLightSize * 6)), (int)(lightTexture.Width + (currentLightSize * 15)), (int)(lightTexture.Height + (currentLightSize * 15))), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), lightColor * lightAlpha, degreeToRadian(lanternAngle), new Vector2(lightTexture.Width / 2, 0), walkingDirection, 0);
@@ -216,13 +224,14 @@ namespace tower_of_darkness_xna {
             enemyHitTimer += gameTime.ElapsedGameTime.Milliseconds;
             if (enemyHitTimer >= enemyHitInterval) {
                 if (playerColor != Color.Red) {
-            foreach (Enemy e in enemies) {
-                if (e.objectRectangle.Intersects(objectRectangle)) {
-                    if (currentLightSize > -17)
+                    foreach (Enemy e in enemies) {
+                        if (e.objectRectangle.Intersects(objectRectangle)) {
+                            if (currentLightSize > -17)
                                 currentLightSize -= 5.0f;
                             Console.WriteLine("flash player");
                             playerColor = Color.Red;
                             flashColorTimer = 0;
+                    
                         }
                     }
                 } else {
@@ -233,7 +242,7 @@ namespace tower_of_darkness_xna {
                         flashColorTimer = 0;
                     }
                 }
-                
+
             }
             
 
@@ -249,10 +258,9 @@ namespace tower_of_darkness_xna {
             if (attacking) {
                 foreach (Enemy e in enemies) {
                     if (e.objectRectangle.Intersects(lanternRectangle)) {
-                        e.hits--;
+                        e.hit = true;
                     }
                 }
-
             }
         }
 
@@ -855,7 +863,7 @@ namespace tower_of_darkness_xna {
                     {
                         //Give global lighting for a small duration
 
-                        currentLightSize += 10f;
+                        currentLightSize += 20f;
                         objects[i].consumed = true;
                     }
                     else if (objects[i].type == "lantern")

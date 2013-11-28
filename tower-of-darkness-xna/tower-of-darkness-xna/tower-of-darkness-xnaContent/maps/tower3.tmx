@@ -78,7 +78,7 @@
  <objectgroup name="Enemy" width="32" height="32">
   <object x="480" y="576" width="32" height="64">
    <properties>
-    <property name="hits" value="50"/>
+    <property name="hits" value="5"/>
     <property name="spritesheet" value="enemy1"/>
     <property name="xFrames" value="3"/>
     <property name="yFrames" value="1"/>
@@ -86,7 +86,7 @@
   </object>
   <object x="800" y="32" width="32" height="64">
    <properties>
-    <property name="hits" value="100"/>
+    <property name="hits" value="10"/>
     <property name="spritesheet" value="enemy2"/>
     <property name="xFrames" value="3"/>
     <property name="yFrames" value="1"/>
@@ -94,7 +94,7 @@
   </object>
   <object x="576" y="928" width="32" height="64">
    <properties>
-    <property name="hits" value="100"/>
+    <property name="hits" value="10"/>
     <property name="spritesheet" value="enemy2"/>
     <property name="xFrames" value="3"/>
     <property name="yFrames" value="1"/>
