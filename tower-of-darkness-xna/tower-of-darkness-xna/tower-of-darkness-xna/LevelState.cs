@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 using FuncWorks.XNA.XTiled;
 
 namespace tower_of_darkness_xna {
@@ -14,6 +15,8 @@ namespace tower_of_darkness_xna {
         private bool DEBUG = false;
         private bool PAUSE_SCREEN = false;
         private int enemiesKilled = 0;
+
+        SoundEffect pickUp;
 
         private const int BACKGROUND_LAYER = 0;
         private const int LADDER_LAYER = 1;
@@ -211,6 +214,8 @@ namespace tower_of_darkness_xna {
             pauseSelectorPosition = new Vector2(128, 150);
             lanternKeyTexture = Content.Load<Texture2D>("sprites/lantern_key_item");
             bookKeyTexture = Content.Load<Texture2D>("sprites/book_key_item");
+
+            pickUp = Content.Load<SoundEffect>("audio/pop2");
         }
 
         private void modifyLayerOpacity(Color c, float a) {
@@ -560,13 +565,7 @@ namespace tower_of_darkness_xna {
             {
                 if (objects[i].consumed)
                 {
-                    if (objects[i].type == "super essence")
-                    {
-                        foreach (TileLayer tl in map.TileLayers)
-                        {
-                            tl.OpacityColor = OPAQUE_COLOR * 1.0f;
-                        }
-                    }
+                    pickUp.Play();
                     objects.RemoveAt(i);
                 }
             }

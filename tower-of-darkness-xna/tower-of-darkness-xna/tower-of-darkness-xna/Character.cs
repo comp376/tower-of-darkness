@@ -94,7 +94,6 @@ namespace tower_of_darkness_xna {
                 theMapObjects[i] = new List<Scene2DNode>();
                 theMapObjects[i].Add(emptyNode);
             }
-            oldState = Keyboard.GetState();
         }
 
         public void LoadContent() {
