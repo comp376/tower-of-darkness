@@ -749,6 +749,12 @@ namespace tower_of_darkness_xna {
                             objects[i].consumed = true;
                             lanternPickedUp = true;
                         }
+                        else
+                        {
+                            characterWords = "I should ask before taking this..";
+                            talkTimer = 0;
+                            showText = true;
+                        }
                     }
                 }
             }

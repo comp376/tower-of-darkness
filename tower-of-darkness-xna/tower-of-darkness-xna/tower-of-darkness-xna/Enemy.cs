@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace tower_of_darkness_xna {
     class Enemy : Object {
-        private const int MOVE_SPEED = 4;
+        private const int MOVE_SPEED = 8;
         private const int GRAVITY_SPEED = 4;
 
         protected int xCurrentFrame = 0;
@@ -17,22 +17,96 @@ namespace tower_of_darkness_xna {
         public bool isMoving;
         public MovementStatus movementStatus;
 
+        private bool falling = false;
+        private int moveTimer = 0;
+        private int moveInterval;// = 1000;
+        private int changeDirectionTimer = 0;
+        private int changeDirectionInterval;// = 5000;
+
         public int hits;
         private string spritesheetName; 
 
-        public Enemy(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, int hits, string spritesheetName, SpriteFont font)
+        public Enemy(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, int hits, string spritesheetName, SpriteFont font, int moveInterval, int changeDirectionInterval, int startingDirection)
             : base(spriteSheet, xNumberOfFrames, yNumberOfFrames, spriteWidth, spriteHeight, font) {
                 this.hits = hits;
                 this.spritesheetName = spritesheetName;
+                this.moveInterval = moveInterval;
+                this.changeDirectionInterval = changeDirectionInterval;
+                switch (startingDirection) {
+                    case 0:
+                        movementStatus = MovementStatus.Left;
+                        break;
+                    case 1:
+                        movementStatus = MovementStatus.Right;
+                        break;
+                }
         }
 
         public void Update(GameTime gameTime, List<Rectangle> cRectangles) {
+            changeMoveDirection(gameTime);
+            animate(gameTime);
             gravity(cRectangles);
+            move(gameTime, cRectangles);
+        }
+
+        private void changeMoveDirection(GameTime gameTime){
+            if (!falling) {
+                changeDirectionTimer += gameTime.ElapsedGameTime.Milliseconds;
+                if (changeDirectionTimer >= changeDirectionInterval) {
+                    switch (movementStatus) {
+                        case MovementStatus.Left:
+                            movementStatus = MovementStatus.Right;
+                            break;
+                        case MovementStatus.Right:
+                            movementStatus = MovementStatus.Left;
+                            break;
+                    }
+                    changeDirectionTimer = 0;
+                }
+            }
+        }
+
+        private void animate(GameTime gameTime) {
+            if (!falling) {
+                frameTimer += gameTime.ElapsedGameTime.Milliseconds;
+                if (frameTimer >= frameInterval) {
+                    if (xCurrentFrame < xNumberOfFrames - 1) {
+                        xCurrentFrame++;
+                    } else {
+                        xCurrentFrame = 0;
+                    }
+
+                    frameTimer = 0;
+                }
+            }
+        }
+
+        private void move(GameTime gameTime, List<Rectangle> cRectangles) {
+            moveTimer += gameTime.ElapsedGameTime.Milliseconds;
+            if (moveTimer >= moveInterval && !falling) {
+                switch (movementStatus) {
+                    case MovementStatus.Left:
+                        if (!collides(cRectangles, movementStatus)) {
+                            objectRectangle.X -= MOVE_SPEED;
+                        }
+                        break;
+                    case MovementStatus.Right:
+                        if (!collides(cRectangles, movementStatus)) {
+                            objectRectangle.X += MOVE_SPEED;
+                        }
+                        break;
+                }
+
+                moveTimer = 0;
+            }
         }
 
         private void gravity(List<Rectangle> cRectangles) {
-            if(!collides(cRectangles, MovementStatus.Fall)){
+            if (!collides(cRectangles, MovementStatus.Fall)) {
                 objectRectangle.Y += GRAVITY_SPEED;
+                falling = true;
+            } else {
+                falling = false;
             }
         }
 
@@ -71,12 +145,8 @@ namespace tower_of_darkness_xna {
         }
 
         private void getSourceRect(ref int x, ref int y) {
-            if (isMoving) {
-                x = xCurrentFrame * spriteWidth;
-            } else {
-                x = STARTING_FRAME * spriteWidth;
-            }
-
+            x = xCurrentFrame * spriteWidth;
+            
             switch (movementStatus) {
                 case MovementStatus.None:
                     y = (int)MovementStatus.Right * spriteHeight;

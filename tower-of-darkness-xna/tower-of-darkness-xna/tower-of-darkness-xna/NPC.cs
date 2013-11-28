@@ -24,7 +24,7 @@ namespace tower_of_darkness_xna {
 
         public string questAdvance;
         public bool wizardSpokenTo = false;
-        public bool lanternPickedUp = false;
+        protected bool lanternPickedUp = false;
 
         //character inherited constructor
         public NPC(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, SpriteFont font)
@@ -42,7 +42,7 @@ namespace tower_of_darkness_xna {
         }
 
         public void Update(GameTime gameTime) {
-
+            
 
         }
 
@@ -85,24 +85,36 @@ namespace tower_of_darkness_xna {
                 x = STARTING_FRAME * spriteWidth;
             }
 
-            switch (movementStatus) {
-                case MovementStatus.None:
-                    y = (int)MovementStatus.Right * spriteHeight;
-                    break;
-                default:
-                    //y = (int)movementStatus * spriteHeight;
-                    y = 0;
-                    break;
+            if (!isNPC) {
+                if (lanternPickedUp) {
+                    y = 0 * spriteHeight;
+                } else {
+                    y = 1 * spriteHeight;
+                }
+            } else {
+                y = 0 * spriteHeight;
             }
-            /*
-             if (yNumberOfFrames == 2){
-                if (lanternPickedUp)
-                    y = (int)MovementStatus.Left * spriteHeight;
-                else
-                    y = (int)MovementStatus.Right * spriteHeight;
-            }else
-                y = (int)MovementStatus.Right * spriteHeight;
-              */
+
+            Console.WriteLine(isNPC + " : " + lanternPickedUp + " : " + y);
+
+            //switch (movementStatus) {
+            //    case MovementStatus.None:
+            //        y = (int)MovementStatus.Right * spriteHeight;
+            //        break;
+            //    default:
+            //        //y = (int)movementStatus * spriteHeight;
+            //        y = 0;
+            //        break;
+            //}
+            ///*
+            // if (yNumberOfFrames == 2){
+            //    if (lanternPickedUp)
+            //        y = (int)MovementStatus.Left * spriteHeight;
+            //    else
+            //        y = (int)MovementStatus.Right * spriteHeight;
+            //}else
+            //    y = (int)MovementStatus.Right * spriteHeight;
+            //  */
 
         }
 
