@@ -516,6 +516,9 @@ namespace tower_of_darkness_xna {
 
         private void UpdatePlaying(GameTime gameTime) {
             pausePlayTimer += gameTime.ElapsedGameTime.Milliseconds;
+            if(character.goToMainMenu)
+                Game1.currentGameState = new MenuState(Content, Game1.WIDTH, Game1.HEIGHT, Game1.STARTING_MAP_NAME, character);
+
             if (pausePlayTimer >= pausePlayInterval) {
                 if (Keyboard.GetState().IsKeyDown(Keys.Escape)) {
                     PAUSE_SCREEN = true;

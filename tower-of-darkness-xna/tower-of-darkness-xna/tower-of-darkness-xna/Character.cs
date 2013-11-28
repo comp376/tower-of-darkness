@@ -50,7 +50,8 @@ namespace tower_of_darkness_xna {
         public bool wizardSpokenTo = false;
         public string characterWords = "";
         public bool showText = false;
-
+        public bool finishGame = false;
+        public bool goToMainMenu = false;
         public bool firstEncounter = true;
         public int encounterCount = 0;
         public List<Scene2DNode>[] theMapObjects = new List<Scene2DNode>[MAP_COUNT];
@@ -346,7 +347,13 @@ namespace tower_of_darkness_xna {
                         if (npc.objectRectangle.Intersects(objectRectangle)) {
                             if (npc.questAdvance == "lanternPickup")
                                 wizardSpokenTo = true;
-
+                            if (npc.id == 7)
+                            {
+                                finishGame = true;
+                                npc.text = "You're vanquished the darkness \nfrom our world.  You've saved us, \nhero.";
+                                npc.showText = true;
+                                talkTimer = 0;
+                            }
                             if (npc.id == 0)
                             {//Wizard?
                                 if (!lanternPickedUp)
@@ -426,6 +433,11 @@ namespace tower_of_darkness_xna {
                             talkTimer = 0;
                             showText = true;   
                         }
+                        if (npc.id == 7 && finishGame)
+                        {
+                            goToMainMenu = true;
+                        }
+
                     }
                 }
 
