@@ -857,8 +857,7 @@ namespace tower_of_darkness_xna {
                         objects[i].consumed = true;
                     }else if (objects[i].type == "super essence")
                     {
-                        //Give global lighting for a small duration
-
+                        //Increases lantern power
                         currentLightSize += 10f;
                         objects[i].consumed = true;
                     }

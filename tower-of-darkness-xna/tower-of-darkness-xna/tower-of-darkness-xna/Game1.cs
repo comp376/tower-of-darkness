@@ -20,7 +20,7 @@ namespace tower_of_darkness_xna {
         public static int HEIGHT = 480;
 
 
-        public static string STARTING_MAP_NAME = "tower4";
+        public static string STARTING_MAP_NAME = "forest";
 
 
         public static GameState currentGameState;
@@ -62,7 +62,6 @@ namespace tower_of_darkness_xna {
 
             instance = background.CreateInstance();
             instance.IsLooped = true;
-           // instance.Play();
            
 
         }
