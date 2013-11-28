@@ -57,8 +57,6 @@ Content\sprites\light7.xnb
 Content\sprites\light8.xnb
 Content\sprites\light2.xnb
 Content\sprites\book.xnb
-Content\sprites\book_key_item.xnb
-Content\sprites\lantern_key_item.xnb
 Content\maps\sandbox\00.xnb
 Content\maps\bridge\00.xnb
 Content\maps\map1\00.xnb
@@ -83,10 +81,6 @@ Content\maps\town\01.xnb
 Content\maps\outside\00.xnb
 Content\maps\house\00.xnb
 Content\maps\house\01.xnb
-<<<<<<< HEAD
 Content\audio\Jump.xnb
-Content\audio\Hit.xnb
 Content\sprites\book_key_item.xnb
 Content\sprites\lantern_key_item.xnb
-=======
->>>>>>> c131783f1054f5d3f0d58170bf5f7b20bbea5578

@@ -39,7 +39,7 @@ namespace tower_of_darkness_xna {
         private List<Scene2DNode> objects;
         private List<Dim> dims;
         private int dimsCount = 0;
-        private bool[] visited = new bool[20];
+        private bool[] visited = new bool[21];
         private bool isSet;
         private Random rand;
         private Tuple<int, int> enemyMoveTuple = new Tuple<int, int>(50, 100);
@@ -82,7 +82,7 @@ namespace tower_of_darkness_xna {
             this.mapView = new Rectangle(0, 0, PreferredBackBufferWidth, PreferredBackBufferHeight);
             this.mapName = mapName;
             this.character = character;
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 21; i++)
             {
                 visited[i] = false;
             }
@@ -444,9 +444,10 @@ namespace tower_of_darkness_xna {
                 Texture2D npcSpriteSheet = Content.Load<Texture2D>("sprites/" + spritesheetName);
                 int xNumberOfFrames = (int)mo.Properties["xFrames"].AsInt32;
                 int yNumberOfFrames = (int)mo.Properties["yFrames"].AsInt32;
+                int id = (int)mo.Properties["id"].AsInt32;
                 Rectangle npcRect = mo.Bounds;
-                string text = mo.Properties["text"].Value;
-                NPC n = new NPC(npcSpriteSheet, xNumberOfFrames, yNumberOfFrames, npcRect.Width, npcRect.Height, text, spritesheetName, quest, font);
+                string text = mo.Properties["text"].Value.ToString();
+                NPC n = new NPC(npcSpriteSheet, xNumberOfFrames, yNumberOfFrames, npcRect.Width, npcRect.Height, text, spritesheetName, quest, font, id);
                 Console.WriteLine(n.ToString());
                 n.objectRectangle = npcRect; //also provides npc(x,y) 
                 npcs.Add(n);

@@ -52,7 +52,7 @@ namespace tower_of_darkness_xna {
         public const int MAP_COUNT = 20;
         KeyboardState oldState;
         public bool wizardSpokenTo = false;
-        public bool bookPickedUp = false;
+        public bool bookPickedUp = true;
         public string characterWords = "";
         public bool showText = false;
 
@@ -180,7 +180,7 @@ namespace tower_of_darkness_xna {
             if (showText) {
                 Vector2 fontOrigin = font.MeasureString(characterWords) / 2;
                 Vector2 fontPosition = new Vector2(objectRectangle.X, objectRectangle.Y - 16);
-                spriteBatch.DrawString(font, characterWords, fontPosition, Color.White, 0, fontOrigin, 1.1f, SpriteEffects.None, 0);
+                spriteBatch.DrawString(font, characterWords, fontPosition, Color.White, 0, fontOrigin, 0.75f, SpriteEffects.None, 0);
             }
                 base.Draw(spriteBatch, playerColor);
         }

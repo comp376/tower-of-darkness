@@ -7526,6 +7526,7 @@
  <objectgroup name="NPC" width="50" height="30">
   <object x="768" y="288" width="32" height="64">
    <properties>
+    <property name="id" value="15"/>
     <property name="questAdvance" value="none"/>
     <property name="spritesheet" value="npc"/>
     <property name="text" value="this is a test message"/>
@@ -7586,7 +7587,7 @@
  </objectgroup>
  <objectgroup name="Visited" width="50" height="30">
   <properties>
-   <property name="mapId" value="20"/>
+   <property name="mapId" value="15"/>
   </properties>
  </objectgroup>
 </map>

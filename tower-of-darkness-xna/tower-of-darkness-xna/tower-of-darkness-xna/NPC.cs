@@ -32,8 +32,8 @@ namespace tower_of_darkness_xna {
         }
 
         //npc constructor
-        public NPC(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, string text, string spritesheetName, string quest, SpriteFont font)
-            : base(spriteSheet, xNumberOfFrames, yNumberOfFrames, spriteWidth, spriteHeight, font) {
+        public NPC(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, string text, string spritesheetName, string quest, SpriteFont font, int id)
+            : base(spriteSheet, xNumberOfFrames, yNumberOfFrames, spriteWidth, spriteHeight, font, id) {
                 this.text = text;
                 this.spritesheetName = spritesheetName;
                 this.font = font;
@@ -74,7 +74,11 @@ namespace tower_of_darkness_xna {
             if (isNPC && showText) {
                 Vector2 fontOrigin = font.MeasureString(text) / 2;
                 Vector2 fontPosition = new Vector2(objectRectangle.X, objectRectangle.Y - 16);
-                spriteBatch.DrawString(font, text, fontPosition, Color.White, 0, fontOrigin, 1.1f, SpriteEffects.None, 0);
+                if (this.id == 0)
+                    text = "An evil force has taken over the land.\nTake my lantern and head to the tower.\nSave us.. ";
+                if (this.id == 2)
+                    text = "I locked myself in here.\nThe tower has been overun\nwith monsters!";
+                spriteBatch.DrawString(font, text, fontPosition, Color.White, 0, fontOrigin, 0.75f, SpriteEffects.None, 0);
             }
         }
 

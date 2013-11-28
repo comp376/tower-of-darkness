@@ -43,6 +43,7 @@
  <objectgroup name="NPC" width="25" height="16">
   <object x="352" y="416" width="32" height="64">
    <properties>
+    <property name="id" value="0"/>
     <property name="questAdvance" value="lanternPickup"/>
     <property name="spritesheet" value="npc"/>
     <property name="text" value="Help us.  Take my lantern and head to the tower."/>

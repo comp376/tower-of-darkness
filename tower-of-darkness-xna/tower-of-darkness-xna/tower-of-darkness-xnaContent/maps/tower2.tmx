@@ -56,9 +56,10 @@
  <objectgroup name="NPC" width="25" height="45">
   <object x="608" y="960" width="32" height="64">
    <properties>
+    <property name="id" value="3"/>
     <property name="questAdvance" value="none"/>
     <property name="spritesheet" value="npc"/>
-    <property name="text" value="8====D"/>
+    <property name="text" value=""/>
     <property name="xFrames" value="3"/>
     <property name="yFrames" value="1"/>
    </properties>
