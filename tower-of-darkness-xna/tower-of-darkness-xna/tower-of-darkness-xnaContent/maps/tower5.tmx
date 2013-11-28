@@ -119,4 +119,22 @@
   </properties>
  </objectgroup>
  <objectgroup name="Load" width="25" height="46"/>
+ <objectgroup name="Enemy" width="25" height="46">
+  <object x="256" y="320" width="31" height="62">
+   <properties>
+    <property name="hits" value="50"/>
+    <property name="spritesheet" value="enemy1"/>
+    <property name="xFrames" value="3"/>
+    <property name="yFrames" value="1"/>
+   </properties>
+  </object>
+  <object x="385" y="1185" width="29" height="61">
+   <properties>
+    <property name="hits" value="50"/>
+    <property name="spritesheet" value="enemy1"/>
+    <property name="xFrames" value="3"/>
+    <property name="yFrames" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

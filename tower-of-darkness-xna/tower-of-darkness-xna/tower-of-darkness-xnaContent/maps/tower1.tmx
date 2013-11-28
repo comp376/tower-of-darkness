@@ -97,4 +97,22 @@
    <property name="visited" value="false"/>
   </properties>
  </objectgroup>
+ <objectgroup name="Enemy" width="25" height="46">
+  <object x="225" y="896" width="29" height="61">
+   <properties>
+    <property name="hits" value="50"/>
+    <property name="spritesheet" value="enemy1"/>
+    <property name="xFrames" value="3"/>
+    <property name="yFrames" value="1"/>
+   </properties>
+  </object>
+  <object x="195" y="354" width="27" height="58">
+   <properties>
+    <property name="hits" value="50"/>
+    <property name="spritesheet" value="enemy1"/>
+    <property name="xFrames" value="3"/>
+    <property name="yFrames" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

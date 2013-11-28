@@ -62,5 +62,33 @@
     <property name="Type" value="key"/>
    </properties>
   </object>
+  <object x="709" y="448" width="27" height="29">
+   <properties>
+    <property name="Type" value="essence"/>
+   </properties>
+  </object>
+  <object x="353" y="224" width="28" height="30">
+   <properties>
+    <property name="Type" value="essence"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Enemy" width="32" height="32">
+  <object x="480" y="576" width="31" height="62">
+   <properties>
+    <property name="hits" value="50"/>
+    <property name="spritesheet" value="enemy1"/>
+    <property name="xFrames" value="3"/>
+    <property name="yFrames" value="1"/>
+   </properties>
+  </object>
+  <object x="800" y="33" width="31" height="61">
+   <properties>
+    <property name="hits" value="50"/>
+    <property name="spritesheet" value="enemy1"/>
+    <property name="xFrames" value="3"/>
+    <property name="yFrames" value="1"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
