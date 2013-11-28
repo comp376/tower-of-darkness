@@ -90,6 +90,7 @@ namespace tower_of_darkness_xna {
             int xChange = transition.xChange;
             int yChange = transition.yChange;
             LoadContent();
+
             //Move camera
             mapView.X += xChange;
             mapView.Y += yChange;
@@ -470,7 +471,7 @@ namespace tower_of_darkness_xna {
                     PAUSE_SCREEN = true;
                 }
             }
-            character.Update(gameTime, mapRect, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims);
+            character.Update(gameTime, mapRect, (int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims);
             for (int i = 0; i < breakables.Count; i++) {
                 breakables[i].Update(gameTime);
                 if (breakables[i].isBroken && breakables[i].type == "breakable") {
@@ -519,10 +520,11 @@ namespace tower_of_darkness_xna {
 
             if (map.ObjectLayers["Visited"] == null)
                 return; 
-            if ((int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32 == 0)
+
+            /*if ((int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32 == 0)
             {
                 
-            }
+            }*/
         }
 
         private void UpdatePause(GameTime gameTime) {

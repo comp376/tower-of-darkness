@@ -46,7 +46,7 @@ namespace tower_of_darkness_xna {
         public const int MAP_COUNT = 20;
         KeyboardState oldState;
         public bool wizardSpokenTo = false;
-        public bool lanternPickedUp = true;
+        public bool lanternPickedUp = false;
 
         public string characterWords = "";
         public bool showText = false;
@@ -102,12 +102,12 @@ namespace tower_of_darkness_xna {
             currentLightSize = STARTING_LIGHT_SIZE;
         }
 
-        public void Update(GameTime gameTime, Rectangle mapRect, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects, ref List<Dim> dims) {
+        public void Update(GameTime gameTime, Rectangle mapRect, int mapId, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects, ref List<Dim> dims) {
             jump(ref cRectangles, ref mapView, ref mapRect, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims);
             move(gameTime, mapRect, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims);
             gravity(ref cRectangles, ref mapView, ref mapRect, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims);
             animate(gameTime);
-            hitTransition(transitions, mapView);
+            hitTransition(transitions, mapView, mapId);
             lanternSwinging(gameTime);
             talk(gameTime, ref npcs);
             attackSwing(gameTime);
@@ -754,13 +754,44 @@ namespace tower_of_darkness_xna {
             }
         }
 
-        private void hitTransition(List<Transition> transitions, Rectangle mapView) {
+        private void hitTransition(List<Transition> transitions, Rectangle mapView, int mapId) {
             foreach (Transition t in transitions) {
-                if (objectRectangle.Intersects(t.tRect)) {
-                    Game1.currentGameState = new LevelState(Content, mapView.Width, mapView.Height, t.nextMapName, this, t);
-                    break;
+                if (mapId == 1)//Town
+                {
+                    if (lanternPickedUp)
+                    {
+                        if (objectRectangle.Intersects(t.tRect))
+                        {
+                            Game1.currentGameState = new LevelState(Content, mapView.Width, mapView.Height, t.nextMapName, this, t);
+                            break;
+                        }
+                    }
+                    else//No lantern yet.
+                    {
+                        if (objectRectangle.Intersects(t.tRect))
+                        {
+                            if (t.nextMapName == "bridge")
+                            {
+                                characterWords = "I can't see well.  I should see if someone in that house over there can help me out.";
+                                talkTimer = 0;
+                                showText = true;
+                            }
+                            else
+                            {
+                                Game1.currentGameState = new LevelState(Content, mapView.Width, mapView.Height, t.nextMapName, this, t);
+                                break;
+                            }
+                        }
+                    }//End of lanternPickup?
+                }else{//Not Town
+                    if (objectRectangle.Intersects(t.tRect))
+                    {
+                        Game1.currentGameState = new LevelState(Content, mapView.Width, mapView.Height, t.nextMapName, this, t);
+                        break;
+                    }
                 }
-            }
+                
+            }//End of transitions
         }
 
         private bool mapInView(Rectangle mapView, Rectangle mapRect, int xChange, int yChange, MovementStatus movementStatus) {
