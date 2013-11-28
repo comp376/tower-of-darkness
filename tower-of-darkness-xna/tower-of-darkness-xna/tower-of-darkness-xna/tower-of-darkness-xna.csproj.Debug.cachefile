@@ -1,5 +1,7 @@
 Content\audio\pop.xnb
 Content\audio\pop2.xnb
+Content\audio\Jump.xnb
+Content\audio\Hit.xnb
 Content\fonts\spriteFont.xnb
 Content\maps\sandbox.xnb
 Content\maps\bridge.xnb
@@ -56,6 +58,7 @@ Content\sprites\light6.xnb
 Content\sprites\light7.xnb
 Content\sprites\light8.xnb
 Content\sprites\light2.xnb
+Content\sprites\book.xnb
 Content\maps\sandbox\00.xnb
 Content\maps\bridge\00.xnb
 Content\maps\map1\00.xnb
