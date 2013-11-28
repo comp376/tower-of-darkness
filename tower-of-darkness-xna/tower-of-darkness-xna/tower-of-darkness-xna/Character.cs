@@ -6,12 +6,18 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
+
 
 namespace tower_of_darkness_xna {
     class Character : NPC {
         private float STARTING_LIGHT_SIZE = 50.0f;
         private float lightTimer = 0;
         private float lightInterval = 2000;
+        SoundEffect hitSound;
+        SoundEffect jumpSound;
+        
 
         //Character
         private int moveTimer = 0;
@@ -27,7 +33,7 @@ namespace tower_of_darkness_xna {
         private int startingY = 0;
         private bool climbing = false;
         private int talkTimer = 0;
-        private int characterTalkTimer = 0;
+        private int characterTalkTimer = 0; 
         private int talkInterval = 2000;
         private int attackTimer = 0;
         private int attackInterval = 5;
@@ -97,8 +103,11 @@ namespace tower_of_darkness_xna {
             lanternPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
             lanternRectangle = new Rectangle(objectRectangle.X, objectRectangle.Y, lanternTexture.Width, lanternTexture.Height);
             lightPosition = new Vector2(objectRectangle.X, objectRectangle.Y);
-
+            hitSound = Content.Load<SoundEffect>("audio/Hit");
+            jumpSound = Content.Load<SoundEffect>("audio/Jump");
+            
             currentLightSize = STARTING_LIGHT_SIZE;
+
         }
 
         public void Update(GameTime gameTime, Rectangle mapRect, int mapId, ref Rectangle mapView, ref List<Rectangle> cRectangles, ref List<Transition> transitions, ref List<Rectangle> ladders, ref List<Breakable> breakables, ref List<NPC> npcs, ref List<Enemy> enemies, ref List<Scene2DNode> objects, ref List<Dim> dims) {
@@ -115,6 +124,7 @@ namespace tower_of_darkness_xna {
             enemyCollision(gameTime, enemies);
             crossDim(ref dims);
             decreaseLight(gameTime);
+
 
             KeyboardState newState = Keyboard.GetState();
 
@@ -205,6 +215,7 @@ namespace tower_of_darkness_xna {
                             Console.WriteLine("flash player");
                             playerColor = Color.Red;
                             flashColorTimer = 0;
+                            hitSound.Play();
                         }
                     }
                 } else {
@@ -446,6 +457,7 @@ namespace tower_of_darkness_xna {
                 }
             } else {
                 if (kbs.IsKeyDown(Keys.Space) && !falling) {
+                    jumpSound.Play();
                     jumping = true;
                     jumpingHeight = -JUMPING_HEIGHT;
                 }

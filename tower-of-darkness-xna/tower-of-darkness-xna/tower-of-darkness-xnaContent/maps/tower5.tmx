@@ -114,7 +114,7 @@
  </objectgroup>
  <objectgroup name="Visited" width="25" height="46">
   <properties>
-   <property name="mapId" value="8"/>
+   <property name="mapId" value="9"/>
    <property name="visited" value="false"/>
   </properties>
  </objectgroup>
@@ -129,6 +129,14 @@
    </properties>
   </object>
   <object x="384" y="1184" width="32" height="64">
+   <properties>
+    <property name="hits" value="50"/>
+    <property name="spritesheet" value="enemy1"/>
+    <property name="xFrames" value="3"/>
+    <property name="yFrames" value="1"/>
+   </properties>
+  </object>
+  <object x="352" y="608" width="32" height="64">
    <properties>
     <property name="hits" value="50"/>
     <property name="spritesheet" value="enemy1"/>

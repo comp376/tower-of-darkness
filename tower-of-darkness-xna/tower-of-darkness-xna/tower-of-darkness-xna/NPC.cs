@@ -95,8 +95,6 @@ namespace tower_of_darkness_xna {
                 y = 0 * spriteHeight;
             }
 
-            Console.WriteLine(isNPC + " : " + lanternPickedUp + " : " + y);
-
             //switch (movementStatus) {
             //    case MovementStatus.None:
             //        y = (int)MovementStatus.Right * spriteHeight;
