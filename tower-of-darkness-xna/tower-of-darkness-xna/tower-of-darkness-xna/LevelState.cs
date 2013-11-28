@@ -87,7 +87,6 @@ namespace tower_of_darkness_xna {
             this.mapName = mapName;
             this.character = character;
             
-
             int xChange = transition.xChange;
             int yChange = transition.yChange;
             LoadContent();
@@ -140,10 +139,15 @@ namespace tower_of_darkness_xna {
                 enemies[i].objectRectangle = new Rectangle(enemies[i].objectRectangle.X - xChange, enemies[i].objectRectangle.Y - yChange, enemies[i].objectRectangle.Width, enemies[i].objectRectangle.Height);
             }
 
-            //Move dim rectangles
-            for (int i = 0; i < dims.Count; i++) {
-                dims[i].dRect = new Rectangle(dims[i].dRect.X - xChange, dims[i].dRect.Y - yChange, dims[i].dRect.Width, dims[i].dRect.Height);
+            if (!visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32 + 1])
+            {
+                //Move dim rectangles
+                for (int i = 0; i < dims.Count; i++)
+                {
+                    dims[i].dRect = new Rectangle(dims[i].dRect.X - xChange, dims[i].dRect.Y - yChange, dims[i].dRect.Width, dims[i].dRect.Height);
+                }
             }
+            
                 
             //Set player direction
             character.movementStatus = (MovementStatus)transition.direction;
@@ -156,8 +160,12 @@ namespace tower_of_darkness_xna {
             superEssenceTexture = Content.Load<Texture2D>("sprites/superEssence");
             font = Content.Load<SpriteFont>("fonts/spriteFont");
             map = Content.Load<Map>("maps/" + mapName);
-            if(mapName != "forest")
-                modifyLayerOpacity(OPAQUE_COLOR, alpha);
+            if (!visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32 + 1])
+            {
+                if (mapName != "forest")
+                    modifyLayerOpacity(OPAQUE_COLOR, alpha);
+            }
+
             mapRect = new Rectangle(0, 0, map.Width * map.TileWidth, map.Height * map.TileHeight);
             loadCollisionRectangles();
             loadTransitionRectangles();
@@ -185,8 +193,12 @@ namespace tower_of_darkness_xna {
         }
 
         private void modifyLayerOpacity(Color c, float a) {
-            foreach (TileLayer tl in map.TileLayers) {
-                tl.OpacityColor = c * a;
+            if (!visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32 + 1])
+            {
+                foreach (TileLayer tl in map.TileLayers)
+                {
+                    tl.OpacityColor = c * a;
+                }
             }
             
         }
@@ -242,9 +254,13 @@ namespace tower_of_darkness_xna {
                         }
                     }
 
-                    //Move dim rectangles
-                    for (int i = 0; i < dims.Count; i++) {
-                        dims[i].dRect = new Rectangle(dims[i].dRect.X - xChange, dims[i].dRect.Y - yChange, dims[i].dRect.Width, dims[i].dRect.Height);
+                    if (!visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32+1])
+                    {
+                        //Move dim rectangles
+                        for (int i = 0; i < dims.Count; i++)
+                        {
+                            dims[i].dRect = new Rectangle(dims[i].dRect.X - xChange, dims[i].dRect.Y - yChange, dims[i].dRect.Width, dims[i].dRect.Height);
+                        }
                     }
 
                     character.movementStatus = (MovementStatus)mo.Properties["direction"].AsInt32;
@@ -429,7 +445,7 @@ namespace tower_of_darkness_xna {
                 int yNumberOfFrames = (int)mo.Properties["yFrames"].AsInt32;
                 Rectangle enemyRect = mo.Bounds;
                 int hits = (int)mo.Properties["hits"].AsInt32;
-                Enemy e = new Enemy(enemySpriteSheet, xNumberOfFrames, yNumberOfFrames, enemyRect.Width, enemyRect.Height, hits, spritesheetName);
+                Enemy e = new Enemy(enemySpriteSheet, xNumberOfFrames, yNumberOfFrames, enemyRect.Width, enemyRect.Height, hits, spritesheetName, font);
                 Console.WriteLine(e.ToString());
                 e.objectRectangle = enemyRect;
                 enemies.Add(e);

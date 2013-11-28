@@ -27,6 +27,7 @@ namespace tower_of_darkness_xna {
         private int startingY = 0;
         private bool climbing = false;
         private int talkTimer = 0;
+        private int characterTalkTimer = 0;
         private int talkInterval = 2000;
         private int attackTimer = 0;
         private int attackInterval = 5;
@@ -46,6 +47,9 @@ namespace tower_of_darkness_xna {
 
         public bool wizardSpokenTo = false;
         public bool lanternPickedUp = true;
+
+        public string characterWords = "";
+        public bool showText = false;
 
         public List<Scene2DNode>[] theMapObjects = new List<Scene2DNode>[MAP_COUNT];
         public Scene2DNode emptyNode;
@@ -71,8 +75,8 @@ namespace tower_of_darkness_xna {
 
         public int keyCount = 0;
 
-        public Character(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, ContentManager Content)
-            : base(spriteSheet, xNumberOfFrames, yNumberOfFrames, spriteWidth, spriteHeight) {
+        public Character(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, ContentManager Content, SpriteFont font)
+            : base(spriteSheet, xNumberOfFrames, yNumberOfFrames, spriteWidth, spriteHeight, font) {
             this.Content = Content;
             LoadContent();
             objectRectangle = new Rectangle(objectRectangle.X + 64, objectRectangle.Y + 64, objectRectangle.Width, objectRectangle.Height - 8); //8 to offset tight jumps
@@ -111,13 +115,15 @@ namespace tower_of_darkness_xna {
             enemyCollision(gameTime, enemies);
             crossDim(ref dims);
             decreaseLight(gameTime);
+            //speak(gameTime);
+
             KeyboardState newState = Keyboard.GetState();
 
             if (newState.IsKeyDown(Keys.L))
             {
                 if (!oldState.IsKeyDown(Keys.L))
                 {
-                if(currentLightSize > -17)
+                    if (currentLightSize > -17)
                     currentLightSize -= 1f;
             }
             }
@@ -129,8 +135,6 @@ namespace tower_of_darkness_xna {
                 currentLightSize += 1f;
             }
             }
-
-        
 
             oldState = newState;
         }
@@ -152,11 +156,11 @@ namespace tower_of_darkness_xna {
             lanternPosition.Y += 32;
             lanternRectangle.Y += 32;
             lightPosition.Y -= ((lightTexture.Height - currentLightSize) / 2) - spriteHeight - 9;
-            if (lanternPickedUp){
-                spriteBatch.Draw(lanternTexture, lanternRectangle, null, Color.White, degreeToRadian(lanternAngle), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), walkingDirection, 0);
-                spriteBatch.End();
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
-                spriteBatch.Draw(lightTexture, new Rectangle((int)(lightPosition.X), (int)(lightPosition.Y - (currentLightSize * 6)), (int)(lightTexture.Width + (currentLightSize * 15)), (int)(lightTexture.Height + (currentLightSize * 15))), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), lightColor * lightAlpha, degreeToRadian(lanternAngle), new Vector2(lightTexture.Width / 2, 0), walkingDirection, 0);
+
+            if (showText) {
+                Vector2 fontOrigin = font.MeasureString(characterWords) / 2;
+                Vector2 fontPosition = new Vector2(objectRectangle.X, objectRectangle.Y - 16);
+                spriteBatch.DrawString(font, characterWords, fontPosition, Color.White, 0, fontOrigin, 1.1f, SpriteEffects.None, 0);
             }
                 base.Draw(spriteBatch, playerColor);
         }
@@ -184,9 +188,9 @@ namespace tower_of_darkness_xna {
             enemyHitTimer += gameTime.ElapsedGameTime.Milliseconds;
             if (enemyHitTimer >= enemyHitInterval) {
                 if (playerColor != Color.Red) {
-                    foreach (Enemy e in enemies) {
-                        if (e.objectRectangle.Intersects(objectRectangle)) {
-                            if (currentLightSize > -17)
+            foreach (Enemy e in enemies) {
+                if (e.objectRectangle.Intersects(objectRectangle)) {
+                    if (currentLightSize > -17)
                                 currentLightSize -= 5.0f;
                             Console.WriteLine("flash player");
                             playerColor = Color.Red;
@@ -303,15 +307,15 @@ namespace tower_of_darkness_xna {
                         npc.showText = false;
                     }
                 }
+
+                if (showText)
+                {
+                    characterTalkTimer = 0;
+                    showText = false;
+                }
             }
         }
 
-        private void showText(string str)
-        {
-           // Vector2 fontOrigin = font.MeasureString(str) / 2;
-           // Vector2 fontPosition = new Vector2(objectRectangle.X, objectRectangle.Y - 16);
-           // spriteBatch.DrawString(font, text, fontPosition, Color.White, 0, fontOrigin, 1.1f, SpriteEffects.None, 0);
-        }
         private void lanternSwinging(GameTime gameTime) {
             if (attacking)
                 return;
@@ -689,16 +693,21 @@ namespace tower_of_darkness_xna {
                             r.isTouched = isTouched;
                             break;
                         case "door":
-                            collision = true;
+                            
                             if (keyCount > 0)
                             {
                                 r.isTouched = true;
                                 keyCount--;
+                                collision = true;
+                                break;
                             }
                             else
                             {
-                                showText("I'll need a key to open this door.");
+                                characterWords = "I'll need a key to open this door.";
+                                talkTimer = 0;
+                                showText = true;                               
                             }
+                            collision = true;
                             break;
                         default:
                             break;

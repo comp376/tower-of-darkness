@@ -65,7 +65,8 @@ namespace tower_of_darkness_xna {
                     switch (menuSelectorIndex) {
                         case 0:     //New Game
                             Texture2D characterSpriteSheet = Content.Load<Texture2D>("sprites/character2");
-                            character = new Character(characterSpriteSheet, 3, 2, 32, 64, Content);
+                            SpriteFont font = Content.Load<SpriteFont>("fonts/spriteFont");
+                            character = new Character(characterSpriteSheet, 3, 2, 32, 64, Content, font);
                             Game1.currentGameState = new LevelState(Content, PreferredBackBufferWidth, PreferredBackBufferHeight, startingMapName, character);
                             break;
                         case 1:     //Exit
