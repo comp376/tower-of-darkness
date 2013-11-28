@@ -7544,4 +7544,5 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="Visited" width="50" height="30"/>
 </map>

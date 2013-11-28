@@ -15,7 +15,7 @@ namespace tower_of_darkness_xna {
         public MovementStatus movementStatus;
 
         public int hits;
-        private string spritesheetName;
+        private string spritesheetName; 
 
         public Enemy(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, int hits, string spritesheetName, SpriteFont font)
             : base(spriteSheet, xNumberOfFrames, yNumberOfFrames, spriteWidth, spriteHeight, font) {
