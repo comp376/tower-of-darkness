@@ -356,6 +356,7 @@ namespace tower_of_darkness_xna {
                                 npc.text = "You're vanquished the darkness \nfrom our world.  You've saved us, \nhero.";
                                 npc.showText = true;
                                 talkTimer = 0;
+                                break;
                             }
                             if (npc.id == 0)
                             {//Wizard?

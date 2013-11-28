@@ -89,4 +89,16 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="NPC" width="96" height="16">
+  <object x="2976" y="224" width="32" height="64">
+   <properties>
+    <property name="id" value="7"/>
+    <property name="questAdvance" value="none"/>
+    <property name="spritesheet" value="wizard"/>
+    <property name="text" value=""/>
+    <property name="xFrames" value="3"/>
+    <property name="yFrames" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
