@@ -17,14 +17,17 @@ namespace tower_of_darkness_xna {
         public int spriteHeight;
         //public Vector2 objectPosition;
         public Rectangle objectRectangle;
+        public SpriteFont font;
 
-        protected Object(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight) {
+        protected Object(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, SpriteFont font)
+        {
             this.spriteSheet = spriteSheet;
             this.xNumberOfFrames = xNumberOfFrames;
             this.yNumberOfFrames = yNumberOfFrames;
             this.spriteWidth = spriteWidth;
             this.spriteHeight = spriteHeight;
             this.objectRectangle = new Rectangle(0, 0, spriteWidth, spriteHeight);
+            this.font = font;
         }
 
         public abstract void Draw(SpriteBatch spriteBatch, Color color);
