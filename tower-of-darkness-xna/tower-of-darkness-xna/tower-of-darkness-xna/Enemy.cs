@@ -23,6 +23,9 @@ namespace tower_of_darkness_xna {
         private int changeDirectionTimer = 0;
         private int changeDirectionInterval;// = 5000;
 
+        private Color enemyColor = Color.White;
+
+        public bool hit = false;
         public int hits;
         private string spritesheetName;
         private const int MAX_HOVER_HEIGHT = 500;
@@ -31,6 +34,11 @@ namespace tower_of_darkness_xna {
         private float hoverTimer = 0;
         private float hoverInterval = 100;
         private int startingY;
+
+        private float hitTimer = 0;
+        private float hitInterval = 10;
+        private float flashColorTimer = 0;
+        private float flashColorInterval = 100;
 
         enum HoverDirections {
             Up,
@@ -68,6 +76,28 @@ namespace tower_of_darkness_xna {
             gravity(cRectangles, breakables);
             move(gameTime, cRectangles, breakables);
             hover(gameTime);
+            hitting(gameTime);
+        }
+
+        private void hitting(GameTime gameTime) {
+            if (hit == true) {
+                hitTimer += gameTime.ElapsedGameTime.Milliseconds;
+                if (hitTimer >= hitInterval) {
+                    if (enemyColor != Color.Red) {
+                        hits--;
+                        enemyColor = Color.Red;
+                        flashColorTimer = 0;
+                    } else {
+                        flashColorTimer += gameTime.ElapsedGameTime.Milliseconds;
+                        if (flashColorTimer >= flashColorInterval) {
+                            enemyColor = Color.White;
+                            hitTimer = 0;
+                            flashColorTimer = 0;
+                            hit = false;
+                        }
+                    }
+                }
+            }
         }
 
         private void hover(GameTime gameTime) {
@@ -224,7 +254,7 @@ namespace tower_of_darkness_xna {
                     flip = SpriteEffects.FlipHorizontally;
                     break;
             }
-            spriteBatch.Draw(spriteSheet, objectRectangle, sourceRect, color, 0f, new Vector2(), flip, 0);
+            spriteBatch.Draw(spriteSheet, objectRectangle, sourceRect, enemyColor, 0f, new Vector2(), flip, 0);
 
         }
 
