@@ -34,6 +34,7 @@
     <property name="cx" value="214"/>
     <property name="cy" value="32"/>
     <property name="d" value="0"/>
+    <property name="map" value="tower1"/>
     <property name="x" value="516"/>
     <property name="y" value="328"/>
    </properties>
@@ -43,6 +44,7 @@
     <property name="cx" value="0"/>
     <property name="cy" value="960"/>
     <property name="d" value="0"/>
+    <property name="map" value="tower1"/>
     <property name="x" value="384"/>
     <property name="y" value="352"/>
    </properties>

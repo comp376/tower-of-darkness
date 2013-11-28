@@ -11,12 +11,12 @@
  </tileset>
  <layer name="Background" width="96" height="16">
   <data encoding="base64" compression="zlib">
-   eJztl1EKgCAMhvfWMXzv2Rt2WK8RQcEYKlnTfzgHH42kad8iWCCi4Bh0oN9fg3TD8xro8/Leo/belf3LXnjwTz9qRMP+D4Zl/1o1RtLqv2cPerqz2pfZvv8Z/S98+CcDZ/DM8r/8e4SHXMvNRZqzEhr0/1+GXIssf+5rzkojeot2/Nb9FVvGN89b67c+06O3Jf9yTkZ65/5L7r/4tEYqXEdSC7QfNOg4Aeqq0mA=
+   eJztl0EKgDAMBHPzGd4994c+1m+IoBCCLbam2dB0YTFYTOusCFmJaA1stNDvr+HjNq9LRp+XZ4/ae1PmL7OIwJ9+9EiO+e/Mnvlr9bB0Lf+eGfRk5zWX0b7/EflPx+BPDs4Q2ZP/5B/RXHLtbS7SnJXQRv//peRaYvVzX3NWssgWzfgr+0vLC29e1/avfaZHtjn+ck5Gcuf8c+xbeHrzkblauiSLfdEZtLKx0AmkbtIi
   </data>
  </layer>
  <layer name="Foreground" width="96" height="16">
   <data encoding="base64" compression="zlib">
-   eJztmL8OwiAQxuEJmhhH42jcXV31hXwwdVRHdXXt63iNbYKEO+A4oJp+yZeGPz3gV3KhNEqpZjLbbaK7GLlkzzWkP1XG6rg6MN9rkfqZ/jznmi6bcSb+8cL4L3q+S02XzTjYekKZUYrlHxrTjs0Vxv8IPoHPSDvGf9XzXWu6bMYx58/dp1S/XPxj5+ISxv8CvoJvSDvGP1Yh+cfFT4q/K27IO1Q5Rhj/O/gBfiLt0vxj15DCP2Ys6ptx4tmSzv+cOFJcsH4p+afW/vepZP5xaeKfrq36zj+hVmoc/HOef3xK5b8D71W9/W9/R+oM7Kv7Nf4b8Kv3mPKPq08J/p059wYcmexL8E9RifNnSdnsB/4clVqz5L9gTbnY5+AvdWfhG0dyvNzC2Jv5R8qDQv5r/8Gpd8+d35b8bBc=
+   eJztmL8KwjAQxpMnEMRRHMXd1VVfyAdTR3VUV9e+jldsIYbcJXe5pBX6wUfJn16SX8ORZmaMmU0Wu8l0G6OU/Lmm9KfKWJ1UR+F7DVI/t9/nwtJlN87Eny+M/7Lju7J02Y2DrSeVGSUu/9SYfmypMP4n8Bl8Qdox/uuO78bSZTeOO3/pPqX6leLPnUtIGP8r+Aa+I+0Yf65S8k+Inxb/UNyUd6gyRxj/B/gJfiHt2vy5a8jhzxmL+maSeL60878kjhYXrF9O/hlq/8dUM/+ENPHP18785p9UGzMO/iXPPzHl8t+DD2a4/e9/R+oMHKv7N/5b8LvzmPJPqE8N/q0l9wYSuexr8M9RjfNnTfnse/4S1Vqz5r/gkAqxL8Ff684iNo7meKWFsXfzj5Z7acYcs3Pvnlt/ALj4bDU=
   </data>
  </layer>
  <layer name="Ladder" width="96" height="16">
@@ -30,6 +30,7 @@
     <property name="cx" value="240"/>
     <property name="cy" value="0"/>
     <property name="d" value="0"/>
+    <property name="map" value="tower6"/>
     <property name="x" value="272"/>
     <property name="y" value="32"/>
    </properties>
@@ -84,6 +85,18 @@
     <property name="hits" value="30"/>
     <property name="spritesheet" value="boss"/>
     <property name="xFrames" value="1"/>
+    <property name="yFrames" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="NPC" width="96" height="16">
+  <object x="2976" y="224" width="32" height="64">
+   <properties>
+    <property name="id" value="7"/>
+    <property name="questAdvance" value="none"/>
+    <property name="spritesheet" value="wizard"/>
+    <property name="text" value=""/>
+    <property name="xFrames" value="3"/>
     <property name="yFrames" value="1"/>
    </properties>
   </object>

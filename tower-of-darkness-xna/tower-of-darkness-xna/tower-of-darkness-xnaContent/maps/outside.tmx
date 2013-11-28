@@ -19,6 +19,7 @@
     <property name="cx" value="0"/>
     <property name="cy" value="0"/>
     <property name="d" value="0"/>
+    <property name="map" value="outside"/>
     <property name="x" value="736"/>
     <property name="y" value="296"/>
    </properties>
@@ -28,6 +29,7 @@
     <property name="cx" value="0"/>
     <property name="cy" value="992"/>
     <property name="d" value="0"/>
+    <property name="map" value="outside"/>
     <property name="x" value="32"/>
     <property name="y" value="360"/>
    </properties>

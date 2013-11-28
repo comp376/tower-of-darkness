@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 using FuncWorks.XNA.XTiled;
 
 namespace tower_of_darkness_xna {
@@ -14,6 +15,8 @@ namespace tower_of_darkness_xna {
         private bool DEBUG = false;
         private bool PAUSE_SCREEN = false;
         private int enemiesKilled = 0;
+
+        SoundEffect pickUp;
 
         private const int BACKGROUND_LAYER = 0;
         private const int LADDER_LAYER = 1;
@@ -97,11 +100,11 @@ namespace tower_of_darkness_xna {
             this.mapView = new Rectangle(0, 0, PreferredBackBufferWidth, PreferredBackBufferHeight);
             this.mapName = mapName;
             this.character = character;
-            
             int xChange = transition.xChange;
             int yChange = transition.yChange;
+            
             LoadContent();
-
+            
             //Move camera
             mapView.X += xChange;
             mapView.Y += yChange;
@@ -118,7 +121,7 @@ namespace tower_of_darkness_xna {
             //Move transition rectangles
             for (int i = 0; i < transitions.Count; i++) {
                 transitions[i].tRect = new Rectangle(transitions[i].tRect.X - xChange, transitions[i].tRect.Y - yChange, transitions[i].tRect.Width, transitions[i].tRect.Height);
-            }
+            } 
 
             //Move ladder rectangles
             for (int i = 0; i < ladders.Count; i++) {
@@ -140,9 +143,10 @@ namespace tower_of_darkness_xna {
                 lights[i].lRect = new Rectangle(lights[i].lRect.X - xChange, lights[i].lRect.Y - yChange, lights[i].lRect.Width, lights[i].lRect.Height);
             }
 
+            Console.WriteLine("been to this map before? : " + visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32]);
             if (visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32])
             {
-                
+                visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32] = true;
                 //Move Objects
                 for (int i = 0; i < objects.Count; i++)
                 {
@@ -155,7 +159,7 @@ namespace tower_of_darkness_xna {
                 enemies[i].objectRectangle = new Rectangle(enemies[i].objectRectangle.X - xChange, enemies[i].objectRectangle.Y - yChange, enemies[i].objectRectangle.Width, enemies[i].objectRectangle.Height);
             }
 
-            if (!visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32 + 1])
+            if (!visited[1])
             {
                 //Move dim rectangles
                 for (int i = 0; i < dims.Count; i++)
@@ -211,6 +215,8 @@ namespace tower_of_darkness_xna {
             pauseSelectorPosition = new Vector2(128, 150);
             lanternKeyTexture = Content.Load<Texture2D>("sprites/lantern_key_item");
             bookKeyTexture = Content.Load<Texture2D>("sprites/book_key_item");
+
+            pickUp = Content.Load<SoundEffect>("audio/pop2");
         }
 
         private void modifyLayerOpacity(Color c, float a) {
@@ -341,7 +347,8 @@ namespace tower_of_darkness_xna {
                 int yChange = (int)mo.Properties["cy"].AsInt32;
                 int xPlayer = (int)mo.Properties["x"].AsInt32;
                 int yPlayer = (int)mo.Properties["y"].AsInt32;
-                Transition t = new Transition(mo.Name, tRect, direction, xChange, yChange, xPlayer, yPlayer);
+                string curMap = mo.Properties["map"].Value.ToString();
+                Transition t = new Transition(mo.Name, curMap, tRect, direction, xChange, yChange, xPlayer, yPlayer);
                 transitions.Add(t);
             }
         }
@@ -514,6 +521,9 @@ namespace tower_of_darkness_xna {
 
         private void UpdatePlaying(GameTime gameTime) {
             pausePlayTimer += gameTime.ElapsedGameTime.Milliseconds;
+            if(character.goToMainMenu)
+                Game1.currentGameState = new MenuState(Content, Game1.WIDTH, Game1.HEIGHT, Game1.STARTING_MAP_NAME, character);
+
             if (pausePlayTimer >= pausePlayInterval) {
                 if (Keyboard.GetState().IsKeyDown(Keys.Escape)) {
                     PAUSE_SCREEN = true;
@@ -560,13 +570,7 @@ namespace tower_of_darkness_xna {
             {
                 if (objects[i].consumed)
                 {
-                    if (objects[i].type == "super essence")
-                    {
-                        foreach (TileLayer tl in map.TileLayers)
-                        {
-                            tl.OpacityColor = OPAQUE_COLOR * 1.0f;
-                        }
-                    }
+                    pickUp.Play();
                     objects.RemoveAt(i);
                 }
             }

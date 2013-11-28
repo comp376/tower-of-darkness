@@ -1,6 +1,5 @@
 Content\audio\pop.xnb
 Content\audio\pop2.xnb
-Content\audio\Jump.xnb
 Content\fonts\spriteFont.xnb
 Content\maps\sandbox.xnb
 Content\maps\bridge.xnb
@@ -58,8 +57,6 @@ Content\sprites\light7.xnb
 Content\sprites\light8.xnb
 Content\sprites\light2.xnb
 Content\sprites\book.xnb
-Content\sprites\book_key_item.xnb
-Content\sprites\lantern_key_item.xnb
 Content\maps\sandbox\00.xnb
 Content\maps\bridge\00.xnb
 Content\maps\map1\00.xnb
@@ -84,10 +81,13 @@ Content\maps\town\01.xnb
 Content\maps\outside\00.xnb
 Content\maps\house\00.xnb
 Content\maps\house\01.xnb
-Content\sprites\enemy2.xnb
-Content\sprites\wizard.xnb
+Content\audio\Jump.xnb
+Content\sprites\book_key_item.xnb
+Content\sprites\lantern_key_item.xnb
 Content\audio\Hit.xnb
 Content\audio\Amnesia.xnb
+Content\sprites\enemy2.xnb
+Content\sprites\wizard.xnb
 Content\sprites\boss.xnb
 Content\sprites\howtoplay.xnb
 Content\sprites\pause_selector.xnb
