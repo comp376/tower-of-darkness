@@ -130,10 +130,15 @@ namespace tower_of_darkness_xna {
 
             if (newState.IsKeyDown(Keys.K))
             {
-                if (!oldState.IsKeyDown(Keys.K))
-                {
-                currentLightSize += 1f;
+                if (!oldState.IsKeyDown(Keys.K)){
+                    currentLightSize += 1f;
+                }
             }
+
+            if (objectRectangle.Y > 450)
+            {
+                Console.WriteLine("it appears you've fallen on the map.");
+                
             }
 
             oldState = newState;
