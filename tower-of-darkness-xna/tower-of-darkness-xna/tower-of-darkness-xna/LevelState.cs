@@ -40,6 +40,9 @@ namespace tower_of_darkness_xna {
         private int dimsCount = 0;
         private bool[] visited = new bool[20];
         private bool isSet;
+        private Random rand;
+        private Tuple<int, int> enemyMoveTuple = new Tuple<int, int>(800, 1600);
+        private Tuple<int, int> enemyDirectionTuple = new Tuple<int, int>(4000, 6000);
 
         private List<NPC> npcs;
         private List<Enemy> enemies;
@@ -71,6 +74,7 @@ namespace tower_of_darkness_xna {
         public LevelState(ContentManager Content, int PreferredBackBufferWidth, int PreferredBackBufferHeight, string mapName, Character character)
             : base(Content) 
         {
+            rand = new Random();
             this.mapView = new Rectangle(0, 0, PreferredBackBufferWidth, PreferredBackBufferHeight);
             this.mapName = mapName;
             this.character = character;
@@ -83,6 +87,7 @@ namespace tower_of_darkness_xna {
 
         public LevelState(ContentManager Content, int PreferredBackBufferWidth, int PreferredBackBufferHeight, string mapName, Character character, Transition transition)
         :base(Content){
+            rand = new Random();
             this.mapView = new Rectangle(0, 0, PreferredBackBufferWidth, PreferredBackBufferHeight);
             this.mapName = mapName;
             this.character = character;
@@ -445,7 +450,11 @@ namespace tower_of_darkness_xna {
                 int yNumberOfFrames = (int)mo.Properties["yFrames"].AsInt32;
                 Rectangle enemyRect = mo.Bounds;
                 int hits = (int)mo.Properties["hits"].AsInt32;
-                Enemy e = new Enemy(enemySpriteSheet, xNumberOfFrames, yNumberOfFrames, enemyRect.Width, enemyRect.Height, hits, spritesheetName, font);
+                //TODO
+                int enemyMoveInterval = rand.Next(enemyMoveTuple.Item1, enemyMoveTuple.Item2);
+                int enemyDirectionInterval = rand.Next(enemyDirectionTuple.Item1, enemyDirectionTuple.Item2);
+                int startingDirection = rand.Next(0, 2);
+                Enemy e = new Enemy(enemySpriteSheet, xNumberOfFrames, yNumberOfFrames, enemyRect.Width, enemyRect.Height, hits, spritesheetName, font, enemyMoveInterval, enemyDirectionInterval, startingDirection);
                 Console.WriteLine(e.ToString());
                 e.objectRectangle = enemyRect;
                 enemies.Add(e);

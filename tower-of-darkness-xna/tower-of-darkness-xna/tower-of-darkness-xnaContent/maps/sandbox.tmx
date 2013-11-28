@@ -7559,6 +7559,30 @@
     <property name="yFrames" value="1"/>
    </properties>
   </object>
+  <object x="702" y="158" width="32" height="64">
+   <properties>
+    <property name="hits" value="50"/>
+    <property name="spritesheet" value="enemy1"/>
+    <property name="xFrames" value="3"/>
+    <property name="yFrames" value="1"/>
+   </properties>
+  </object>
+  <object x="542" y="62" width="32" height="64">
+   <properties>
+    <property name="hits" value="50"/>
+    <property name="spritesheet" value="enemy1"/>
+    <property name="xFrames" value="3"/>
+    <property name="yFrames" value="1"/>
+   </properties>
+  </object>
+  <object x="478" y="62" width="32" height="64">
+   <properties>
+    <property name="hits" value="50"/>
+    <property name="spritesheet" value="enemy1"/>
+    <property name="xFrames" value="3"/>
+    <property name="yFrames" value="1"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Visited" width="50" height="30">
   <properties>
