@@ -804,6 +804,8 @@ namespace tower_of_darkness_xna {
                     }else if (objects[i].type == "super essence")
                     {
                         //Give global lighting for a small duration
+
+                        currentLightSize += 10f;
                         objects[i].consumed = true;
                     }
                     else if (objects[i].type == "lantern")
