@@ -46,7 +46,6 @@ namespace tower_of_darkness_xna {
         public const int MAP_COUNT = 20;
         KeyboardState oldState;
         public bool wizardSpokenTo = false;
-        public bool lanternPickedUp = false;
 
         public string characterWords = "";
         public bool showText = false;
@@ -778,7 +777,7 @@ namespace tower_of_darkness_xna {
                         {
                             if (t.nextMapName == "bridge")
                             {
-                                characterWords = "I can't see well.  I should see if someone in that house over there can help me out.";
+                                characterWords = "I can't see well.  \nI should see if someone \nin that house over \nthere can help me out.";
                                 talkTimer = 0;
                                 showText = true;
                             }

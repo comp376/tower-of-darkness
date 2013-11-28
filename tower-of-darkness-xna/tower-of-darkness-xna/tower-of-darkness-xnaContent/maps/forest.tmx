@@ -11,12 +11,12 @@
  </tileset>
  <layer name="Foreground" width="45" height="15">
   <data encoding="base64" compression="zlib">
-   eJztzjEKACAIhWE7bIdqjLplSy1BhKZB0Bt88A86fUQ+n+/nMlP6KtJXmQphuzkzulsyI7tPZlS3ZkZ0W8xobqsZyX1jnu44Ckttu6Xfq27NCHU6Nlfi
+   eJztzjEKACAIhWE7bAeLumVLLUGElkLgG3zwDzp9RLFYzHOFCX2NqbqK3uPM6G7JjOy+mVHdLzOiW2NGc2vNSG6LebnzLG3145Z+v7KaERoBe1Ma
   </data>
  </layer>
  <layer name="Background" width="45" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFowA/2ArE2wbaESSC/QPtgFEwrIAkEEtB8VosYtI0UkcJUAZiFShWBWI1OolRAnSBWB+If0NpAyQxfSxixKojpJcSYA7EFlBsCcRWdBKjBlgNpauBuAbKzseiLp+AOnEglgDi7Wh8XOZRArihdCsQt6GJkaJOEYiVkMRgfFzmkQLWDDAeigAAYRY22Q==
+   eJxjYBgFowA/2ArE2wbaESSC/QPtAArBzIF2AJlguLpbEoiloHgtFjFpGqmjxN3KQKwCxapArEYnMUrcrQvE+kD8G0obIInpYxEjVh0hvcQCbO42B2ILKLYEYis6iZECcIX3aihdDcQ1UHY+FnX5BNSJA7EEEG9H4+Myj1iAzd3cULoViNvQxEhRpwjESkhiMD4u80gBawYYD0UAAJnRO6E=
   </data>
  </layer>
  <objectgroup name="Transition" width="45" height="15">
