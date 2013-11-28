@@ -44,7 +44,7 @@
   <object x="352" y="416" width="32" height="64">
    <properties>
     <property name="questAdvance" value="lanternPickup"/>
-    <property name="spritesheet" value="npc"/>
+    <property name="spritesheet" value="wizard"/>
     <property name="text" value="Help us.  Take my lantern and head to the tower."/>
     <property name="xFrames" value="3"/>
     <property name="yFrames" value="1"/>

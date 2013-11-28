@@ -23,7 +23,7 @@ namespace tower_of_darkness_xna {
         private int moveTimer = 0;
         private int moveInterval = 5;
         private ContentManager Content;
-        private const int MOVE_SPEED = 4;
+        private int MOVE_SPEED = 4;
         private const int GRAVITY_SPEED = 4;
         private bool jumping = false;
         private float jumpingHeight = 0;
@@ -49,7 +49,7 @@ namespace tower_of_darkness_xna {
         private float apex = 2f;
         private float apexCounter = 0;
 
-        public const int MAP_COUNT = 20;
+        public const int MAP_COUNT = 21;
         KeyboardState oldState;
         public bool wizardSpokenTo = false;
         public bool bookPickedUp = false;
@@ -475,6 +475,11 @@ namespace tower_of_darkness_xna {
             int middleX = mapView.Width / 2;
             int middleY = mapView.Height / 2;
             KeyboardState kbs = Keyboard.GetState();
+            if(kbs.IsKeyDown(Keys.LeftShift))
+                MOVE_SPEED = 6;
+            else
+                MOVE_SPEED = 4;
+            
             moveTimer += gameTime.ElapsedGameTime.Milliseconds;
             if (moveTimer >= moveInterval) {
                 if (!collides(ladders, MovementStatus.Up))
