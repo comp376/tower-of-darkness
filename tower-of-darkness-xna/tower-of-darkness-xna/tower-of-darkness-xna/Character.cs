@@ -42,9 +42,9 @@ namespace tower_of_darkness_xna {
         private Color playerColor = Color.White;
         private float apex = 2f;
         private float apexCounter = 0;
+
         public const int MAP_COUNT = 20;
         KeyboardState oldState;
-
         public bool wizardSpokenTo = false;
         public bool lanternPickedUp = true;
 
@@ -156,6 +156,12 @@ namespace tower_of_darkness_xna {
             lanternPosition.Y += 32;
             lanternRectangle.Y += 32;
             lightPosition.Y -= ((lightTexture.Height - currentLightSize) / 2) - spriteHeight - 9;
+            if (lanternPickedUp) {
+                spriteBatch.Draw(lanternTexture, lanternRectangle, null, Color.White, degreeToRadian(lanternAngle), new Vector2(lanternTexture.Width / 2, lanternTexture.Height / 2), walkingDirection, 0);
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
+                spriteBatch.Draw(lightTexture, new Rectangle((int)(lightPosition.X), (int)(lightPosition.Y - (currentLightSize * 6)), (int)(lightTexture.Width + (currentLightSize * 15)), (int)(lightTexture.Height + (currentLightSize * 15))), new Rectangle(0, 0, lightTexture.Width, lightTexture.Height), lightColor * lightAlpha, degreeToRadian(lanternAngle), new Vector2(lightTexture.Width / 2, 0), walkingDirection, 0);
+            }
 
             if (showText) {
                 Vector2 fontOrigin = font.MeasureString(characterWords) / 2;

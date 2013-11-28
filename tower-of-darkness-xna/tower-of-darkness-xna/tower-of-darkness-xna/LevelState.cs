@@ -492,6 +492,9 @@ namespace tower_of_darkness_xna {
                     dims.RemoveAt(i);
                 }
             }
+            foreach (Enemy e in enemies) {
+                e.Update(gameTime, cRectangles);
+            }
             for (int i = 0; i < objects.Count; i++)
             {
                 if (objects[i].consumed)
