@@ -14,7 +14,7 @@ namespace tower_of_darkness_xna {
         private int PreferredBackBufferHeight;
         private string startingMapName;
         private Character character;
-
+        KeyboardState oldState;
         private const int NUM_MENU_ITEMS = 3;
         private Texture2D menuBackground;
         private Texture2D menuSelector;
@@ -40,6 +40,7 @@ namespace tower_of_darkness_xna {
             howToPlayBackground = Content.Load<Texture2D>("sprites/howtoplay");
             menuSelector = Content.Load<Texture2D>("sprites/menu_selector");
             menuSelectorPosition = new Vector2(70, 320);
+            oldState = Keyboard.GetState();
         }
 
         public override void UnloadContent() {
@@ -88,7 +89,17 @@ namespace tower_of_darkness_xna {
         }
 
         public void UpdateHowToPlay(GameTime gameTime) {
+            KeyboardState newState = Keyboard.GetState();
 
+            if (newState.IsKeyDown(Keys.Enter))
+            {
+                if (!oldState.IsKeyDown(Keys.Enter))
+                {
+                    howToPlay = false;
+                }
+            }
+
+            oldState = newState;
         }
 
         public override void Update(GameTime gameTime) {
