@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace tower_of_darkness_xna {
     class Enemy : Object {
+        private const int MOVE_SPEED = 4;
+        private const int GRAVITY_SPEED = 4;
+
         protected int xCurrentFrame = 0;
         protected int yCurrentFrame = 0;
         protected int frameTimer = 0;
@@ -23,8 +26,35 @@ namespace tower_of_darkness_xna {
                 this.spritesheetName = spritesheetName;
         }
 
-        public void Update(GameTime gameTime) {
+        public void Update(GameTime gameTime, List<Rectangle> cRectangles) {
+            gravity(cRectangles);
+        }
 
+        private void gravity(List<Rectangle> cRectangles) {
+            if(!collides(cRectangles, MovementStatus.Fall)){
+                objectRectangle.Y += GRAVITY_SPEED;
+            }
+        }
+
+        private bool collides(List<Rectangle> cRectangles, MovementStatus movementStatus) {
+            bool collision = false;
+            Rectangle tempRect = objectRectangle;
+            if (movementStatus == MovementStatus.Left)
+                tempRect.X -= MOVE_SPEED;
+            if (movementStatus == MovementStatus.Right)
+                tempRect.X += MOVE_SPEED;
+            if (movementStatus == MovementStatus.Fall)
+                tempRect.Y += GRAVITY_SPEED;
+            if (movementStatus == MovementStatus.Up)
+                tempRect.Y += MOVE_SPEED;
+            if (movementStatus == MovementStatus.Down)
+                tempRect.Y += -MOVE_SPEED;
+            foreach (Rectangle r in cRectangles) {
+                if (tempRect.Intersects(r)) {
+                    collision = true;
+                }
+            }
+            return collision;
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color) {
