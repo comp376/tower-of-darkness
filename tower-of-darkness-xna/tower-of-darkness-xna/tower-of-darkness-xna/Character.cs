@@ -42,7 +42,7 @@ namespace tower_of_darkness_xna {
         private Color playerColor = Color.White;
         private float apex = 2f;
         private float apexCounter = 0;
-        private const int MAP_COUNT = 13;
+        public const int MAP_COUNT = 20;
         KeyboardState oldState;
 
         public bool wizardSpokenTo = false;
@@ -74,6 +74,7 @@ namespace tower_of_darkness_xna {
         private const float ANGLE_CHANGE = 0.5f;
 
         public int keyCount = 0;
+        public bool doorTouched = false;
 
         public Character(Texture2D spriteSheet, int xNumberOfFrames, int yNumberOfFrames, int spriteWidth, int spriteHeight, ContentManager Content, SpriteFont font)
             : base(spriteSheet, xNumberOfFrames, yNumberOfFrames, spriteWidth, spriteHeight, font) {
@@ -115,7 +116,6 @@ namespace tower_of_darkness_xna {
             enemyCollision(gameTime, enemies);
             crossDim(ref dims);
             decreaseLight(gameTime);
-            //speak(gameTime);
 
             KeyboardState newState = Keyboard.GetState();
 
@@ -693,19 +693,20 @@ namespace tower_of_darkness_xna {
                             r.isTouched = isTouched;
                             break;
                         case "door":
-                            if (keyCount <= 0)
+                            Console.WriteLine(keyCount);
+                            if (keyCount > 0)
                             {
-                                characterWords = "I'll need a key to open this door.";
+                                Console.WriteLine("touched");
+                                r.isTouched = true;
+                                keyCount--;
+                                doorTouched = true;
+                            }
+                            else if(keyCount == 0 && !doorTouched){
+                                doorTouched = false;
+                                characterWords = "I'll need a key to open this door. ";
                                 talkTimer = 0;
                                 showText = true;
                             }
-                            else
-                            {
-                                r.isTouched = true;
-                                keyCount--;
-                            }
-                            
-
                             collision = true;
                             break;
                         default:

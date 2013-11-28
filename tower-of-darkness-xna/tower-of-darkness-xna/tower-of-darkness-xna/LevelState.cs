@@ -38,7 +38,7 @@ namespace tower_of_darkness_xna {
         private List<Scene2DNode> objects;
         private List<Dim> dims;
         private int dimsCount = 0;
-        private bool[] visited = new bool[13];
+        private bool[] visited = new bool[20];
         private bool isSet;
 
         private List<NPC> npcs;
@@ -74,7 +74,7 @@ namespace tower_of_darkness_xna {
             this.mapView = new Rectangle(0, 0, PreferredBackBufferWidth, PreferredBackBufferHeight);
             this.mapName = mapName;
             this.character = character;
-            for (int i = 0; i < 13; i++)
+            for (int i = 0; i < 20; i++)
             {
                 visited[i] = false;
             }
