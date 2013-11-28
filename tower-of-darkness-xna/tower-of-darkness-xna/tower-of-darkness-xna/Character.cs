@@ -14,6 +14,7 @@ namespace tower_of_darkness_xna {
         private float lightTimer = 0;
         private float lightInterval = 5000;
         KeyboardState oldstate;
+        private bool godMode = true;
 
         //Character
         private int moveTimer = 0;
@@ -94,7 +95,6 @@ namespace tower_of_darkness_xna {
                 theMapObjects[i] = new List<Scene2DNode>();
                 theMapObjects[i].Add(emptyNode);
             }
-            oldState = Keyboard.GetState();
         }
 
         public void LoadContent() {
@@ -165,14 +165,17 @@ namespace tower_of_darkness_xna {
         }
 
         public void checkDeath(List<Transition> transitions, Rectangle mapView, int mapId){
-            if (currentLightSize <= -17f)
+            if (!godMode)
             {
-                Console.WriteLine("I'm dead.");
-                foreach (Transition t in transitions)
+                if (currentLightSize <= -17f)
                 {
-                    currentLightSize = 50f;
-                    Game1.currentGameState = new LevelState(Content, mapView.Width, mapView.Height, t.nextMapName, this, t);
-                    break; 
+                    Console.WriteLine("I'm dead.");
+                    foreach (Transition t in transitions)
+                    {
+                        currentLightSize = 50f;
+                        Game1.currentGameState = new LevelState(Content, mapView.Width, mapView.Height, t.nextMapName, this, t);
+                        break;
+                    }
                 }
             }
         }
