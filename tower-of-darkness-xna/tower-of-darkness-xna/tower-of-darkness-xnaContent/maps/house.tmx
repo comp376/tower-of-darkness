@@ -22,6 +22,7 @@
     <property name="cx" value="512"/>
     <property name="cy" value="0"/>
     <property name="d" value="1"/>
+    <property name="map" value="house"/>
     <property name="x" value="402"/>
     <property name="y" value="264"/>
    </properties>

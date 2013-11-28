@@ -14,8 +14,9 @@ namespace tower_of_darkness_xna {
         public int yChange;
         public int xPlayer;
         public int yPlayer;
+        public string curMap;
 
-        public Transition(string nextMapName, Rectangle tRect, int direction, int xChange, int yChange, int xPlayer, int yPlayer) {
+        public Transition(string nextMapName, string map, Rectangle tRect, int direction, int xChange, int yChange, int xPlayer, int yPlayer) {
             this.nextMapName = nextMapName;
             this.tRect = tRect;
             this.direction = direction;
@@ -23,6 +24,7 @@ namespace tower_of_darkness_xna {
             this.yChange = yChange;
             this.xPlayer = xPlayer;
             this.yPlayer = yPlayer;
+            this.curMap = map;
         }
     }
 }

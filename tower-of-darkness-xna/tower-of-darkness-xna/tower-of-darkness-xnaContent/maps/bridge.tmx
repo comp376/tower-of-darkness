@@ -24,6 +24,7 @@
     <property name="cx" value="640"/>
     <property name="cy" value="0"/>
     <property name="d" value="0"/>
+    <property name="map" value="bridge"/>
     <property name="x" value="728"/>
     <property name="y" value="360"/>
    </properties>
@@ -33,6 +34,7 @@
     <property name="cx" value="0"/>
     <property name="cy" value="0"/>
     <property name="d" value="0"/>
+    <property name="map" value="bridge"/>
     <property name="x" value="32"/>
     <property name="y" value="358"/>
    </properties>
