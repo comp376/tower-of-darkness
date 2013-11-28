@@ -46,7 +46,7 @@ namespace tower_of_darkness_xna {
         public const int MAP_COUNT = 20;
         KeyboardState oldState;
         public bool wizardSpokenTo = false;
-
+        public bool bookPickedUp = false;
         public string characterWords = "";
         public bool showText = false;
 
@@ -108,7 +108,7 @@ namespace tower_of_darkness_xna {
             animate(gameTime);
             hitTransition(transitions, mapView, mapId);
             lanternSwinging(gameTime);
-            talk(gameTime, ref npcs);
+            talk(gameTime, ref npcs, mapId);
             attackSwing(gameTime);
             attackHit(ref enemies);
             collides(ref objects);
@@ -299,17 +299,31 @@ namespace tower_of_darkness_xna {
             }
         }
 
-        private void talk(GameTime gameTime, ref List<NPC> npcs) {
+        private void talk(GameTime gameTime, ref List<NPC> npcs, int mapId) {
             talkTimer += gameTime.ElapsedGameTime.Milliseconds;
             if (talkTimer >= talkInterval) {
                 KeyboardState kbs = Keyboard.GetState();
                 if (kbs.IsKeyDown(Keys.Up)) {
                     foreach (NPC npc in npcs) {
                         if (npc.objectRectangle.Intersects(objectRectangle)) {
-                            npc.showText = true;
-                            talkTimer = 0;
                             if (npc.questAdvance == "lanternPickup")
                                 wizardSpokenTo = true;
+                            if (mapId < 3)
+                            {
+                                npc.showText = true;
+                                talkTimer = 0;   
+                            }
+                            else if (bookPickedUp)
+                            {
+                                npc.showText = true;
+                                talkTimer = 0;
+                            }
+                            else
+                            {
+                                npc.showText = true;
+                                npc.text = "????";
+                                talkTimer = 0;
+                            }
                         }
                     }
                 } else {
@@ -759,6 +773,14 @@ namespace tower_of_darkness_xna {
                             talkTimer = 0;
                             showText = true;
                         }
+                    }
+                    else if (objects[i].type == "book")
+                    {
+                        objects[i].consumed = true;
+                        bookPickedUp = true;
+                        characterWords = "..I feel different.";
+                        talkTimer = 0;
+                        showText = true;
                     }
                 }
             }

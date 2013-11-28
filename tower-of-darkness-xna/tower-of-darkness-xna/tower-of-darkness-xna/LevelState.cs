@@ -59,6 +59,7 @@ namespace tower_of_darkness_xna {
         private Texture2D keyTexture;
         private Texture2D essenceTexture;
         private Texture2D superEssenceTexture;
+        private Texture2D bookTexture;
 
         //pause content
         private const int NUM_PAUSE_ITEMS = 3;
@@ -164,6 +165,7 @@ namespace tower_of_darkness_xna {
             keyTexture = Content.Load<Texture2D>("sprites/key");
             essenceTexture = Content.Load<Texture2D>("sprites/essence");
             superEssenceTexture = Content.Load<Texture2D>("sprites/superEssence");
+            bookTexture = Content.Load<Texture2D>("sprites/book");
             font = Content.Load<SpriteFont>("fonts/spriteFont");
             map = Content.Load<Map>("maps/" + mapName);
             if (!visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32 + 1])
@@ -406,6 +408,11 @@ namespace tower_of_darkness_xna {
                         else if (mo.Properties["Type"].Value == "lantern")
                         {
                             Scene2DNode node = new Scene2DNode(character.lanternTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "lantern");
+                            objects.Add(node);
+                        }
+                        else if (mo.Properties["Type"].Value == "book")
+                        {
+                            Scene2DNode node = new Scene2DNode(bookTexture, new Vector2(mo.Bounds.X, mo.Bounds.Y), "book");
                             objects.Add(node);
                         }
                     }
