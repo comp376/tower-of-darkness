@@ -11,7 +11,7 @@ namespace tower_of_darkness_xna {
     class Character : NPC {
         private float STARTING_LIGHT_SIZE = 50.0f;
         private float lightTimer = 0;
-        private float lightInterval = 2000;
+        private float lightInterval = 5000;
         KeyboardState oldstate;
 
         //Character
@@ -216,9 +216,9 @@ namespace tower_of_darkness_xna {
             enemyHitTimer += gameTime.ElapsedGameTime.Milliseconds;
             if (enemyHitTimer >= enemyHitInterval) {
                 if (playerColor != Color.Red) {
-            foreach (Enemy e in enemies) {
-                if (e.objectRectangle.Intersects(objectRectangle)) {
-                    if (currentLightSize > -17)
+                    foreach (Enemy e in enemies) {
+                        if (e.objectRectangle.Intersects(objectRectangle)) {
+                            if (currentLightSize > -17)
                                 currentLightSize -= 5.0f;
                             Console.WriteLine("flash player");
                             playerColor = Color.Red;
@@ -233,7 +233,7 @@ namespace tower_of_darkness_xna {
                         flashColorTimer = 0;
                     }
                 }
-                
+
             }
             
 
@@ -249,10 +249,10 @@ namespace tower_of_darkness_xna {
             if (attacking) {
                 foreach (Enemy e in enemies) {
                     if (e.objectRectangle.Intersects(lanternRectangle)) {
-                        e.hits--;
+                        //e.hits--;
+                        e.hit = true;
                     }
                 }
-
             }
         }
 
