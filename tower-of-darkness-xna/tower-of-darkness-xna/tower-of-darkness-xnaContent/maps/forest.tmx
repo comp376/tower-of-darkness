@@ -11,12 +11,10 @@
  </tileset>
  <layer name="Background" width="45" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFowA/2ArE2wbaESSC/QPtAArBzIF2AJlguLpbEoiloHgtFjFpGqmjxN3KQKwCxapArEYnMUrcrQvE+kD8G0obIInpYxEjVh0hvcQCbO42B2ILKLYEYis6iZECcIX3aihdDcQ1UHY+FnX5BNSJA7EEEG9H4+Myj1iAzd3cULoViNvQxEhRpwjESkhiMD4u80gBawYYD0UAAJnRO6E=
   </data>
  </layer>
  <layer name="Foreground" width="45" height="15">
   <data encoding="base64" compression="zlib">
-   eJzt1LENACAMA8HsvwWCQanoDEka8kVecn+Vzbquq2yI0Vtis1Tkp8x0981Mdr/MVLdnJrojZpo7aia5M+bjVp/+c1kzYRubU2TC
   </data>
  </layer>
  <objectgroup name="Transition" width="45" height="15">
