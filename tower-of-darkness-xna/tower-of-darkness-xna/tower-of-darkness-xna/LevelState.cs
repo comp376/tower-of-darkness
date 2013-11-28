@@ -42,7 +42,7 @@ namespace tower_of_darkness_xna {
         private bool[] visited = new bool[20];
         private bool isSet;
         private Random rand;
-        private Tuple<int, int> enemyMoveTuple = new Tuple<int, int>(800, 1600);
+        private Tuple<int, int> enemyMoveTuple = new Tuple<int, int>(50, 100);
         private Tuple<int, int> enemyDirectionTuple = new Tuple<int, int>(4000, 6000);
 
         private List<NPC> npcs;
@@ -66,6 +66,8 @@ namespace tower_of_darkness_xna {
         private const int NUM_PAUSE_ITEMS = 3;
         private Texture2D pauseBackground;
         private Texture2D pauseSelector;
+        private Texture2D lanternKeyTexture;
+        private Texture2D bookKeyTexture;
         private Vector2 pauseSelectorPosition;
         private int pauseSelectorIndex = 0;
         private float pauseSelectTimer = 0;
@@ -199,6 +201,8 @@ namespace tower_of_darkness_xna {
             pauseBackground = Content.Load<Texture2D>("sprites/pausescreen");
             pauseSelector = Content.Load<Texture2D>("sprites/menu_selector");
             pauseSelectorPosition = new Vector2(128, 150);
+            lanternKeyTexture = Content.Load<Texture2D>("sprites/lantern_key_item");
+            bookKeyTexture = Content.Load<Texture2D>("sprites/book_key_item");
         }
 
         private void modifyLayerOpacity(Color c, float a) {
@@ -511,7 +515,7 @@ namespace tower_of_darkness_xna {
                 }
             }
             foreach (Enemy e in enemies) {
-                e.Update(gameTime, cRectangles);
+                e.Update(gameTime, cRectangles, breakables);
             }
             for (int i = 0; i < objects.Count; i++)
             {
@@ -639,6 +643,10 @@ namespace tower_of_darkness_xna {
             //Pause
             if (PAUSE_SCREEN) {
                 batch.Draw(pauseBackground, new Vector2(100, 60), Color.White);
+                if (character.lanternPickedUp)
+                    batch.Draw(lanternKeyTexture, new Vector2(327, 262), Color.White);
+                if(character.bookPickedUp)
+                    batch.Draw(bookKeyTexture, new Vector2(441,262), Color.White);
                 batch.Draw(pauseSelector, pauseSelectorPosition, Color.White);
             }
             batch.End();

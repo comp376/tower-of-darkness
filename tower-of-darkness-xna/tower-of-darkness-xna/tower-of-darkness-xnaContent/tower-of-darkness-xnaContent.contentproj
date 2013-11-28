@@ -426,6 +426,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="sprites\book_key_item.png">
+      <Name>book_key_item</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="sprites\lantern_key_item.png">
+      <Name>lantern_key_item</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="audio\Jump.wav">
       <Name>Jump</Name>
       <Importer>WavImporter</Importer>

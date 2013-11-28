@@ -83,4 +83,6 @@ Content\maps\town\01.xnb
 Content\maps\outside\00.xnb
 Content\maps\house\00.xnb
 Content\maps\house\01.xnb
-Content\audio\amnesia.xnb
+Content\sprites\book.xnb
+Content\sprites\book_key_item.xnb
+Content\sprites\lantern_key_item.xnb
