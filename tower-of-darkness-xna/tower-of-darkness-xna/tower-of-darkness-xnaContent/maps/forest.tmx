@@ -1,85 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="45" height="15" tilewidth="32" tileheight="32">
-  <tileset firstgid="1" name="Tileset" tilewidth="32" tileheight="32">
-    <image source="spritesheets/spritesheet2.png" trans="ff00ff" width="320" height="320"/>
-  </tileset>
-  <tileset firstgid="101" name="TileSet2" tilewidth="32" tileheight="32">
-    <image source="spritesheets/spritesheet3.png" trans="ff00ff" width="320" height="320"/>
-  </tileset>
-  <tileset firstgid="201" name="Tileset3" tilewidth="32" tileheight="32">
-    <image source="spritesheets/spritesheet.png" trans="ff00ff" width="320" height="320"/>
-  </tileset>
-  <layer name="Foreground" width="45" height="15">
-    <data encoding="base64" compression="zlib">
-      eJztzjEKACAIhWE7bAeLumVLLUGElkLgG3zwDzp9RLFYzHOFCX2NqbqK3uPM6G7JjOy+mVHdLzOiW2NGc2vNSG6LebnzLG3145Z+v7KaERoBe1Ma
-    </data>
-  </layer>
-  <layer name="Background" width="45" height="15">
-    <data encoding="base64" compression="zlib">
-      eJxjYBgFowA/2ArE2wbaESSC/QPtAArBzIF2AJlguLpbEoiloHgtFjFpGqmjxN3KQKwCxapArEYnMUrcrQvE+kD8G0obIInpYxEjVh0hvcQCbO42B2ILKLYEYis6iZECcIX3aihdDcQ1UHY+FnX5BNSJA7EEEG9H4+Myj1iAzd3cULoViNvQxEhRpwjESkhiMD4u80gBawYYD0UAAJnRO6E=
-    </data>
-  </layer>
-  <objectgroup name="Transition" width="45" height="15">
-    <object name="town" x="1413" y="353" width="25" height="65">
-      <properties>
-        <property name="cx" value="0"/>
-        <property name="cy" value="0"/>
-        <property name="d" value="1"/>
-        <property name="x" value="32"/>
-        <property name="y" value="360"/>
-      </properties>
-    </object>
-  </objectgroup>
-  <objectgroup name="Load" width="45" height="15">
-    <object name="Spawn" x="0" y="102" width="27" height="57">
-      <properties>
-        <property name="direction" value="1"/>
-        <property name="xChange" value="0"/>
-        <property name="yChange" value="0"/>
-      </properties>
-    </object>
-  </objectgroup>
-  <objectgroup name="Visited" width="45" height="15">
-    <properties>
-      <property name="mapId" value="0"/>
-      <property name="visited" value="false"/>
-    </properties>
-  </objectgroup>
-  <objectgroup name="Dim" width="45" height="15">
-    <object x="192" y="0" width="32" height="32"/>
-    <object x="224" y="0" width="32" height="32"/>
-    <object x="256" y="0" width="32" height="32"/>
-    <object x="288" y="0" width="32" height="32"/>
-    <object x="320" y="0" width="32" height="32"/>
-    <object x="352" y="0" width="32" height="32"/>
-    <object x="384" y="0" width="32" height="32"/>
-    <object x="416" y="0" width="32" height="32"/>
-    <object x="448" y="0" width="32" height="32"/>
-    <object x="480" y="0" width="32" height="32"/>
-    <object x="512" y="0" width="32" height="32"/>
-    <object x="544" y="0" width="32" height="32"/>
-    <object x="576" y="0" width="32" height="32"/>
-    <object x="608" y="0" width="32" height="32"/>
-    <object x="640" y="0" width="32" height="32"/>
-    <object x="672" y="0" width="32" height="32"/>
-    <object x="704" y="0" width="32" height="32"/>
-    <object x="736" y="0" width="32" height="32"/>
-    <object x="768" y="0" width="32" height="32"/>
-    <object x="800" y="0" width="32" height="32"/>
-    <object x="832" y="0" width="32" height="32"/>
-    <object x="864" y="0" width="32" height="32"/>
-    <object x="896" y="0" width="32" height="32"/>
-    <object x="928" y="0" width="32" height="32"/>
-    <object x="960" y="0" width="32" height="32"/>
-    <object x="992" y="0" width="32" height="32"/>
-    <object x="1024" y="0" width="32" height="32"/>
-    <object x="1056" y="0" width="32" height="32"/>
-    <object x="1088" y="0" width="32" height="32"/>
-    <object x="1120" y="0" width="32" height="32"/>
-    <object x="1152" y="0" width="32" height="32"/>
-    <object x="1184" y="0" width="32" height="32"/>
-    <object x="1216" y="0" width="32" height="32"/>
-    <object x="1248" y="0" width="32" height="32"/>
-    <object x="1280" y="0" width="32" height="32"/>
-  </objectgroup>
+ <tileset firstgid="1" name="Tileset" tilewidth="32" tileheight="32">
+  <image source="spritesheets/spritesheet2.png" trans="ff00ff" width="320" height="320"/>
+ </tileset>
+ <tileset firstgid="101" name="TileSet2" tilewidth="32" tileheight="32">
+  <image source="spritesheets/spritesheet3.png" trans="ff00ff" width="320" height="320"/>
+ </tileset>
+ <tileset firstgid="201" name="Tileset3" tilewidth="32" tileheight="32">
+  <image source="spritesheets/spritesheet.png" trans="ff00ff" width="320" height="320"/>
+ </tileset>
+ <layer name="Foreground" width="45" height="15">
+  <data encoding="base64" compression="zlib">
+   eJztzjEKACAIhWE7bAeLumVLLUGElkLgG3zwDzp9RLFYzHOFCX2NqbqK3uPM6G7JjOy+mVHdLzOiW2NGc2vNSG6LebnzLG3145Z+v7KaERoBe1Ma
+  </data>
+ </layer>
+ <layer name="Background" width="45" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFowA/2ArE2wbaESSC/QPtAArBzIF2AJlguLpbEoiloHgtFjFpGqmjxN3KQKwCxapArEYnMUrcrQvE+kD8G0obIInpYxEjVh0hvcQCbO42B2ILKLYEYis6iZECcIX3aihdDcQ1UHY+FnX5BNSJA7EEEG9H4+Myj1iAzd3cULoViNvQxEhRpwjESkhiMD4u80gBawYYD0UAAJnRO6E=
+  </data>
+ </layer>
+ <objectgroup name="Transition" width="45" height="15">
+  <object name="town" x="1413" y="353" width="25" height="65">
+   <properties>
+    <property name="cx" value="0"/>
+    <property name="cy" value="0"/>
+    <property name="d" value="1"/>
+    <property name="x" value="32"/>
+    <property name="y" value="360"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Load" width="45" height="15">
+  <object name="Spawn" x="0" y="102" width="27" height="57">
+   <properties>
+    <property name="direction" value="1"/>
+    <property name="xChange" value="0"/>
+    <property name="yChange" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Visited" width="45" height="15">
+  <properties>
+   <property name="mapId" value="0"/>
+   <property name="visited" value="false"/>
+  </properties>
+ </objectgroup>
+ <objectgroup name="Dim" width="45" height="15">
+  <object x="192" y="0" width="32" height="32"/>
+  <object x="224" y="0" width="32" height="32"/>
+  <object x="256" y="0" width="32" height="32"/>
+  <object x="288" y="0" width="32" height="32"/>
+  <object x="320" y="0" width="32" height="32"/>
+  <object x="352" y="0" width="32" height="32"/>
+  <object x="384" y="0" width="32" height="32"/>
+  <object x="416" y="0" width="32" height="32"/>
+  <object x="448" y="0" width="32" height="32"/>
+  <object x="480" y="0" width="32" height="32"/>
+  <object x="512" y="0" width="32" height="32"/>
+  <object x="544" y="0" width="32" height="32"/>
+  <object x="576" y="0" width="32" height="32"/>
+  <object x="608" y="0" width="32" height="32"/>
+  <object x="640" y="0" width="32" height="32"/>
+  <object x="672" y="0" width="32" height="32"/>
+  <object x="704" y="0" width="32" height="32"/>
+  <object x="736" y="0" width="32" height="32"/>
+  <object x="768" y="0" width="32" height="32"/>
+  <object x="800" y="0" width="32" height="32"/>
+  <object x="832" y="0" width="32" height="32"/>
+  <object x="864" y="0" width="32" height="32"/>
+  <object x="896" y="0" width="32" height="32"/>
+  <object x="928" y="0" width="32" height="32"/>
+  <object x="960" y="0" width="32" height="32"/>
+  <object x="992" y="0" width="32" height="32"/>
+  <object x="1024" y="0" width="32" height="32"/>
+  <object x="1056" y="0" width="32" height="32"/>
+  <object x="1088" y="0" width="32" height="32"/>
+  <object x="1120" y="0" width="32" height="32"/>
+  <object x="1152" y="0" width="32" height="32"/>
+  <object x="1184" y="0" width="32" height="32"/>
+  <object x="1216" y="0" width="32" height="32"/>
+  <object x="1248" y="0" width="32" height="32"/>
+  <object x="1280" y="0" width="32" height="32"/>
+ </objectgroup>
 </map>

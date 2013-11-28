@@ -16,7 +16,7 @@ namespace tower_of_darkness_xna {
         protected int frameInterval = 80;
         public bool isMoving;
         public MovementStatus movementStatus;
-        private string text;
+        public string text;
         private string spritesheetName;
         private SpriteFont font;
         private bool isNPC = false;
