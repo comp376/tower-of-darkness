@@ -114,6 +114,7 @@
     <Compile Include="Character.cs" />
     <Compile Include="Dim.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="Light.cs" />
     <Compile Include="MovementStatus.cs" />
     <Compile Include="NPC.cs" />
     <Compile Include="GameState.cs" />

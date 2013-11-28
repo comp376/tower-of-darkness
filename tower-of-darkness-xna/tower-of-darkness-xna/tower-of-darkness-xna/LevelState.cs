@@ -38,6 +38,7 @@ namespace tower_of_darkness_xna {
         private List<Breakable> breakables;
         private List<Scene2DNode> objects;
         private List<Dim> dims;
+        private List<Light> lights;
         private int dimsCount = 0;
         private bool[] visited = new bool[21];
         private bool isSet;
@@ -61,6 +62,7 @@ namespace tower_of_darkness_xna {
         private Texture2D essenceTexture;
         private Texture2D superEssenceTexture;
         private Texture2D bookTexture;
+        private Texture2D lightTexture;
 
         //pause content
         private const int NUM_PAUSE_ITEMS = 3;
@@ -133,6 +135,10 @@ namespace tower_of_darkness_xna {
                 npcs[i].objectRectangle = new Rectangle(npcs[i].objectRectangle.X - xChange, npcs[i].objectRectangle.Y - yChange, npcs[i].objectRectangle.Width, npcs[i].objectRectangle.Height);
             }
 
+            //Move lights
+            for (int i = 0; i < lights.Count; i++) {
+                lights[i].lRect = new Rectangle(lights[i].lRect.X - xChange, lights[i].lRect.Y - yChange, lights[i].lRect.Width, lights[i].lRect.Height);
+            }
 
             if (visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32])
             {
@@ -170,6 +176,7 @@ namespace tower_of_darkness_xna {
             superEssenceTexture = Content.Load<Texture2D>("sprites/superEssence");
             bookTexture = Content.Load<Texture2D>("sprites/book");
             font = Content.Load<SpriteFont>("fonts/spriteFont");
+            lightTexture = Content.Load<Texture2D>("sprites/light3");
             map = Content.Load<Map>("maps/" + mapName);
             if (!visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32 + 1])
             {
@@ -186,6 +193,7 @@ namespace tower_of_darkness_xna {
             loadNPCs();
             loadEnemies();
             loadDimRectangles();
+            loadLights();
             loadMapInfo();
 
             //debug
@@ -255,6 +263,11 @@ namespace tower_of_darkness_xna {
                     //Move npcs
                     for (int i = 0; i < npcs.Count; i++) {
                         npcs[i].objectRectangle = new Rectangle(npcs[i].objectRectangle.X - xChange, npcs[i].objectRectangle.Y - yChange, npcs[i].objectRectangle.Width, npcs[i].objectRectangle.Height);
+                    }
+
+                    //Move lights
+                    for (int i = 0; i < lights.Count; i++) {
+                        lights[i].lRect = new Rectangle(lights[i].lRect.X - xChange, lights[i].lRect.Y - yChange, lights[i].lRect.Width, lights[i].lRect.Height);
                     }
 
                     if (!visited[(int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32])
@@ -455,6 +468,17 @@ namespace tower_of_darkness_xna {
             }
         }
 
+        private void loadLights() {
+            lights = new List<Light>();
+            if (map.ObjectLayers["Light"] == null)
+                return;
+            foreach (MapObject mo in map.ObjectLayers["Light"].MapObjects) {
+                Rectangle lightRect = mo.Bounds;
+                Light light = new Light(lightTexture, lightRect);
+                lights.Add(light);
+            }
+        }
+
         private void loadEnemies() {
             enemies = new List<Enemy>();
             if (map.ObjectLayers["Enemy"] == null)
@@ -495,7 +519,7 @@ namespace tower_of_darkness_xna {
                     PAUSE_SCREEN = true;
                 }
             }
-            character.Update(gameTime, mapRect, (int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims);
+            character.Update(gameTime, mapRect, (int)map.ObjectLayers["Visited"].Properties["mapId"].AsInt32, ref mapView, ref cRectangles, ref transitions, ref ladders, ref breakables, ref npcs, ref enemies, ref objects, ref dims, ref lights);
             for (int i = 0; i < breakables.Count; i++) {
                 breakables[i].Update(gameTime);
                 if (breakables[i].isBroken && breakables[i].type == "breakable") {
@@ -609,6 +633,9 @@ namespace tower_of_darkness_xna {
             }
             foreach (Scene2DNode node in objects){
                 node.Draw(batch, Color.White * alpha);
+            }
+            foreach (Light l in lights) {
+                l.Draw(batch);
             }
 
             //Debug
