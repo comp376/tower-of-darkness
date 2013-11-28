@@ -21,7 +21,7 @@ namespace tower_of_darkness_xna {
             this.lRect = lRect;
             currentLightSize = STARTING_LIGHT_SIZE;
             lightPosition = new Vector2(lRect.X - (lightTexture.Width / 2) + 16, lRect.Y - (lightTexture.Height / 2) + 16);
-            lightColor = new Color(220, 220, 175);
+            lightColor = new Color(240, 166, 61); //220 220 175
             lightAlpha = 0.5f;
         }
 

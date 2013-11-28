@@ -16,7 +16,7 @@
  </layer>
  <layer name="Foreground" width="96" height="16">
   <data encoding="base64" compression="zlib">
-   eJztmL8KwjAQxpMnKIijOIq7q6u+kPhc6qiO6ura1/GKFWLIXXN3aZpCP/go+XdJfw3XtJUxpposdq10E6Mv+WuN6U+VsTqpDsJxNVI/s9/r3NJlN87Eny+M/6Llu7R02Y2D3U8sM0pc/rEx/dhSYfxP4DP4grRj/Fct37Wly24cd/3SfUr164s/dy0hYfyv4Bv4jrRj/LmKyT8hfqn4h+LGjKHKHGH8H+An+IW0p+bPvQcNf85c1DOTxPOVOv9L4qTigvXT5J+h9n+XcuafkCb+em3Nf/6JtTFl8O/z/NMlLf8deG+G2//+c6TOwF11Y+O/Ab9bl5R/Qn1y8G8s+W8gkcs+B3+Ncpw/j4qxXPnsf/wlysE/dp4x8A+xL5U/5ztP+/7NwR9j7+YfiTmSzlG6tf+eG38Al6xs7w==
+   eJztmEsKwjAQhpMTFMSluBT3bt3qhcRzqUt1qW7d9jqm2EIMmcnM5NFW+sNPyWuSfg1DmkopVU0Wu450EyOX3LVS+mNlqE6qg3BcDdTP9Pc513jZjjPx5wviv2j5LjVetuNA70NlhonLnxrTjS0VxP9kfDa+AO0Q/1XLd63xsh3HXr90n2L9cvHnrsUniP/V+GZ8B9oh/lxR8o+PXyr+vriUMViZI4j/w/hp/ALaU/PnvkMMf85c2DeTxHOVOv9L4qTiAvWLyT997f+QSuYfnyb+8dqq3/xDtVLD4J/z/BNSLP+d8V71t//d74idgUN1Y+O/MX63HlL+8fUpwb+x5N5AIpt9Cf4xKnH+PEaM5cpl3/GXqAR/6jxj4O9jn4N/qjuL0Dyp5ivBH2Jv559U7kT5r/0Hx949N/4AaUNtdg==
   </data>
  </layer>
  <layer name="Ladder" width="96" height="16">
@@ -37,7 +37,7 @@
  </objectgroup>
  <layer name="Breakable" width="96" height="16">
   <data encoding="base64" compression="zlib">
-   eJzt1kEKgDAMRNHcoNDTenwXKnRhFMZiTPwPssmqTEqIGQD8W49+QCLNtryOGnn9O+SvU7I7mxs0yn/HfMzgO5hFHPZRnKvsvXsJum76zYlnKuS9iFXZm3Otkn/W/ZM1f2/vj722F3wrl+MWeA==
+   eJzt1kEKwCAMRNHcQPC0Ht9FW+iisTCVpqb/QTauZEYkZgDwbzX6AgsptuV1zJl3fof8dUp2V71Bo7x3zEcH30EXcfiP4oyy9/Yl6KrpOyeeyZB3EyezN3sl/1iZ8y/7wNcBnGQV1g==
   </data>
  </layer>
  <objectgroup name="Visited" width="96" height="16">

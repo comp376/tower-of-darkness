@@ -662,7 +662,7 @@ namespace tower_of_darkness_xna {
                 batch.DrawString(font, "MAP: " + mapName, new Vector2(mapView.Width - 144, 0), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
                 string fps = (1 / (float)gameTime.ElapsedGameTime.TotalSeconds).ToString();
                 batch.DrawString(font, "FPS: " + fps, new Vector2(mapView.Width - 144, 16), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
-                batch.DrawString(font, "KEYS: " + character.keyCount / 2, new Vector2(mapView.Width - 144, 32), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
+                batch.DrawString(font, "KEYS: " + character.keyCount / 3, new Vector2(mapView.Width - 144, 32), Color.White, 0, new Vector2(), 1.1f, SpriteEffects.None, 0);
             }
 
             batch.End();    //Stops additive blending from player drawing batch
