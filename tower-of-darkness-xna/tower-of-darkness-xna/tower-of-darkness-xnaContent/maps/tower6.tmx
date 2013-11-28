@@ -11,7 +11,7 @@
  </tileset>
  <layer name="Background" width="96" height="16">
   <data encoding="base64" compression="zlib">
-   eJztl1EKgCAMhvfWMXzv2Rt2WK8RQcEYKlnTfzgHH42kad8iWCCi4Bh0oN9fg3TD8xro8/Leo/belf3LXnjwTz9qRMP+D4Zl/1o1RtLqv2cPerqz2pfZvv8Z/S98+CcDZ/DM8r/8e4SHXMvNRZqzEhr0/1+GXIssf+5rzkojeot2/Nb9FVvGN89b67c+06O3Jf9yTkZ65/5L7r/4tEYqXEdSC7QfNOg4Aeqq0mA=
+   eJztl0EKgDAMBHPz6BN69+wPfWy/IYJCCLZYTbrBNDBYLLZ1VoQkIkqBQRf6/TXIJ3xcA31enj1q70XZv8wign/6sMbq2P/G8Oxfa42etPq3zMDSnddc/vb9/9H/IIZ/cnCGyAz/w39EeMm5u75Is1dCg/7/y5JzKxtf9zV7pR7Zoh0/dX/UdOObj1vXb33GItuSf9knI71z/yX3b3x6IxeuPamV5b7zCTqDt2561A7GatJA
   </data>
  </layer>
  <layer name="Foreground" width="96" height="16">
