@@ -72,7 +72,7 @@ namespace tower_of_darkness_xna {
         private const float ANGLE_CHANGE = 0.5f;
 
         
-        public bool bookPickedUp = true;
+        public bool bookPickedUp = false;
 
         public int keyCount = 0;
         public bool doorTouched = false;
