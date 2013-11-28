@@ -9,12 +9,14 @@
  <tileset firstgid="201" name="Tileset3" tilewidth="32" tileheight="32">
   <image source="spritesheets/spritesheet.png" trans="ff00ff" width="320" height="320"/>
  </tileset>
- <layer name="Background" width="45" height="15">
-  <data encoding="base64" compression="zlib">
-  </data>
- </layer>
  <layer name="Foreground" width="45" height="15">
   <data encoding="base64" compression="zlib">
+   eJztzjEKACAIhWE7bAeLumVLLUGElkLgG3zwDzp9RLFYzHOFCX2NqbqK3uPM6G7JjOy+mVHdLzOiW2NGc2vNSG6LebnzLG3145Z+v7KaERoBe1Ma
+  </data>
+ </layer>
+ <layer name="Background" width="45" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFowA/2ArE2wbaESSC/QPtAArBzIF2AJlguLpbEoiloHgtFjFpGqmjxN3KQKwCxapArEYnMUrcrQvE+kD8G0obIInpYxEjVh0hvcQCbO42B2ILKLYEYis6iZECcIX3aihdDcQ1UHY+FnX5BNSJA7EEEG9H4+Myj1iAzd3cULoViNvQxEhRpwjESkhiMD4u80gBawYYD0UAAJnRO6E=
   </data>
  </layer>
  <objectgroup name="Transition" width="45" height="15">

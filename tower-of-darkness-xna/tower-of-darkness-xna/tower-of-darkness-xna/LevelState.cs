@@ -13,6 +13,7 @@ namespace tower_of_darkness_xna {
 
         private bool DEBUG = false;
         private bool PAUSE_SCREEN = false;
+        private int enemiesKilled = 0;
 
         private const int BACKGROUND_LAYER = 0;
         private const int LADDER_LAYER = 1;
