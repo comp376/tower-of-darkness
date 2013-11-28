@@ -671,20 +671,19 @@ namespace tower_of_darkness_xna {
                             r.isTouched = isTouched;
                             break;
                         case "door":
-                            
-                            if (keyCount > 0)
-                            {
-                                r.isTouched = true;
-                                keyCount--;
-                                collision = true;
-                                break;
-                            }
-                            else
+                            if (keyCount <= 0)
                             {
                                 characterWords = "I'll need a key to open this door.";
                                 talkTimer = 0;
-                                showText = true;                               
+                                showText = true;
                             }
+                            else
+                            {
+                                r.isTouched = true;
+                                keyCount--;
+                            }
+                            
+
                             collision = true;
                             break;
                         default:
