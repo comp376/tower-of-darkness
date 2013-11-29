@@ -512,6 +512,7 @@ namespace tower_of_darkness_xna {
         }
 
         private void UpdatePlaying(GameTime gameTime) {
+            Game1.gameTimer += gameTime.ElapsedGameTime.Milliseconds;
             KeyboardState newState = Keyboard.GetState();
             pausePlayTimer += gameTime.ElapsedGameTime.Milliseconds;
             if(character.goToMainMenu)
@@ -695,8 +696,9 @@ namespace tower_of_darkness_xna {
                     batch.Draw(lanternKeyTexture, new Vector2(327, 262), Color.White);
                 if(character.bookPickedUp)
                     batch.Draw(bookKeyTexture, new Vector2(441,262), Color.White);
-                batch.DrawString(font, (character.keyCount / 3).ToString(), new Vector2(560, 155), Color.White, 0, new Vector2(), 1.25f, SpriteEffects.None, 0);
-                batch.DrawString(font, character.enemiesKilled.ToString(), new Vector2(560, 185), Color.White, 0, new Vector2(), 1.25f, SpriteEffects.None, 0);
+                batch.DrawString(font, (character.keyCount / 3).ToString(), new Vector2(550, 155), Color.White, 0, new Vector2(), 1.25f, SpriteEffects.None, 0);
+                batch.DrawString(font, character.enemiesKilled.ToString(), new Vector2(550, 185), Color.White, 0, new Vector2(), 1.25f, SpriteEffects.None, 0);
+                batch.DrawString(font, (Game1.gameTimer / 1000 / 60 + ":" + Game1.gameTimer / 1000 % 60 + ":" + (Game1.gameTimer % 1000)).ToString(), new Vector2(550, 215), Color.White, 0, new Vector2(), 1.25f, SpriteEffects.None, 0);
                 batch.Draw(pauseSelector, pauseSelectorPosition, Color.White);
             }
             batch.End();

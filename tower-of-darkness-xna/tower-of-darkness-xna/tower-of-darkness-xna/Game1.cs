@@ -21,6 +21,8 @@ namespace tower_of_darkness_xna {
 
         public static string STARTING_MAP_NAME = "forest";
 
+        public static int gameTimer = 0;
+
         public static GameState currentGameState;
         public static bool exitGame = false;
         GraphicsDeviceManager graphics;

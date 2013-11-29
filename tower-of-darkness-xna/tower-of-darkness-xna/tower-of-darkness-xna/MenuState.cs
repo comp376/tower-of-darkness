@@ -29,6 +29,7 @@ namespace tower_of_darkness_xna {
         private float howToPlayTimer = 0;
         private float howToPlayInterval = 1000;
 
+        private SpriteFont font;
         private bool isCredits;
 
         public MenuState(ContentManager Content, int PreferredBackBufferWidth, int PreferredBackBufferHeight, string startingMapName, Character character, bool isCredits)
@@ -47,6 +48,7 @@ namespace tower_of_darkness_xna {
             menuSelector = Content.Load<Texture2D>("sprites/menu_selector");
             creditsScreen = Content.Load<Texture2D>("sprites/creditscreen");
             menuSelectorPosition = new Vector2(70, 320);
+            font = Content.Load<SpriteFont>("fonts/spriteFont");
             oldState = Keyboard.GetState();
         }
 
@@ -127,8 +129,10 @@ namespace tower_of_darkness_xna {
                 UpdateCredits(gameTime);
             }else if (!howToPlay) {
                 UpdateMenu(gameTime);
+                Game1.gameTimer = 0;
             } else {
                 UpdateHowToPlay(gameTime);
+                Game1.gameTimer = 0;
             }
 
            
@@ -139,6 +143,7 @@ namespace tower_of_darkness_xna {
             if (isCredits) {
                 batch.Begin();
                 batch.Draw(creditsScreen, new Vector2(), Color.White);
+                batch.DrawString(font, (Game1.gameTimer / 1000 / 60 + ":" + Game1.gameTimer / 1000 % 60  + ":" + (Game1.gameTimer % 1000)).ToString(), new Vector2(320, 300), Color.White);
                 batch.End();
             }else if (!howToPlay) {
                 batch.Begin();
